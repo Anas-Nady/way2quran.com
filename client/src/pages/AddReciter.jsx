@@ -16,7 +16,7 @@ const AddReciter = () => {
 
   const [name, setName] = useState("");
   const [name_ar, setNameAR] = useState("");
-  const [photo, setPhoto] = useState(defaultImg);
+  const [photo, setPhoto] = useState(null);
   const [photoDisplay, setPhotoDisplay] = useState(defaultImg);
 
   const handleFileChange = (e) => {
@@ -42,12 +42,13 @@ const AddReciter = () => {
       setName("");
       setNameAR("");
       setPhoto(null);
+      setPhotoDisplay(defaultImg);
     }
     if (error) {
       toast.error(error);
     }
     dispatch(createReciterReset());
-  }, [success, error, dispatch]);
+  }, [success, error, dispatch, photoDisplay, photo]);
 
   return (
     <div className="flex justify-center items-center ">

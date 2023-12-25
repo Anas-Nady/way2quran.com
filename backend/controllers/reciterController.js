@@ -8,7 +8,7 @@ const FrequentRecitations = require("../models/frequentRecitationsModel.js");
 
 // Initialize Google Cloud Storage
 const storage = new Storage({
-  keyFilename: `${__dirname}/../../way2quran-050506e0ded3.json`,
+  keyFilename: `${__dirname}/../../cloud-configuration.json`,
 });
 const bucketName = "waytoquran_storage";
 
