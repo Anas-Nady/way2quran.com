@@ -1,0 +1,15 @@
+import React from "react";
+import { spinnerIcon } from "./Icons";
+
+const Spinner = () => {
+  return (
+    <div className="flex justify-center items-center text-center bg-inherit w-full h-full">
+      <div role="status">
+        {spinnerIcon}
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
+  );
+};
+
+export default Spinner;

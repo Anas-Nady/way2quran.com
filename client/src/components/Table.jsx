@@ -1,0 +1,91 @@
+import React, { useEffect } from "react";
+import { checkedIcon, closeIcon, editIcon, eyeIcon, trashIcon } from "./Icons";
+import { useTranslation } from "react-i18next";
+import { deleteReciter } from "../redux/actions/reciterAction";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteReciterReset } from "../redux/slices/reciterSlice";
+import { toast } from "react-toastify";
+
+const Table = ({ reciters }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  const dispatch = useDispatch();
+  const { loading, success, error } = useSelector(
+    (state) => state.deleteReciter
+  );
+
+  const handleDeleteReciter = async (slug) => {
+    await dispatch(deleteReciter(slug));
+
+    console.log("delete reciter");
+  };
+
+  useEffect(() => {
+    if (success) {
+      toast.success("deleted reciter successfully");
+    } else if (error) toast.error(error);
+
+    dispatch(deleteReciterReset());
+  }, [dispatch, error, success]);
+
+  return (
+    <table className="w-full text-sm text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr className="border-b border-slate-300 dark:border-gray-600">
+          <th className="p-2 sm:px-6 sm:py-3">{t("reciterName")}</th>
+          <th className="p-2 sm:px-6 sm:py-3">{t("recitationsNumber")}</th>
+          <th className="p-2 sm:px-6 sm:py-3">{t("topReciters")}</th>
+          <th className="p-2 sm:px-6 sm:py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {reciters &&
+          reciters.map((reciter, i) => (
+            <tr
+              key={i}
+              className="group border-b border-slate-300 dark:border-gray-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
+            >
+              <th className="p-2 sm:px-6 sm:py-3 capitalize cursor-pointer group-hover:underline group-hover:text-blue-500 dark:group-hover:text-slate-50">
+                {currentLang == "en" ? reciter.name : reciter.name_ar}
+              </th>
+              <td className="p-2 sm:px-6 sm:py-3 ">
+                {reciter.recitations?.length}
+              </td>
+              <td
+                className={`p-2 sm:px-6 sm:py-3 font-bold 
+                text-${reciter.topReciter ? "blue" : "red"}-400 
+                dark:text-${reciter.topReciter ? "yellow" : "red"}-400`}
+              >
+                {reciter.topReciter ? checkedIcon : closeIcon}
+              </td>
+
+              <td className="p-2 sm:px-6 sm:py-3 cursor-pointer flex gap-1">
+                <span
+                  className="cursor-pointer hover:text-gray-900 dark:hover:text-slate-50"
+                  title="view"
+                >
+                  {eyeIcon}
+                </span>
+                <span
+                  className="cursor-pointer hover:text-blue-600"
+                  title="edit"
+                >
+                  {editIcon}
+                </span>
+                <button
+                  className="cursor-pointer hover:text-red-600"
+                  title="delete"
+                  onClick={() => handleDeleteReciter(reciter.slug)}
+                  disabled={loading}
+                >
+                  {trashIcon}
+                </button>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default Table;

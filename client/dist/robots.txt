@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /login
+Disallow: /404
+Disallow: /dashboard
+Disallow: /dashboard/*

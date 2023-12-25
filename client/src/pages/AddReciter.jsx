@@ -1,0 +1,101 @@
+import React, { useEffect, useState } from "react";
+import { Input } from "./../components";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { createReciter } from "../redux/actions/reciterAction";
+import { createReciterReset } from "../redux/slices/reciterSlice";
+import { toast } from "react-toastify";
+
+const AddReciter = () => {
+  const defaultImg = "https://way2quran.com/images/logo-original.png";
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { loading, success, data, error } = useSelector(
+    (state) => state.createReciter
+  );
+
+  const [name, setName] = useState("");
+  const [name_ar, setNameAR] = useState("");
+  const [photo, setPhoto] = useState(defaultImg);
+  const [photoDisplay, setPhotoDisplay] = useState(defaultImg);
+
+  const handleFileChange = (e) => {
+    const selectedImg = e.target.files[0];
+    setPhoto(selectedImg);
+    setPhotoDisplay(URL.createObjectURL(selectedImg));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("name_ar", name_ar);
+    formData.append("photo", photo);
+
+    await dispatch(createReciter(formData));
+  };
+
+  useEffect(() => {
+    if (success) {
+      toast.success("successfully created reciter");
+      setName("");
+      setNameAR("");
+      setPhoto(null);
+    }
+    if (error) {
+      toast.error(error);
+    }
+    dispatch(createReciterReset());
+  }, [success, error, dispatch]);
+
+  return (
+    <div className="flex justify-center items-center ">
+      <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
+        <span className="flex justify-center">
+          <img
+            src={photoDisplay}
+            alt="default img"
+            className="min-w-[40px] max-w-[120px] sm:max-w-[200px]"
+          />
+        </span>
+        <form className="my-5">
+          <Input
+            labelText="arName"
+            type="text"
+            name="name_ar"
+            placeholder="Enter the Arabic name"
+            value={name_ar}
+            onChange={(e) => setNameAR(e.target.value)}
+            required
+          />
+          <Input
+            labelText="enName"
+            type="text"
+            name="name"
+            value={name}
+            placeholder="Enter the English name"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <Input
+            onChange={handleFileChange}
+            labelText="photo"
+            type="file"
+            name="photo"
+          />
+
+          <button
+            className="w-fit px-3 py-2 bg-orange-600 text-slate-50 hover:bg-orange-700 rounded-lg"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {t("saveReciter")}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddReciter;

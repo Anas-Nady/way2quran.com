@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css?family=Lateef&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.focus\:ring-4:focus {
+  box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+main {
+  margin-top: 4.4rem /* 70.4px */;
+}
+
+section {
+  padding: 20px 0;
+}

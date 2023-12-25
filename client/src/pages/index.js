@@ -1,0 +1,17 @@
+export { default as About } from "./About";
+export { default as Contact } from "./Contact";
+export { default as Dashboard } from "./Dashboard";
+export { default as FrequentRecitations } from "./FrequentRecitations";
+export { default as Home } from "./Home";
+export { default as Login } from "./Login";
+export { default as NotFound } from "./NotFound";
+export { default as Reciters } from "./Reciters";
+export { default as VariousRecitations } from "./VariousRecitations";
+export { default as Reciter } from "./Reciter";
+export { default as AddReciter } from "./AddReciter";
+export { default as AllReciters } from "./AllReciters";
+export { default as UploadRecitation } from "./UploadRecitation";
+export { default as Messages } from "./Messages";
+export { default as EditReciter } from "./EditReciter";
+export { default as AdminProfile } from "./AdminProfile";
+export { default as FrequentReciters } from "./FrequentReciters";
