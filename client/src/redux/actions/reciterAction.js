@@ -5,20 +5,41 @@ import {
   getReciterRequest,
   getReciterSuccess,
   getReciterFailure,
-  // getTopRecitersRequest,
-  // getTopRecitersSuccess,
-  // getTopRecitersFailure,
   listRecitersRequest,
   listRecitersSuccess,
   listRecitersFailure,
   getReciterProfileRequest,
   getReciterProfileSuccess,
   getReciterProfileFailure,
+  uploadRecitationRequest,
+  uploadRecitationSuccess,
+  uploadRecitationFailure,
   deleteReciterRequest,
   deleteReciterSuccess,
   deleteReciterFailure,
 } from "./../slices/reciterSlice.js";
 import axios from "axios";
+
+export const listReciters =
+  (recitationType = "", topReciters = "", keyword = "", pageNumber = "") =>
+  async (dispatch) => {
+    try {
+      dispatch(listRecitersRequest());
+
+      const { data } = await axios.get(
+        `/api/reciters/?recitationType=${recitationType}&topReciters=${topReciters}&keyword=${keyword}&pageNumber=${pageNumber}`
+      );
+      dispatch(listRecitersSuccess(data));
+    } catch (err) {
+      dispatch(
+        listRecitersFailure(
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message
+        )
+      );
+    }
+  };
 
 export const createReciter = (formData) => async (dispatch) => {
   try {
@@ -66,42 +87,32 @@ export const getReciter = (slug) => async (dispatch) => {
   }
 };
 
-// export const getTopReciters = () => async (dispatch) => {
-//   try {
-//     dispatch(getTopRecitersRequest());
-
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
-
-//     const { data } = await axios.get(`/api/reciters/top-reciters`, config);
-//     dispatch(getTopRecitersSuccess(data));
-//   } catch (err) {
-//     dispatch(
-//       getTopRecitersFailure(
-//         err.response && err.response.data.message
-//           ? err.response.data.message
-//           : err.message
-//       )
-//     );
-//   }
-// };
-
-export const listReciters =
-  (recitationType = "", topReciters = "", keyword = "", pageNumber = "") =>
-  async (dispatch) => {
+export const uploadRecitation =
+  (recitationType, reciterSlug, files) => async (dispatch) => {
     try {
-      dispatch(listRecitersRequest());
+      dispatch(uploadRecitationRequest());
 
-      const { data } = await axios.get(
-        `/api/reciters/?recitationType=${recitationType}&topReciters=${topReciters}&keyword=${keyword}&pageNumber=${pageNumber}`
+      const config = {
+        headers: {
+          "Content-Type": "application/form-data",
+        },
+      };
+
+      const formData = new FormData();
+      formData.append("recitationType", recitationType);
+      for (let i = 0; i < files.length; i++) {
+        formData.append("audioFiles", files[i]);
+      }
+
+      const { data } = await axios.put(
+        `/api/reciters/upload-recitation/${reciterSlug}`,
+        formData,
+        config
       );
-      dispatch(listRecitersSuccess(data));
+      dispatch(uploadRecitationSuccess(data));
     } catch (err) {
       dispatch(
-        listRecitersFailure(
+        uploadRecitationFailure(
           err.response && err.response.data.message
             ? err.response.data.message
             : err.message

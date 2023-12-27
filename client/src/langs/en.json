@@ -83,5 +83,11 @@
   "newPassword": "New Password",
   "save": "Save",
 
-  "notAllowedToAccessThisPage": "You're not allowed to access this page."
+  "notAllowedToAccessThisPage": "You're not allowed to access this page.",
+
+  "chooseRecitation": "Choose Recitation",
+  "chooseReciter": "Choose Reciter",
+  "hafsAnAsim": "Hafs An Asim",
+
+  "uploadNow": "Upload Now"
 }

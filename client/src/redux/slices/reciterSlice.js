@@ -7,6 +7,41 @@ const initialState = {
   success: false,
 };
 
+const listRecitersSlice = createSlice({
+  name: "listReciters",
+  initialState: { loading: false, success: false, data: [], error: null },
+  reducers: {
+    listRecitersRequest: (state) => {
+      state.loading = true;
+    },
+    listRecitersSuccess: (state, action) => {
+      state.loading = false;
+      state.reciters = action.payload?.data?.reciters;
+      state.pagination = action.payload?.data?.pagination;
+      state.success = true;
+    },
+    listRecitersFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    },
+    listRecitersReset: (state) => {
+      state.loading = false;
+      state.data = [];
+      state.error = null;
+      state.success = false;
+    },
+  },
+});
+
+export const {
+  listRecitersRequest,
+  listRecitersSuccess,
+  listRecitersFailure,
+  listRecitersReset,
+} = listRecitersSlice.actions;
+export const listRecitersReducer = listRecitersSlice.reducer;
+
 const createReciterSlice = createSlice({
   name: "createReciter",
   initialState,
@@ -75,27 +110,26 @@ export const {
 } = getReciterSlice.actions;
 export const getReciterReducer = getReciterSlice.reducer;
 
-const listRecitersSlice = createSlice({
-  name: "listReciters",
-  initialState: { loading: false, success: false, data: [], error: null },
+const uploadRecitationSlice = createSlice({
+  name: "uploadRecitation",
+  initialState,
   reducers: {
-    listRecitersRequest: (state) => {
+    uploadRecitationRequest: (state) => {
       state.loading = true;
     },
-    listRecitersSuccess: (state, action) => {
+    uploadRecitationSuccess: (state, action) => {
       state.loading = false;
-      state.reciters = action.payload?.data?.reciters;
-      state.pagination = action.payload?.data?.pagination;
+      state.data = action.payload?.data;
       state.success = true;
     },
-    listRecitersFailure: (state, action) => {
+    uploadRecitationFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;
     },
-    listRecitersReset: (state) => {
+    uploadRecitationReset: (state) => {
       state.loading = false;
-      state.data = [];
+      state.data = {};
       state.error = null;
       state.success = false;
     },
@@ -103,12 +137,12 @@ const listRecitersSlice = createSlice({
 });
 
 export const {
-  listRecitersRequest,
-  listRecitersSuccess,
-  listRecitersFailure,
-  listRecitersReset,
-} = listRecitersSlice.actions;
-export const listRecitersReducer = listRecitersSlice.reducer;
+  uploadRecitationRequest,
+  uploadRecitationSuccess,
+  uploadRecitationFailure,
+  uploadRecitationReset,
+} = uploadRecitationSlice.actions;
+export const uploadRecitationReducer = uploadRecitationSlice.reducer;
 
 const getReciterProfileSlice = createSlice({
   name: "getReciterProfile",
@@ -159,7 +193,7 @@ const deleteReciterSlice = createSlice({
     deleteReciterRequest: (state) => {
       state.loading = true;
     },
-    deleteReciterSuccess: (state, action) => {
+    deleteReciterSuccess: (state) => {
       state.loading = false;
       state.success = true;
     },

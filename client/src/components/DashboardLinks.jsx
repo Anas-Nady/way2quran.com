@@ -62,6 +62,7 @@ const DashboardLinks = ({ isOpen }) => {
           <Link
             to={`/dashboard/${link.url}`}
             key={i}
+            title={link.name}
             className="flex gap-2 text-gray-900 dark:text-slate-50 hover:bg-slate-200 px-2 py-2 rounded duration-300 dark:hover:bg-gray-900"
           >
             <span className={`${!isOpen && "rotate-[360deg]"} duration-500`}>

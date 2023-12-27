@@ -11,6 +11,7 @@ import {
   getReciterProfileReducer,
   getReciterReducer,
   listRecitersReducer,
+  uploadRecitationReducer,
 } from "./slices/reciterSlice.js";
 import {
   createMessageReducer,
@@ -24,13 +25,14 @@ import {
 
 const rootReducers = combineReducers({
   login: userLoginReducer,
-  frequentRecitations: listFrequentRecitationsReducer,
+  listFrequentRecitations: listFrequentRecitationsReducer,
   getFrequentRecitation: getFrequentRecitationReducer,
   updateUserProfile: updateUserProfileReducer,
   getUserProfile: getUserProfileReducer,
   createReciter: createReciterReducer,
   getReciter: getReciterReducer,
   listReciters: listRecitersReducer,
+  uploadRecitation: uploadRecitationReducer,
   listMessages: listMessagesReducer,
   createMessage: createMessageReducer,
   deleteMessage: deleteMessageReducer,

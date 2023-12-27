@@ -74,7 +74,8 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
     ...recitationFilter,
   })
     .limit(pageSize)
-    .skip(pageSize * (page - 1));
+    .skip(pageSize * (page - 1))
+    .sort("-updatedAt");
 
   res.status(200).json({
     status: "success",
@@ -148,10 +149,10 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 // @access  Private (protected, admin)
 
 exports.uploadRecitations = asyncHandler(async (req, res, next) => {
-  const recitationType = req.body.name;
+  const recitationType = req.body.recitationType || "hafs-an-asim";
   const audioFiles = req.files;
 
-  const reciter = await Reciters.findById(req.params.id);
+  const reciter = await Reciters.findOne({ slug: req.params.slug });
 
   if (!reciter) {
     return next(new AppError("Reciter not found", 404));
@@ -176,18 +177,35 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
     return next(new AppError("No audio files found in the request.", 400));
   }
 
-  const uploadPromises = audioFiles.map(async (audioFile) => {
+  const uploadPromises = audioFiles.map(async (audioFile, i) => {
     const fileName = `${reciter.slug}/${recitationType}/${audioFile.originalname}`;
     const file = storage.bucket(bucketName).file(fileName);
 
-    // Upload the audio file to Google Cloud Storage
-    await file.save(audioFile.buffer, {
+    // Create a writable stream for resumable upload
+    const stream = file.createWriteStream({
       metadata: {
         contentType: audioFile.mimetype,
       },
-      public: true,
-      resumable: false,
-      timeout: 60000,
+      resumable: true,
+      gzip: true,
+    });
+
+    // Handle errors during the upload
+    stream.on("error", (err) => {
+      console.error(`Error uploading file ${fileName}: ${err}`);
+    });
+
+    // Pipe the file buffer to the writable stream
+    stream.end(audioFile.buffer);
+
+    // Wait for the stream to finish (file to be uploaded)
+    await new Promise((resolve, reject) => {
+      stream.on("finish", async () => {
+        // Make the file public
+        await file.makePublic();
+        resolve();
+      });
+      stream.on("error", reject);
     });
 
     // Add the uploaded audio file to the recitation
@@ -196,10 +214,16 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
       audioFile: `https://storage.googleapis.com/${bucketName}/${fileName}`,
       downloadUrl: file.metadata.mediaLink,
     });
+
+    console.log(i);
   });
 
-  // Wait for all uploads to complete before resolving the promise
   await Promise.all(uploadPromises);
+
+  // Sort the audioFiles based on the surah's name
+  recitationToUpdate.audioFiles.sort(
+    (a, b) => parseInt(a.surah) - parseInt(b.surah)
+  );
 
   if (recitationToUpdate.audioFiles.length === 114) {
     recitationToUpdate.isCompleted = true;
@@ -213,6 +237,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
   }
 
   await reciter.save();
+  console.log("done uploading");
 
   res.status(201).json({
     status: "success",
@@ -235,112 +260,6 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
     data: {},
   });
 });
-
-// @desc    Get Top reciters
-// @route   GET /api/reciters/top-reciters
-// @access  Public
-// exports.getTopReciters = asyncHandler(async (req, res, next) => {
-//   const topReciters = await Reciters.find({ topReciter: true }).limit(8);
-
-//   res.status(200).json({
-//     message: "success",
-//     data: topReciters,
-//   });
-// });
-
-// exports.uploadRecitations = asyncHandler(async (req, res, next) => {
-//   // const recitationType = req.body.recitationType;
-//   // const bucketName = "my-bucket-name";
-//   // const audioFiles = req.files;
-
-//   const reciter = await Reciters.findById(req.params.id);
-
-//   if (!reciter) {
-//     return next(new AppError("Reciter not found", 404));
-//   }
-
-// find the recitation with the specified type
-// let recitationToUpdate = reciter.recitations?.find(
-//   (recitation) => recitation.type.toString() === recitationType
-// );
-
-// if (!recitationToUpdate) {
-//   // If recitations array is empty or recitation type not found, create a new one
-//   recitationToUpdate = {
-//     type: recitationType,
-//     audioFiles: [],
-//     isCompletedRecitation: false,
-//   };
-// }
-
-// if (reciter.recitations.length === 0) {
-//   reciter.recitations.push(recitationToUpdate);
-// } else {
-//   // If recitations array is not empty, find the correct position to add the new recitation
-//   const indexToInsert = reciter.recitations.findIndex(
-//     (recitation) => recitation.type > recitationType
-//   );
-
-//   if (indexToInsert === -1) {
-//     // If not found, push it to the end
-//     reciter.recitations.push(recitationToUpdate);
-//   } else {
-//     // Insert at the correct position
-//     reciter.recitations.splice(indexToInsert, 0, recitationToUpdate);
-//   }
-// }
-
-//   // Upload audio files to Google Cloud Storage
-//   const uploadPromises = audioFiles.map(async (audioFile) => {
-//     const fileName = `${reciter.name}/${recitationToUpdate.slug}/${audioFile.originalname}`;
-//     const file = storage.bucket(bucketName).file(fileName);
-
-//     const stream = file.createWriteStream({
-//       metadata: {
-//         contentType: audioFile.mimetype,
-//         contentEncoding: "gzip",
-//       },
-//       public: true,
-//     });
-
-//     return new Promise((resolve, reject) => {
-//       stream.on("error", (err) => {
-//         console.error(err);
-//         reject(
-//           new AppError("Error uploading file to Google Cloud Storage", 500)
-//         );
-//       });
-
-//       stream.on("finish", async () => {
-//         // Add the uploaded audio file to the recitation
-//         recitationToUpdate.audioFiles.push({
-//           surah: audioFile.originalname.split(".")[0], // Replace with the actual surah ID
-//           audioFile: `https://storage.googleapis.com/${bucketName}/${fileName}`,
-//         });
-
-//         resolve();
-//       });
-
-//       // Pipe the audio file stream to Google Cloud Storage
-//       stream.end(audioFile.buffer);
-//     });
-//   });
-
-//   // Wait for all uploads to complete
-//   await Promise.all(uploadPromises);
-
-//   if (recitationToUpdate.audioFiles.length === 114) {
-//     recitationToUpdate.isCompleted = true;
-//   }
-
-//   // Save the updated reciter document
-//   await reciter.save();
-
-//   res.status(201).json({
-//     status: "success",
-//     data: reciter,
-//   });
-// });
 
 // exports.updateReciter = asyncHandler(async (req, res, next) => {
 //   const reciter = await Reciters.findById(req.params.id);
@@ -434,7 +353,3 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
     listSurahs: listSurahData,
   });
 });
-
-// exports.getRecitersBasedOnRecitationType = asyncHandler(async(req,res,next) => {
-//   const recitationsType
-// })

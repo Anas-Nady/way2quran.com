@@ -21,9 +21,10 @@ export const listFrequentRecitations =
       };
 
       const { data } = await axios.get(
-        `api/frequent-recitations?keyword=${keyword}&pageNumber=${pageNumber}`,
+        `/api/frequent-recitations?keyword=${keyword}&pageNumber=${pageNumber}`,
         config
       );
+      console.log(data);
       dispatch(listFrequentRecitationsSuccess(data));
     } catch (error) {
       dispatch(
@@ -46,7 +47,7 @@ export const getFrequentRecitations = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`api/frequent-recitations/${id}`, config);
+    const { data } = await axios.get(`/api/frequent-recitations/${id}`, config);
     dispatch(getFrequentRecitationSuccess(data));
   } catch (error) {
     dispatch(

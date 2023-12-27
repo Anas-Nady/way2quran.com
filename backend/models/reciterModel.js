@@ -1,41 +1,44 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const reciterSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  name_ar: {
-    type: String,
-    required: true,
-  },
-  slug: { type: String, unique: true },
-  photo: {
-    type: String,
-  },
-  recitations: [
-    {
-      name: {
-        type: String,
-        default: "hafs-an-asim",
-      },
-      audioFiles: [
-        {
-          surah: {
-            type: String,
-            required: true,
-            unique: true,
-          },
-          audioFile: { type: String, required: true, unique: true },
-          downloadUrl: String,
-        },
-      ],
-      isCompleted: Boolean,
+const reciterSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    name_ar: {
+      type: String,
+      required: true,
     },
-  ],
-  topReciter: {
-    type: Boolean,
-    default: false,
+    slug: { type: String, unique: true },
+    photo: {
+      type: String,
+    },
+    recitations: [
+      {
+        name: {
+          type: String,
+          default: "hafs-an-asim",
+        },
+        audioFiles: [
+          {
+            surah: {
+              type: String,
+              required: true,
+              unique: true,
+            },
+            audioFile: { type: String, required: true, unique: true },
+            downloadUrl: String,
+          },
+        ],
+        isCompleted: Boolean,
+      },
+    ],
+    topReciter: {
+      type: Boolean,
+      default: false,
+    },
   },
-});
+  { timestamps: true }
+);
 
 reciterSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lowercase: true });

@@ -56,7 +56,7 @@ const Messages = () => {
             <Spinner />
           ) : error ? (
             <ErrorAlert error={error} />
-          ) : messages && messages?.length === 0 ? (
+          ) : messages && messages.length === 0 ? (
             <NotFoundData />
           ) : (
             messages.map((message, i) => (

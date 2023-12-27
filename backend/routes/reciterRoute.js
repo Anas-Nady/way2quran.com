@@ -10,7 +10,7 @@ router
   .post(upload.single("photo"), reciterController.createReciter);
 
 router
-  .route("/upload-recitation/:id")
+  .route("/upload-recitation/:slug")
   .put(upload.array("audioFiles"), reciterController.uploadRecitations);
 
 router

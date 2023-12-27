@@ -83,5 +83,11 @@
   "newPassword": "كلمة المرور الجديدة",
   "save": "حفظ",
 
-  "notAllowedToAccessThisPage": "غير مسموح لك با الوصول الي هذه الصفحة"
+  "notAllowedToAccessThisPage": "غير مسموح لك با الوصول الي هذه الصفحة",
+
+  "chooseRecitation": "أختر التلاوة",
+  "chooseReciter": "أختر القارئ",
+  "hafsAnAsim": "حفص عن عاصم",
+
+  "uploadNow": "تحميل الأن"
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Recitation, Spinner, ErrorAlert } from "../components";
+import { Recitation, Spinner, ErrorAlert, NotFoundData } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/FrequentRecitationsAction";
 import { listFrequentRecitationsReset } from "../redux/slices/FrequentRecitationsSlice";
@@ -7,7 +7,7 @@ import { listFrequentRecitationsReset } from "../redux/slices/FrequentRecitation
 function FrequentRecitations() {
   const dispatch = useDispatch();
   const { loading, error, recitations } = useSelector(
-    (state) => state.frequentRecitations
+    (state) => state.listFrequentRecitations
   );
 
   useEffect(() => {

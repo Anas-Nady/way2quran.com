@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lateef&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -21,4 +20,14 @@ main {
 
 section {
   padding: 20px 0;
+}
+
+.rhap_progress-filled {
+  left: 0 !important;
+  direction: rtl;
+}
+
+.rhap_volume-container {
+  flex-direction: row-reverse;
+  direction: rtl;
 }

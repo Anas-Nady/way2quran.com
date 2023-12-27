@@ -1,30 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const listFrequentRecitationsSlice = createSlice({
-  name: "listAllFrequentRecitations",
+  name: "listFrequentRecitations",
   initialState: {
     loading: false,
-    frequentRecitations: [],
+    success: false,
+    recitations: [],
     error: null,
   },
   reducers: {
     listFrequentRecitationsRequest: (state) => {
       state.loading = true;
-      state.error = null;
     },
     listFrequentRecitationsSuccess: (state, action) => {
       state.loading = false;
       state.recitations = action.payload?.data;
+      state.success = true;
       state.error = null;
     },
     listFrequentRecitationsFailure: (state, action) => {
       state.loading = false;
-      state.frequentRecitations = [];
+      state.recitations = [];
+      state.success = false;
       state.error = action.payload;
     },
     listFrequentRecitationsReset: (state) => {
-      state.frequentRecitations = [];
+      state.recitations = [];
       state.error = null;
+      state.success = false;
       state.loading = false;
     },
   },

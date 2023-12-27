@@ -22,11 +22,17 @@ import {
   FrequentReciters,
 } from "./pages";
 
-const AppRoutes = () => (
+const AppRoutes = ({ updateAudioPlayerData }) => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/completed-reciters" element={<Reciters />} />
-    <Route path="/completed-reciters/:reciterSlug" element={<Reciter />} />
+    <Route
+      path="/completed-reciters"
+      element={<Reciters updateAudioPlayerData={updateAudioPlayerData} />}
+    />
+    <Route
+      path="/completed-reciters/:reciterSlug"
+      element={<Reciter updateAudioPlayerData={updateAudioPlayerData} />}
+    />
     <Route path="/frequent-recitations" element={<FrequentRecitations />} />
     <Route
       path="/frequent-recitations/:recitationSlug"
@@ -34,10 +40,13 @@ const AppRoutes = () => (
     />
     <Route
       path="/frequent-recitations/:recitationSlug/:reciterSlug"
-      element={<Reciter />}
+      element={<Reciter updateAudioPlayerData={updateAudioPlayerData} />}
     />
     <Route path="/various-recitations" element={<VariousRecitations />} />
-    <Route path="/various-recitations/:reciterSlug" element={<Reciter />} />
+    <Route
+      path="/various-recitations/:reciterSlug"
+      element={<Reciter updateAudioPlayerData={updateAudioPlayerData} />}
+    />
     <Route path="/login" element={<Login />} />
     <Route path="dashboard" element={<Dashboard />}>
       <Route index element={<AddReciter />} />

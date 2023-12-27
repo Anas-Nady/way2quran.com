@@ -65,7 +65,7 @@ const AddReciter = () => {
             labelText="arName"
             type="text"
             name="name_ar"
-            placeholder="Enter the Arabic name"
+            placeholder={t("arName")}
             value={name_ar}
             onChange={(e) => setNameAR(e.target.value)}
             required
@@ -75,7 +75,7 @@ const AddReciter = () => {
             type="text"
             name="name"
             value={name}
-            placeholder="Enter the English name"
+            placeholder={t("enName")}
             onChange={(e) => setName(e.target.value)}
             required
           />
