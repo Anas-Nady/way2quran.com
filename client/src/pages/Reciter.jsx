@@ -202,7 +202,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                           className="one bg-gray-100 dark:bg-slate-700 shadow-md  hover:scale-[1.01] z-10 duration-100 cursor-pointer flex justify-between p-3 flex-wrap gap-3 "
                         >
                           <div className="flex gap-4 items-center ">
-                            <div className="w-10 h-10 bg-gray-800 border border-slate-500 flex justify-center items-center rotate-45 rounded-sm text-white">
+                            <div className="w-10 h-10 bg-slate-200 text-gray-900  dark:bg-gray-800 border border-slate-500 flex justify-center items-center rotate-45 rounded-sm dark:text-white">
                               <span className="-rotate-45 block text-center mt-[3px] rtl:me-[3px]">
                                 {surahInfo.number}
                               </span>

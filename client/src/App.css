@@ -31,3 +31,12 @@ section {
   flex-direction: row-reverse;
   direction: rtl;
 }
+.rhap_progress-section {
+  flex-direction: row-reverse;
+  direction: rtl;
+}
+
+.rhap_main-controls {
+  flex-direction: row-reverse;
+  direction: rtl;
+}
