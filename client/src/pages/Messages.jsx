@@ -56,9 +56,9 @@ const Messages = () => {
             <Spinner />
           ) : error ? (
             <ErrorAlert error={error} />
-          ) : messages && messages.length === 0 ? (
-            <NotFoundData />
           ) : (
+            messages &&
+            messages.length > 0 &&
             messages.map((message, i) => (
               <div
                 key={i}
@@ -93,6 +93,7 @@ const Messages = () => {
             ))
           )}
         </div>
+        {messages && messages.length === 0 && <NotFoundData />}
       </div>
       <Pagination
         currentPage={pagination.page || 0}

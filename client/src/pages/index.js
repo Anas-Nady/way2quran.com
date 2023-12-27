@@ -15,3 +15,4 @@ export { default as Messages } from "./Messages";
 export { default as EditReciter } from "./EditReciter";
 export { default as AdminProfile } from "./AdminProfile";
 export { default as FrequentReciters } from "./FrequentReciters";
+export { default as PreviewReciter } from "./PreviewReciter";

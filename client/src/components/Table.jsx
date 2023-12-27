@@ -5,6 +5,7 @@ import { deleteReciter } from "../redux/actions/reciterAction";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteReciterReset } from "../redux/slices/reciterSlice";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Table = ({ reciters }) => {
   const { t, i18n } = useTranslation();
@@ -30,12 +31,12 @@ const Table = ({ reciters }) => {
 
   return (
     <table className="w-full text-md text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead className="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr className="border-b border-slate-300 dark:border-gray-600">
           <th className="p-2 sm:px-6 sm:py-3">{t("reciterName")}</th>
           <th className="p-2 sm:px-6 sm:py-3">{t("recitationsNumber")}</th>
           <th className="p-2 sm:px-6 sm:py-3">{t("topReciters")}</th>
-          <th className="p-2 sm:px-6 sm:py-3">Actions</th>
+          <th className="p-2 sm:px-6 sm:py-3">{t("actions")}</th>
         </tr>
       </thead>
       <tbody>
@@ -65,18 +66,20 @@ const Table = ({ reciters }) => {
               </td>
 
               <td className="p-2 sm:px-6 sm:py-3 cursor-pointer flex gap-1">
-                <span
+                <Link
                   className="cursor-pointer hover:text-gray-900 dark:hover:text-slate-50"
                   title="view"
+                  to={`/dashboard/preview-reciter`}
                 >
                   {eyeIcon}
-                </span>
-                <span
+                </Link>
+                <Link
                   className="cursor-pointer hover:text-blue-600"
                   title="edit"
+                  to={`/dashboard/edit-reciter`}
                 >
                   {editIcon}
-                </span>
+                </Link>
                 <button
                   className="cursor-pointer hover:text-red-600"
                   title="delete"

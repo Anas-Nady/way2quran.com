@@ -30,10 +30,11 @@ function VariousRecitations() {
     const pageNumber = url.get("pageNumber") || 1;
 
     dispatch(listReciters(recitationType, "", keyword, pageNumber));
+
     if (error) {
       dispatch(listRecitersReset());
     }
-  }, [location, dispatch]);
+  }, [location, dispatch, error]);
 
   return (
     <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">

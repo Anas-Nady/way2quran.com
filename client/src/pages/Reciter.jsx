@@ -12,7 +12,7 @@ import { getReciterProfileReset } from "../redux/slices/reciterSlice";
 import SocialMediaShareBtn from "../components/SocialMediaShareBtn";
 import { useTranslation } from "react-i18next";
 import { getReciterProfile } from "../redux/actions/reciterAction";
-import { ErrorAlert, Spinner } from "../components";
+import { ErrorAlert, NotFoundData, Spinner } from "../components";
 import { useParams } from "react-router-dom";
 
 const Reciter = ({ updateAudioPlayerData }) => {
@@ -88,7 +88,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
     return () => {
       document.removeEventListener("keydown", handleKeydown);
     };
-  }, [dispatch]);
+  }, [dispatch, recitationSlug, reciterSlug]);
 
   useEffect(() => {
     // Add or remove the class on the body element based on the popup state
@@ -98,6 +98,12 @@ const Reciter = ({ updateAudioPlayerData }) => {
       document.body.style.overflow = "auto";
     }
   }, [popup]);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(getReciterProfileReset());
+    }
+  }, [dispatch]);
 
   return (
     <div>
@@ -179,12 +185,12 @@ const Reciter = ({ updateAudioPlayerData }) => {
                     </div>
 
                     <button className="flex flex-col justify-between sm:items-center gap-2 my-2 sm:my-12">
-                      <div className="text-white bg-orange-700 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center">
+                      <div className="text-gray-900 cursor-pointer border border-slate-400 bg-slate-200  hover:bg-slate-300 dark:text-white dark:bg-slate-800 dark:hover:bg-slate-700 duration-200 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center">
                         {t("downloadAll")}
                       </div>
                       <button
                         onClick={() => handlePopup("")}
-                        className="text-white cursor-pointer bg-orange-700 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center"
+                        className="text-gray-900 cursor-pointer border border-slate-400 bg-slate-200  hover:bg-slate-300 dark:text-white dark:bg-slate-800 dark:hover:bg-slate-700 duration-200 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center"
                       >
                         {t("share")}
                       </button>
@@ -241,6 +247,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                           </div>
                         </div>
                       ))}
+                    {listSurahs?.length === 0 && <NotFoundData />}
                   </div>
                 </div>
               </>

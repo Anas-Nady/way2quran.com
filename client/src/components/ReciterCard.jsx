@@ -26,7 +26,7 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
             </h5>
 
             <div className="flex flex-wrap gap-2 mt-4">
-              <button className="items-center px-4 py-2 text-sm font-medium text-center text-white bg-orange-600 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+              <button className="items-center px-4 py-2 text-sm font-medium text-center text-gray-900 dark:text-white bg-slate-50  dark:bg-slate-800 border border-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 duration-200 rounded-lg  focus:ring-4 focus:outline-none ">
                 {t("listeningNow")}
               </button>
             </div>

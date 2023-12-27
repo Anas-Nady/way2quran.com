@@ -16,7 +16,7 @@ router
 router
   .route("/:slug")
   .get(reciterController.getReciter)
-  // .put(reciterController.updateReciter)
+  .put(upload.single("photo"), reciterController.updateReciter)
   .delete(reciterController.deleteReciter);
 
 router.route("/:recitationType/:slug").get(reciterController.getReciterProfile);

@@ -57,7 +57,7 @@ const AddReciter = () => {
           <img
             src={photoDisplay}
             alt="default img"
-            className="min-w-[40px] max-w-[120px] sm:max-w-[200px]"
+            className="rounded-lg sm:w-[200px] h-[150px] object-fill"
           />
         </span>
         <form className="my-5">

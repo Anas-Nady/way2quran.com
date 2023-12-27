@@ -20,6 +20,7 @@ import {
   EditReciter,
   Messages,
   FrequentReciters,
+  PreviewReciter,
 } from "./pages";
 
 const AppRoutes = ({ updateAudioPlayerData }) => (
@@ -54,6 +55,7 @@ const AppRoutes = ({ updateAudioPlayerData }) => (
       <Route path="all-reciters" element={<AllReciters />} />
       <Route path="upload-recitation" element={<UploadRecitation />} />
       <Route path="edit-reciter" element={<EditReciter />} />
+      <Route path="preview-reciter" element={<PreviewReciter />} />
       <Route path="messages" element={<Messages />} />
       <Route path="profile" element={<AdminProfile />} />
     </Route>

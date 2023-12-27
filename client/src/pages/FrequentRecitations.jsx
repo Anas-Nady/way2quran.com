@@ -15,7 +15,7 @@ function FrequentRecitations() {
     if (error) {
       dispatch(listFrequentRecitationsReset());
     }
-  }, [dispatch]);
+  }, [dispatch, error]);
 
   return (
     <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-[76vh]">

@@ -144,6 +144,52 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.getReciterProfile = asyncHandler(async (req, res, next) => {
+  const reciter = await Reciter.findOne({ slug: req.params.slug });
+  const recitationType = req.params.recitationType;
+
+  if (!reciter) {
+    return next(new AppError("Reciter not found", 404));
+  }
+
+  const recitation = reciter.recitations.find(
+    (recitation) => recitation.name === recitationType
+  );
+
+  if (!recitation) {
+    return next(new AppError("recitation not found with that reciter", 404));
+  }
+
+  const audioFiles = recitation.audioFiles;
+  const listSurahData = [];
+
+  for (let i = 0; i < audioFiles.length; i++) {
+    const surahInfo = await Surah.findOne({ number: audioFiles[i].surah });
+    listSurahData.push({
+      number: surahInfo.number,
+      name: surahInfo.name_en,
+      name_ar: surahInfo.name,
+      translation: surahInfo.name_translation,
+      slug: surahInfo.slug,
+      url: audioFiles[i].audioFile,
+      downloadUrl: audioFiles[i].downloadUrl,
+    });
+  }
+
+  const reciterInfo = {
+    name: reciter.name,
+    name_ar: reciter.name_ar,
+    photo: reciter.photo,
+    topReciter: reciter.topReciter,
+  };
+
+  res.status(200).json({
+    message: "success",
+    reciterInfo,
+    listSurahs: listSurahData,
+  });
+});
+
 // @desc    upload Recitations of reciter after successful created
 // @route   put /api/
 // @access  Private (protected, admin)
@@ -245,6 +291,63 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.updateReciter = asyncHandler(async (req, res, next) => {
+  const reciter = await Reciters.findOne({ slug: req.params.slug });
+
+  if (!reciter) {
+    return next(new AppError("No reciter has that slug", 404));
+  }
+
+  try {
+    if (req.file) {
+      // Upload new photo
+      const fileName = `imgs/${reciter.slug}/${req.file.originalname}`;
+      const file = storage.bucket(bucketName).file(fileName);
+
+      const stream = file.createWriteStream({
+        metadata: {
+          contentType: req.file.mimetype,
+        },
+        public: true,
+      });
+
+      stream.on("error", (err) => {
+        console.error("Error uploading photo to Google Cloud Storage:", err);
+        return next(
+          new AppError("Error uploading photo to Google Cloud Storage", 500)
+        );
+      });
+
+      stream.on("finish", async () => {
+        reciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+        await reciter.save();
+
+        res.status(200).json({
+          status: "success",
+          data: reciter,
+        });
+      });
+
+      stream.end(req.file.buffer);
+    } else {
+      // No file provided, update only the name and other fields if needed
+      reciter.name = req.body.name || reciter.name;
+      reciter.name_ar = req.body.name_ar || reciter.name_ar;
+      reciter.topReciter = req.body.topReciter || reciter.topReciter;
+
+      await reciter.save();
+
+      res.status(200).json({
+        status: "success",
+        data: reciter,
+      });
+    }
+  } catch (err) {
+    console.error("Error during updateReciter:", err);
+    return next(new AppError("Internal server error", 500));
+  }
+});
+
 // @desc    Delete reciter
 // @route   DELETE /api/reciters/:id
 // @access  Private (protected, admin)
@@ -258,98 +361,5 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: "reciter successfully deleted",
     data: {},
-  });
-});
-
-// exports.updateReciter = asyncHandler(async (req, res, next) => {
-//   const reciter = await Reciters.findById(req.params.id);
-
-//   if (!reciter) {
-//     return next(new AppError("No reciter has that ID", 404));
-//   }
-
-//   if (req.file) {
-//     const bucketName = "my-bucket-name";
-//     const fileName = `${reciter.name}/${req.file.originalname}`;
-//     const file = storage.bucket(bucketName).file(fileName);
-
-//     const stream = file.createWriteStream({
-//       metadata: {
-//         contentType: req.file.mimetype,
-//       },
-//       public: true,
-//     });
-
-//     stream.on("error", (err) => {
-//       return next(
-//         new AppError("Error uploading photo to Google Cloud Storage", 500)
-//       );
-//     });
-
-//     stream.on("finish", async () => {
-//       reciter.photo = `https://cloud.googleapis.com/${bucketName}${fileName}`;
-//       await reciter.save();
-
-//       res.status(200).json({
-//         status: "success",
-//         data: reciter,
-//       });
-//     });
-//     stream.end(req.file.buffer);
-//   }
-//   reciter.name = req.body.name || reciter.name;
-//   reciter.name_ar = req.body.name_ar || reciter.name_ar;
-//   reciter.topReciter = req.body.topReciter || reciter.topReciter;
-//   await reciter.save();
-
-//   res.status(200).json({
-//     status: "success",
-//     data: reciter,
-//   });
-// });
-
-exports.getReciterProfile = asyncHandler(async (req, res, next) => {
-  const reciter = await Reciter.findOne({ slug: req.params.slug });
-  const recitationType = req.params.recitationType;
-
-  if (!reciter) {
-    return next(new AppError("Reciter not found", 404));
-  }
-
-  const recitation = reciter.recitations.find(
-    (recitation) => recitation.name === recitationType
-  );
-
-  if (!recitation) {
-    return next(new AppError("recitation not found with that reciter", 404));
-  }
-
-  const audioFiles = recitation.audioFiles;
-  const listSurahData = [];
-
-  for (let i = 0; i < audioFiles.length; i++) {
-    const surahInfo = await Surah.findOne({ number: audioFiles[i].surah });
-    listSurahData.push({
-      number: surahInfo.number,
-      name: surahInfo.name_en,
-      name_ar: surahInfo.name,
-      translation: surahInfo.name_translation,
-      slug: surahInfo.slug,
-      url: audioFiles[i].audioFile,
-      downloadUrl: audioFiles[i].downloadUrl,
-    });
-  }
-
-  const reciterInfo = {
-    name: reciter.name,
-    name_ar: reciter.name_ar,
-    photo: reciter.photo,
-    topReciter: reciter.topReciter,
-  };
-
-  res.status(200).json({
-    message: "success",
-    reciterInfo,
-    listSurahs: listSurahData,
   });
 });

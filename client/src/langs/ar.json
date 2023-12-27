@@ -31,7 +31,7 @@
 
   "reciters": "جميع القراء",
   "reciterName": "أسم القارئ",
-  "listeningNow": "استماع الأن",
+  "listeningNow": "أستمع الأن",
 
   "searchPlaceholder": "بحث...",
 
@@ -89,5 +89,6 @@
   "chooseReciter": "أختر القارئ",
   "hafsAnAsim": "حفص عن عاصم",
 
-  "uploadNow": "تحميل الأن"
+  "uploadNow": "تحميل الأن",
+  "actions": "الأجراءات"
 }

@@ -47,6 +47,11 @@ function App() {
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
 
+  useEffect(() => {
+    localStorage.removeItem("isVisible");
+    localStorage.removeItem("url");
+  });
+
   return (
     <Provider store={store}>
       <ToastContainer position="top-center" />

@@ -32,7 +32,7 @@ function FrequentReciters() {
     if (error) {
       dispatch(listRecitersReset());
     }
-  }, [dispatch, location, recitationSlug]);
+  }, [dispatch, location, recitationSlug, error]);
 
   return (
     <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">
