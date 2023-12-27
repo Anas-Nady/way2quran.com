@@ -29,7 +29,7 @@ const Table = ({ reciters }) => {
   }, [dispatch, error, success]);
 
   return (
-    <table className="w-full text-sm text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
+    <table className="w-full text-md text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr className="border-b border-slate-300 dark:border-gray-600">
           <th className="p-2 sm:px-6 sm:py-3">{t("reciterName")}</th>
@@ -45,8 +45,13 @@ const Table = ({ reciters }) => {
               key={i}
               className="group border-b border-slate-300 dark:border-gray-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
             >
-              <th className="p-2 sm:px-6 sm:py-3 capitalize cursor-pointer group-hover:underline group-hover:text-blue-500 dark:group-hover:text-slate-50">
-                {currentLang == "en" ? reciter.name : reciter.name_ar}
+              <th className="p-2 sm:px-6 sm:py-3 capitalize flex  gap-1 items-center cursor-pointer group-hover:underline group-hover:text-blue-500 dark:group-hover:text-slate-50">
+                <span className="w-5 h-5 rounded-sm  text-white text-center grid place-items-center">
+                  {reciter.number}
+                </span>
+                <span>
+                  {currentLang == "en" ? reciter.name : reciter.name_ar}
+                </span>
               </th>
               <td className="p-2 sm:px-6 sm:py-3 ">
                 {reciter.recitations?.length}

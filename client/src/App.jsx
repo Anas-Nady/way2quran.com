@@ -17,7 +17,6 @@ import { useTranslation } from "react-i18next";
 
 const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
   const handleAudioEnded = () => {
-    console.log("Audio has finished playing");
     updateAudioPlayerData({
       url: "",
       isVisible: false,
