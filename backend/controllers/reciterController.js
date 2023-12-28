@@ -25,11 +25,13 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
             name_ar: new RegExp(req.query.keyword, "i"),
           },
           {
-            number: new RegExp(req.query.keyword, "i"),
+            number: +req.query.keyword,
           },
         ],
       }
     : {};
+
+  console.log(typeof req.query.keyword); // String
 
   const topReciter = req.query.topReciters
     ? {
