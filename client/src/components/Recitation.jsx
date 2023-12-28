@@ -20,9 +20,9 @@ function Recitation({ data }) {
           whiteSpace: "nowrap",
         }}
       >
-        <h5 className=" text-md sm:text-lg font-normal dark:font-semibold text-gray-900 dark:text-white">
+        <h2 className=" text-md sm:text-lg font-normal dark:font-semibold text-gray-900 dark:text-white">
           {name}
-        </h5>
+        </h2>
       </div>
     </Link>
   );

@@ -11,9 +11,9 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
   return (
     <Link to={`${slug}`} title={currentNameBasedOnLanguage}>
       <div className="card transform transition-transform hover:-translate-y-1 duration-300">
-        <div className="w-full px-2 min-w-[300px] min-h-[286px] max-w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full px-2 min-w-[300px] min-h-[236px] max-w-[300px] bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700">
           <div className="flex justify-end px-1 pt-4"></div>
-          <div className="flex flex-col items-center pb-10">
+          <div className="flex flex-col items-center pb-5">
             <span className="w-[200px] h-[150px] mb-2">
               <img
                 className="w-full h-full mb-3 rounded-lg shadow-lg object-fill"
@@ -21,15 +21,9 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
                 alt="Bonnie image"
               />
             </span>
-            <h5 className="my-1 text-center text-xl line-clamp-1 capitalize font-medium text-gray-900 dark:text-white">
+            <h2 className="my-1 text-center text-xl line-clamp-1 capitalize font-medium text-gray-900 dark:text-white">
               {currentNameBasedOnLanguage}
-            </h5>
-
-            <div className="flex flex-wrap gap-2 mt-4">
-              <button className="items-center px-4 py-2 text-sm font-medium text-center text-gray-900 dark:text-white bg-slate-50  dark:bg-slate-800 border border-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 duration-200 rounded-lg  focus:ring-4 focus:outline-none ">
-                {t("listeningNow")}
-              </button>
-            </div>
+            </h2>
           </div>
         </div>
       </div>

@@ -69,14 +69,14 @@ const Table = ({ reciters }) => {
                 <Link
                   className="cursor-pointer hover:text-gray-900 dark:hover:text-slate-50"
                   title="view"
-                  to={`/dashboard/preview-reciter`}
+                  to={`/dashboard/preview-reciter/${reciter.slug}`}
                 >
                   {eyeIcon}
                 </Link>
                 <Link
                   className="cursor-pointer hover:text-blue-600"
                   title="edit"
-                  to={`/dashboard/edit-reciter`}
+                  to={`/dashboard/edit-reciter/${reciter.slug}`}
                 >
                   {editIcon}
                 </Link>

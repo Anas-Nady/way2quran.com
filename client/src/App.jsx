@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { Footer, Navbar } from "./components";
+import { Footer, HelmetConfig, Navbar } from "./components";
 
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -57,7 +57,7 @@ function App() {
       <ToastContainer position="top-center" />
       <Router>
         <main
-          className={`bg-slate-50 dark:bg-gray-900 min-h-screen py-4 relative ${
+          className={`bg-slate-50 dark:bg-gray-900 min-h-screen py-4 px-2 relative ${
             currentLang == "ar" ? "font-notoNaskhArabic" : "font-roboto"
           }`}
         >

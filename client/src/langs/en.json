@@ -1,5 +1,6 @@
 {
   "titleSite": "Way<span class=\"text-orange-500\">2Quran</span>",
+  "titleHome": "Way2quran",
   "link_1": "Full Holy Quran",
   "link_2": "Frequent Recitations",
   "link_3": "Various Recitations",
@@ -29,7 +30,7 @@
   "passwordPlaceholder": "********",
   "signInBtn": "Sign In",
 
-  "reciters": "All Reciters",
+  "reciters": "Fully Holy Quran",
   "reciterName": "Reciter name",
   "listeningNow": "Listening Now",
 
@@ -89,6 +90,10 @@
   "chooseReciter": "Choose Reciter",
   "hafsAnAsim": "Hafs An Asim",
 
+  "recitations": "Recitations",
+
   "uploadNow": "Upload Now",
-  "actions": "Action"
+  "actions": "Action",
+  "description": "A Quranic website offering recitations by various Qaris. Download audio clips for offline listening. Explore a diverse range of Quranic recitations.",
+  "keywords": "Quranic Recitations, Quran Audio, Quran Download, Quranic Verses, Quranic Audio Clips, Quran, Holy Quran, Islamic Scriptures, Islamic Audio, Quranic Teachings, Listen to Quran, Download Quran Recitations, Quranic Audio Downloads, Audio Clips Download, Arabic Quran, English Quran, Learn Quran, Quran Study, Quranic Education, Quranic Learning, Recitation App, Global Quran, Worldwide Quran, International Quran"
 }

@@ -7,7 +7,8 @@ import { createReciterReset } from "../redux/slices/reciterSlice";
 import { toast } from "react-toastify";
 
 const AddReciter = () => {
-  const defaultImg = "https://way2quran.com/images/logo-original.png";
+  const defaultImg =
+    "https://storage.googleapis.com/waytoquran_storage/imgs/default-reciter-photo.svg";
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, success, data, error } = useSelector(

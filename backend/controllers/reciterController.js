@@ -1,16 +1,11 @@
-const AppError = require("./../utils/appError.js");
+const AppError = require("../utils/appError.js");
 const Reciters = require("./../models/reciterModel.js");
 const asyncHandler = require("express-async-handler");
 const Reciter = require("./../models/reciterModel.js");
-const { Storage } = require("@google-cloud/storage");
 const Surah = require("../models/surahModel.js");
 const FrequentRecitations = require("../models/frequentRecitationsModel.js");
-
-// Initialize Google Cloud Storage
-const storage = new Storage({
-  keyFilename: `${__dirname}/../../cloud-configuration.json`,
-});
-const bucketName = "waytoquran_storage";
+const { storage, bucketName } = require("./../db/cloud.js");
+const { promisify } = require("util");
 
 // @desc    Get reciters
 // route    GET /api/reciters
@@ -18,6 +13,7 @@ const bucketName = "waytoquran_storage";
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 20;
   const page = Number(req.query.pageNumber) || 1;
+  const recitationTypeFromQuery = req.query.recitationType;
 
   const keyword = req.query.keyword
     ? {
@@ -27,6 +23,9 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
           },
           {
             name_ar: new RegExp(req.query.keyword, "i"),
+          },
+          {
+            number: new RegExp(req.query.keyword, "i"),
           },
         ],
       }
@@ -63,6 +62,25 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
           };
   }
 
+  let recitation = {};
+
+  if (recitationTypeFromQuery) {
+    if (
+      recitationTypeFromQuery !== "hafs-an-asim" &&
+      recitationTypeFromQuery !== "various-recitations" &&
+      recitationTypeFromQuery !== "completed-recitations"
+    ) {
+      recitation = await FrequentRecitations.findOne({
+        slug: req.query.recitationType,
+      });
+    } else {
+      recitation = {
+        name: "Hafs An Asim",
+        name_ar: "حفص عن عاصم",
+      };
+    }
+  }
+
   const count = await Reciters.countDocuments({
     ...keyword,
     ...topReciter,
@@ -86,6 +104,7 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
         pages: Math.ceil(count / pageSize),
       },
       reciters,
+      recitation,
     },
   });
 });
@@ -133,7 +152,7 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
     newReciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
   } else {
-    newReciter.photo = `https://storage.googleapis.com/${bucketName}/imgs/default-reciter-photo.jpg`;
+    newReciter.photo = `https://storage.googleapis.com/${bucketName}/imgs/default-reciter-photo.svg`;
   }
 
   await newReciter.save();
@@ -291,6 +310,22 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.downloadRecitation = asyncHandler(async (req, res, next) => {
+  const reciter = await Reciter.findOne({ slug: req.params.slug });
+  const recitationType = req.body.recitationType;
+
+  if (!reciter) {
+    return next(new AppError("Reciter not found", 404));
+  }
+
+  const fileName = `${reciter.slug}/${recitationType}`;
+  await storage.bucket(bucketName).file(fileName).download();
+
+  res.status(200).json({
+    message: "success downloading archive",
+  });
+});
+
 exports.updateReciter = asyncHandler(async (req, res, next) => {
   const reciter = await Reciters.findOne({ slug: req.params.slug });
 
@@ -301,13 +336,14 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
   try {
     if (req.file) {
       // Upload new photo
-      const fileName = `imgs/${reciter.slug}/${req.file.originalname}`;
+      const fileName = `imgs/${req.file.originalname}`;
       const file = storage.bucket(bucketName).file(fileName);
 
       const stream = file.createWriteStream({
         metadata: {
           contentType: req.file.mimetype,
         },
+        gzip: true,
         public: true,
       });
 
@@ -318,30 +354,27 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
         );
       });
 
-      stream.on("finish", async () => {
-        reciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-        await reciter.save();
+      const streamFinished = promisify(stream.end).bind(stream);
 
-        res.status(200).json({
-          status: "success",
-          data: reciter,
-        });
-      });
+      await streamFinished(req.file.buffer);
 
-      stream.end(req.file.buffer);
-    } else {
-      // No file provided, update only the name and other fields if needed
-      reciter.name = req.body.name || reciter.name;
-      reciter.name_ar = req.body.name_ar || reciter.name_ar;
-      reciter.topReciter = req.body.topReciter || reciter.topReciter;
-
-      await reciter.save();
-
-      res.status(200).json({
-        status: "success",
-        data: reciter,
-      });
+      reciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
     }
+
+    reciter.name = req.body.name || reciter.name;
+    reciter.name_ar = req.body.name_ar || reciter.name_ar;
+    reciter.topReciter = req.body.topReciter || reciter.topReciter;
+
+    // Save the reciter and handle any errors
+    await reciter.save().catch((err) => {
+      console.error("Error during reciter save:", err);
+      throw new AppError("Error saving reciter", 500);
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: reciter,
+    });
   } catch (err) {
     console.error("Error during updateReciter:", err);
     return next(new AppError("Internal server error", 500));
@@ -361,5 +394,70 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: "reciter successfully deleted",
     data: {},
+  });
+});
+
+exports.getPreviewReciter = asyncHandler(async (req, res, next) => {
+  const reciter = await Reciter.findOne({ slug: req.params.slug });
+
+  if (!reciter) {
+    return next(new AppError("Reciter not found", 404));
+  }
+
+  const reciterInfo = {
+    name: reciter.name,
+    name_ar: reciter.name_ar,
+    photo: reciter.photo,
+    topReciter: reciter.topReciter,
+  };
+
+  const recitationsAreExists =
+    reciter.recitations && reciter.recitations.length > 0;
+
+  let recitationsInfo = [];
+  if (recitationsAreExists) {
+    recitationsInfo = await Promise.all(
+      reciter.recitations.map(async (recitation) => {
+        let recitationInfo;
+
+        if (recitation.name !== "hafs-an-asim") {
+          recitationInfo =
+            (await FrequentRecitations.findOne({
+              slug: recitation.name,
+            }).select("name name_ar")) || {};
+        } else {
+          recitationInfo = {
+            name: "Hafs An Asim",
+            name_ar: "حفص عن عاصم",
+          };
+        }
+
+        let listSurahData = await Promise.all(
+          recitation.audioFiles.map(async (audioFile) => {
+            let surahInfo = await Surah.findOne({ number: audioFile.surah });
+            return {
+              number: surahInfo.number,
+              name: surahInfo.name_en,
+              name_ar: surahInfo.name,
+              translation: surahInfo.name_translation,
+              slug: surahInfo.slug,
+              url: audioFile.audioFile,
+              downloadUrl: audioFile.downloadUrl,
+            };
+          })
+        );
+
+        return {
+          recitationInfo,
+          listSurahData,
+        };
+      })
+    );
+  }
+
+  res.status(200).json({
+    message: "success",
+    recitationsInfo,
+    reciterInfo,
   });
 });

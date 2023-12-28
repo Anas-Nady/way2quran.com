@@ -16,3 +16,5 @@ export { default as SearchInput } from "./SearchInput";
 export { default as HeadingSection } from "./HeadingSection";
 export { default as NotFoundData } from "./NotFoundData";
 export { default as TopReciters } from "./TopReciters";
+export { default as HelmetConfig } from "./HelmetConfig";
+export { default as Button } from "./Button";

@@ -6,6 +6,7 @@ import { DashboardLinks, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import PermissionError from "./PermissionError";
 import { getUserProfile } from "../redux/actions/userAction";
+import { Helmet } from "react-helmet";
 
 function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,10 @@ function Dashboard() {
 
   return (
     <>
+      <Helmet>
+        <title>Dashboard</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="dark:bg-gray-900 bg-slate-50 min-h-screen flex">
         {isAdmin && success ? (
           <>

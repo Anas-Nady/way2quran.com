@@ -2,15 +2,21 @@ import {
   createReciterRequest,
   createReciterSuccess,
   createReciterFailure,
-  getReciterRequest,
-  getReciterSuccess,
-  getReciterFailure,
   listRecitersRequest,
   listRecitersSuccess,
   listRecitersFailure,
+  getReciterRequest,
+  getReciterSuccess,
+  getReciterFailure,
   getReciterProfileRequest,
   getReciterProfileSuccess,
   getReciterProfileFailure,
+  getPreviewReciterRequest,
+  getPreviewReciterSuccess,
+  getPreviewReciterFailure,
+  updateReciterRequest,
+  updateReciterSuccess,
+  updateReciterFailure,
   uploadRecitationRequest,
   uploadRecitationSuccess,
   uploadRecitationFailure,
@@ -68,17 +74,33 @@ export const getReciter = (slug) => async (dispatch) => {
   try {
     dispatch(getReciterRequest());
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const { data } = await axios.get(`/api/reciters/${slug}`, config);
+    const { data } = await axios.get(`/api/reciters/${slug}`);
     dispatch(getReciterSuccess(data));
   } catch (err) {
     dispatch(
       getReciterFailure(
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      )
+    );
+  }
+};
+
+export const updateReciter = (slug, formData) => async (dispatch) => {
+  try {
+    dispatch(updateReciterRequest());
+
+    const config = {
+      headers: {
+        "Content-Type": "application/form-data",
+      },
+    };
+    const { data } = await axios.put(`/api/reciters/${slug}`, formData, config);
+    dispatch(updateReciterSuccess(data));
+  } catch (err) {
+    dispatch(
+      updateReciterFailure(
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message
@@ -131,6 +153,24 @@ export const getReciterProfile = (recitationType, slug) => async (dispatch) => {
   } catch (err) {
     dispatch(
       getReciterProfileFailure(
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      )
+    );
+  }
+};
+
+export const getPreviewReciter = (slug) => async (dispatch) => {
+  try {
+    dispatch(getPreviewReciterRequest());
+
+    const { data } = await axios.get(`/api/reciters/preview-reciter/${slug}`);
+
+    dispatch(getPreviewReciterSuccess(data));
+  } catch (err) {
+    dispatch(
+      getPreviewReciterFailure(
         err.response && err.response.data.message
           ? err.response.data.message
           : err.message

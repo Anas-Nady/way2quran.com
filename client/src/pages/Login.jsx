@@ -39,6 +39,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
+        <title>Login Page</title>
         <meta name="robots" content="noindex" />
       </Helmet>
       <div>

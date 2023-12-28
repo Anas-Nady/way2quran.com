@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { moon, sun, menu, english, arabic, user } from "./Icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
 import i18n from "../langs/i18n";
 import { useTranslation } from "react-i18next";
-import TitleSite from "./TitleSite";
+import logo from "../assets/imgs/logo-navbar.svg";
 
 const Navbar = () => {
   const { t } = useTranslation();
+  const navigateTo = useNavigate();
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
@@ -50,14 +51,13 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-50  items-center  top-0 start-0 border-b border-gray-200 dark:border-gray-600 transition-all duration-300">
-      <div className="flex flex-wrap container items-center justify-between mx-auto p-4">
+    <nav className="bg-white dark:bg-gray-900 fixed w-screen z-50  items-center  top-0 start-0 border-b border-gray-200 dark:border-gray-600 transition-all duration-300">
+      <div className="flex flex-wrap container items-center justify-between mx-auto p-2 ">
         <Link
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
-          {/* <img src={logo} className="h-20" alt="Flowbite Logo" /> */}
-          <TitleSite />
+          <img src={logo} width={60} height={80} alt="Flowbite Logo" />
         </Link>
         <div className="flex md:order-2 space-x-3 gap-1 md:space-x-0 rtl:space-x-reverse  shadow-none dark:shadow-none ">
           <button
@@ -92,11 +92,15 @@ const Navbar = () => {
             {menu}
           </button>
           {getAdminFromLocalStorage && (
-            <Link to="/login" className="hidden lg:flex">
+            <button
+              type="button"
+              className="hidden lg:flex"
+              onClick={() => navigateTo("/login")}
+            >
               <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                 {user}
               </div>
-            </Link>
+            </button>
           )}
         </div>
         <div

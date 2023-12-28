@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./../assets/imgs/logo.png";
+import logo from "./../assets/imgs/logo-navbar.svg";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import TitleSite from "./TitleSite";
@@ -8,7 +8,7 @@ function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="bg-slate-50 shadow dark:bg-gray-900 border-t-[1px] border-gray-200 dark:border-gray-700 mt-8 pt-4">
-      <div className="w-full max-w-screen-xl mx-auto p-4 bg-white dark:bg-gray-800">
+      <div className="w-full container p-4 bg-white dark:bg-gray-800">
         <div className="flex flex-wrap gap-2 items-center justify-between">
           <Link
             to="/"

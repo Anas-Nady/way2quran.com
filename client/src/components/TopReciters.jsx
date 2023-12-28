@@ -17,7 +17,7 @@ export default function TopReciters() {
     slidesToScroll: 1,
     autoplay: true,
     speed: 2000,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 200000,
     cssEase: "ease-in-out",
     responsive: [
       {
@@ -57,14 +57,14 @@ export default function TopReciters() {
 
   useEffect(() => {
     dispatch(listReciters("", true));
-    if (error) {
+    return () => {
       dispatch(listRecitersReset());
-    }
-  }, [dispatch, error]);
+    };
+  }, [dispatch]);
 
   return (
-    <section className="container px-5 max-w-screen-xl py-5 my-7">
-      <HeadingSection nameSection={"mostListening"} />
+    <section className=" px-5 max-w-screen-xl mx-auto py-5 my-7">
+      <HeadingSection nameSection={"listeningNow"} />
       {loading ? (
         <Spinner />
       ) : error ? (
@@ -78,18 +78,21 @@ export default function TopReciters() {
                 key={i}
                 className="flex justify-center items-center h-full p-1"
               >
-                <div className="card transform transition-transform hover:-translate-y-1 duration-300">
-                  <div className="w-full px-2 max-w-[250px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div
+                  className="card transform transition-transform hover:-translate-y-1 duration-300"
+                  title={currentLang == "en" ? reciter.name : reciter.name_ar}
+                >
+                  <div className="w-full px-2 max-w-[250px] h-[160px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div className="flex justify-end px-1 pt-4"></div>
                     <div className="flex flex-col items-center pb-4">
-                      <span className="w-[60px]">
+                      <span className="h-[80px] w-[120px]">
                         <img
-                          className="w-full mb-3 rounded-full shadow-lg object-cover"
+                          className="w-full mb-3 h-full shadow-lg object-fill"
                           src={reciter.photo}
                           alt="Bonnie image"
                         />
                       </span>
-                      <h5 className="mb-1 text-center text-xl font-medium text-gray-900 dark:text-white">
+                      <h5 className="mt-1 text-center text-lg line-clamp-1 font-medium text-gray-900 dark:text-white">
                         {currentLang == "en" ? reciter.name : reciter.name_ar}
                       </h5>
                     </div>

@@ -61,10 +61,9 @@ const AllReciters = () => {
     dispatch(listReciters(recitationType, topReciters, keyword, pageNumber));
     dispatch(deleteReciterReset());
 
-    if (error) {
-      toast.error("error");
+    return () => {
       dispatch(listRecitersReset());
-    }
+    };
   }, [location, dispatch, successDeletedReciter]);
 
   return (

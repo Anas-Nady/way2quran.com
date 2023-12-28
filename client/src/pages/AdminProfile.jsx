@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { updateUserProfileReset } from "../redux/slices/userSlice";
 import { useTranslation } from "react-i18next";
-import { login } from "../redux/actions/authActions";
 
 const AdminProfile = () => {
   const { t } = useTranslation();

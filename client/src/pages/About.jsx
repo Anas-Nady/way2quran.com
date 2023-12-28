@@ -8,20 +8,15 @@ import {
   gmailIcon,
 } from "../components/Icons";
 import { useTranslation } from "react-i18next";
-import { Heading } from "../components";
-import { Helmet } from "react-helmet";
+import { Heading, HelmetConfig } from "../components";
 
 function About() {
   const { t } = useTranslation();
 
   return (
     <>
-      <Helmet>
-        <title></title>
-        <meta name="description" content="" />
-        <link ref="canonical" href="/about" />
-      </Helmet>
-      <div className="container max-w-screen-lg min-h-[75vh]">
+      <HelmetConfig title={t("aboutTitle")} />
+      <div className="container max-w-screen-lg min-h-[75vh] mt-10">
         <div className="about-us text-center">
           <Heading sectionTitle={t("aboutTitle")} />
           <ul className="list-none gap-4 flex-col flex justify-start items-start text-start flex-wrap px-3">

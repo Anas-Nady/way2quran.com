@@ -54,8 +54,8 @@ const AppRoutes = ({ updateAudioPlayerData }) => (
       <Route path="add-reciter" element={<AddReciter />} />
       <Route path="all-reciters" element={<AllReciters />} />
       <Route path="upload-recitation" element={<UploadRecitation />} />
-      <Route path="edit-reciter" element={<EditReciter />} />
-      <Route path="preview-reciter" element={<PreviewReciter />} />
+      <Route path="edit-reciter/:reciterSlug" element={<EditReciter />} />
+      <Route path="preview-reciter/:reciterSlug" element={<PreviewReciter />} />
       <Route path="messages" element={<Messages />} />
       <Route path="profile" element={<AdminProfile />} />
     </Route>
