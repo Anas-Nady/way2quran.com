@@ -31,8 +31,6 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
       }
     : {};
 
-  console.log(typeof req.query.keyword); // String
-
   const topReciter = req.query.topReciters
     ? {
         topReciter: req.query.topReciters,
@@ -95,7 +93,7 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
   })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-    .sort("-updatedAt");
+    .sort("-number");
 
   res.status(200).json({
     status: "success",
