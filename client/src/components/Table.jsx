@@ -45,7 +45,7 @@ const Table = ({ reciters }) => {
               className="group border-b border-slate-300 dark:border-gray-600 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800"
             >
               <th className="p-2 sm:px-6 sm:py-3 capitalize flex  gap-1 items-center cursor-pointer group-hover:underline group-hover:text-blue-500 dark:group-hover:text-slate-50">
-                <span className="w-5 h-5 rounded-sm  text-white text-center grid place-items-center">
+                <span className="w-5 h-5 rounded-sm  text-gray-900 dark:text-white text-center grid place-items-center">
                   {reciter.number}
                 </span>
                 <span>

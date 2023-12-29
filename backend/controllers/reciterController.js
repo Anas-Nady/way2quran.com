@@ -13,7 +13,7 @@ const fs = require("fs");
 // route    GET /api/reciters
 // @access  Public
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
-  const pageSize = Number(req.query.pageSize) || 20;
+  const pageSize = Number(req.query.pageSize) || 50;
   const page = Number(req.query.pageNumber) || 1;
   const recitationTypeFromQuery = req.query.recitationType;
 
@@ -334,60 +334,18 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 });
 
 exports.downloadRecitation = asyncHandler(async (req, res, next) => {
-  const folderName = "default-logo";
+  const fileKey = "default-logo";
 
-  const bucket = storage.bucket(bucketName);
-  const files = await bucket.getFiles({ prefix: `${folderName}/` });
+  const bucketName = "your-bucket-name";
+  const file = storage.bucket(bucketName).file(fileKey);
 
-  if (files.length === 0) {
-    return res.status(404).send("Folder not found");
-  }
-
-  const zipFilePath = `./${folderName}.zip`;
-  const output = fs.createWriteStream(zipFilePath);
-  const archive = archiver("zip");
-
-  output.on("close", () => {
-    res.sendFile(
-      zipFilePath,
-      {
-        root: ".",
-        headers: {
-          "Content-Type": "application/zip",
-          "Content-Disposition": `attachment; filename=downloaded-folder.zip`,
-        },
-      },
-      (err) => {
-        if (err) {
-          throw err;
-        }
-
-        // Cleanup: Remove the created ZIP file after sending
-        fs.unlink(zipFilePath, (unlinkErr) => {
-          if (unlinkErr) {
-            console.error("Error deleting ZIP file:", unlinkErr);
-          }
-        });
-      }
-    );
-  });
-
-  archive.on("error", (err) => {
-    throw err;
-  });
-
-  archive.pipe(output);
-
-  files[0].forEach((file) => {
-    const fileStream = file.createReadStream();
-    fileStream.on("error", (err) => {
-      console.error("Error reading file stream:", err);
-      // Handle the error as needed
-    });
-    archive.append(fileStream, { name: file.name });
-  });
-
-  archive.finalize();
+  file
+    .createReadStream()
+    .on("error", (err) => {
+      console.error(err);
+      res.status(500).send("Error downloading file.");
+    })
+    .pipe(res);
 });
 
 exports.updateReciter = asyncHandler(async (req, res, next) => {
