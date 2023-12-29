@@ -8,7 +8,6 @@ import {
 import {
   createReciterReducer,
   deleteReciterReducer,
-  // getPreviewReciterReducer,
   getReciterProfileReducer,
   getReciterReducer,
   listRecitersReducer,
@@ -24,7 +23,6 @@ import {
   getFrequentRecitationReducer,
   listFrequentRecitationsReducer,
 } from "./slices/FrequentRecitationsSlice.js";
-import { updateReciter } from "./actions/reciterAction.js";
 
 const rootReducers = combineReducers({
   login: userLoginReducer,
@@ -34,7 +32,6 @@ const rootReducers = combineReducers({
   getUserProfile: getUserProfileReducer,
   createReciter: createReciterReducer,
   getReciter: getReciterReducer,
-  // getPreviewReciter: getPreviewReciterReducer,
   updateReciter: updateReciterReducer,
   listReciters: listRecitersReducer,
   uploadRecitation: uploadRecitationReducer,

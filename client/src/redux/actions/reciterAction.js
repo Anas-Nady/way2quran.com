@@ -11,9 +11,6 @@ import {
   getReciterProfileRequest,
   getReciterProfileSuccess,
   getReciterProfileFailure,
-  // getPreviewReciterRequest,
-  // getPreviewReciterSuccess,
-  // getPreviewReciterFailure,
   updateReciterRequest,
   updateReciterSuccess,
   updateReciterFailure,
@@ -160,24 +157,6 @@ export const getReciterProfile = (slug) => async (dispatch) => {
     );
   }
 };
-
-// export const getPreviewReciter = (slug) => async (dispatch) => {
-//   try {
-//     dispatch(getPreviewReciterRequest());
-
-//     const { data } = await axios.get(`/api/reciters/preview-reciter/${slug}`);
-
-//     dispatch(getPreviewReciterSuccess(data));
-//   } catch (err) {
-//     dispatch(
-//       getPreviewReciterFailure(
-//         err.response && err.response.data.message
-//           ? err.response.data.message
-//           : err.message
-//       )
-//     );
-//   }
-// };
 
 export const deleteReciter = (slug) => async (dispatch) => {
   try {

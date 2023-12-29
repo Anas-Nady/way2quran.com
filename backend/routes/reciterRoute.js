@@ -11,8 +11,6 @@ router
 
 router.get("/download", reciterController.downloadRecitation);
 
-// router.get("/preview-reciter/:slug", reciterController.getPreviewReciter);
-
 router
   .route("/upload-recitation/:slug")
   .put(upload.array("audioFiles"), reciterController.uploadRecitations);
