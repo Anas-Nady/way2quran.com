@@ -36,7 +36,7 @@ function Reciters() {
     return () => {
       dispatch(listRecitersReset());
     };
-  }, [dispatch, recitationType]);
+  }, [dispatch, recitationType, location]);
 
   return (
     <>

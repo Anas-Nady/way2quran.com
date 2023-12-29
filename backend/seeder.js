@@ -2,31 +2,51 @@ const { Storage } = require("@google-cloud/storage");
 const path = require("path");
 const fs = require("fs");
 
-const projectId = "";
 const bucketName = "waytoquran_storage";
 
 const storage = new Storage({
   keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-const photo = path.join(__dirname, "/public/default-logo.svg");
-console.log(photo);
+// const photo = path.join(__dirname, "/public/default-logo.svg");
+// console.log(photo);
 
-async function uploadPhoto() {
+async function getFolderNames() {
   try {
-    const filePath = "imgs/default-reciter-photo.svg";
+    const [files] = await storage.bucket(bucketName).getFiles();
 
-    // Download the file
-    await storage.bucket(bucketName).upload(photo, {
-      destination: filePath,
-      public: true,
+    const folderNames = new Set();
+
+    files.forEach((file) => {
+      const parts = file.name.split("/");
+      if (parts.length > 1) {
+        // If the file has a path, consider it as part of a folder
+        folderNames.add(parts[0]);
+      }
     });
 
-    console.log("photo uploaded successfully");
+    // Convert Set to an array
+    const folderArray = Array.from(folderNames);
+
+    return folderArray;
   } catch (err) {
-    console.log(err);
-    // Handle the error appropriately, e.g., log it or return an error response.
+    console.error("Error getting folder names:", err);
+    throw err;
   }
 }
 
-// uploadPhoto();
+async function saveFolderNamesToFile() {
+  try {
+    const folderNames = await getFolderNames();
+
+    const jsonData = JSON.stringify(folderNames, null, 2);
+
+    fs.writeFileSync("folderNames.json", jsonData);
+
+    console.log("Folder names saved to file successfully.");
+  } catch (err) {
+    console.error("Error saving folder names to file:", err);
+  }
+}
+
+saveFolderNamesToFile();

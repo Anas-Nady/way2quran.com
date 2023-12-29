@@ -26,9 +26,6 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
           {
             name_ar: new RegExp(req.query.keyword, "i"),
           },
-          {
-            number: +req.query.keyword,
-          },
         ],
       }
     : {};

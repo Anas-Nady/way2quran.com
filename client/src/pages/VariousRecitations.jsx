@@ -33,11 +33,12 @@ function VariousRecitations() {
     const pageNumber = url.get("pageNumber") || 1;
 
     dispatch(listReciters(recitationType, "", keyword, pageNumber));
+    dispatch(listRecitersReset());
 
     return () => {
       dispatch(listRecitersReset());
     };
-  }, [dispatch, recitationType]);
+  }, [dispatch, recitationType, location]);
 
   return (
     <>
