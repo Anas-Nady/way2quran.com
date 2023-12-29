@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input } from "../components";
+import { Button, Input } from "../components";
 import { updateUserProfile } from "../redux/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -69,14 +69,13 @@ const AdminProfile = () => {
             placeholder="passwordPlaceholder"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            className="w-fit px-5 py-2 bg-orange-600 text-slate-50 hover:bg-orange-700 rounded-lg"
-            onClick={handleSubmit}
-            disabled={loading}
+
+          <Button
+            text="save"
+            handleSubmit={handleSubmit}
             type="submit"
-          >
-            {t("save")}
-          </button>
+            disabled={loading}
+          />
         </form>
       </div>
     </div>

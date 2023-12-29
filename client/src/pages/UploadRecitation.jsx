@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Spinner } from "../components";
+import { Button, Input, Spinner } from "../components";
 import { trashIcon } from "../components/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/FrequentRecitationsAction";
@@ -125,7 +125,7 @@ const UploadRecitation = () => {
               type="file"
               multiple
               id="audioFiles"
-              className="bg-gray-600 rounded-sm p-2 w-[235px]"
+              className="bg-gray-600 rounded-sm p-2 my-2 w-[235px]"
               name="audioFiles"
               required
               onChange={handleFileUpload}
@@ -133,16 +133,13 @@ const UploadRecitation = () => {
             />
           </div>
         </div>
-        <button
+
+        <Button
+          text="uploadNow"
           type="submit"
-          onClick={handleSubmit}
+          handleSubmit={handleSubmit}
           disabled={loadingUploadRecitation}
-          className={`bg-orange-600 text-slate-50 p-2 rounded-sm my-4 ${
-            loadingUploadRecitation && "cursor-not-allowed opacity-70"
-          }`}
-        >
-          {t("uploadNow")}
-        </button>
+        />
       </form>
     </div>
   );

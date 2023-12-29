@@ -6,6 +6,8 @@ const Surah = require("../models/surahModel.js");
 const FrequentRecitations = require("../models/frequentRecitationsModel.js");
 const { storage, bucketName } = require("./../db/cloud.js");
 const { promisify } = require("util");
+const archiver = require("archiver");
+const fs = require("fs");
 
 // @desc    Get reciters
 // route    GET /api/reciters
@@ -311,19 +313,56 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 });
 
 exports.downloadRecitation = asyncHandler(async (req, res, next) => {
-  const reciter = await Reciter.findOne({ slug: req.params.slug });
-  const recitationType = req.body.recitationType;
+  const folderName = "default-logo";
 
-  if (!reciter) {
-    return next(new AppError("Reciter not found", 404));
+  const bucket = storage.bucket(bucketName);
+  const files = await bucket.getFiles({ prefix: `${folderName}/` });
+
+  if (files.length === 0) {
+    return res.status(404).send("Folder not found");
   }
 
-  const fileName = `${reciter.slug}/${recitationType}`;
-  await storage.bucket(bucketName).file(fileName).download();
+  const zipFilePath = `./${folderName}.zip`;
+  const output = fs.createWriteStream(zipFilePath);
+  const archive = archiver("zip");
 
-  res.status(200).json({
-    message: "success downloading archive",
+  output.on("close", () => {
+    res.sendFile(
+      zipFilePath,
+      {
+        root: ".",
+        headers: {
+          "Content-Type": "application/zip",
+          "Content-Disposition": `attachment; filename=${folderName}.zip`,
+        },
+      },
+      (err) => {
+        if (err) {
+          throw err;
+        }
+
+        // Cleanup: Remove the created ZIP file after sending
+        fs.unlink(zipFilePath, (unlinkErr) => {
+          if (unlinkErr) {
+            console.error("Error deleting ZIP file:", unlinkErr);
+          }
+        });
+      }
+    );
   });
+
+  archive.on("error", (err) => {
+    throw err;
+  });
+
+  archive.pipe(output);
+
+  files[0].forEach((file) => {
+    const fileStream = file.createReadStream();
+    archive.append(fileStream, { name: file.name });
+  });
+
+  archive.finalize();
 });
 
 exports.updateReciter = asyncHandler(async (req, res, next) => {

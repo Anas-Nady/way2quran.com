@@ -55,9 +55,15 @@ const Navbar = () => {
       <div className="flex flex-wrap container items-center justify-between mx-auto p-2 ">
         <Link
           to="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+          className="flex items-center  space-x-3 rtl:space-x-reverse"
         >
-          <img src={logo} width={60} height={80} alt="Flowbite Logo" />
+          <img
+            className="w-[60px] h-[80px]"
+            src={logo}
+            width={60}
+            height={80}
+            alt="way2quran Logo"
+          />
         </Link>
         <div className="flex md:order-2 space-x-3 gap-1 md:space-x-0 rtl:space-x-reverse  shadow-none dark:shadow-none ">
           <button
@@ -104,7 +110,7 @@ const Navbar = () => {
           )}
         </div>
         <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 lg:mr-[100px] ${
             isMenuOpen ? "block" : "hidden"
           }`}
           id="navbar-sticky"

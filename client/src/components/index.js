@@ -18,3 +18,4 @@ export { default as NotFoundData } from "./NotFoundData";
 export { default as TopReciters } from "./TopReciters";
 export { default as HelmetConfig } from "./HelmetConfig";
 export { default as Button } from "./Button";
+export { default as SurahContainer } from "./SurahContainer";

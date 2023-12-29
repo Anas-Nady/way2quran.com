@@ -25,8 +25,8 @@ function FrequentReciters() {
   );
   const titlePage =
     i18n.language == "en"
-      ? recitation.name
-      : recitation.name_ar || location.host;
+      ? recitation?.name
+      : recitation?.name_ar || location.host;
 
   useEffect(() => {
     const url = new URLSearchParams(location.search);
@@ -59,26 +59,31 @@ function FrequentReciters() {
         ) : reciters && reciters.length == 0 ? (
           <NotFoundData />
         ) : (
-          <>
-            <section className="flex justify-center items-center gap-2 flex-wrap my-6">
-              {reciters?.map((reciter, i) => {
-                return (
-                  <ReciterCard
-                    key={i}
-                    slug={reciter.slug}
-                    name={reciter.name}
-                    name_ar={reciter.name_ar}
-                    photo={reciter.photo}
-                    recitations={reciter.recitations}
-                  />
-                );
-              })}
-            </section>
-            <Pagination
-              currentPage={pagination?.page || 0}
-              totalPages={pagination?.pages || 0}
-            />
-          </>
+          reciters &&
+          reciters.length > 0 && (
+            <>
+              <section className=" min-h-[80vh] my-6">
+                <div className="flex justify-center items-center gap-2 flex-wrap ">
+                  {reciters?.map((reciter, i) => {
+                    return (
+                      <ReciterCard
+                        key={i}
+                        slug={reciter.slug}
+                        name={reciter.name}
+                        name_ar={reciter.name_ar}
+                        photo={reciter.photo}
+                        recitations={reciter.recitations}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+              <Pagination
+                currentPage={pagination?.page || 0}
+                totalPages={pagination?.pages || 0}
+              />
+            </>
+          )
         )}
       </div>
     </>

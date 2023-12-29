@@ -28,11 +28,11 @@ input:disabled {
   font-family: "Roboto", sans-serif !important;
 }
 
-/* .rhap_progress-filled {
+.rhap_progress-filled {
   left: 0 !important;
   direction: rtl;
-} */
-/* .rhap_volume-container {
+}
+.rhap_volume-container {
   flex-direction: row-reverse;
   direction: rtl;
 }
@@ -44,13 +44,13 @@ input:disabled {
 .rhap_main-controls {
   flex-direction: row-reverse;
   direction: rtl;
-} */
+}
 
-/* .rhap_container {
+.rhap_container {
   background: rgb(82, 90, 102) !important;
   border-radius: 2px;
 }
 
 .rhap_time {
   color: white !important;
-} */
+}

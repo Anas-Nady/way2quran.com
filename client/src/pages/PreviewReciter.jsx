@@ -69,7 +69,7 @@ const PreviewReciter = () => {
         <h2 className="text-2xl my-3 border-2 border-slate-300 dark:border-gray-600 w-fit px-3 py-2">
           {t("recitations")}
         </h2>
-        {recitationsInfo && recitationsInfo.length == 0 ? (
+        {!loading && recitationsInfo && recitationsInfo.length == 0 ? (
           <NotFoundData />
         ) : (
           recitationsInfo.length > 0 &&

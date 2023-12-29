@@ -9,6 +9,8 @@ router
   .get(reciterController.getAllReciters)
   .post(upload.single("photo"), reciterController.createReciter);
 
+router.get("/download", reciterController.downloadRecitation);
+
 router.get("/preview-reciter/:slug", reciterController.getPreviewReciter);
 
 router
@@ -22,9 +24,5 @@ router
   .delete(reciterController.deleteReciter);
 
 router.route("/:recitationType/:slug").get(reciterController.getReciterProfile);
-
-router
-  .route("/download-recitation/:slug")
-  .post(reciterController.downloadRecitation);
 
 module.exports = router;

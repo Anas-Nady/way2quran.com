@@ -29,7 +29,7 @@ function FrequentRecitations() {
   return (
     <>
       <HelmetConfig title={t("frequentRecitations")} />
-      <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-[76vh]">
+      <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-[80vh]">
         <HeadingSection nameSection="frequentRecitations" />
         {loading ? (
           <Spinner />

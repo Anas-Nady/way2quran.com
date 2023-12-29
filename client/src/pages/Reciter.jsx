@@ -12,8 +12,16 @@ import { getReciterProfileReset } from "../redux/slices/reciterSlice";
 import SocialMediaShareBtn from "../components/SocialMediaShareBtn";
 import { useTranslation } from "react-i18next";
 import { getReciterProfile } from "../redux/actions/reciterAction";
-import { ErrorAlert, HelmetConfig, NotFoundData, Spinner } from "../components";
+import {
+  ErrorAlert,
+  HelmetConfig,
+  NotFoundData,
+  Spinner,
+  Button,
+  SurahContainer,
+} from "../components";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Reciter = ({ updateAudioPlayerData }) => {
   const handleListening = (url) => {
@@ -34,10 +42,33 @@ const Reciter = ({ updateAudioPlayerData }) => {
   const { recitationSlug, reciterSlug } = useParams();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
+  const [loadingDownloadingFolder, setLoadingDownloadingFolder] =
+    useState(false);
 
   const { loading, reciterInfo, listSurahs, success, error } = useSelector(
     (state) => state.getReciterProfile
   );
+
+  const handleDownloadAllFiles = async () => {
+    try {
+      setLoadingDownloadingFolder(true);
+      // Make a GET request to the server endpoint
+      const { data } = await axios.get("/api/reciters/download");
+
+      // Create a Blob from the response data
+      const blob = new Blob([data], { type: "application/zip" });
+
+      // Create a link element and trigger a download
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "downloaded-folder.zip";
+      link.click();
+    } catch (error) {
+      console.error("Error downloading folder:", error);
+    } finally {
+      setLoadingDownloadingFolder(false);
+    }
+  };
 
   const reciterName =
     currentLang == "en"
@@ -150,7 +181,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
               onClick={handleCopyURL}
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
             >
-              <div className="flex justify-center gap-2 items-center">
+              <div className="flex justify-center gap-2 items-center font-roboto">
                 {copyURLText ? `Copied URL` : `Copy URL`}
                 {copyURLText && <span>{clipboardCheckIcon}</span>}
               </div>
@@ -193,17 +224,20 @@ const Reciter = ({ updateAudioPlayerData }) => {
                         </div>
                       </div>
 
-                      <button className="flex flex-col justify-between sm:items-center gap-2 my-2 sm:my-12">
-                        <div className="text-gray-900 cursor-pointer border border-slate-400 bg-slate-200  hover:bg-slate-300 dark:text-white dark:bg-slate-800 dark:hover:bg-slate-700 duration-200 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center">
-                          {t("downloadAll")}
-                        </div>
-                        <button
-                          onClick={() => handlePopup("")}
-                          className="text-gray-900 cursor-pointer border border-slate-400 bg-slate-200  hover:bg-slate-300 dark:text-white dark:bg-slate-800 dark:hover:bg-slate-700 duration-200 rounded-lg p-2 w-[120px] sm:px-3 sm:py-2 sm:w-32 text-center"
-                        >
-                          {t("share")}
-                        </button>
-                      </button>
+                      <div className="flex flex-col justify-between sm:items-center gap-2 my-2 sm:my-12">
+                        <Button
+                          text="downloadAll"
+                          className="p-2 w-[100px] sm:w-32"
+                          handleSubmit={handleDownloadAllFiles}
+                          disabled={loadingDownloadingFolder}
+                        />
+
+                        <Button
+                          text="share"
+                          handleSubmit={() => handlePopup("")}
+                          className="p-2 w-[100px] sm:w-32"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -211,50 +245,13 @@ const Reciter = ({ updateAudioPlayerData }) => {
                     <div className="grid grid-cols-1 gap-2">
                       {listSurahs &&
                         listSurahs.map((surahInfo, i) => (
-                          <div
+                          <SurahContainer
                             key={i}
-                            id={surahInfo.translation}
-                            className="one bg-gray-100 dark:bg-slate-700 shadow-md  hover:scale-[1.01] z-10 duration-100 cursor-pointer flex justify-between p-3 flex-wrap gap-3 "
-                          >
-                            <div className="flex gap-4 items-center ">
-                              <div className="w-10 h-10 bg-green-200 text-gray-900  dark:bg-green-800 border border-slate-500 flex justify-center items-center rotate-45 rounded-sm dark:text-white">
-                                <span className="-rotate-45 block text-center mt-[3px] rtl:me-[3px]">
-                                  {surahInfo.number}
-                                </span>
-                              </div>
-
-                              <h2 className="surah-name font-semibold font-notoNaskhArabic text-gray-900 dark:text-slate-50">
-                                {currentLang == "en"
-                                  ? `${surahInfo.translation} "${surahInfo.name}"`
-                                  : `سورة ${surahInfo.name_ar}`}
-                              </h2>
-                            </div>
-                            <div className="buttons flex flex-col sm:flex-row justify-between items-center gap-2 text-gray-800 dark:text-white mx-auto sm:mx-0 w-full sm:w-fit">
-                              <button
-                                className="flex gap-1 px-5 py-3 text-gray-900 dark:text-slate-50 bg-slate-200  border border-slate-400 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 duration-200 rounded-lg font-bold w-full sm:w-[33%]  justify-center sm:justify-between"
-                                onClick={() => handleListening(surahInfo.url)}
-                              >
-                                {t("listening")}
-                                <span className="">{listenIcon}</span>
-                              </button>
-                              <a
-                                href={surahInfo.downloadUrl}
-                                className="flex gap-1 px-5 py-3 text-gray-900 dark:text-slate-50 bg-slate-200  border border-slate-400 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 duration-200 rounded-lg font-bold w-full sm:w-[33%]  justify-center sm:justify-between"
-                              >
-                                {t("download")}
-                                <span className="">{downloadIcon}</span>
-                              </a>
-                              <button
-                                className="flex gap-1 px-5 py-3 text-gray-900 dark:text-slate-50 bg-slate-200  border border-slate-400 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 duration-200 rounded-lg font-bold w-full sm:w-[33%]  justify-center sm:justify-between"
-                                onClick={() =>
-                                  handlePopup(`#${surahInfo.translation}`)
-                                }
-                              >
-                                {t("share")}
-                                <span className="">{shareIcon}</span>
-                              </button>
-                            </div>
-                          </div>
+                            currentLang={currentLang}
+                            surahInfo={surahInfo}
+                            handleListening={handleListening}
+                            handlePopup={handlePopup}
+                          />
                         ))}
                       {listSurahs?.length === 0 && <NotFoundData />}
                     </div>

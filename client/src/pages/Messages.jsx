@@ -93,7 +93,7 @@ const Messages = () => {
             ))
           )}
         </div>
-        {messages && messages.length === 0 && <NotFoundData />}
+        {!loading && messages && messages.length === 0 && <NotFoundData />}
       </div>
       <Pagination
         currentPage={pagination.page || 0}

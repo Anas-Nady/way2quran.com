@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input } from "./../components";
+import { Button, Input } from "./../components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { createReciter } from "../redux/actions/reciterAction";
@@ -87,13 +87,12 @@ const AddReciter = () => {
             name="photo"
           />
 
-          <button
-            className="w-fit px-3 py-2 bg-orange-600 text-slate-50 hover:bg-orange-700 rounded-lg"
-            onClick={handleSubmit}
+          <Button
+            type="submit"
+            text="saveReciter"
+            handleSubmit={handleSubmit}
             disabled={loading}
-          >
-            {t("saveReciter")}
-          </button>
+          />
         </form>
       </div>
     </div>
