@@ -11,7 +11,7 @@ const Home = () => {
     <>
       <HelmetConfig title={t("titleHome")} />
       <section
-        className={`max-w-screen-xl mx-auto  flex justify-between items-center gap-2 min-h-[650px] dark:bg-gray-700 bg-slate-50`}
+        className={`max-w-screen-xl mx-auto  flex justify-between items-center gap-2 min-h-[650px] bg-slate-100 dark:bg-gray-700`}
       >
         {/* <p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
             Here at Flowbite we focus on markets where technology, innovation,

@@ -11,9 +11,9 @@ import {
   getReciterProfileRequest,
   getReciterProfileSuccess,
   getReciterProfileFailure,
-  getPreviewReciterRequest,
-  getPreviewReciterSuccess,
-  getPreviewReciterFailure,
+  // getPreviewReciterRequest,
+  // getPreviewReciterSuccess,
+  // getPreviewReciterFailure,
   updateReciterRequest,
   updateReciterSuccess,
   updateReciterFailure,
@@ -143,11 +143,11 @@ export const uploadRecitation =
     }
   };
 
-export const getReciterProfile = (recitationType, slug) => async (dispatch) => {
+export const getReciterProfile = (slug) => async (dispatch) => {
   try {
     dispatch(getReciterProfileRequest());
 
-    const { data } = await axios.get(`/api/reciters/${recitationType}/${slug}`);
+    const { data } = await axios.get(`/api/reciters/reciter-profile/${slug}`);
 
     dispatch(getReciterProfileSuccess(data));
   } catch (err) {
@@ -161,23 +161,23 @@ export const getReciterProfile = (recitationType, slug) => async (dispatch) => {
   }
 };
 
-export const getPreviewReciter = (slug) => async (dispatch) => {
-  try {
-    dispatch(getPreviewReciterRequest());
+// export const getPreviewReciter = (slug) => async (dispatch) => {
+//   try {
+//     dispatch(getPreviewReciterRequest());
 
-    const { data } = await axios.get(`/api/reciters/preview-reciter/${slug}`);
+//     const { data } = await axios.get(`/api/reciters/preview-reciter/${slug}`);
 
-    dispatch(getPreviewReciterSuccess(data));
-  } catch (err) {
-    dispatch(
-      getPreviewReciterFailure(
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
-      )
-    );
-  }
-};
+//     dispatch(getPreviewReciterSuccess(data));
+//   } catch (err) {
+//     dispatch(
+//       getPreviewReciterFailure(
+//         err.response && err.response.data.message
+//           ? err.response.data.message
+//           : err.message
+//       )
+//     );
+//   }
+// };
 
 export const deleteReciter = (slug) => async (dispatch) => {
   try {

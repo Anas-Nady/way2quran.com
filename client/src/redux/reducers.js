@@ -8,7 +8,7 @@ import {
 import {
   createReciterReducer,
   deleteReciterReducer,
-  getPreviewReciterReducer,
+  // getPreviewReciterReducer,
   getReciterProfileReducer,
   getReciterReducer,
   listRecitersReducer,
@@ -34,7 +34,7 @@ const rootReducers = combineReducers({
   getUserProfile: getUserProfileReducer,
   createReciter: createReciterReducer,
   getReciter: getReciterReducer,
-  getPreviewReciter: getPreviewReciterReducer,
+  // getPreviewReciter: getPreviewReciterReducer,
   updateReciter: updateReciterReducer,
   listReciters: listRecitersReducer,
   uploadRecitation: uploadRecitationReducer,

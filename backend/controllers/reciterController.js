@@ -167,34 +167,9 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
 exports.getReciterProfile = asyncHandler(async (req, res, next) => {
   const reciter = await Reciter.findOne({ slug: req.params.slug });
-  const recitationType = req.params.recitationType;
 
   if (!reciter) {
     return next(new AppError("Reciter not found", 404));
-  }
-
-  const recitation = reciter.recitations.find(
-    (recitation) => recitation.name === recitationType
-  );
-
-  if (!recitation) {
-    return next(new AppError("recitation not found with that reciter", 404));
-  }
-
-  const audioFiles = recitation.audioFiles;
-  const listSurahData = [];
-
-  for (let i = 0; i < audioFiles.length; i++) {
-    const surahInfo = await Surah.findOne({ number: audioFiles[i].surah });
-    listSurahData.push({
-      number: surahInfo.number,
-      name: surahInfo.name_en,
-      name_ar: surahInfo.name,
-      translation: surahInfo.name_translation,
-      slug: surahInfo.slug,
-      url: audioFiles[i].audioFile,
-      downloadUrl: audioFiles[i].downloadUrl,
-    });
   }
 
   const reciterInfo = {
@@ -204,10 +179,62 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
     topReciter: reciter.topReciter,
   };
 
+  const recitationsAreExists =
+    reciter.recitations && reciter.recitations.length > 0;
+
+  let recitationsInfo = [];
+  if (recitationsAreExists) {
+    recitationsInfo = await Promise.all(
+      reciter.recitations.map(async (recitation) => {
+        let recitationInfo;
+
+        if (recitation.name !== "hafs-an-asim") {
+          const temp =
+            (await FrequentRecitations.findOne({
+              slug: recitation.name,
+            })) || {};
+          if (temp) {
+            recitationInfo = {
+              name: temp?.name,
+              name_ar: temp?.name_ar,
+              slug: temp?.slug,
+            };
+          }
+        } else {
+          recitationInfo = {
+            name: "Hafs An Asim",
+            name_ar: "حفص عن عاصم",
+            slug: "hafs-an-asim",
+          };
+        }
+
+        let listSurahData = await Promise.all(
+          recitation.audioFiles.map(async (audioFile) => {
+            let surahInfo = await Surah.findOne({ number: audioFile.surah });
+            return {
+              number: surahInfo.number,
+              name: surahInfo.name_en,
+              name_ar: surahInfo.name,
+              translation: surahInfo.name_translation,
+              slug: surahInfo.slug,
+              url: audioFile.audioFile,
+              downloadUrl: audioFile.downloadUrl,
+            };
+          })
+        );
+
+        return {
+          ...recitationInfo,
+          listSurahData,
+        };
+      })
+    );
+  }
+
   res.status(200).json({
     message: "success",
+    recitationsInfo,
     reciterInfo,
-    listSurahs: listSurahData,
   });
 });
 
@@ -333,7 +360,7 @@ exports.downloadRecitation = asyncHandler(async (req, res, next) => {
         root: ".",
         headers: {
           "Content-Type": "application/zip",
-          "Content-Disposition": `attachment; filename=${folderName}.zip`,
+          "Content-Disposition": `attachment; filename=downloaded-folder.zip`,
         },
       },
       (err) => {
@@ -359,6 +386,10 @@ exports.downloadRecitation = asyncHandler(async (req, res, next) => {
 
   files[0].forEach((file) => {
     const fileStream = file.createReadStream();
+    fileStream.on("error", (err) => {
+      console.error("Error reading file stream:", err);
+      // Handle the error as needed
+    });
     archive.append(fileStream, { name: file.name });
   });
 
@@ -433,70 +464,5 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: "reciter successfully deleted",
     data: {},
-  });
-});
-
-exports.getPreviewReciter = asyncHandler(async (req, res, next) => {
-  const reciter = await Reciter.findOne({ slug: req.params.slug });
-
-  if (!reciter) {
-    return next(new AppError("Reciter not found", 404));
-  }
-
-  const reciterInfo = {
-    name: reciter.name,
-    name_ar: reciter.name_ar,
-    photo: reciter.photo,
-    topReciter: reciter.topReciter,
-  };
-
-  const recitationsAreExists =
-    reciter.recitations && reciter.recitations.length > 0;
-
-  let recitationsInfo = [];
-  if (recitationsAreExists) {
-    recitationsInfo = await Promise.all(
-      reciter.recitations.map(async (recitation) => {
-        let recitationInfo;
-
-        if (recitation.name !== "hafs-an-asim") {
-          recitationInfo =
-            (await FrequentRecitations.findOne({
-              slug: recitation.name,
-            }).select("name name_ar")) || {};
-        } else {
-          recitationInfo = {
-            name: "Hafs An Asim",
-            name_ar: "حفص عن عاصم",
-          };
-        }
-
-        let listSurahData = await Promise.all(
-          recitation.audioFiles.map(async (audioFile) => {
-            let surahInfo = await Surah.findOne({ number: audioFile.surah });
-            return {
-              number: surahInfo.number,
-              name: surahInfo.name_en,
-              name_ar: surahInfo.name,
-              translation: surahInfo.name_translation,
-              slug: surahInfo.slug,
-              url: audioFile.audioFile,
-              downloadUrl: audioFile.downloadUrl,
-            };
-          })
-        );
-
-        return {
-          recitationInfo,
-          listSurahData,
-        };
-      })
-    );
-  }
-
-  res.status(200).json({
-    message: "success",
-    recitationsInfo,
-    reciterInfo,
   });
 });

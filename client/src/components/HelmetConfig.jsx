@@ -6,7 +6,7 @@ const HelmetConfig = ({ title, otherMetaTags }) => {
   const { t } = useTranslation();
   return (
     <Helmet>
-      <title>{title}</title>
+      <title>{`${title} | way2quran`}</title>
       <meta name="description" content={t("description")} />
       <meta name="keywords" content={`${t("keywords")}`} />
       <meta name="author" content="Anas Nady" />

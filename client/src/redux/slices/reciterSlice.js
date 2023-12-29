@@ -185,8 +185,7 @@ const getReciterProfileSlice = createSlice({
     loading: false,
     success: false,
     error: null,
-    reciterInfo: {},
-    listSurahs: [],
+    recitationsInfo: [],
   },
   reducers: {
     getReciterProfileRequest: (state) => {
@@ -194,8 +193,8 @@ const getReciterProfileSlice = createSlice({
     },
     getReciterProfileSuccess: (state, action) => {
       state.loading = false;
+      state.recitationsInfo = action.payload?.recitationsInfo;
       state.reciterInfo = action.payload?.reciterInfo;
-      state.listSurahs = action.payload?.listSurahs;
       state.success = true;
     },
     getReciterProfileFailure: (state, action) => {
@@ -205,8 +204,8 @@ const getReciterProfileSlice = createSlice({
     },
     getReciterProfileReset: (state) => {
       state.loading = false;
-      state.reciterInfo = {};
-      state.listSurahs = [];
+      state.recitationsInfo = [];
+      state.reciterInfo = null;
       state.error = null;
       state.success = false;
     },
@@ -221,46 +220,46 @@ export const {
 } = getReciterProfileSlice.actions;
 export const getReciterProfileReducer = getReciterProfileSlice.reducer;
 
-const getPreviewReciterSlice = createSlice({
-  name: "getPreviewReciter",
-  initialState: {
-    loading: false,
-    success: false,
-    error: null,
-    recitationsInfo: [],
-  },
-  reducers: {
-    getPreviewReciterRequest: (state) => {
-      state.loading = true;
-    },
-    getPreviewReciterSuccess: (state, action) => {
-      state.loading = false;
-      state.recitationsInfo = action.payload?.recitationsInfo;
-      state.reciterInfo = action.payload?.reciterInfo;
-      state.success = true;
-    },
-    getPreviewReciterFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-      state.success = false;
-    },
-    getPreviewReciterReset: (state) => {
-      state.loading = false;
-      state.recitationsInfo = [];
-      state.reciterInfo = null;
-      state.error = null;
-      state.success = false;
-    },
-  },
-});
+// const getPreviewReciterSlice = createSlice({
+//   name: "getPreviewReciter",
+//   initialState: {
+//     loading: false,
+//     success: false,
+//     error: null,
+//     recitationsInfo: [],
+//   },
+//   reducers: {
+//     getPreviewReciterRequest: (state) => {
+//       state.loading = true;
+//     },
+//     getPreviewReciterSuccess: (state, action) => {
+//       state.loading = false;
+//       state.recitationsInfo = action.payload?.recitationsInfo;
+//       state.reciterInfo = action.payload?.reciterInfo;
+//       state.success = true;
+//     },
+//     getPreviewReciterFailure: (state, action) => {
+//       state.loading = false;
+//       state.error = action.payload;
+//       state.success = false;
+//     },
+//     getPreviewReciterReset: (state) => {
+//       state.loading = false;
+//       state.recitationsInfo = [];
+//       state.reciterInfo = null;
+//       state.error = null;
+//       state.success = false;
+//     },
+//   },
+// });
 
-export const {
-  getPreviewReciterRequest,
-  getPreviewReciterSuccess,
-  getPreviewReciterFailure,
-  getPreviewReciterReset,
-} = getPreviewReciterSlice.actions;
-export const getPreviewReciterReducer = getPreviewReciterSlice.reducer;
+// export const {
+//   getPreviewReciterRequest,
+//   getPreviewReciterSuccess,
+//   getPreviewReciterFailure,
+//   getPreviewReciterReset,
+// } = getPreviewReciterSlice.actions;
+// export const getPreviewReciterReducer = getPreviewReciterSlice.reducer;
 
 const deleteReciterSlice = createSlice({
   name: "deleteReciter",

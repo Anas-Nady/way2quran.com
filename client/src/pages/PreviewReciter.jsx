@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { arrowDownIcon, arrowUpIcon, starIcon } from "../components/Icons";
-import { getPreviewReciter } from "../redux/actions/reciterAction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPreviewReciterReset } from "../redux/slices/reciterSlice";
+import { getReciterProfileReset } from "../redux/slices/reciterSlice";
 import { useTranslation } from "react-i18next";
 import { ErrorAlert, NotFoundData, Spinner } from "../components";
+import { getReciterProfile } from "../redux/actions/reciterAction";
 
 const PreviewReciter = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  const { loading, success, reciterInfo, recitationsInfo, error } = useSelector(
-    (state) => state.getPreviewReciter
+  const { loading, reciterInfo, recitationsInfo, error } = useSelector(
+    (state) => state.getReciterProfile
   );
 
   const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
@@ -25,12 +25,12 @@ const PreviewReciter = () => {
   const { reciterSlug } = useParams();
 
   useEffect(() => {
-    dispatch(getPreviewReciter(reciterSlug));
+    dispatch(getReciterProfile(reciterSlug));
 
     console.log(recitationsInfo);
     console.log(reciterInfo);
     return () => {
-      dispatch(getPreviewReciterReset());
+      dispatch(getReciterProfileReset());
     };
   }, [dispatch, reciterSlug]);
 
