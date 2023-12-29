@@ -81,9 +81,7 @@ const PreviewReciter = () => {
                 onClick={() => handleToggle(i)}
               >
                 <h3 className="capitalize text-lg">
-                  {currentLang == "en"
-                    ? recitation.recitationInfo.name
-                    : recitation.recitationInfo.name_ar}
+                  {currentLang == "en" ? recitation.name : recitation.name_ar}
                 </h3>
                 <span className="duration-200">
                   {openAccordionIndex === i ? arrowUpIcon : arrowDownIcon}

@@ -35,7 +35,6 @@ function FrequentReciters() {
     const pageNumber = url.get("pageNumber") || 1;
 
     dispatch(listReciters(recitationSlug, "", keyword, pageNumber));
-    console.log(recitation);
 
     return () => {
       dispatch(listRecitersReset());

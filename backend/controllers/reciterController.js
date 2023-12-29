@@ -308,8 +308,6 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
       audioFile: `https://storage.googleapis.com/${bucketName}/${fileName}`,
       downloadUrl: file.metadata.mediaLink,
     });
-
-    console.log(i);
   });
 
   await Promise.all(uploadPromises);
@@ -331,7 +329,6 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
   }
 
   await reciter.save();
-  console.log("done uploading");
 
   res.status(201).json({
     status: "success",

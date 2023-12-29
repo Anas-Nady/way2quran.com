@@ -6,11 +6,6 @@ const AudioPlayer = () => {
   const url = localStorage.getItem("url");
   const isVisible = localStorage.getItem("isVisible");
 
-  useEffect(() => {
-    console.log("url from audioPlayer component", url);
-    console.log("isVisible from a audioPlayer component", isVisible);
-  }, [url, isVisible, localStorage]);
-
   return (
     <div
       className={`fixed ${

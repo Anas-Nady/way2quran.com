@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 import logo from "../assets/imgs/logo-navbar.svg";
 
 const Navbar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const navigateTo = useNavigate();
 
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -110,12 +111,12 @@ const Navbar = () => {
           )}
         </div>
         <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 lg:mr-[100px] ${
-            isMenuOpen ? "block" : "hidden"
-          }`}
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+            currentLang == "en" ? "lg:ml-[100px] " : "lg:mr-[100px]"
+          } ${isMenuOpen ? "block" : "hidden"}`}
           id="navbar-sticky"
         >
-          <NavbarLinks />
+          <NavbarLinks toggleMenu={toggleMenu} />
         </div>
       </div>
     </nav>

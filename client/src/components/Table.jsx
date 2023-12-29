@@ -17,8 +17,6 @@ const Table = ({ reciters }) => {
 
   const handleDeleteReciter = async (slug) => {
     await dispatch(deleteReciter(slug));
-
-    console.log("delete reciter");
   };
 
   useEffect(() => {

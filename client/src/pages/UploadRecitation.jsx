@@ -26,7 +26,6 @@ const UploadRecitation = () => {
     //   const reader = new FileReader();
 
     //   reader.onload = (event) => {
-    //     console.log(`File ${file.name} uploaded successfully.`);
     //     // You can perform additional actions here if needed
     //     setFileNames((prevFileNames) => [...prevFileNames, file.name]);
     //   };

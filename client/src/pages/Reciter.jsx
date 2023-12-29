@@ -51,7 +51,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
   //     // Create a Blob from the response data
   //     const blob = new Blob([data], { type: "application/zip" });
 
-  //     console.log(blob);
   //     // Create a link element and trigger a download
   //     const link = document.createElement("a");
   //     link.href = window.URL.createObjectURL(blob);
@@ -87,7 +86,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
     dispatch(getReciterProfile(reciterSlug));
 
     localStorage.setItem("isVisible", false);
-    console.log(selectedRecitationType);
 
     const handleKeydown = (e) => {
       if (e.key === "Escape") {
@@ -111,8 +109,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
         }
       }
     }
-
-    console.log(selectedRecitationType);
 
     return () => {
       document.removeEventListener("keydown", handleKeydown);

@@ -33,7 +33,6 @@ const EditReciter = () => {
 
   const handleFileChange = (e) => {
     const selectedImg = e.target.files[0];
-    console.log(selectedImg);
     setPhoto(selectedImg);
     setPhotoDisplay(URL.createObjectURL(selectedImg));
   };
@@ -45,12 +44,9 @@ const EditReciter = () => {
     formData.append("name", name);
     formData.append("name_ar", name_ar);
     if (photo) {
-      console.log(photo);
       formData.append("photo", photo);
     }
     formData.append("topReciter", topReciter);
-
-    console.log(formData);
 
     await dispatch(updateReciter(reciterSlug, formData));
   };

@@ -24,7 +24,6 @@ export const listFrequentRecitations =
         `/api/frequent-recitations?keyword=${keyword}&pageNumber=${pageNumber}`,
         config
       );
-      console.log(data);
       dispatch(listFrequentRecitationsSuccess(data));
     } catch (error) {
       dispatch(
