@@ -39,7 +39,7 @@ const AddReciter = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success("successfully created reciter");
+      toast.success(t("successCreatedReciter"));
       setName("");
       setNameAR("");
       setPhoto(null);

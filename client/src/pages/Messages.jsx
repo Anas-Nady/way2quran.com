@@ -40,7 +40,7 @@ const Messages = () => {
     dispatch(listMessages());
 
     if (successDeletedMessage) {
-      toast.success("Deleted message successfully");
+      toast.success(t("successDeletedMessage"));
     } else if (errorDeletedMessage) {
       toast.error(errorDeletedMessage);
     }

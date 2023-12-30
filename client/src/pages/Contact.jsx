@@ -25,7 +25,7 @@ function Contact() {
 
   useEffect(() => {
     if (success) {
-      toast.success("we received your message successfully");
+      toast.success(t("successCreatedMessage"));
       setName("");
       setEmail("");
       setContent("");

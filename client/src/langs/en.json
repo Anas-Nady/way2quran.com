@@ -95,5 +95,11 @@
   "uploadNow": "Upload Now",
   "actions": "Action",
   "description": "A Quranic website offering recitations by various Qaris. Download audio clips for offline listening. Explore a diverse range of Quranic recitations.",
-  "keywords": "Quranic Recitations, Quran Audio, Quran Download, Quranic Verses, Quranic Audio Clips, Quran, Holy Quran, Islamic Scriptures, Islamic Audio, Quranic Teachings, Listen to Quran, Download Quran Recitations, Quranic Audio Downloads, Audio Clips Download, Arabic Quran, English Quran, Learn Quran, Quran Study, Quranic Education, Quranic Learning, Recitation App, Global Quran, Worldwide Quran, International Quran"
+  "keywords": "Quranic Recitations, Quran Audio, Quran Download, Quranic Verses, Quranic Audio Clips, Quran, Holy Quran, Islamic Scriptures, Islamic Audio, Quranic Teachings, Listen to Quran, Download Quran Recitations, Quranic Audio Downloads, Audio Clips Download, Arabic Quran, English Quran, Learn Quran, Quran Study, Quranic Education, Quranic Learning, Recitation App, Global Quran, Worldwide Quran, International Quran",
+  "successCreatedReciter": "created reciter successfully",
+  "successCreatedMessage": "created message successfully",
+  "successDeletedMessage": "deleted message successfully",
+  "successUploadedAudioFiles": "uploaded audio files successfully",
+  "successDeletedReciter": "deleted reciter successfully",
+  "successUpdatedReciter": "updated reciter successfully"
 }

@@ -95,21 +95,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
 
     document.addEventListener("keydown", handleKeydown);
 
-    // Check if there is a hash in the URL
-    const hash = window.location.hash.substring(1);
-    if (success) {
-      if (hash) {
-        const element = document.getElementById(hash);
-        if (element) {
-          // Scroll to the element
-          const buttons = element.lastChild;
-          const listenBtn = buttons.firstChild;
-          listenBtn.click();
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }
-
     return () => {
       document.removeEventListener("keydown", handleKeydown);
     };
@@ -194,7 +179,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                         <Button
                           text="share"
                           handleSubmit={() => handlePopup("")}
-                          className="p-2 w-[100px] sm:w-32"
+                          className="p-2 w-[90px] sm:w-32"
                         />
                       </div>
                     </div>

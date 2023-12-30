@@ -14,15 +14,6 @@ const HelmetConfig = ({ title = "", otherMetaTags }) => {
       <link rel="canonical" href={`${window.location.href}`} />
       {otherMetaTags &&
         otherMetaTags.map((tag, index) => <meta key={index} {...tag} />)}
-
-      <meta property="og:title" content="Way2quran.com" />
-      <meta property="og:description" content={t("description")} />
-      <meta
-        property="og:image"
-        content="URL to an image representing your website"
-      />
-      <meta property="og:url" content="https://way2quran.com" />
-      <meta property="og:type" content="website" />
     </Helmet>
   );
 };

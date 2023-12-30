@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Spinner } from "../components";
-import { trashIcon } from "../components/Icons";
+import { Button, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/FrequentRecitationsAction";
 import { listFrequentRecitationsReset } from "../redux/slices/FrequentRecitationsSlice";
@@ -61,7 +60,7 @@ const UploadRecitation = () => {
       toast.error(errorUploading);
     }
     if (successUpload) {
-      toast.success("uploaded recitation successfully");
+      toast.success(t("successUploadedAudioFiles"));
     }
     dispatch(uploadRecitationReset());
   }, [successUpload, errorUploading]);
@@ -75,7 +74,7 @@ const UploadRecitation = () => {
             <select
               value={recitationSlug}
               onChange={(e) => setRecitationSlug(e.target.value)}
-              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[235px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[235px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option disabled selected value="" className="dark:bg-gray-900  ">
                 {t("chooseRecitation")}
@@ -86,11 +85,7 @@ const UploadRecitation = () => {
               {recitations &&
                 recitations.length > 0 &&
                 recitations.map((recitation, i) => (
-                  <option
-                    value={recitation.slug}
-                    className="dark:bg-gray-900"
-                    key={i}
-                  >
+                  <option value={recitation.slug} key={i}>
                     {currentLang == "en" ? recitation.name : recitation.name_ar}
                   </option>
                 ))}

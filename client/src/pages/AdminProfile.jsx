@@ -25,7 +25,7 @@ const AdminProfile = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success("data updated successfully");
+      toast.success(t("successUpdateAdminProfile"));
       setEmail("");
       setPassword("");
     }

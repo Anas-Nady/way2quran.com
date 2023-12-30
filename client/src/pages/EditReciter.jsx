@@ -63,7 +63,7 @@ const EditReciter = () => {
     dispatch(getReciter(reciterSlug));
 
     if (successUpdateReciter) {
-      toast.success("updated reciter successfully");
+      toast.success(t("successUpdatedReciter"));
       navigateTo(`/dashboard/preview-reciter/${updatedReciter.slug}`);
     } else if (errorUpdateReciter) {
       toast.error(error);
