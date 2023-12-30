@@ -3,7 +3,7 @@ const slugify = require("slugify");
 
 const reciterSchema = new mongoose.Schema(
   {
-    number: { type: Number, unique: true },
+    number: { type: Number, unique: true, index: true },
     name: { type: String, required: true },
     name_ar: {
       type: String,

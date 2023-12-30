@@ -128,8 +128,19 @@ exports.getReciter = asyncHandler(async (req, res, next) => {
 // route    POST /api/reciter
 // @access  Private (protected, admin)
 exports.createReciter = asyncHandler(async (req, res, next) => {
-  const { name, name_ar } = req.body;
-  const newReciter = await Reciter.create({ name, name_ar });
+  const { name, name_ar, number } = req.body;
+
+  if (number) {
+    const isExists = await Reciter.findOne({ number });
+
+    if (isExists) {
+      return next(
+        new AppError("The Number is already exists with another reciter", 400)
+      );
+    }
+  }
+
+  const newReciter = await Reciter.create({ name, name_ar, number });
 
   if (!newReciter) {
     return next(new AppError("Invalid data received", 400));
