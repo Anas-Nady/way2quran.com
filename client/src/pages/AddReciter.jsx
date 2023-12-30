@@ -17,6 +17,7 @@ const AddReciter = () => {
 
   const [name, setName] = useState("");
   const [name_ar, setNameAR] = useState("");
+  const [number, setNumber] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoDisplay, setPhotoDisplay] = useState(defaultImg);
 
@@ -32,6 +33,7 @@ const AddReciter = () => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("name_ar", name_ar);
+    formData.append("number", number);
     formData.append("photo", photo);
 
     await dispatch(createReciter(formData));
@@ -42,6 +44,7 @@ const AddReciter = () => {
       toast.success(t("successCreatedReciter"));
       setName("");
       setNameAR("");
+      setNumber("");
       setPhoto(null);
       setPhotoDisplay(defaultImg);
     }
@@ -62,6 +65,14 @@ const AddReciter = () => {
           />
         </span>
         <form className="my-5">
+          <Input
+            labelText="reciterNumber"
+            type="text"
+            name="number"
+            value={number}
+            placeholder={t("reciterNumber")}
+            onChange={(e) => setNumber(e.target.value)}
+          />
           <Input
             labelText="arName"
             type="text"
