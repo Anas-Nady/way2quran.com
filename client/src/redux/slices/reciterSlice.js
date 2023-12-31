@@ -5,6 +5,7 @@ const initialState = {
   data: {},
   error: null,
   success: false,
+  progress: 0,
 };
 
 const listRecitersSlice = createSlice({
@@ -151,22 +152,29 @@ const uploadRecitationSlice = createSlice({
   reducers: {
     uploadRecitationRequest: (state) => {
       state.loading = true;
+      state.progress = 0;
     },
     uploadRecitationSuccess: (state, action) => {
       state.loading = false;
       state.data = action.payload?.data;
       state.success = true;
+      state.progress = 100;
     },
     uploadRecitationFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;
+      state.progress = 0;
     },
     uploadRecitationReset: (state) => {
       state.loading = false;
       state.data = {};
       state.error = null;
       state.success = false;
+      state.progress = 0;
+    },
+    setUploadProgress: (state, action) => {
+      state.progress = action.payload;
     },
   },
 });
@@ -176,6 +184,7 @@ export const {
   uploadRecitationSuccess,
   uploadRecitationFailure,
   uploadRecitationReset,
+  setUploadProgress,
 } = uploadRecitationSlice.actions;
 export const uploadRecitationReducer = uploadRecitationSlice.reducer;
 

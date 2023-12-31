@@ -13,6 +13,7 @@ const UploadRecitation = () => {
   const [audioFiles, setAudioFiles] = useState([]);
   const [reciterSlug, setReciterSlug] = useState("");
   const [recitationSlug, setRecitationSlug] = useState("");
+  const [fileDetails, setFileDetails] = useState([]);
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
@@ -22,17 +23,25 @@ const UploadRecitation = () => {
     const files = e.target.files;
     setAudioFiles(files);
 
-    // Array.from(files).forEach((file) => {
-    //   const reader = new FileReader();
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
 
-    //   reader.onload = (event) => {
-    //     // You can perform additional actions here if needed
-    //     setFileNames((prevFileNames) => [...prevFileNames, file.name]);
-    //   };
+      reader.onload = (event) => {
+        // You can perform additional actions here if needed
+        // For example, you can display the file name or update some state
 
-    //   // Read the file as a data URL
-    //   reader.readAsDataURL(file);
-    // });
+        // Assuming you have a state variable fileDetails to store details
+        setFileDetails((prevFileDetails) => [
+          ...prevFileDetails,
+          {
+            name: file.name,
+          },
+        ]);
+      };
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file);
+    });
   };
 
   const { loading, recitations } = useSelector(
@@ -45,6 +54,7 @@ const UploadRecitation = () => {
     loading: loadingUploadRecitation,
     success: successUpload,
     error: errorUploading,
+    progress,
   } = useSelector((state) => state.uploadRecitation);
 
   const handleSubmit = async (e) => {
@@ -62,6 +72,10 @@ const UploadRecitation = () => {
     }
     if (successUpload) {
       toast.success(t("successUploadedAudioFiles"));
+      setFileDetails([]);
+      setReciterSlug("");
+      setRecitationSlug("");
+      setAudioFiles([]);
     }
     dispatch(uploadRecitationReset());
   }, [successUpload, errorUploading]);
@@ -120,7 +134,7 @@ const UploadRecitation = () => {
               type="file"
               multiple
               id="audioFiles"
-              className="bg-slate-300 dark:bg-gray-600 rounded-sm p-2 my-2 w-[250px]"
+              className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[250px]"
               name="audioFiles"
               required
               onChange={handleFileUpload}
@@ -139,38 +153,23 @@ const UploadRecitation = () => {
 
       <div className="preview-uploaded-recitation border border-slate-300 dark:border-gray-700 w-fit lg:w-[500px] max-w-[500] px-3 py-2">
         <div className="parent flex justify-center flex-wrap gap-2">
-          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-            <span dir="ltr" className="font-roboto ring-transparent">
-              001.mp3
-            </span>
-            <span>{checkedIcon}</span>
-          </div>{" "}
-          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-            <span dir="ltr" className="font-roboto ring-transparent">
-              001.mp3
-            </span>
-            <span>{checkedIcon}</span>
-          </div>{" "}
-          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-            <span dir="ltr" className="font-roboto ring-transparent">
-              001.mp3
-            </span>
-            <span>{checkedIcon}</span>
-          </div>{" "}
-          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-            <span dir="ltr" className="font-roboto ring-transparent">
-              001.mp3
-            </span>
-            <span>{checkedIcon}</span>
-          </div>{" "}
-          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-            <span dir="ltr" className="font-roboto ring-transparent">
-              001.mp3
-            </span>
-            <span>{checkedIcon}</span>
-          </div>
+          {fileDetails &&
+            fileDetails.map((file) => (
+              <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+                <span dir="ltr" className="font-roboto ring-transparent">
+                  {file.name}
+                </span>
+                <span>{checkedIcon}</span>
+              </div>
+            ))}
         </div>
       </div>
+      <progress
+        className="w-full my-3"
+        value={progress}
+        max="100"
+        style={{ display: loadingUploadRecitation ? "block" : "none" }}
+      />
     </div>
   );
 };

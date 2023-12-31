@@ -17,6 +17,7 @@ import {
   uploadRecitationRequest,
   uploadRecitationSuccess,
   uploadRecitationFailure,
+  setUploadProgress,
   deleteReciterRequest,
   deleteReciterSuccess,
   deleteReciterFailure,
@@ -120,6 +121,12 @@ export const uploadRecitation =
       const config = {
         headers: {
           "Content-Type": "application/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          dispatch(setUploadProgress(progress));
         },
       };
 
