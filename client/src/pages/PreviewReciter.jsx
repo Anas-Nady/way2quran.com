@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { arrowDownIcon, arrowUpIcon, starIcon } from "../components/Icons";
+import React, { useEffect } from "react";
+import { starIcon } from "../components/Icons";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getReciterProfileReset } from "../redux/slices/reciterSlice";
 import { useTranslation } from "react-i18next";
-import { ErrorAlert, NotFoundData, Spinner } from "../components";
+import { Accordion, ErrorAlert, NotFoundData, Spinner } from "../components";
 import { getReciterProfile } from "../redux/actions/reciterAction";
 
 const PreviewReciter = () => {
@@ -16,19 +16,11 @@ const PreviewReciter = () => {
     (state) => state.getReciterProfile
   );
 
-  const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
-
-  const handleToggle = (index) => {
-    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
-
   const { reciterSlug } = useParams();
 
   useEffect(() => {
     dispatch(getReciterProfile(reciterSlug));
 
-    console.log(recitationsInfo);
-    console.log(reciterInfo);
     return () => {
       dispatch(getReciterProfileReset());
     };
@@ -39,7 +31,7 @@ const PreviewReciter = () => {
       {loading && <Spinner />}
       {error && <ErrorAlert error={error} />}
       {reciterInfo && (
-        <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4 h-fit">
+        <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4">
           <div className="img-reciter block mx-auto min-w-[200px] h-[150px] max-w-[120px] sm:max-w-[250px] sm:h-[185px]">
             <img
               src={reciterInfo.photo}
@@ -74,40 +66,7 @@ const PreviewReciter = () => {
         ) : (
           recitationsInfo.length > 0 &&
           recitationsInfo.map((recitation, i) => (
-            <div className={`accordion-item  max-w-[450px]`} key={i}>
-              <button
-                type="button"
-                className="accordion-button flex items-center justify-between p-5 w-full font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                onClick={() => handleToggle(i)}
-              >
-                <h3 className="capitalize text-lg">
-                  {currentLang == "en" ? recitation.name : recitation.name_ar}
-                </h3>
-                <span className="duration-200">
-                  {openAccordionIndex === i ? arrowUpIcon : arrowDownIcon}
-                </span>
-              </button>
-              <div className="accordion-body w-full">
-                {openAccordionIndex === i && (
-                  <div className="p-5 border flex gap-2 flex-wrap border-b-0 bg-white border-gray-300 dark:border-gray-700 w-full dark:bg-gray-900 ">
-                    {recitation.listSurahData.map((surah, j) => (
-                      <span
-                        key={j}
-                        className="bg-slate-100 border border-slate-300 dark:border-gray-700 dark:bg-gray-800 p-2 mt-2 rounded-sm font-roboto "
-                        dir="ltr"
-                      >
-                        {surah.url.split("/").pop()}
-                      </span>
-                    ))}
-                    {recitation.listSurahData.length == 0 && (
-                      <span className="p-2 mt-2 text-gray-900 dark:text-slate-50 bg-slate-200  dark:bg-gray-800">
-                        {t("notFoundData")}
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
+            <Accordion recitation={recitation} key={i} i={i} />
           ))
         )}
       </div>

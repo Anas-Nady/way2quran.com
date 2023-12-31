@@ -7,6 +7,7 @@ import { listReciters, uploadRecitation } from "../redux/actions/reciterAction";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { uploadRecitationReset } from "../redux/slices/reciterSlice";
+import { checkedIcon } from "../components/Icons";
 
 const UploadRecitation = () => {
   const [audioFiles, setAudioFiles] = useState([]);
@@ -66,7 +67,7 @@ const UploadRecitation = () => {
   }, [successUpload, errorUploading]);
 
   return (
-    <div className=" flex justify-center items-center">
+    <div className=" flex justify-between gap-2 flex-wrap max-w-screen-xl mx-auto">
       <form>
         <div className="flex justify-start gap-2 flex-col items-start">
           <div className="flex gap-2">
@@ -74,7 +75,7 @@ const UploadRecitation = () => {
             <select
               value={recitationSlug}
               onChange={(e) => setRecitationSlug(e.target.value)}
-              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[235px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[250px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             >
               <option disabled selected value="" className="dark:bg-gray-900  ">
                 {t("chooseRecitation")}
@@ -96,9 +97,9 @@ const UploadRecitation = () => {
             <select
               value={reciterSlug}
               onChange={(e) => setReciterSlug(e.target.value)}
-              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[235px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[250px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             >
-              <option disabled selected value="" className="dark:bg-gray-900  ">
+              <option disabled selected value="" className="dark:bg-gray-900">
                 {t("chooseReciter")}
               </option>
               {reciters &&
@@ -119,7 +120,7 @@ const UploadRecitation = () => {
               type="file"
               multiple
               id="audioFiles"
-              className="bg-gray-600 rounded-sm p-2 my-2 w-[235px]"
+              className="bg-slate-300 dark:bg-gray-600 rounded-sm p-2 my-2 w-[250px]"
               name="audioFiles"
               required
               onChange={handleFileUpload}
@@ -135,6 +136,41 @@ const UploadRecitation = () => {
           disabled={loadingUploadRecitation}
         />
       </form>
+
+      <div className="preview-uploaded-recitation border border-slate-300 dark:border-gray-700 w-fit lg:w-[500px] max-w-[500] px-3 py-2">
+        <div className="parent flex justify-center flex-wrap gap-2">
+          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+            <span dir="ltr" className="font-roboto ring-transparent">
+              001.mp3
+            </span>
+            <span>{checkedIcon}</span>
+          </div>{" "}
+          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+            <span dir="ltr" className="font-roboto ring-transparent">
+              001.mp3
+            </span>
+            <span>{checkedIcon}</span>
+          </div>{" "}
+          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+            <span dir="ltr" className="font-roboto ring-transparent">
+              001.mp3
+            </span>
+            <span>{checkedIcon}</span>
+          </div>{" "}
+          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+            <span dir="ltr" className="font-roboto ring-transparent">
+              001.mp3
+            </span>
+            <span>{checkedIcon}</span>
+          </div>{" "}
+          <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+            <span dir="ltr" className="font-roboto ring-transparent">
+              001.mp3
+            </span>
+            <span>{checkedIcon}</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,9 @@ import {
 } from "./slices/userSlice";
 import {
   createReciterReducer,
+  deleteReciterRecitationReducer,
   deleteReciterReducer,
+  deleteReciterSurahReducer,
   getReciterProfileReducer,
   getReciterReducer,
   listRecitersReducer,
@@ -40,6 +42,8 @@ const rootReducers = combineReducers({
   deleteMessage: deleteMessageReducer,
   getReciterProfile: getReciterProfileReducer,
   deleteReciter: deleteReciterReducer,
+  deleteReciterRecitation: deleteReciterRecitationReducer,
+  deleteReciterSurah: deleteReciterSurahReducer,
 });
 
 export default rootReducers;

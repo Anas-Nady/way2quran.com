@@ -20,6 +20,12 @@ import {
   deleteReciterRequest,
   deleteReciterSuccess,
   deleteReciterFailure,
+  deleteReciterRecitationRequest,
+  deleteReciterRecitationSuccess,
+  deleteReciterRecitationFailure,
+  deleteReciterSurahRequest,
+  deleteReciterSurahSuccess,
+  deleteReciterSurahFailure,
 } from "./../slices/reciterSlice.js";
 import axios from "axios";
 
@@ -175,3 +181,45 @@ export const deleteReciter = (slug) => async (dispatch) => {
     );
   }
 };
+
+export const deleteReciterRecitation =
+  (reciterSlug, recitationSlug) => async (dispatch) => {
+    try {
+      dispatch(deleteReciterRecitationRequest());
+
+      const { data } = await axios.delete(
+        `/api/reciters/delete-recitation/${reciterSlug}/${recitationSlug}`
+      );
+
+      dispatch(deleteReciterRecitationSuccess(data));
+    } catch (err) {
+      dispatch(
+        deleteReciterRecitationFailure(
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message
+        )
+      );
+    }
+  };
+
+export const deleteReciterSurah =
+  (reciterSlug, recitationSlug, surahSlug) => async (dispatch) => {
+    try {
+      dispatch(deleteReciterSurahRequest());
+
+      const { data } = await axios.delete(
+        `/api/reciters/delete-surah/${reciterSlug}/${recitationSlug}/${surahSlug}`
+      );
+
+      dispatch(deleteReciterSurahSuccess(data));
+    } catch (err) {
+      dispatch(
+        deleteReciterSurahFailure(
+          err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message
+        )
+      );
+    }
+  };

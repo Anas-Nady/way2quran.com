@@ -21,3 +21,4 @@ export { default as Button } from "./Button";
 export { default as SurahContainer } from "./SurahContainer";
 export { default as SharePopup } from "./SharePopup";
 export { default as SelectRecitation } from "./SelectRecitation";
+export { default as Accordion } from "./Accordion";

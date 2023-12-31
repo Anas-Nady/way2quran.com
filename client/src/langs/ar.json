@@ -104,5 +104,8 @@
   "successUploadedAudioFiles": "تم رفع الملفات الصوتية بنجاح",
   "successDeletedReciter": "تم حذف القارئ بنجاح",
   "successUpdatedReciter": "تم  تعديل بيانات القارئ بنجاح",
-  "successUpdateAdminProfile": "تم تعديل بياناتك بنجاح"
+  "successUpdateAdminProfile": "تم تعديل بياناتك بنجاح",
+
+  "successDeleteRecitation": "تم حذف التلاوة بنجاح",
+  "successDeleteSurah": "تم حذف السورة بنجاح"
 }

@@ -125,7 +125,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
           handlePopup={handlePopup}
           handleClosePopup={handleClosePopup}
         />
-        <div className="container min-h-screen p-6">
+        <div className="container min-h-screen p-3">
           <div className="bg-slate-200 dark:bg-slate-800 sm:max-w-screen-2xl shadow-lg mx-auto p-3">
             {loading ? (
               <Spinner />
@@ -143,8 +143,8 @@ const Reciter = ({ updateAudioPlayerData }) => {
                       />
                     </div>
                     <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
-                      <div className="data-reciter flex items-center sm:items-start w-full mx-auto mt-[-10px] sm:my-8  flex-col">
-                        <h1 className="text-sm sm:text-lg my-1 sm:my-3  capitalize  lg:text-xl xl:text-2xl text-gray-900 dark:text-white font-semibold">
+                      <div className="data-reciter flex items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">
+                        <h1 className="text-lg my-1 sm:my-3  capitalize md:text-xl  lg:text-2xl xl:text-3xl text-gray-900 dark:text-white font-semibold">
                           {reciterName}
                         </h1>
                         <div className="text-white flex gap-1 items-center">

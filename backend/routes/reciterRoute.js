@@ -25,4 +25,12 @@ router
   .route("/:reciter-profile/:slug")
   .get(reciterController.getReciterProfile);
 
+router
+  .route("/delete-surah/:reciterSlug/:recitationSlug/:surahSlug")
+  .delete(reciterController.deleteReciterSurah);
+
+router
+  .route("/delete-recitation/:reciterSlug/:recitationSlug")
+  .delete(reciterController.deleteReciterRecitation);
+
 module.exports = router;

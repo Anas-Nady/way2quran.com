@@ -259,7 +259,7 @@ export const trashIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-6 h-6 cursor-pointer hover:text-red-600 hover:dark:text-red-700"
   >
     <path
       strokeLinecap="round"
@@ -349,7 +349,7 @@ export const shareIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    dataSlot="icon"
+    datasolt="icon"
     className="w-6 h-6"
   >
     <path
@@ -469,7 +469,7 @@ export const closeIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1}
     stroke="currentColor"
-    dataSlot="icon"
+    datasolt="icon"
     className="w-6 h-6"
   >
     <path
@@ -487,7 +487,7 @@ export const clipboardCheckIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    dataSlot="icon"
+    datasolt="icon"
     className="w-6 h-6"
   >
     <path
@@ -505,7 +505,7 @@ export const messagesIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    dataSlot="icon"
+    datasolt="icon"
     className="w-6 h-6"
   >
     <path
@@ -523,7 +523,7 @@ export const checkedIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    dataSlot="icon"
+    datasolt="icon"
     className="w-6 h-6"
   >
     <path

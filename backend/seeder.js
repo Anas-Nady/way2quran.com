@@ -11,42 +11,18 @@ const storage = new Storage({
 // const photo = path.join(__dirname, "/public/default-logo.svg");
 // console.log(photo);
 
-async function getFolderNames() {
-  try {
-    const [files] = await storage.bucket(bucketName).getFiles();
+// async function saveFolderNamesToFile() {
+//   try {
+//     const folderNames = await getFolderNames();
 
-    const folderNames = new Set();
+//     const jsonData = JSON.stringify(folderNames, null, 2);
 
-    files.forEach((file) => {
-      const parts = file.name.split("/");
-      if (parts.length > 1) {
-        // If the file has a path, consider it as part of a folder
-        folderNames.add(parts[0]);
-      }
-    });
+//     fs.writeFileSync("folderNames.json", jsonData);
 
-    // Convert Set to an array
-    const folderArray = Array.from(folderNames);
+//     console.log("Folder names saved to file successfully.");
+//   } catch (err) {
+//     console.error("Error saving folder names to file:", err);
+//   }
+// }
 
-    return folderArray;
-  } catch (err) {
-    console.error("Error getting folder names:", err);
-    throw err;
-  }
-}
-
-async function saveFolderNamesToFile() {
-  try {
-    const folderNames = await getFolderNames();
-
-    const jsonData = JSON.stringify(folderNames, null, 2);
-
-    fs.writeFileSync("folderNames.json", jsonData);
-
-    console.log("Folder names saved to file successfully.");
-  } catch (err) {
-    console.error("Error saving folder names to file:", err);
-  }
-}
-
-saveFolderNamesToFile();
+// saveFolderNamesToFile();

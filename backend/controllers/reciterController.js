@@ -429,3 +429,73 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
     data: {},
   });
 });
+
+exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
+  const { reciterSlug, recitationSlug, surahSlug } = req.params;
+
+  const filter = {
+    slug: reciterSlug,
+    "recitations.name": recitationSlug,
+  };
+
+  const reciter = await Reciter.findOne(filter);
+
+  if (!reciter) {
+    return next(
+      new AppError("Recitation not found for the specified reciter", 404)
+    );
+  }
+
+  reciter.recitations = reciter.recitations.filter(
+    (recitation) => recitation.name !== recitationSlug
+  );
+
+  await reciter.save();
+
+  res.status(200).json({
+    message: "success",
+  });
+});
+
+exports.deleteReciterSurah = asyncHandler(async (req, res, next) => {
+  const { reciterSlug, recitationSlug, surahSlug } = req.params;
+
+  const surah = await Surah.findOne({ slug: surahSlug });
+
+  if (!surah) {
+    return next(new AppError("Surah not found", 404));
+  }
+
+  const surahNumber = surah.number;
+
+  const filter = {
+    slug: reciterSlug,
+    "recitations.name": recitationSlug,
+    "recitations.audioFiles.surah": surahNumber,
+  };
+
+  const reciter = await Reciter.findOne(filter);
+
+  if (!reciter) {
+    return next(new AppError("Reciter not found", 404));
+  }
+
+  const recitation = reciter.recitations.find(
+    (rec) => rec.name === recitationSlug
+  );
+
+  // remove from mongoDB
+  if (recitation) {
+    recitation.audioFiles = recitation.audioFiles.filter(
+      (audioFile) => audioFile.surah !== surahNumber
+    );
+  }
+
+  await reciter.save();
+
+  // remove from Google Cloud Storage
+
+  res.status(200).json({
+    message: "success",
+  });
+});

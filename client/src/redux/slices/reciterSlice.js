@@ -251,3 +251,68 @@ export const {
   deleteReciterReset,
 } = deleteReciterSlice.actions;
 export const deleteReciterReducer = deleteReciterSlice.reducer;
+
+const deleteReciterRecitationSlice = createSlice({
+  name: "deleteReciterRecitation",
+  initialState,
+  reducers: {
+    deleteReciterRecitationRequest: (state) => {
+      state.loading = true;
+    },
+    deleteReciterRecitationSuccess: (state) => {
+      state.loading = false;
+      state.success = true;
+    },
+    deleteReciterRecitationFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    },
+    deleteReciterRecitationReset: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.success = false;
+    },
+  },
+});
+
+export const {
+  deleteReciterRecitationRequest,
+  deleteReciterRecitationSuccess,
+  deleteReciterRecitationFailure,
+  deleteReciterRecitationReset,
+} = deleteReciterRecitationSlice.actions;
+export const deleteReciterRecitationReducer =
+  deleteReciterRecitationSlice.reducer;
+
+const deleteReciterSurahSlice = createSlice({
+  name: "deleteReciterSurah",
+  initialState,
+  reducers: {
+    deleteReciterSurahRequest: (state) => {
+      state.loading = true;
+    },
+    deleteReciterSurahSuccess: (state) => {
+      state.loading = false;
+      state.success = true;
+    },
+    deleteReciterSurahFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    },
+    deleteReciterSurahReset: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.success = false;
+    },
+  },
+});
+
+export const {
+  deleteReciterSurahRequest,
+  deleteReciterSurahSuccess,
+  deleteReciterSurahFailure,
+  deleteReciterSurahReset,
+} = deleteReciterSurahSlice.actions;
+export const deleteReciterSurahReducer = deleteReciterSurahSlice.reducer;

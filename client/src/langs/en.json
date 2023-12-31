@@ -102,5 +102,8 @@
   "successDeletedMessage": "deleted message successfully",
   "successUploadedAudioFiles": "uploaded audio files successfully",
   "successDeletedReciter": "deleted reciter successfully",
-  "successUpdatedReciter": "updated reciter successfully"
+  "successUpdatedReciter": "updated reciter successfully",
+
+  "successDeleteRecitation": "deleted recitation successfully",
+  "successDeleteSurah": "deleted Surah successfully"
 }

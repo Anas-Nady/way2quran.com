@@ -85,7 +85,6 @@ const Table = ({ reciters }) => {
                   {editIcon}
                 </Link>
                 <button
-                  className="cursor-pointer hover:text-red-600"
                   title="delete"
                   onClick={() => handleDeleteReciter(reciter.slug)}
                   disabled={loading}
