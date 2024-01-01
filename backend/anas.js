@@ -1,29 +1,81 @@
-const fs = require("fs");
+// const fs = require("fs");
+// const path = require("path");
+// const data = require("../Surah.js");
+// // Assuming 'data' is the array of objects you fetched from the API
+// console.log(data);
+
+// const newData = data.map((item) => {
+//   return {
+//     name: item.name,
+//     name_ar: "سورة " + item.name_ar, // Add "سورة " before the Arabic name
+//     name_translation: item.name_translation,
+//     number: item.number,
+//   };
+// });
+
+// // Convert the array of objects to JSON
+// const newDataJSON = JSON.stringify(newData, null, 2);
+
+// // Specify the file path where you want to write the new data
+// const filePath = path.join(__dirname, "file.json");
+
+// // Write the JSON data to the new file
+// fs.writeFile(filePath, newDataJSON, "utf8", (err) => {
+//   if (err) {
+//     console.error("Error writing file:", err);
+//   } else {
+//     console.log("Data has been written to the new file successfully.");
+//   }
+// });
+
+const { Storage } = require("@google-cloud/storage");
 const path = require("path");
-const data = require("../Surah.js");
-// Assuming 'data' is the array of objects you fetched from the API
-console.log(data);
+const fs = require("fs").promises;
 
-const newData = data.map((item) => {
-  return {
-    name: item.name,
-    name_ar: "سورة " + item.name_ar, // Add "سورة " before the Arabic name
-    name_translation: item.name_translation,
-    number: item.number,
-  };
+const oldBucket = "waytoquran_storage";
+const newBucket = "way2quran_storage";
+
+const storage = new Storage({
+  keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-// Convert the array of objects to JSON
-const newDataJSON = JSON.stringify(newData, null, 2);
+// const photo = path.join(__dirname, "/public/default-logo.svg");
+// console.log(photo);
 
-// Specify the file path where you want to write the new data
-const filePath = path.join(__dirname, "file.json");
+const prefixArray = [
+  "salah-boukhatir",
+  "saleh-al-sahoud",
+  "saud-al-shuraim",
+  "sayed-ramadan",
+  "sherzad-abdul-rahman-taher",
+  "tamer-islam",
+  "tamim-al-raimi",
+  "tawfiq-al-sayegh",
+  "zaki-daghestani",
+];
 
-// Write the JSON data to the new file
-fs.writeFile(filePath, newDataJSON, "utf8", (err) => {
-  if (err) {
-    console.error("Error writing file:", err);
-  } else {
-    console.log("Data has been written to the new file successfully.");
+async function cleanData() {
+  for (const prefix of prefixArray) {
+    const [files] = await storage
+      .bucket(oldBucket)
+      .getFiles({ prefix: prefix });
+
+    for (const file of files) {
+      const fileNameParts = file.name.split("/");
+      const newFileName = `${prefix}/hafs-an-asim/${fileNameParts[1]}`;
+
+      await storage
+        .bucket(oldBucket)
+        .file(file.name)
+        .copy(storage.bucket(newBucket).file(newFileName));
+      console.log(
+        `File ${file.name} copied to ${newBucket} as ${newFileName}.`
+      );
+
+      await storage.bucket(oldBucket).file(file.name).delete();
+      console.log(`File ${file.name} deleted from ${oldBucket}.`);
+    }
   }
-});
+}
+
+cleanData();

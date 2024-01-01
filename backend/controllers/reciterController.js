@@ -8,6 +8,7 @@ const { storage, bucketName } = require("./../db/cloud.js");
 const { promisify } = require("util");
 const archiver = require("archiver");
 const fs = require("fs");
+const path = require("path");
 
 // @desc    Get reciters
 // route    GET /api/reciters
@@ -345,18 +346,28 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 });
 
 exports.downloadRecitation = asyncHandler(async (req, res, next) => {
-  const fileKey = "default-logo";
+  const zipFolderPath = "zip_files/ff.zip"; // Replace with your folder path in the bucket
 
-  const bucketName = "your-bucket-name";
-  const file = storage.bucket(bucketName).file(fileKey);
+  const [exists] = await storage
+    .bucket(bucketName)
+    .file(zipFolderPath)
+    .exists();
+  if (!exists) {
+    return res
+      .status(404)
+      .json({ status: "error", message: "File not found." });
+  }
 
-  file
-    .createReadStream()
-    .on("error", (err) => {
-      console.error(err);
-      res.status(500).send("Error downloading file.");
-    })
-    .pipe(res);
+  const archive = archiver("zip", { zlib: { level: 9 } });
+
+  archive.append(
+    storage.bucket(bucketName).file(zipFolderPath).createReadStream(),
+    { name: path.basename(zipFolderPath) }
+  );
+
+  res.attachment(path.basename(zipFolderPath)); // Set the file name for download
+  archive.pipe(res);
+  archive.finalize();
 });
 
 exports.updateReciter = asyncHandler(async (req, res, next) => {

@@ -15,7 +15,7 @@ import {
   SelectRecitation,
 } from "../components";
 import { useParams } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 const Reciter = ({ updateAudioPlayerData }) => {
   const handleListening = (url) => {
@@ -42,26 +42,29 @@ const Reciter = ({ updateAudioPlayerData }) => {
     (state) => state.getReciterProfile
   );
 
-  // const handleDownloadAllFiles = async () => {
-  //   try {
-  //     setLoadingDownloadingFolder(true);
-  //     // Make a GET request to the server endpoint
-  //     const { data } = await axios.get("/api/reciters/download");
+  const handleDownloadAllFiles = async () => {
+    try {
+      setLoadingDownloadingFolder(true);
 
-  //     // Create a Blob from the response data
-  //     const blob = new Blob([data], { type: "application/zip" });
+      // Make a GET request to the server endpoint to initiate the download
+      const response = await axios.get("/api/reciters/download", {
+        responseType: "blob", // Set the response type to 'blob'
+      });
 
-  //     // Create a link element and trigger a download
-  //     const link = document.createElement("a");
-  //     link.href = window.URL.createObjectURL(blob);
-  //     link.download = "downloaded-folder.zip";
-  //     link.click();
-  //   } catch (error) {
-  //     console.error("Error downloading folder:", error);
-  //   } finally {
-  //     setLoadingDownloadingFolder(false);
-  //   }
-  // };
+      // Create a Blob from the response data
+      const blob = new Blob([response.data], { type: "application/zip" });
+
+      // Create a link element and trigger a download
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "downloaded-folder.zip";
+      link.click();
+    } catch (error) {
+      console.error("Error downloading folder:", error);
+    } finally {
+      setLoadingDownloadingFolder(false);
+    }
+  };
 
   const reciterName =
     currentLang == "en"
@@ -172,7 +175,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                         <Button
                           text="downloadAll"
                           className="p-2 w-[100px] sm:w-32"
-                          // handleSubmit={handleDownloadAllFiles}
+                          handleSubmit={handleDownloadAllFiles}
                           disabled={loadingDownloadingFolder}
                         />
 
