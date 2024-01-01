@@ -185,6 +185,7 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
     name: reciter.name,
     name_ar: reciter.name_ar,
     photo: reciter.photo,
+    slug: reciter.slug,
     topReciter: reciter.topReciter,
   };
 
@@ -346,27 +347,46 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 });
 
 exports.downloadRecitation = asyncHandler(async (req, res, next) => {
-  const zipFolderPath = "zip_files/ff.zip"; // Replace with your folder path in the bucket
+  const reciterSlug = req.params.reciterSlug;
+  const recitationSlug = req.params.recitationSlug;
+  const folderPath = `${reciterSlug}/${recitationSlug}`;
 
-  const [exists] = await storage
+  // Initialize archiver
+  const archive = archiver("zip", {
+    zlib: { level: 9 }, // Set compression level
+  });
+
+  // Pipe the archive to the response stream
+  archive.pipe(res);
+
+  const [files] = await storage
     .bucket(bucketName)
-    .file(zipFolderPath)
-    .exists();
-  if (!exists) {
-    return res
-      .status(404)
-      .json({ status: "error", message: "File not found." });
-  }
+    .getFiles({ prefix: folderPath });
 
-  const archive = archiver("zip", { zlib: { level: 9 } });
-
-  archive.append(
-    storage.bucket(bucketName).file(zipFolderPath).createReadStream(),
-    { name: path.basename(zipFolderPath) }
+  // Filter files based on the folder structure
+  const filteredFiles = files.filter((file) =>
+    file.name.startsWith(`${folderPath}/`)
   );
 
-  res.attachment(path.basename(zipFolderPath)); // Set the file name for download
-  archive.pipe(res);
+  if (filteredFiles.length === 0) {
+    return res
+      .status(404)
+      .json({ status: "error", message: "No files found in the folder." });
+  }
+
+  filteredFiles.forEach((file) => {
+    const fileReadStream = storage
+      .bucket(bucketName)
+      .file(file.name)
+      .createReadStream();
+    archive.append(fileReadStream, {
+      name: file.name.replace(`${folderPath}/`, ""),
+    });
+  });
+
+  // Finalize the archive after appending all files
+  const zipFileName = `${folderPath}.zip`;
+  res.setHeader("Content-Disposition", `attachment; filename="${zipFileName}"`);
   archive.finalize();
 });
 

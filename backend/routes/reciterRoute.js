@@ -9,7 +9,10 @@ router
   .get(reciterController.getAllReciters)
   .post(upload.single("photo"), reciterController.createReciter);
 
-router.get("/download", reciterController.downloadRecitation);
+router.get(
+  "/download/:reciterSlug/:recitationSlug",
+  reciterController.downloadRecitation
+);
 
 router
   .route("/upload-recitation/:slug")

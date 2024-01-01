@@ -15,7 +15,6 @@ import {
   SelectRecitation,
 } from "../components";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
 const Reciter = ({ updateAudioPlayerData }) => {
   const handleListening = (url) => {
@@ -35,35 +34,18 @@ const Reciter = ({ updateAudioPlayerData }) => {
   const { recitationSlug, reciterSlug } = useParams();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
-  const [loadingDownloadingFolder, setLoadingDownloadingFolder] =
-    useState(false);
 
   const { loading, success, recitationsInfo, reciterInfo, error } = useSelector(
     (state) => state.getReciterProfile
   );
 
-  const handleDownloadAllFiles = async () => {
-    try {
-      setLoadingDownloadingFolder(true);
-
-      // Make a GET request to the server endpoint to initiate the download
-      const response = await axios.get("/api/reciters/download", {
-        responseType: "blob", // Set the response type to 'blob'
-      });
-
-      // Create a Blob from the response data
-      const blob = new Blob([response.data], { type: "application/zip" });
-
-      // Create a link element and trigger a download
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = "downloaded-folder.zip";
-      link.click();
-    } catch (error) {
-      console.error("Error downloading folder:", error);
-    } finally {
-      setLoadingDownloadingFolder(false);
-    }
+  const handleDownloadAllFiles = (reciterSlug, recitationSlug) => {
+    const a = document.createElement("a");
+    const baseURL = `http${process.env.NODE_ENV !== "development" && "s"}://${
+      window.location.host
+    }/api/reciters/download/${reciterSlug}/${recitationSlug}`;
+    a.setAttribute("href", baseURL);
+    a.click();
   };
 
   const reciterName =
@@ -116,6 +98,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
     if (error) {
       dispatch(getReciterProfileReset());
     }
+    console.log(reciterInfo);
   }, [dispatch]);
 
   return (
@@ -175,8 +158,12 @@ const Reciter = ({ updateAudioPlayerData }) => {
                         <Button
                           text="downloadAll"
                           className="p-2 w-[100px] sm:w-32"
-                          handleSubmit={handleDownloadAllFiles}
-                          disabled={loadingDownloadingFolder}
+                          handleSubmit={() =>
+                            handleDownloadAllFiles(
+                              reciterInfo.slug,
+                              selectedRecitationType
+                            )
+                          }
                         />
 
                         <Button

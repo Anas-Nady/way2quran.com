@@ -47,14 +47,21 @@ const storage = new Storage({
 // cleanData();
 
 async function getParentFolderNames() {
-  const [files] = await storage.bucket(oldBucket).getFiles();
+  const [files] = await storage.bucket(newBucket).getFiles();
+
+  const parentFolderNamesSet = new Set();
 
   files.forEach((file) => {
+    // Extract the parent folder name from the file path
+    const parentFolderName = file.name.split("/").slice(0, -1).join("/");
+
     // Add the parent folder name to the set
-    console.log(file.name);
+    parentFolderNamesSet.add(parentFolderName);
+    console.log(parentFolderNamesSet);
   });
 
   // Convert the set of folder names to an array
+  return Array.from(parentFolderNamesSet);
 }
 
 async function saveFolderNamesToFile() {
@@ -72,6 +79,6 @@ async function saveFolderNamesToFile() {
 }
 
 // saveFolderNamesToFile();
-getParentFolderNames();
+saveFolderNamesToFile();
 
 // badr-al-turki/hafs-an-asim
