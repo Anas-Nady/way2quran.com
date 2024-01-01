@@ -56,6 +56,8 @@ export default function TopReciters() {
   );
 
   useEffect(() => {
+    dispatch(listRecitersReset());
+
     dispatch(listReciters("", true));
     return () => {
       dispatch(listRecitersReset());

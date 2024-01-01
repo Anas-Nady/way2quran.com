@@ -26,6 +26,8 @@ function Reciters() {
   const recitationType = location.pathname.split("/")[1];
 
   useEffect(() => {
+    dispatch(listRecitersReset());
+
     const url = new URLSearchParams(location.search);
 
     const keyword = url.get("keyword") || "";
@@ -56,7 +58,7 @@ function Reciters() {
           <NotFoundData />
         ) : (
           <>
-            <section className="flex justify-center items-center gap-2 flex-wrap my-6">
+            <section className="flex justify-center gap-2 flex-wrap my-6 min-h-screen">
               {reciters?.map((reciter, i) => {
                 return (
                   <ReciterCard

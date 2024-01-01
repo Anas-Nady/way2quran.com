@@ -27,13 +27,14 @@ function VariousRecitations() {
   const recitationType = location.pathname.split("/")[1];
 
   useEffect(() => {
+    dispatch(listRecitersReset());
+
     const url = new URLSearchParams(location.search);
 
     const keyword = url.get("keyword") || "";
     const pageNumber = url.get("pageNumber") || 1;
 
     dispatch(listReciters(recitationType, "", keyword, pageNumber));
-    dispatch(listRecitersReset());
 
     return () => {
       dispatch(listRecitersReset());
@@ -58,7 +59,7 @@ function VariousRecitations() {
           <NotFoundData />
         ) : (
           <>
-            <section className="flex justify-center items-center gap-2 flex-wrap my-6">
+            <section className="flex justify-center gap-2 flex-wrap my-6 min-h-screen">
               {reciters?.map((reciter, i) => {
                 return (
                   <ReciterCard
