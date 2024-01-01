@@ -462,7 +462,8 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
 });
 
 exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
-  const { reciterSlug, recitationSlug, surahSlug } = req.params;
+  const { reciterSlug, recitationSlug } = req.params;
+  const folderPath = `${reciterSlug}/${recitationSlug}`;
 
   const filter = {
     slug: reciterSlug,
@@ -476,6 +477,21 @@ exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
       new AppError("Recitation not found for the specified reciter", 404)
     );
   }
+
+  // delete from GCS
+  const [files] = await storage
+    .bucket(bucketName)
+    .getFiles({ prefix: folderPath });
+
+  if (files.length === 0) {
+    return res
+      .status(404)
+      .json({ status: "error", message: "No files found in the folder." });
+  }
+
+  await Promise.all(
+    files.map((file) => storage.bucket(bucketName).file(file.name).delete())
+  );
 
   reciter.recitations = reciter.recitations.filter(
     (recitation) => recitation.name !== recitationSlug
@@ -524,7 +540,18 @@ exports.deleteReciterSurah = asyncHandler(async (req, res, next) => {
 
   await reciter.save();
 
-  // remove from Google Cloud Storage
+  // Remove from Google Cloud Storage
+  const folderPath = `${reciterSlug}/${recitationSlug}/${surahNumber}`;
+  const [files] = await storage
+    .bucket(bucketName)
+    .getFiles({ prefix: folderPath });
+
+  if (files.length > 0) {
+    // Delete each file
+    await Promise.all(
+      files.map((file) => storage.bucket(bucketName).file(file.name).delete())
+    );
+  }
 
   res.status(200).json({
     message: "success",
