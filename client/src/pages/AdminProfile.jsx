@@ -41,7 +41,7 @@ const AdminProfile = () => {
         <form>
           <span className="flex justify-center my-5">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpCKq1XnPYYDaUIlwlsvmLPZ-9-rdK28RToA&usqp=CAU"
+              src="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
               alt="default img"
               className="min-w-[40px] max-w-[120px] sm:max-w-[200px] rounded-md"
             />

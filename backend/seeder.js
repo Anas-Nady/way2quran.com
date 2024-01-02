@@ -11,28 +11,28 @@ const storage = new Storage({
 
 const reciters = require("./public/reciters.js");
 
-// const photo = path.join(__dirname, "/public/full-logo.svg");
-// console.log(photo);
+const photo = path.join(__dirname, "/public/social.svg");
+console.log(photo);
 
-// async function uploadPhoto() {
-//   try {
-//     const fileName = "imgs/full-logo.svg";
+async function uploadPhoto() {
+  try {
+    const fileName = "imgs/social-media-logo.svg";
 
-//     await storage.bucket(bucketName).upload(photo, {
-//       destination: fileName,
-//       public: true,
-//       resumable: false,
-//     });
+    await storage.bucket(bucketName).upload(photo, {
+      destination: fileName,
+      public: true,
+      resumable: false,
+    });
 
-//     const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+    const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
-//     console.log(publicUrl);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+    console.log(publicUrl);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// uploadPhoto();
+uploadPhoto();
 
 // async function getParentFolderNames() {
 //   const [files] = await storage
@@ -70,42 +70,42 @@ const reciters = require("./public/reciters.js");
 // // saveFolderNamesToFile();
 // saveFolderNamesToFile();
 
-async function handleUploadReciters() {
-  try {
-    for (let i = 0; i < reciters.length; i++) {
-      const [files] = await storage
-        .bucket(bucketName)
-        .getFiles({ prefix: reciters[i].slug });
+// async function handleUploadReciters() {
+//   try {
+//     for (let i = 0; i < reciters.length; i++) {
+//       const [files] = await storage
+//         .bucket(bucketName)
+//         .getFiles({ prefix: reciters[i].slug });
 
-      const name = reciters[i].name;
-      const name_ar = reciters[i].name_ar;
-      const photo =
-        "https://storage.googleapis.com/way2quran_storage/imgs/reciter-default-photo.svg";
+//       const name = reciters[i].name;
+//       const name_ar = reciters[i].name_ar;
+//       const photo =
+//         "https://storage.googleapis.com/way2quran_storage/imgs/reciter-default-photo.svg";
 
-      const recitations = {
-        slug: "hafs-an-asim",
-        audioFiles: [],
-        isCompleted: false,
-      };
+//       const recitations = {
+//         slug: "hafs-an-asim",
+//         audioFiles: [],
+//         isCompleted: false,
+//       };
 
-      for (const file of files) {
-        recitations.audioFiles.push({
-          surah: file.name.match(/\d+/)[0],
-          audioFile: `https://storage.googleapis.com/way2quran_storage/${file.name}`,
-          downloadUrl: file.metadata.mediaLink,
-        });
-        console.log(recitations.audioFiles);
-      }
+//       for (const file of files) {
+//         recitations.audioFiles.push({
+//           surah: file.name.match(/\d+/)[0],
+//           audioFile: `https://storage.googleapis.com/way2quran_storage/${file.name}`,
+//           downloadUrl: file.metadata.mediaLink,
+//         });
+//         console.log(recitations.audioFiles);
+//       }
 
-      if (recitations.audioFiles.length === 114) {
-        recitations.isCompleted = true;
-      }
+//       if (recitations.audioFiles.length === 114) {
+//         recitations.isCompleted = true;
+//       }
 
-      await Reciter.create({ name, name_ar, photo, recitations });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
+//       await Reciter.create({ name, name_ar, photo, recitations });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
-module.exports = handleUploadReciters;
+// module.exports = handleUploadReciters;
