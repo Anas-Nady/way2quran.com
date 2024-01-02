@@ -9,7 +9,7 @@ const { promisify } = require("util");
 const archiver = require("archiver");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
-  const pageSize = Number(req.query.pageSize) || 30;
+  const pageSize = Number(req.query.pageSize) || 24;
   const page = Number(req.query.pageNumber) || 1;
   const recitationTypeFromQuery = req.query.recitationType;
 
