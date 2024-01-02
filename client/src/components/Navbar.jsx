@@ -22,7 +22,7 @@ const Navbar = () => {
   });
 
   const getAdminFromLocalStorage =
-    JSON.parse(localStorage.getItem("user"))?.isAdmin || false;
+    JSON.parse(sessionStorage.getItem("user"))?.isAdmin || false;
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);

@@ -15,7 +15,7 @@ const Login = () => {
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.login);
-  const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
+  const isAdmin = JSON.parse(sessionStorage.getItem("user"))?.isAdmin;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

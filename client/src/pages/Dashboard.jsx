@@ -17,7 +17,7 @@ function Dashboard() {
   const { loading, success, error } = useSelector(
     (state) => state.getUserProfile
   );
-  const isAdmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
+  const isAdmin = JSON.parse(sessionStorage.getItem("user"))?.isAdmin;
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -54,7 +54,7 @@ function Dashboard() {
         ) : loading ? (
           <Spinner />
         ) : (
-          error && <PermissionError />
+          <PermissionError />
         )}
       </div>
     </>

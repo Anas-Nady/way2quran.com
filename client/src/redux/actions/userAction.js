@@ -25,7 +25,7 @@ export const updateUserProfile = (email, password) => async (dispatch) => {
     );
 
     dispatch(updateUserProfileSuccess(data));
-    localStorage.setItem("user", JSON.stringify(data?.data));
+    sessionStorage.setItem("user", JSON.stringify(data?.data));
   } catch (err) {
     dispatch(
       updateUserProfileFailure(

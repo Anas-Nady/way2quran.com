@@ -15,7 +15,7 @@ const AdminProfile = () => {
     (state) => state.updateUserProfile
   );
 
-  const adminEmail = JSON.parse(localStorage.getItem("user"))?.email;
+  const adminEmail = JSON.parse(sessionStorage.getItem("user"))?.email;
 
   const handleSubmit = (e) => {
     e.preventDefault();
