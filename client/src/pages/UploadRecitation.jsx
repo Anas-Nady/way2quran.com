@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { listFrequentRecitations } from "../redux/actions/FrequentRecitationsAction";
-import { listFrequentRecitationsReset } from "../redux/slices/FrequentRecitationsSlice";
+import { listFrequentRecitations } from "../redux/actions/frequentRecitationsAction";
 import { listReciters, uploadRecitation } from "../redux/actions/reciterAction";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -100,7 +99,11 @@ const UploadRecitation = () => {
               {recitations &&
                 recitations.length > 0 &&
                 recitations.map((recitation, i) => (
-                  <option value={recitation.slug} key={i}>
+                  <option
+                    value={recitation.slug}
+                    key={i}
+                    className="dark:bg-gray-900"
+                  >
                     {currentLang == "en" ? recitation.name : recitation.name_ar}
                   </option>
                 ))}

@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+// const seeder = require("./seeder.js");
 
 dotenv.config({ path: "./../.env" });
 

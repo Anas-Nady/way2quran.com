@@ -1,7 +1,7 @@
 const express = require("express");
 const authController = require("../controllers/authController.js");
 const userController = require("../controllers/userController.js");
-const authMiddleware = require("./../middlewares/authMiddleware.js");
+const { protect, isAdmin } = require("./../middlewares/authMiddleware.js");
 
 const router = express.Router();
 
@@ -11,18 +11,8 @@ router.route("/logout").get(authController.logout);
 
 router
   .route("/update-profile")
-  .put(
-    authMiddleware.protect,
-    authMiddleware.isAdmin,
-    userController.updateProfile
-  );
+  .put(protect, isAdmin, userController.updateProfile);
 
-router
-  .route("/get-profile")
-  .get(
-    authMiddleware.protect,
-    authMiddleware.isAdmin,
-    userController.getProfile
-  );
+router.route("/get-profile").get(protect, isAdmin, userController.getProfile);
 
 module.exports = router;

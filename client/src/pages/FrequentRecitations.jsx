@@ -8,8 +8,8 @@ import {
   HeadingSection,
 } from "../components";
 import { useSelector, useDispatch } from "react-redux";
-import { listFrequentRecitations } from "../redux/actions/FrequentRecitationsAction";
-import { listFrequentRecitationsReset } from "../redux/slices/FrequentRecitationsSlice";
+import { listFrequentRecitations } from "../redux/actions/frequentRecitationsAction.js";
+import { listFrequentRecitationsReset } from "./../redux/slices/frequentRecitationsSlice.js";
 import { useTranslation } from "react-i18next";
 
 function FrequentRecitations() {

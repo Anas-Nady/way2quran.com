@@ -6,7 +6,7 @@ const surahSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  name_en: {
+  name_ar: {
     type: String,
     required: true,
   },
@@ -18,7 +18,6 @@ const surahSchema = mongoose.Schema({
   number: {
     type: String,
     required: true,
-    unique: true,
   },
 });
 

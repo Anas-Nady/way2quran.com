@@ -27,11 +27,11 @@ const AppRoutes = ({ updateAudioPlayerData }) => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route
-      path="/completed-reciters"
+      path="/completed-recitations"
       element={<Reciters updateAudioPlayerData={updateAudioPlayerData} />}
     />
     <Route
-      path="/completed-reciters/:reciterSlug"
+      path="/completed-recitations/:reciterSlug"
       element={<Reciter updateAudioPlayerData={updateAudioPlayerData} />}
     />
     <Route path="/frequent-recitations" element={<FrequentRecitations />} />

@@ -29,7 +29,7 @@ const SurahContainer = ({
         </div>
 
         <h2 className="surah-name font-semibold font-notoNaskhArabic text-gray-900 dark:text-slate-50">
-          {currentLang == "en" ? `${translation} "${name}"` : `سورة ${name_ar}`}
+          {currentLang == "en" ? `${translation} "${name}"` : `${name_ar}`}
         </h2>
       </div>
       <div className="buttons flex flex-col sm:flex-row justify-between items-center gap-2 text-gray-800 dark:text-white mx-auto sm:mx-0 w-full sm:w-fit">

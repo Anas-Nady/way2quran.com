@@ -28,54 +28,16 @@
 //   }
 // });
 
-const { Storage } = require("@google-cloud/storage");
-const path = require("path");
-const fs = require("fs").promises;
+// const { Storage } = require("@google-cloud/storage");
+// const path = require("path");
+// const fs = require("fs").promises;
 
-const oldBucket = "waytoquran_storage";
-const newBucket = "way2quran_storage";
+// const oldBucket = "waytoquran_storage";
+// const newBucket = "way2quran_storage";
 
-const storage = new Storage({
-  keyFilename: `${__dirname}/../cloud-configuration.json`,
-});
+// const storage = new Storage({
+//   keyFilename: `${__dirname}/../cloud-configuration.json`,
+// });
 
 // const photo = path.join(__dirname, "/public/default-logo.svg");
 // console.log(photo);
-
-const prefixArray = [
-  "salah-boukhatir",
-  "saleh-al-sahoud",
-  "saud-al-shuraim",
-  "sayed-ramadan",
-  "sherzad-abdul-rahman-taher",
-  "tamer-islam",
-  "tamim-al-raimi",
-  "tawfiq-al-sayegh",
-  "zaki-daghestani",
-];
-
-async function cleanData() {
-  for (const prefix of prefixArray) {
-    const [files] = await storage
-      .bucket(oldBucket)
-      .getFiles({ prefix: prefix });
-
-    for (const file of files) {
-      const fileNameParts = file.name.split("/");
-      const newFileName = `${prefix}/hafs-an-asim/${fileNameParts[1]}`;
-
-      await storage
-        .bucket(oldBucket)
-        .file(file.name)
-        .copy(storage.bucket(newBucket).file(newFileName));
-      console.log(
-        `File ${file.name} copied to ${newBucket} as ${newFileName}.`
-      );
-
-      await storage.bucket(oldBucket).file(file.name).delete();
-      console.log(`File ${file.name} deleted from ${oldBucket}.`);
-    }
-  }
-}
-
-cleanData();

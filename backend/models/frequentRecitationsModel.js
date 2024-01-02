@@ -14,7 +14,6 @@ const frequentRecitationSchema = mongoose.Schema(
     slug: {
       type: String,
     },
-    reciters: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reciter" }],
   },
   { timestamp: true }
 );

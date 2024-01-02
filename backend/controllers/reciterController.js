@@ -7,14 +7,9 @@ const FrequentRecitations = require("../models/frequentRecitationsModel.js");
 const { storage, bucketName } = require("./../db/cloud.js");
 const { promisify } = require("util");
 const archiver = require("archiver");
-const fs = require("fs");
-const path = require("path");
 
-// @desc    Get reciters
-// route    GET /api/reciters
-// @access  Public
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
-  const pageSize = Number(req.query.pageSize) || 50;
+  const pageSize = Number(req.query.pageSize) || 30;
   const page = Number(req.query.pageNumber) || 1;
   const recitationTypeFromQuery = req.query.recitationType;
 
@@ -43,21 +38,21 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
       req.query.recitationType === "completed-recitations"
         ? {
             recitations: {
-              $elemMatch: { name: "hafs-an-asim", audioFiles: { $size: 114 } },
+              $elemMatch: { slug: "hafs-an-asim", audioFiles: { $size: 114 } },
             },
           }
         : req.query.recitationType === "various-recitations"
         ? {
             recitations: {
               $elemMatch: {
-                name: "hafs-an-asim",
+                slug: "hafs-an-asim",
                 audioFiles: { $not: { $size: 114 } },
               },
             },
           }
         : {
             recitations: {
-              $elemMatch: { name: req.query.recitationType },
+              $elemMatch: { slug: req.query.recitationType },
             },
           };
   }
@@ -109,9 +104,6 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
   });
 });
 
-// // @desc    Get reciter
-// // route    GET /api/reciters/:id
-// // @access  Public
 exports.getReciter = asyncHandler(async (req, res, next) => {
   const reciter = await Reciters.findOne({ slug: req.params.slug });
 
@@ -125,9 +117,6 @@ exports.getReciter = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Create reciter
-// route    POST /api/reciter
-// @access  Private (protected, admin)
 exports.createReciter = asyncHandler(async (req, res, next) => {
   const { name, name_ar, number } = req.body;
 
@@ -151,7 +140,7 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
   if (photo) {
     // Upload photo to Google Cloud Storage
-    const fileName = `imgs/${newReciter.slug}/${photo.originalname}`;
+    const fileName = `imgs/${photo.originalname}`;
     const file = storage.bucket(bucketName).file(fileName);
 
     await file.save(photo.buffer, {
@@ -198,10 +187,10 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
       reciter.recitations.map(async (recitation) => {
         let recitationInfo;
 
-        if (recitation.name !== "hafs-an-asim") {
+        if (recitation.slug !== "hafs-an-asim") {
           const temp =
             (await FrequentRecitations.findOne({
-              slug: recitation.name,
+              slug: recitation.slug,
             })) || {};
           if (temp) {
             recitationInfo = {
@@ -223,8 +212,8 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
             let surahInfo = await Surah.findOne({ number: audioFile.surah });
             return {
               number: surahInfo.number,
-              name: surahInfo.name_en,
-              name_ar: surahInfo.name,
+              name: surahInfo.name,
+              name_ar: surahInfo.name_ar,
               translation: surahInfo.name_translation,
               slug: surahInfo.slug,
               url: audioFile.audioFile,
@@ -248,10 +237,6 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    upload Recitations of reciter after successful created
-// @route   put /api/
-// @access  Private (protected, admin)
-
 exports.uploadRecitations = asyncHandler(async (req, res, next) => {
   const recitationType = req.body.recitationType || "hafs-an-asim";
   const audioFiles = req.files;
@@ -264,7 +249,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 
   let recitationToUpdate;
   let recitationIndex = reciter.recitations.findIndex(
-    (recitation) => recitation.name === recitationType
+    (recitation) => recitation.slug === recitationType
   );
 
   if (recitationIndex >= 0) {
@@ -353,7 +338,7 @@ exports.downloadRecitation = asyncHandler(async (req, res, next) => {
 
   // Initialize archiver
   const archive = archiver("zip", {
-    zlib: { level: 9 }, // Set compression level
+    zlib: { level: 9 },
   });
 
   // Pipe the archive to the response stream
@@ -432,7 +417,7 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
     // Save the reciter and handle any errors
     await reciter.save().catch((err) => {
       console.error("Error during reciter save:", err);
-      throw new AppError("Error saving reciter", 500);
+      return next(new AppError("Error saving reciter", 500));
     });
 
     res.status(200).json({
@@ -445,14 +430,23 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @desc    Delete reciter
-// @route   DELETE /api/reciters/:id
-// @access  Private (protected, admin)
 exports.deleteReciter = asyncHandler(async (req, res, next) => {
   const reciter = await Reciters.findOneAndDelete({ slug: req.params.slug });
 
   if (!reciter) {
     return next(new AppError("Reciter not found", 404));
+  }
+
+  // delete form Google Cloud Storage
+
+  const [files] = await storage
+    .bucket(bucketName)
+    .getFiles({ prefix: `${reciter.slug}` });
+
+  if (files?.length > 0) {
+    for (const file of files) {
+      await file.delete();
+    }
   }
 
   res.status(200).json({
@@ -467,7 +461,7 @@ exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
 
   const filter = {
     slug: reciterSlug,
-    "recitations.name": recitationSlug,
+    "recitations.slug": recitationSlug,
   };
 
   const reciter = await Reciter.findOne(filter);
@@ -494,7 +488,7 @@ exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
   );
 
   reciter.recitations = reciter.recitations.filter(
-    (recitation) => recitation.name !== recitationSlug
+    (recitation) => recitation.slug !== recitationSlug
   );
 
   await reciter.save();
@@ -517,7 +511,7 @@ exports.deleteReciterSurah = asyncHandler(async (req, res, next) => {
 
   const filter = {
     slug: reciterSlug,
-    "recitations.name": recitationSlug,
+    "recitations.slug": recitationSlug,
     "recitations.audioFiles.surah": surahNumber,
   };
 

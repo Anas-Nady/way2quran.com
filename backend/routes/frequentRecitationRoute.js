@@ -3,7 +3,10 @@ const frequentRecitationController = require("../controllers/frequentRecitationC
 
 const router = express.Router();
 
-router.route("/").get(frequentRecitationController.getAllFrequentRecitations);
+router
+  .route("/")
+  .get(frequentRecitationController.getAllFrequentRecitations)
+  .post(frequentRecitationController.createFrequentRecitation);
 
 router.route("/:id").get(frequentRecitationController.getFrequentRecitation);
 

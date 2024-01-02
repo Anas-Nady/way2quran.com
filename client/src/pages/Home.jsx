@@ -1,14 +1,12 @@
 import React from "react";
-import logo from "./../assets/imgs/logo-1.svg";
 import { useTranslation } from "react-i18next";
 import { HelmetConfig, TopReciters } from "../components";
-import bgMain from "./../assets/imgs/hero-bg.svg";
 
 const Home = () => {
   const { t } = useTranslation();
 
   const sectionStyle = {
-    backgroundImage: `url(${bgMain})`, // Adjust the path to your background image
+    backgroundImage: `https://storage.googleapis.com/way2quran_storage/imgs/main-bg.svg`, // Adjust the path to your background image
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -26,7 +24,11 @@ const Home = () => {
             تلاوات <span className="text-green-500"> للقرآن الكريم </span>من
             أنحاء العالم الإسلامى
           </p>
-          <img src={logo} alt="way2quran logo" width={500} />
+          <img
+            src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
+            alt="way2quran logo"
+            width={500}
+          />
         </div>
       </section>
 

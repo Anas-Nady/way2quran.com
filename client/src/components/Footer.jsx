@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./../assets/imgs/logo-navbar.svg";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import TitleSite from "./TitleSite";

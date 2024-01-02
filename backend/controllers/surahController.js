@@ -17,12 +17,12 @@ exports.createSurah = asyncHandler(async (req, res, next) => {
 
   // Loop through each Surah data in the array
   for (const surahData of surahDataArray) {
-    const { name, name_en, name_translation, number } = surahData;
+    const { name, name_ar, name_translation, number } = surahData;
 
     // Create a new Surah document
     const newSurah = await Surah.create({
       name,
-      name_en,
+      name_ar,
       name_translation,
       number,
     });

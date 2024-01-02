@@ -8,7 +8,7 @@ function NavbarLinks({ toggleMenu }) {
   const links = [
     {
       name: t("link_1"),
-      path: "/completed-reciters",
+      path: "/completed-recitations",
     },
     {
       name: t("link_2"),

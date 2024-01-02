@@ -1,13 +1,19 @@
 const express = require("express");
 const reciterController = require("./../controllers/reciterController");
 const upload = require("./../middlewares/multerMiddleware");
+const { protect, isAdmin } = require("./../middlewares/authMiddleware.js");
 
 const router = express.Router();
 
 router
   .route("/")
   .get(reciterController.getAllReciters)
-  .post(upload.single("photo"), reciterController.createReciter);
+  .post(
+    protect,
+    isAdmin,
+    upload.single("photo"),
+    reciterController.createReciter
+  );
 
 router.get(
   "/download/:reciterSlug/:recitationSlug",
@@ -16,13 +22,23 @@ router.get(
 
 router
   .route("/upload-recitation/:slug")
-  .put(upload.array("audioFiles"), reciterController.uploadRecitations);
+  .put(
+    protect,
+    isAdmin,
+    upload.array("audioFiles"),
+    reciterController.uploadRecitations
+  );
 
 router
   .route("/:slug")
   .get(reciterController.getReciter)
-  .put(upload.single("photo"), reciterController.updateReciter)
-  .delete(reciterController.deleteReciter);
+  .put(
+    protect,
+    isAdmin,
+    upload.single("photo"),
+    reciterController.updateReciter
+  )
+  .delete(protect, isAdmin, reciterController.deleteReciter);
 
 router
   .route("/:reciter-profile/:slug")
@@ -30,10 +46,10 @@ router
 
 router
   .route("/delete-surah/:reciterSlug/:recitationSlug/:surahSlug")
-  .delete(reciterController.deleteReciterSurah);
+  .delete(protect, isAdmin, reciterController.deleteReciterSurah);
 
 router
   .route("/delete-recitation/:reciterSlug/:recitationSlug")
-  .delete(reciterController.deleteReciterRecitation);
+  .delete(protect, isAdmin, reciterController.deleteReciterRecitation);
 
 module.exports = router;

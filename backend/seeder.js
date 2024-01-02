@@ -1,84 +1,111 @@
 const { Storage } = require("@google-cloud/storage");
+const Reciter = require("./models/reciterModel.js");
 const path = require("path");
-const fs = require("fs").promises;
+const fs = require("fs");
 
-const oldBucket = "waytoquran_storage";
-const newBucket = "way2quran_storage";
+const bucketName = "way2quran_storage";
 
 const storage = new Storage({
   keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-// const photo = path.join(__dirname, "/public/default-logo.svg");
+const reciters = require("./public/reciters.js");
+
+// const photo = path.join(__dirname, "/public/full-logo.svg");
 // console.log(photo);
 
-// const prefixArray = [
-// "saeed-bin-abdullah-al-abdullah",
-// "HAMAZA-AL-FAR",
-// "abdel-basit-abdel-samad-(recited-qur’an)",
-// "abdul-basit-abdul-samad-(tajweed)",
-// "ِal-ashri-omaran",
-// ];
+// async function uploadPhoto() {
+//   try {
+//     const fileName = "imgs/full-logo.svg";
 
-// async function cleanData() {
-//   for (const prefix of prefixArray) {
-//     const [files] = await storage
-//       .bucket(oldBucket)
-//       .getFiles({ prefix: prefix });
+//     await storage.bucket(bucketName).upload(photo, {
+//       destination: fileName,
+//       public: true,
+//       resumable: false,
+//     });
 
-//     for (const file of files) {
-//       const fileNameParts = file.name.split("/");
-//       const newFileName = `${prefix}/hafs-an-asim/${fileNameParts[1]}`;
+//     const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
-//       await storage
-//         .bucket(oldBucket)
-//         .file(file.name)
-//         .copy(storage.bucket(newBucket).file(newFileName));
-//       console.log(
-//         `File ${file.name} copied to ${newBucket} as ${newFileName}.`
-//       );
-
-//       await storage.bucket(oldBucket).file(file.name).delete();
-//       console.log(`File ${file.name} deleted from ${oldBucket}.`);
-//     }
+//     console.log(publicUrl);
+//   } catch (err) {
+//     console.log(err);
 //   }
 // }
 
-// cleanData();
+// uploadPhoto();
 
-async function getParentFolderNames() {
-  const [files] = await storage.bucket(newBucket).getFiles();
+// async function getParentFolderNames() {
+//   const [files] = await storage
+//     .bucket(oldBucket)
+//     .getFiles({ prefix: "al-ashri-omaran" });
 
-  const parentFolderNamesSet = new Set();
+//   const parentFolderNamesSet = new Set();
 
-  files.forEach((file) => {
-    // Extract the parent folder name from the file path
-    const parentFolderName = file.name.split("/").slice(0, -1).join("/");
+//   files.forEach((file) => {
+//     // Extract the parent folder name from the file path
 
-    // Add the parent folder name to the set
-    parentFolderNamesSet.add(parentFolderName);
-    console.log(parentFolderNamesSet);
-  });
+//     // Add the parent folder name to the set
+//     parentFolderNamesSet.add(file.name);
+//     console.log(parentFolderNamesSet);
+//   });
 
-  // Convert the set of folder names to an array
-  return Array.from(parentFolderNamesSet);
-}
+//   // Convert the set of folder names to an array
+//   return Array.from(parentFolderNamesSet);
+// }
 
-async function saveFolderNamesToFile() {
+// async function saveFolderNamesToFile() {
+//   try {
+//     const folderNames = await getParentFolderNames();
+
+//     const jsonData = JSON.stringify(folderNames, null, 2);
+
+//     await fs.writeFile("folderNames.json", jsonData);
+
+//     console.log("Parent folder names saved to file successfully.");
+//   } catch (err) {
+//     console.error("Error saving parent folder names to file:", err);
+//   }
+// }
+
+// // saveFolderNamesToFile();
+// saveFolderNamesToFile();
+
+async function handleUploadReciters() {
   try {
-    const folderNames = await getParentFolderNames();
+    for (let i = 0; i < reciters.length; i++) {
+      const [files] = await storage
+        .bucket(bucketName)
+        .getFiles({ prefix: reciters[i].slug });
 
-    const jsonData = JSON.stringify(folderNames, null, 2);
+      const name = reciters[i].name;
+      const name_ar = reciters[i].name_ar;
+      const photo =
+        "https://storage.googleapis.com/way2quran_storage/imgs/reciter-default-photo.svg";
 
-    await fs.writeFile("folderNames.json", jsonData);
+      const recitations = {
+        slug: "hafs-an-asim",
+        audioFiles: [],
+        isCompleted: false,
+      };
 
-    console.log("Parent folder names saved to file successfully.");
+      for (const file of files) {
+        recitations.audioFiles.push({
+          surah: file.name.match(/\d+/)[0],
+          audioFile: `https://storage.googleapis.com/way2quran_storage/${file.name}`,
+          downloadUrl: file.metadata.mediaLink,
+        });
+        console.log(recitations.audioFiles);
+      }
+
+      if (recitations.audioFiles.length === 114) {
+        recitations.isCompleted = true;
+      }
+
+      await Reciter.create({ name, name_ar, photo, recitations });
+    }
   } catch (err) {
-    console.error("Error saving parent folder names to file:", err);
+    console.log(err);
   }
 }
 
-// saveFolderNamesToFile();
-saveFolderNamesToFile();
-
-// badr-al-turki/hafs-an-asim
+module.exports = handleUploadReciters;

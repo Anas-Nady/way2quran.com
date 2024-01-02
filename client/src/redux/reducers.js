@@ -24,7 +24,7 @@ import {
 import {
   getFrequentRecitationReducer,
   listFrequentRecitationsReducer,
-} from "./slices/FrequentRecitationsSlice.js";
+} from "./slices/frequentRecitationsSlice.js";
 
 const rootReducers = combineReducers({
   login: userLoginReducer,

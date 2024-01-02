@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
 import i18n from "../langs/i18n";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/imgs/logo-navbar.svg";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -60,7 +59,7 @@ const Navbar = () => {
         >
           <img
             className="w-[60px] h-[80px]"
-            src={logo}
+            src="https://storage.googleapis.com/way2quran_storage/imgs/reciter-default-photo.svg"
             width={60}
             height={80}
             alt="way2quran Logo"
