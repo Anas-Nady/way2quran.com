@@ -14,9 +14,9 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
         <div className="w-full px-2 min-w-[300px] min-h-[236px] max-w-[300px] bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700">
           <div className="flex justify-end px-1 pt-4"></div>
           <div className="flex flex-col items-center pb-5">
-            <span className="w-[200px] h-[150px] mb-2">
+            <span className="mb-2 ">
               <img
-                className="w-full h-full mb-3 rounded-lg shadow-lg object-fill"
+                className="w-[150px] h-[150px] rounded-full p-2 shadow-lg object-fill"
                 src={photo}
                 alt="Bonnie image"
               />

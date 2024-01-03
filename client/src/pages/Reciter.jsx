@@ -121,11 +121,11 @@ const Reciter = ({ updateAudioPlayerData }) => {
               success && (
                 <>
                   <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4 h-fit">
-                    <div className="img-reciter block mx-auto min-w-[200px] h-[150px] max-w-[120px] sm:max-w-[250px]  sm:h-[185px]">
+                    <div className="img-reciter block  rounded-full    mx-auto">
                       <img
                         src={reciterInfo.photo}
                         alt="name"
-                        className="w-full h-full rounded-lg sm:rounded object-fill "
+                        className="h-[140px] w-[140px] sm:w-[200px]  sm:h-[200px] rounded-full object-fill "
                       />
                     </div>
                     <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
