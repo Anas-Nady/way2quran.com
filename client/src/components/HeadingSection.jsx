@@ -5,7 +5,7 @@ const HeadingSection = ({ nameSection, name = "", isCentering = false }) => {
   const { t } = useTranslation();
   return (
     <h1
-      className={`my-5 text-gray-700 text-lg sm:text-2xl xl:text-3xl text-center ${
+      className={`my-5 text-gray-700 text-xl sm:text-2xl xl:text-3xl text-center ${
         isCentering && "mx-auto"
       } font-bold  border-b-2 pb-1 border-dashed dark:text-slate-50 w-fit cursor-default`}
     >

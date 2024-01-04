@@ -46,7 +46,7 @@ function VariousRecitations() {
   return (
     <>
       <HelmetConfig title={t("variousRecitations")} />
-      <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">
+      <div className="max-w-screen-2xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">
         <div className="flex justify-between items-center flex-wrap gap-2">
           <HeadingSection nameSection={"variousRecitations"} />
           <form>
