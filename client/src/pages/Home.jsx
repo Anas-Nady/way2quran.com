@@ -35,16 +35,16 @@ const Home = () => {
       <HelmetConfig title={t("titleHome")} />
       <div
         style={sectionStyle}
-        className={`max-w-screen-3xl mx-auto flex justify-center items-center gap-2 min-h-[750px] bg-slate-200 dark:bg-gray-700`}
+        className={`max-w-screen-3xl mx-auto -mt-[1rem] -me-2 -ms-2 flex justify-center items-center gap-2 min-h-[750px] bg-slate-200 dark:bg-gray-700`}
       >
-        <div className="flex gap-2 justify-between items-center flex-wrap container p-8 ">
-          <p className="text-sm md:text-lg lg:text-xl xl:text-3xl 2xl:text-5xl text-gray-900 font-semibold mx-9 dark:text-white leading-[50px] max-w-[790px]">
+        <div className="flex gap-2 justify-between items-center mx-auto text-center flex-wrap container p-8 ">
+          <p className="text-3xl  xl:text-4xl 2xl:text-5xl mx-auto text-gray-900 font-semibold  dark:text-white leading-[35px] max-w-[790px]">
             {handleText()}
           </p>
           <img
             src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
             alt="way2quran logo"
-            width={500}
+            className="w-[400px] xl:w-[500px] mx-auto"
           />
         </div>
       </div>

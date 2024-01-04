@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white dark:bg-gray-900 fixed w-screen z-50  items-center  top-0 start-0 border-b border-gray-200 dark:border-gray-600 transition-all duration-300">
-      <div className="flex flex-wrap container items-center justify-between mx-auto p-2 ">
+      <div className="flex flex-wrap container items-center justify-between mx-auto p-2 py-4 ">
         <Link
           to="/"
           className="flex items-center  space-x-3 rtl:space-x-reverse"

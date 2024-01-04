@@ -57,7 +57,7 @@ function App() {
       <ToastContainer position="top-center" />
       <Router>
         <main
-          className={`bg-slate-50 dark:bg-gray-900 min-h-screen py-4 px-2 relative ${
+          className={`bg-slate-50 dark:bg-gray-900 min-h-screen py-7 px-2 relative ${
             currentLang == "ar" ? "font-notoNaskhArabic" : "font-roboto"
           }`}
         >
