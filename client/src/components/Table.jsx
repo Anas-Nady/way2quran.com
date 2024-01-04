@@ -29,7 +29,7 @@ const Table = ({ reciters }) => {
   }, [dispatch, error, success]);
 
   return (
-    <table className="w-full text-md text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
+    <table className="w-full text-md md:text-xl text-left rtl:text-right  border border-slate-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">
       <thead className="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr className="border-b border-slate-300 dark:border-gray-600">
           <th className="p-2 sm:px-6 sm:py-3">{t("reciterName")}</th>

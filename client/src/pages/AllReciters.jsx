@@ -74,16 +74,22 @@ const AllReciters = () => {
           className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[270px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={handleSelectChange}
         >
-          <option disabled value="" className="dark:bg-gray-900  ">
+          <option disabled value="" className="dark:bg-gray-900  text-xl">
             {t("chooseTypeOfRecitation")}
           </option>
-          <option value="" className="dark:bg-gray-900  ">
+          <option value="" className="dark:bg-gray-900  text-xl">
             {t("allReciters")}
           </option>
-          <option value="completed-recitations" className="dark:bg-gray-900  ">
+          <option
+            value="completed-recitations"
+            className="dark:bg-gray-900  text-xl"
+          >
             {t("completedRecitations")}
           </option>
-          <option value="various-recitations" className="dark:bg-gray-900  ">
+          <option
+            value="various-recitations"
+            className="dark:bg-gray-900  text-xl"
+          >
             {t("variousRecitations")}
           </option>
         </select>
@@ -93,11 +99,11 @@ const AllReciters = () => {
             type="checkbox"
             checked={topReciters}
             onChange={() => {}}
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="w-4 h-4 text-xl text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
           <label
             htmlFor="default-checkbox"
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ms-2 text-xl font-medium text-gray-900 dark:text-gray-300"
           >
             {t("topReciters")}
           </label>

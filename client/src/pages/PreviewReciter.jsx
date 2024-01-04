@@ -20,6 +20,8 @@ const PreviewReciter = () => {
 
   useEffect(() => {
     dispatch(getReciterProfile(reciterSlug));
+    console.log(reciterInfo);
+    console.log(recitationsInfo);
 
     return () => {
       dispatch(getReciterProfileReset());

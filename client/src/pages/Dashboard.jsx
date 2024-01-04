@@ -9,7 +9,7 @@ import { getUserProfile } from "../redux/actions/userAction";
 import { Helmet } from "react-helmet";
 
 function Dashboard() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const currentLang = i18n.language;
@@ -47,7 +47,7 @@ function Dashboard() {
               </span>
               <DashboardLinks isOpen={isOpen} />
             </aside>
-            <div className="container  p-6 dark:bg-gray-800 text-gray-900  dark:text-slate-300 bg-slate-100">
+            <div className="container p-6 dark:bg-gray-800 text-gray-900  dark:text-slate-300 bg-slate-100">
               <Outlet />
             </div>
           </>

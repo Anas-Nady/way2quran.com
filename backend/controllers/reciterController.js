@@ -152,7 +152,7 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
     newReciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
   } else {
-    newReciter.photo = `https://storage.googleapis.com/${bucketName}/imgs/default-reciter-photo.svg`;
+    newReciter.photo = `https://storage.googleapis.com/${bucketName}/imgs/reciter-default-photo.svg`;
   }
 
   await newReciter.save();
@@ -441,10 +441,11 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
 
   const [files] = await storage
     .bucket(bucketName)
-    .getFiles({ prefix: `${reciter.slug}` });
+    .getFiles({ prefix: `${reciter.slug}/` });
 
   if (files?.length > 0) {
     for (const file of files) {
+      console.log(file.name);
       await file.delete();
     }
   }

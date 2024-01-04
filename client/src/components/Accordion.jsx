@@ -40,7 +40,7 @@ const Accordion = ({ recitation, i, isEditReciterPage = false }) => {
         className="accordion-button flex items-center justify-between p-5 w-full font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
         onClick={() => handleToggle(i)}
       >
-        <h3 className="capitalize text-lg">
+        <h3 className="capitalize text-xl">
           {currentLang == "en" ? recitation.name : recitation.name_ar}
         </h3>
         <span className="duration-200 flex gap-1">

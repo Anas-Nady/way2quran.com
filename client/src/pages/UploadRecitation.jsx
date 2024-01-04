@@ -88,12 +88,17 @@ const UploadRecitation = () => {
             <select
               value={recitationSlug}
               onChange={(e) => setRecitationSlug(e.target.value)}
-              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[250px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             >
-              <option disabled selected value="" className="dark:bg-gray-900  ">
+              <option
+                disabled
+                selected
+                value=""
+                className="dark:bg-gray-900 text-xl"
+              >
                 {t("chooseRecitation")}
               </option>
-              <option value="hafs-an-asim" className="dark:bg-gray-900  ">
+              <option value="hafs-an-asim" className="dark:bg-gray-900 text-xl">
                 {t("hafsAnAsim")}
               </option>
               {recitations &&
@@ -102,7 +107,7 @@ const UploadRecitation = () => {
                   <option
                     value={recitation.slug}
                     key={i}
-                    className="dark:bg-gray-900"
+                    className="dark:bg-gray-900 text-xl"
                   >
                     {currentLang == "en" ? recitation.name : recitation.name_ar}
                   </option>
@@ -114,9 +119,14 @@ const UploadRecitation = () => {
             <select
               value={reciterSlug}
               onChange={(e) => setReciterSlug(e.target.value)}
-              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[250px] border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             >
-              <option disabled selected value="" className="dark:bg-gray-900">
+              <option
+                disabled
+                selected
+                value=""
+                className="dark:bg-gray-900 text-xl"
+              >
                 {t("chooseReciter")}
               </option>
               {reciters &&
@@ -124,7 +134,7 @@ const UploadRecitation = () => {
                 reciters.map((reciter, i) => (
                   <option
                     value={reciter.slug}
-                    className="dark:bg-gray-900"
+                    className="dark:bg-gray-900 text-xl"
                     key={i}
                   >
                     {currentLang == "en" ? reciter.name : reciter.name_ar}
@@ -137,7 +147,7 @@ const UploadRecitation = () => {
               type="file"
               multiple
               id="audioFiles"
-              className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[250px]"
+              className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[300px]"
               name="audioFiles"
               required
               onChange={handleFileUpload}

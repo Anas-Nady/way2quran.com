@@ -7,7 +7,7 @@ function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="bg-slate-50 shadow dark:bg-gray-900 border-t-[1px] border-gray-200 dark:border-gray-700 mt-8 pt-4">
-      <div className="w-full container p-4 bg-white dark:bg-gray-800">
+      <div className="w-full container p-4">
         <div className="flex flex-wrap gap-2 items-center justify-between">
           <Link
             to="/"
@@ -17,7 +17,7 @@ function Footer() {
               <TitleSite />
             </span>
           </Link>
-          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <ul className="flex flex-wrap items-center mb-6 text-xl font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
               <Link to="/about" className="hover:underline me-4 md:me-6">
                 {t("aboutTitle")}
@@ -30,7 +30,7 @@ function Footer() {
             </li>
           </ul>
         </div>
-        <span className="block text-sm text-gray-500 text-center dark:text-gray-400">
+        <span className="block text-sm sm:text-md text-gray-500 text-center dark:text-gray-400">
           © {new Date(Date.now()).getFullYear()}
           <span> {t("allRightsReserved")}</span>
         </span>

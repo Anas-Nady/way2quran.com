@@ -55,7 +55,7 @@ const AddReciter = () => {
   }, [success, error, dispatch, photoDisplay, photo]);
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center">
       <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
         <span className="flex justify-center">
           <img
@@ -67,6 +67,7 @@ const AddReciter = () => {
         <form className="my-5">
           <Input
             labelText="reciterNumber"
+            isAdmin={true}
             type="text"
             name="number"
             value={number}
@@ -75,6 +76,7 @@ const AddReciter = () => {
           />
           <Input
             labelText="arName"
+            isAdmin={true}
             type="text"
             name="name_ar"
             placeholder={t("arName")}
@@ -84,6 +86,7 @@ const AddReciter = () => {
           />
           <Input
             labelText="enName"
+            isAdmin={true}
             type="text"
             name="name"
             value={name}
@@ -93,6 +96,7 @@ const AddReciter = () => {
           />
           <Input
             onChange={handleFileChange}
+            isAdmin={true}
             labelText="photo"
             type="file"
             name="photo"
