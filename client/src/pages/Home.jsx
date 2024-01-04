@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { HelmetConfig, TopReciters } from "../components";
+import logo from "./../assets/imgs/test.svg";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
@@ -42,7 +43,7 @@ const Home = () => {
             {handleText()}
           </p>
           <img
-            src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
+            src={logo}
             alt="way2quran logo"
             className="w-[400px] xl:w-[500px] mx-auto"
           />

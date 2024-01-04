@@ -41,7 +41,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
 
   const handleDownloadAllFiles = (reciterSlug, recitationSlug) => {
     const a = document.createElement("a");
-    const baseURL = `http://${
+    const baseURL = `https://${
       window.location.host
     }/api/reciters/download/${reciterSlug.toLowerCase()}/${recitationSlug.toLowerCase()}`;
     a.setAttribute("href", baseURL);

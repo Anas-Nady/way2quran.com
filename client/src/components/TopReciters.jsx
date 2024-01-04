@@ -66,7 +66,7 @@ export default function TopReciters() {
   }, [dispatch]);
 
   return (
-    <section className=" px-5 max-w-screen-2xl mx-auto py-5 my-7 text-gray-900">
+    <section className=" px-5 max-w-screen-2xl mx-auto text-gray-900">
       <HeadingSection nameSection={"listeningNow"} />
       {loading ? (
         <Spinner />
@@ -79,7 +79,7 @@ export default function TopReciters() {
               <Link
                 to={`/completed-reciters/${reciter.slug}`}
                 key={i}
-                className="flex justify-center items-center h-full p-1 "
+                className="flex justify-center items-center h-full"
               >
                 <div
                   className="card transform transition-transform hover:-translate-y-1 duration-300"

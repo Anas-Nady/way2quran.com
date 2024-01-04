@@ -17,7 +17,7 @@ function Footer() {
               <TitleSite />
             </span>
           </Link>
-          <ul className="flex flex-wrap items-center mb-6 text-xl font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <ul className="flex flex-wrap items-center mb-6 text-xl font-medium text-orange-500 sm:mb-0 dark:text-orange-500">
             <li>
               <Link to="/about" className="hover:underline me-4 md:me-6">
                 {t("aboutTitle")}
