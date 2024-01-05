@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import getTextTranslation from "../utils/getTextTranslation";
 
 const Table = ({ reciters }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector(
