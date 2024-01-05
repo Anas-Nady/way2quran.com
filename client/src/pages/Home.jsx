@@ -42,11 +42,13 @@ const Home = () => {
             <p className="text-3xl xl:text-5xl 2xl:text-6xl mx-auto text-gray-900 font-semibold  dark:text-white leading-[35px] max-w-[990px]">
               {handleText()}
             </p>
-            <img
-              src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
-              alt="way2quran logo"
-              className="w-[400px] xl:w-[500px]  mx-auto 2xl:mx-0"
-            />
+            <div className="mx-auto sm:me-auto">
+              <img
+                src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
+                alt="way2quran logo"
+                className="w-[400px] xl:w-[500px] mx-auto 2xl:mx-0"
+              />
+            </div>
           </div>
         </div>
       </Layout>
