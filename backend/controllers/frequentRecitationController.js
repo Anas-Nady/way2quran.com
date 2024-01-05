@@ -24,30 +24,30 @@ exports.getFrequentRecitation = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.createFrequentRecitation = asyncHandler(async (req, res, next) => {
-  const frequentRecitations = req.body;
+// exports.createFrequentRecitation = asyncHandler(async (req, res, next) => {
+//   const frequentRecitations = req.body;
 
-  const createdRecitations = [];
+//   const createdRecitations = [];
 
-  for (const recitation of frequentRecitations) {
-    const { name, name_ar } = recitation;
+//   for (const recitation of frequentRecitations) {
+//     const { name, name_ar } = recitation;
 
-    const newRecitation = await FrequentRecitation.create({ name, name_ar });
+//     const newRecitation = await FrequentRecitation.create({ name, name_ar });
 
-    createdRecitations.push(newRecitation);
-  }
+//     createdRecitations.push(newRecitation);
+//   }
 
-  // if (!frequentRecitation) {
-  //   return next(
-  //     new AppError(
-  //       "Frequent Recitation not created yet, Please try again!",
-  //       400
-  //     )
-  //   );
-  // }
+//   // if (!frequentRecitation) {
+//   //   return next(
+//   //     new AppError(
+//   //       "Frequent Recitation not created yet, Please try again!",
+//   //       400
+//   //     )
+//   //   );
+//   // }
 
-  res.status(201).json({
-    status: "success",
-    data: createdRecitations,
-  });
-});
+//   res.status(201).json({
+//     status: "success",
+//     data: createdRecitations,
+//   });
+// });

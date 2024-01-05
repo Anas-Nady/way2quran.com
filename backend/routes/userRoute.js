@@ -6,13 +6,12 @@ const { protect, isAdmin } = require("./../middlewares/authMiddleware.js");
 const router = express.Router();
 
 router.route("/login").post(authController.login);
-router.route("/register").post(authController.register);
+// router.route("/register").post(authController.register);
 router.route("/logout").get(authController.logout);
 
-router
-  .route("/update-profile")
-  .put(protect, isAdmin, userController.updateProfile);
+router.use(protect, isAdmin);
 
-router.route("/get-profile").get(protect, isAdmin, userController.getProfile);
+router.route("/update-profile").put(userController.updateProfile);
+router.route("/get-profile").get(userController.getProfile);
 
 module.exports = router;

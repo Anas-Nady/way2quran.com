@@ -32,15 +32,3 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     data: updatedUser,
   });
 });
-
-exports.removeUser = asyncHandler(async (req, res, next) => {
-  const user = await userModel.findByIdAndRemove(req.params.id);
-
-  if (!user) {
-    return next(new AppError("user with that ID is not found", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-  });
-});

@@ -5,12 +5,14 @@ const { protect, isAdmin } = require("./../middlewares/authMiddleware.js");
 
 router
   .route("/")
-  .get(protect, isAdmin, messageController.listAllMessages)
-  .post(messageController.createMessage);
+  .post(messageController.createMessage)
+  .get(protect, isAdmin, messageController.listAllMessages);
+
+router.use(protect, isAdmin);
 
 router
   .route("/:slug")
-  .get(protect, isAdmin, messageController.getMessage)
-  .delete(protect, isAdmin, messageController.deleteMessage);
+  .get(messageController.getMessage)
+  .delete(messageController.deleteMessage);
 
 module.exports = router;

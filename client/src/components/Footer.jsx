@@ -6,7 +6,7 @@ import TitleSite from "./TitleSite";
 function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="bg-slate-50 shadow dark:bg-gray-900 border-t-[1px] border-gray-200 dark:border-gray-700 mt-8 pt-4">
+    <footer className="bg-slate-50 shadow dark:bg-gray-900 border-t-[1px] -mb-6 border-gray-200 dark:border-gray-700 mt-8 pt-4">
       <div className="w-full container p-4">
         <div className="flex flex-wrap gap-2 items-center justify-between">
           <Link
@@ -17,7 +17,7 @@ function Footer() {
               <TitleSite />
             </span>
           </Link>
-          <ul className="flex flex-wrap items-center mb-6 text-md sm:text-xl lg:text-3xl font-medium text-orange-500 sm:mb-0 dark:text-orange-500">
+          <ul className="flex flex-wrap items-center mb-6 text-md sm:text-xl lg:text-2xl font-medium text-orange-500 sm:mb-0 dark:text-orange-500">
             <li>
               <Link to="/about" className="hover:underline me-4 md:me-6">
                 {t("aboutTitle")}

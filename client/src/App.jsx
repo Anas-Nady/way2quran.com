@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useTranslation } from "react-i18next";
+import { closeIcon } from "./components/Icons";
 
 const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
   const handleAudioEnded = () => {
@@ -29,7 +30,15 @@ const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
         !isVisible && "translate-y-full"
       }`}
     >
-      <Player src={url} onPause={handleAudioEnded} onEnded={handleAudioEnded} />
+      <span
+        className={`bg-gray-700 rounded-lg -top-6 -right-1 w-7 h-7 flex justify-center items-center text-white cursor-pointer absolute mx-auto text-center ${
+          !isVisible && "hidden"
+        }`}
+        onClick={handleAudioEnded}
+      >
+        {closeIcon}
+      </span>
+      <Player src={url} onEnded={handleAudioEnded} />
     </div>
   );
 };

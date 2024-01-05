@@ -3,16 +3,16 @@ const asyncHandler = require("express-async-handler");
 const User = require("./../models/userModel.js");
 const createSendToken = require("./../utils/createSendToken.js");
 
-exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, isAdmin } = req.body;
+// exports.register = asyncHandler(async (req, res, next) => {
+//   const { name, email, password, isAdmin } = req.body;
 
-  const userIsExists = await User.findOne({ email });
-  if (userIsExists) return next(new AppError("User already exists!", 400));
+//   const userIsExists = await User.findOne({ email });
+//   if (userIsExists) return next(new AppError("User already exists!", 400));
 
-  const newUser = await User.create({ name, email, password, isAdmin });
+//   const newUser = await User.create({ name, email, password, isAdmin });
 
-  createSendToken(newUser, 201, res);
-});
+//   createSendToken(newUser, 201, res);
+// });
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
