@@ -77,7 +77,7 @@ export default function TopReciters() {
           {reciters &&
             reciters.map((reciter, i) => (
               <Link
-                to={`/completed-reciters/${reciter.slug}`}
+                to={`/completed-recitations/${reciter.slug}`}
                 key={i}
                 className="flex justify-center items-center h-full"
               >
