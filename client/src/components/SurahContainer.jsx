@@ -24,11 +24,11 @@ const SurahContainer = ({
       <div className="flex gap-4 items-center ">
         <div className="w-10 h-10 bg-green-200 text-gray-900  dark:bg-green-800 border border-slate-500 flex justify-center items-center rotate-45 rounded-sm dark:text-white">
           <span className="-rotate-45 block text-center mt-[3px] rtl:me-[3px]">
-            {number}
+            {+number}
           </span>
         </div>
 
-        <h2 className="surah-name font-semibold font-notoNaskhArabic text-gray-900 dark:text-slate-50">
+        <h2 className="surah-name text-md sm:text-xl lg:text-2xl font-semibold font-notoNaskhArabic text-gray-900 dark:text-slate-50">
           {currentLang == "en" ? `${translation} "${name}"` : `${name_ar}`}
         </h2>
       </div>

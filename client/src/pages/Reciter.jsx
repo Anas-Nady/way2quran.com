@@ -132,7 +132,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                       </div>
                       <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
                         <div className="data-reciter flex items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">
-                          <h1 className="text-lg my-1 sm:my-3  capitalize md:text-xl  lg:text-2xl xl:text-3xl text-gray-900 dark:text-white font-semibold">
+                          <h1 className="my-1 sm:my-3 capitalize text-3xl   xl:text-5xl text-gray-900 dark:text-white font-semibold">
                             {reciterName}
                           </h1>
                           <div className="text-white flex gap-1 items-center">

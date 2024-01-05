@@ -20,16 +20,16 @@ const Home = () => {
           style={sectionStyle}
           className={`max-w-screen-3xl mx-auto -mt-[1rem] -me-2 -ms-2 flex items-center  gap-2 min-h-[750px] bg-slate-200 dark:bg-gray-700`}
         >
-          <div className="flex gap-2  items-center mx-auto text-center flex-wrap w-full p-8 ">
+          <div className="flex gap-2 max-w-screen-2xl items-center mx-auto text-center flex-wrap w-full p-8 ">
             <p
-              className="text-3xl xl:text-5xl 2xl:text-6xl mx-auto text-gray-900 font-semibold dark:text-white leading-[35px] max-w-[990px]"
+              className="text-3xl xl:text-5xl 2xl:text-[50px] mx-auto text-gray-900 font-semibold dark:text-white leading-[35px] max-w-[900px]"
               dangerouslySetInnerHTML={{ __html: t("welcomeTxt") }}
             />
             <div className="mx-auto sm:me-auto">
               <img
                 src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
                 alt="way2quran logo"
-                className="w-[400px] xl:w-[500px] mx-auto 2xl:mx-0"
+                className="w-[400px] xl:w-[600px] mx-auto 2xl:mx-0"
               />
             </div>
           </div>
