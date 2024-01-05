@@ -20,8 +20,18 @@ const app = express();
 // set security HTTP headers
 app.set("trust proxy", 1);
 
-app.use(helmet());
-
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        imgSrc: ["'self'", "https://storage.googleapis.com"],
+      },
+    },
+  })
+);
 // Limit request from same API
 const limiter = rateLimit({
   max: 100,

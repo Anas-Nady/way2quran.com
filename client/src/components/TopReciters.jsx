@@ -55,6 +55,10 @@ export default function TopReciters() {
     (state) => state.listReciters
   );
 
+  const reciterName = (reciter) => {
+    return currentLang == "en" ? reciter.name : reciter.name_ar;
+  };
+
   useEffect(() => {
     dispatch(listRecitersReset());
 
@@ -83,7 +87,7 @@ export default function TopReciters() {
               >
                 <div
                   className="card transform transition-transform hover:-translate-y-1 duration-300"
-                  title={currentLang == "en" ? reciter.name : reciter.name_ar}
+                  title={reciterName(reciter)}
                 >
                   <div className="w-full px-2 max-w-[250px] h-[160px] ">
                     <div className="flex justify-end px-1 pt-4"></div>
@@ -91,10 +95,10 @@ export default function TopReciters() {
                       <img
                         className="h-[100px] w-[100px] rounded-full object-fill"
                         src={reciter.photo}
-                        alt="Bonnie image"
+                        alt={reciterName(reciter)}
                       />
                       <h5 className="mt-1 text-center text-lg line-clamp-1 font-medium ">
-                        {currentLang == "en" ? reciter.name : reciter.name_ar}
+                        {reciterName(reciter)}
                       </h5>
                     </div>
                   </div>
