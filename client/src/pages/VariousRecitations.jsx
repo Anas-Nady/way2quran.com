@@ -37,8 +37,6 @@ function VariousRecitations() {
 
     dispatch(listReciters(recitationType, "", keyword, pageNumber));
 
-    console.log(reciters);
-
     return () => {
       dispatch(listRecitersReset());
     };

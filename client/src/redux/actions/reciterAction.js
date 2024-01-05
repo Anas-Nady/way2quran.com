@@ -40,7 +40,6 @@ export const listReciters =
         `/api/reciters/?recitationType=${recitationType}&topReciters=${topReciters}&keyword=${keyword}&pageNumber=${pageNumber}`
       );
       dispatch(listRecitersSuccess(data));
-      console.log("reciterAction", data);
     } catch (err) {
       dispatch(
         listRecitersFailure(

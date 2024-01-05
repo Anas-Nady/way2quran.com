@@ -17,6 +17,7 @@ const xss = require("xss-clean");
 const app = express();
 
 // Global Middleware
+
 // set security HTTP headers
 app.set("trust proxy", 1);
 

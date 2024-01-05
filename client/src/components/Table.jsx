@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteReciterReset } from "../redux/slices/reciterSlice";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import getTextTranslation from "../utils/getTextTranslation";
 
 const Table = ({ reciters }) => {
-  const { t, i18n } = useTranslation();
-  const currentLang = i18n.language;
+  const { i18n } = useTranslation();
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector(
@@ -55,7 +55,11 @@ const Table = ({ reciters }) => {
                   {reciter.number}
                 </span>
                 <span>
-                  {currentLang == "en" ? reciter.name : reciter.name_ar}
+                  {getTextTranslation(
+                    i18n.language,
+                    reciter.name,
+                    reciter.name_ar
+                  )}
                 </span>
               </th>
               <td className="p-2 sm:px-6 sm:py-3 ">

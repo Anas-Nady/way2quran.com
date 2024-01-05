@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listReciters } from "../redux/actions/reciterAction";
 import { ErrorAlert, Spinner, HeadingSection } from ".";
 import { listRecitersReset } from "../redux/slices/reciterSlice";
+import getTextTranslation from "../utils/getTextTranslation";
 
 export default function TopReciters() {
   const settings = {
@@ -49,15 +50,9 @@ export default function TopReciters() {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const currentLang = i18n.language;
-
   const { loading, reciters, error } = useSelector(
     (state) => state.listReciters
   );
-
-  const reciterName = (reciter) => {
-    return currentLang == "en" ? reciter.name : reciter.name_ar;
-  };
 
   useEffect(() => {
     dispatch(listRecitersReset());
@@ -87,7 +82,11 @@ export default function TopReciters() {
               >
                 <div
                   className="card transform transition-transform hover:-translate-y-1 duration-300"
-                  title={reciterName(reciter)}
+                  title={getTextTranslation(
+                    i18n.language,
+                    reciter.name,
+                    reciter.name_ar
+                  )}
                 >
                   <div className="w-full px-2 max-w-[250px] h-[160px] ">
                     <div className="flex justify-end px-1 pt-4"></div>
@@ -95,10 +94,18 @@ export default function TopReciters() {
                       <img
                         className="h-[100px] w-[100px] rounded-full object-fill"
                         src={reciter.photo}
-                        alt={reciterName(reciter)}
+                        alt={getTextTranslation(
+                          i18n.language,
+                          reciter.name,
+                          reciter.name_ar
+                        )}
                       />
                       <h5 className="mt-1 text-center text-lg line-clamp-1 font-medium ">
-                        {reciterName(reciter)}
+                        {getTextTranslation(
+                          i18n.language,
+                          reciter.name,
+                          reciter.name_ar
+                        )}
                       </h5>
                     </div>
                   </div>

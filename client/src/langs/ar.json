@@ -6,7 +6,7 @@
   "link_2": "التلاوات المتواترة",
   "link_3": "التلاوات المنوعة",
 
-  "welcomeTxt": "تلاوات <span className='text-green-500'>للقرآن الكريم</span> من أنحاء العالم الإسلامى",
+  "welcomeTxt": "تلاوات <span class='text-green-500'> للقرآن الكريم </span>من أنحاء العالم الإسلامى",
   "welcomeBtn": "تصفح القراء",
 
   "aboutTitle": "من نحن",
