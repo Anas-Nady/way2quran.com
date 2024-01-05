@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input } from "./../components";
+import { Button, Input, Layout } from "./../components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { createReciter } from "../redux/actions/reciterAction";
@@ -55,62 +55,64 @@ const AddReciter = () => {
   }, [success, error, dispatch, photoDisplay, photo]);
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
-        <span className="flex justify-center">
-          <img
-            src={photoDisplay}
-            alt="default img"
-            className="w-[150px] h-[150px] rounded-full p-2 shadow-lg object-fill"
-          />
-        </span>
-        <form className="my-5">
-          <Input
-            labelText="reciterNumber"
-            isAdmin={true}
-            type="text"
-            name="number"
-            value={number}
-            placeholder={t("reciterNumber")}
-            onChange={(e) => setNumber(e.target.value)}
-          />
-          <Input
-            labelText="arName"
-            isAdmin={true}
-            type="text"
-            name="name_ar"
-            placeholder={t("arName")}
-            value={name_ar}
-            onChange={(e) => setNameAR(e.target.value)}
-            required
-          />
-          <Input
-            labelText="enName"
-            isAdmin={true}
-            type="text"
-            name="name"
-            value={name}
-            placeholder={t("enName")}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <Input
-            onChange={handleFileChange}
-            isAdmin={true}
-            labelText="photo"
-            type="file"
-            name="photo"
-          />
+    <Layout>
+      <div className="flex justify-center items-center">
+        <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
+          <span className="flex justify-center">
+            <img
+              src={photoDisplay}
+              alt="default img"
+              className="w-[150px] h-[150px] rounded-full p-2 shadow-lg object-fill"
+            />
+          </span>
+          <form className="my-5">
+            <Input
+              labelText="reciterNumber"
+              isAdmin={true}
+              type="text"
+              name="number"
+              value={number}
+              placeholder={t("reciterNumber")}
+              onChange={(e) => setNumber(e.target.value)}
+            />
+            <Input
+              labelText="arName"
+              isAdmin={true}
+              type="text"
+              name="name_ar"
+              placeholder={t("arName")}
+              value={name_ar}
+              onChange={(e) => setNameAR(e.target.value)}
+              required
+            />
+            <Input
+              labelText="enName"
+              isAdmin={true}
+              type="text"
+              name="name"
+              value={name}
+              placeholder={t("enName")}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input
+              onChange={handleFileChange}
+              isAdmin={true}
+              labelText="photo"
+              type="file"
+              name="photo"
+            />
 
-          <Button
-            type="submit"
-            text="saveReciter"
-            handleSubmit={handleSubmit}
-            disabled={loading}
-          />
-        </form>
+            <Button
+              type="submit"
+              text="saveReciter"
+              handleSubmit={handleSubmit}
+              disabled={loading}
+            />
+          </form>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -13,6 +13,7 @@ import {
   SurahContainer,
   SharePopup,
   SelectRecitation,
+  Layout,
 } from "../components";
 import { useParams } from "react-router-dom";
 
@@ -104,107 +105,113 @@ const Reciter = ({ updateAudioPlayerData }) => {
   return (
     <>
       <HelmetConfig title={reciterName} />
-      <div>
-        <SharePopup
-          pageURLToShare={pageURLToShare}
-          popup={popup}
-          handlePopup={handlePopup}
-          handleClosePopup={handleClosePopup}
-        />
-        <div className="container min-h-screen p-3">
-          <div className="bg-slate-200 dark:bg-slate-800 sm:max-w-screen-2xl shadow-lg mx-auto p-3">
-            {loading ? (
-              <Spinner />
-            ) : error ? (
-              <ErrorAlert error={error} />
-            ) : (
-              success && (
-                <>
-                  <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4 h-fit">
-                    <div className="img-reciter block  rounded-full    mx-auto">
-                      <img
-                        src={reciterInfo.photo}
-                        alt="name"
-                        className="h-[140px] w-[140px] sm:w-[200px]  sm:h-[200px] rounded-full object-fill "
-                      />
-                    </div>
-                    <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
-                      <div className="data-reciter flex items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">
-                        <h1 className="text-lg my-1 sm:my-3  capitalize md:text-xl  lg:text-2xl xl:text-3xl text-gray-900 dark:text-white font-semibold">
-                          {reciterName}
-                        </h1>
-                        <div className="text-white flex gap-1 items-center">
-                          {reciterInfo.topReciter && (
-                            <>
-                              <span className="text-yellow-300">
-                                {starIcon}
-                              </span>
-                              <span className="text-sm font-semibold text-gray-900 dark:text-slate-50">
-                                {t("topReciters")}
-                              </span>
-                            </>
-                          )}
+      <Layout>
+        <div>
+          <SharePopup
+            pageURLToShare={pageURLToShare}
+            popup={popup}
+            handlePopup={handlePopup}
+            handleClosePopup={handleClosePopup}
+          />
+          <div className="container min-h-screen p-3">
+            <div className="bg-slate-200 dark:bg-slate-800 sm:max-w-screen-2xl shadow-lg mx-auto p-3">
+              {loading ? (
+                <Spinner />
+              ) : error ? (
+                <ErrorAlert error={error} />
+              ) : (
+                success && (
+                  <>
+                    <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4 h-fit">
+                      <div className="img-reciter block  rounded-full    mx-auto">
+                        <img
+                          src={reciterInfo.photo}
+                          alt="name"
+                          className="h-[140px] w-[140px] sm:w-[200px]  sm:h-[200px] rounded-full object-fill "
+                        />
+                      </div>
+                      <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
+                        <div className="data-reciter flex items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">
+                          <h1 className="text-lg my-1 sm:my-3  capitalize md:text-xl  lg:text-2xl xl:text-3xl text-gray-900 dark:text-white font-semibold">
+                            {reciterName}
+                          </h1>
+                          <div className="text-white flex gap-1 items-center">
+                            {reciterInfo.topReciter && (
+                              <>
+                                <span className="text-yellow-300">
+                                  {starIcon}
+                                </span>
+                                <span className="text-sm font-semibold text-gray-900 dark:text-slate-50">
+                                  {t("topReciters")}
+                                </span>
+                              </>
+                            )}
+                          </div>
+
+                          <SelectRecitation
+                            currentLang={currentLang}
+                            recitations={recitationsInfo}
+                            selectedRecitationType={selectedRecitationType}
+                            setSelectedRecitationType={
+                              setSelectedRecitationType
+                            }
+                          />
                         </div>
 
-                        <SelectRecitation
-                          currentLang={currentLang}
-                          recitations={recitationsInfo}
-                          selectedRecitationType={selectedRecitationType}
-                          setSelectedRecitationType={setSelectedRecitationType}
-                        />
-                      </div>
+                        <div className="flex flex-col justify-between sm:items-center gap-2 my-2 sm:my-12">
+                          <Button
+                            text="downloadAll"
+                            className="p-2 w-[100px] sm:w-32"
+                            handleSubmit={() =>
+                              handleDownloadAllFiles(
+                                reciterInfo.slug,
+                                selectedRecitationType
+                              )
+                            }
+                          />
 
-                      <div className="flex flex-col justify-between sm:items-center gap-2 my-2 sm:my-12">
-                        <Button
-                          text="downloadAll"
-                          className="p-2 w-[100px] sm:w-32"
-                          handleSubmit={() =>
-                            handleDownloadAllFiles(
-                              reciterInfo.slug,
-                              selectedRecitationType
-                            )
-                          }
-                        />
-
-                        <Button
-                          text="share"
-                          handleSubmit={() => handlePopup("")}
-                          className="p-2 w-[90px] sm:w-32"
-                        />
+                          <Button
+                            text="share"
+                            handleSubmit={() => handlePopup("")}
+                            className="p-2 w-[90px] sm:w-32"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="recitations ">
-                    <div className="grid grid-cols-1 gap-2">
-                      {recitationsInfo.map((recitation) => {
-                        if (recitation.slug === selectedRecitationType) {
-                          if (
-                            recitation.listSurahData &&
-                            recitation.listSurahData.length > 0
-                          ) {
-                            return recitation.listSurahData.map((surah, i) => (
-                              <SurahContainer
-                                key={i}
-                                currentLang={currentLang}
-                                surahInfo={surah}
-                                handleListening={handleListening}
-                                handlePopup={handlePopup}
-                              />
-                            ));
-                          } else {
-                            return <NotFoundData key={recitation.slug} />;
+                    <div className="recitations ">
+                      <div className="grid grid-cols-1 gap-2">
+                        {recitationsInfo.map((recitation) => {
+                          if (recitation.slug === selectedRecitationType) {
+                            if (
+                              recitation.listSurahData &&
+                              recitation.listSurahData.length > 0
+                            ) {
+                              return recitation.listSurahData.map(
+                                (surah, i) => (
+                                  <SurahContainer
+                                    key={i}
+                                    currentLang={currentLang}
+                                    surahInfo={surah}
+                                    handleListening={handleListening}
+                                    handlePopup={handlePopup}
+                                  />
+                                )
+                              );
+                            } else {
+                              return <NotFoundData key={recitation.slug} />;
+                            }
                           }
-                        }
-                      })}
+                        })}
+                      </div>
                     </div>
-                  </div>
-                </>
-              )
-            )}
+                  </>
+                )
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

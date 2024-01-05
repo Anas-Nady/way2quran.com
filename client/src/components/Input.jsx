@@ -18,7 +18,7 @@ const Input = ({
       <label
         htmlFor={id}
         className={`block mb-2 capitalize text-sm ${
-          isAdmin && "text-[1.2rem]"
+          isAdmin && "text-xl"
         } font-medium text-gray-900 dark:text-white`}
       >
         {t(labelText)}

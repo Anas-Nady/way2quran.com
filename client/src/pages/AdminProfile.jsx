@@ -52,6 +52,7 @@ const AdminProfile = () => {
             name="current-email"
             value={adminEmail}
             disabled={true}
+            isAdmin={true}
           />
           <Input
             labelText="newEmail"
@@ -60,6 +61,7 @@ const AdminProfile = () => {
             value={email}
             placeholder="emailPlaceholder"
             onChange={(e) => setEmail(e.target.value)}
+            isAdmin={true}
           />
           <Input
             labelText="newPassword"
@@ -68,6 +70,7 @@ const AdminProfile = () => {
             value={password}
             placeholder="passwordPlaceholder"
             onChange={(e) => setPassword(e.target.value)}
+            isAdmin={true}
           />
 
           <Button

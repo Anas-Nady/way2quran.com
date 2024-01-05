@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import { Footer, HelmetConfig, Navbar } from "./components";
+import { Footer, HelmetConfig, Layout, Navbar } from "./components";
 
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";

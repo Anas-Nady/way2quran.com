@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Spinner } from "../components";
+import { Button, Spinner, Layout } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/frequentRecitationsAction";
 import { listReciters, uploadRecitation } from "../redux/actions/reciterAction";
@@ -80,110 +80,117 @@ const UploadRecitation = () => {
   }, [successUpload, errorUploading]);
 
   return (
-    <div className=" flex justify-between gap-2 flex-wrap max-w-screen-xl mx-auto">
-      <form>
-        <div className="flex justify-start gap-2 flex-col items-start">
-          <div className="flex gap-2">
-            {loading && <Spinner />}
-            <select
-              value={recitationSlug}
-              onChange={(e) => setRecitationSlug(e.target.value)}
-              className="bg-gray-50 border mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-            >
-              <option
-                disabled
-                selected
-                value=""
-                className="dark:bg-gray-900 text-xl"
+    <Layout>
+      <div className=" flex justify-between gap-2 flex-wrap max-w-screen-xl mx-auto">
+        <form>
+          <div className="flex justify-start gap-2 flex-col items-start">
+            <div className="flex gap-2">
+              {loading && <Spinner />}
+              <select
+                value={recitationSlug}
+                onChange={(e) => setRecitationSlug(e.target.value)}
+                className="bg-gray-50 border mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
               >
-                {t("chooseRecitation")}
-              </option>
-              <option value="hafs-an-asim" className="dark:bg-gray-900 text-xl">
-                {t("hafsAnAsim")}
-              </option>
-              {recitations &&
-                recitations.length > 0 &&
-                recitations.map((recitation, i) => (
-                  <option
-                    value={recitation.slug}
-                    key={i}
-                    className="dark:bg-gray-900 text-xl"
-                  >
-                    {currentLang == "en" ? recitation.name : recitation.name_ar}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="flex gap-2">
-            {loadingReciters && <Spinner />}
-            <select
-              value={reciterSlug}
-              onChange={(e) => setReciterSlug(e.target.value)}
-              className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-            >
-              <option
-                disabled
-                selected
-                value=""
-                className="dark:bg-gray-900 text-xl"
+                <option
+                  disabled
+                  selected
+                  value=""
+                  className="dark:bg-gray-900 text-xl"
+                >
+                  {t("chooseRecitation")}
+                </option>
+                <option
+                  value="hafs-an-asim"
+                  className="dark:bg-gray-900 text-xl"
+                >
+                  {t("hafsAnAsim")}
+                </option>
+                {recitations &&
+                  recitations.length > 0 &&
+                  recitations.map((recitation, i) => (
+                    <option
+                      value={recitation.slug}
+                      key={i}
+                      className="dark:bg-gray-900 text-xl"
+                    >
+                      {currentLang == "en"
+                        ? recitation.name
+                        : recitation.name_ar}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="flex gap-2">
+              {loadingReciters && <Spinner />}
+              <select
+                value={reciterSlug}
+                onChange={(e) => setReciterSlug(e.target.value)}
+                className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
               >
-                {t("chooseReciter")}
-              </option>
-              {reciters &&
-                reciters.length > 0 &&
-                reciters.map((reciter, i) => (
-                  <option
-                    value={reciter.slug}
-                    className="dark:bg-gray-900 text-xl"
-                    key={i}
-                  >
-                    {currentLang == "en" ? reciter.name : reciter.name_ar}
-                  </option>
-                ))}
-            </select>
+                <option
+                  disabled
+                  selected
+                  value=""
+                  className="dark:bg-gray-900 text-xl"
+                >
+                  {t("chooseReciter")}
+                </option>
+                {reciters &&
+                  reciters.length > 0 &&
+                  reciters.map((reciter, i) => (
+                    <option
+                      value={reciter.slug}
+                      className="dark:bg-gray-900 text-xl"
+                      key={i}
+                    >
+                      {currentLang == "en" ? reciter.name : reciter.name_ar}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="file"
+                multiple
+                id="audioFiles"
+                className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[300px]"
+                name="audioFiles"
+                required
+                onChange={handleFileUpload}
+                accept="audio/*"
+              />
+            </div>
           </div>
-          <div>
-            <input
-              type="file"
-              multiple
-              id="audioFiles"
-              className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[300px]"
-              name="audioFiles"
-              required
-              onChange={handleFileUpload}
-              accept="audio/*"
-            />
+
+          <Button
+            text="uploadNow"
+            type="submit"
+            handleSubmit={handleSubmit}
+            disabled={loadingUploadRecitation}
+          />
+        </form>
+
+        <div className="preview-uploaded-recitation border border-slate-300 dark:border-gray-700 w-fit lg:w-[500px] max-w-[500] px-3 py-2">
+          <div className="parent flex justify-center flex-wrap gap-2">
+            {fileDetails &&
+              fileDetails.map((file) => (
+                <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+                  <span dir="ltr" className="font-roboto ring-transparent">
+                    {file.name}
+                  </span>
+                  <span>{checkedIcon}</span>
+                </div>
+              ))}
           </div>
         </div>
-
-        <Button
-          text="uploadNow"
-          type="submit"
-          handleSubmit={handleSubmit}
-          disabled={loadingUploadRecitation}
+        <progress
+          className="w-full my-3"
+          value={progress}
+          max="100"
+          style={{ display: loadingUploadRecitation ? "block" : "none" }}
         />
-      </form>
-
-      <div className="preview-uploaded-recitation border border-slate-300 dark:border-gray-700 w-fit lg:w-[500px] max-w-[500] px-3 py-2">
-        <div className="parent flex justify-center flex-wrap gap-2">
-          {fileDetails &&
-            fileDetails.map((file) => (
-              <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-                <span dir="ltr" className="font-roboto ring-transparent">
-                  {file.name}
-                </span>
-                <span>{checkedIcon}</span>
-              </div>
-            ))}
-        </div>
       </div>
-      <progress
-        className="w-full my-3"
-        value={progress}
-        max="100"
-        style={{ display: loadingUploadRecitation ? "block" : "none" }}
-      />
-    </div>
+    </Layout>
   );
 };
 

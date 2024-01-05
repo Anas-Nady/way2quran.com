@@ -6,6 +6,7 @@ import {
   NotFoundData,
   HelmetConfig,
   HeadingSection,
+  Layout,
 } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/frequentRecitationsAction.js";
@@ -29,23 +30,28 @@ function FrequentRecitations() {
   return (
     <>
       <HelmetConfig title={t("frequentRecitations")} />
-      <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-[80vh]">
-        <HeadingSection nameSection="frequentRecitations" isCentering={true} />
-        {loading ? (
-          <Spinner />
-        ) : error ? (
-          <ErrorAlert error={error} />
-        ) : recitations && recitations.length == 0 ? (
-          <NotFoundData />
-        ) : (
-          <div className="cards flex flex-wrap gap-2 justify-center items-center">
-            {recitations &&
-              recitations.map((recitation, i) => (
-                <Recitation key={i} data={recitation} />
-              ))}
-          </div>
-        )}
-      </div>
+      <Layout>
+        <div className="max-w-screen-xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-[80vh]">
+          <HeadingSection
+            nameSection="frequentRecitations"
+            isCentering={true}
+          />
+          {loading ? (
+            <Spinner />
+          ) : error ? (
+            <ErrorAlert error={error} />
+          ) : recitations && recitations.length == 0 ? (
+            <NotFoundData />
+          ) : (
+            <div className="cards flex flex-wrap gap-2 justify-center items-center">
+              {recitations &&
+                recitations.map((recitation, i) => (
+                  <Recitation key={i} data={recitation} />
+                ))}
+            </div>
+          )}
+        </div>
+      </Layout>
     </>
   );
 }
