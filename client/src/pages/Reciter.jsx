@@ -126,7 +126,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
                       <div className="img-reciter block  rounded-full    mx-auto">
                         <img
                           src={reciterInfo.photo}
-                          alt="name"
+                          alt={reciterName}
                           className="h-[140px] w-[140px] sm:w-[200px]  sm:h-[200px] rounded-full object-fill "
                         />
                       </div>

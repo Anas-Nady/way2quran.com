@@ -18,7 +18,7 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
               <img
                 className="w-[150px] h-[150px] rounded-full p-2 shadow-lg object-fill"
                 src={photo}
-                alt="Bonnie image"
+                alt={currentNameBasedOnLanguage}
               />
             </span>
             <h2 className="my-1 text-center text-xl line-clamp-1 max-w-[180px] capitalize font-medium text-gray-900 dark:text-white">
