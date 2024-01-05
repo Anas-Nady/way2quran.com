@@ -18,6 +18,8 @@ const app = express();
 
 // Global Middleware
 // set security HTTP headers
+app.set("trust proxy", 1);
+
 app.use(helmet());
 
 // Limit request from same API
