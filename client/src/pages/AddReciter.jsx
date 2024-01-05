@@ -20,19 +20,11 @@ const AddReciter = () => {
   const [number, setNumber] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoDisplay, setPhotoDisplay] = useState(defaultImg);
+
   const handleFileChange = (e) => {
     const selectedImg = e.target.files[0];
-
-    if (selectedImg) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setPhoto(selectedImg);
-        setPhotoDisplay(reader.result);
-      };
-
-      reader.readAsDataURL(selectedImg);
-    }
+    setPhoto(selectedImg);
+    setPhotoDisplay(URL.createObjectURL(selectedImg));
   };
 
   const handleSubmit = async (e) => {

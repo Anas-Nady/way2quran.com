@@ -10,7 +10,6 @@ const frequentRecitationRouter = require("./routes/frequentRecitationRoute.js");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 
@@ -18,22 +17,6 @@ const app = express();
 
 // Global Middleware
 
-// set security HTTP headers
-app.set("trust proxy", 1);
-
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'"],
-        styleSrc: ["'self'", "https://fonts.googleapis.com"],
-        imgSrc: ["'self'", "https://storage.googleapis.com"],
-      },
-    },
-  })
-);
 // Limit request from same API
 const limiter = rateLimit({
   max: 100,
