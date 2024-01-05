@@ -29,7 +29,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // Serve static files
-app.use(express.static(path.resolve(__dirname, "client", "dist")));
+app.use(express.static(path.resolve(__dirname, "../client", "dist")));
 
 // development logging
 if (process.env.NODE_ENV !== "production") {
