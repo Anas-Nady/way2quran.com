@@ -49,11 +49,11 @@ function VariousRecitations() {
       <HelmetConfig title={t("variousRecitations")} />
       <Layout>
         <div className="max-w-screen-2xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">
-          <div className="flex justify-between items-center flex-wrap gap-2">
-            <span className="ml-[600px] rtl:mr-[650px] rtl:ml-0">
-              <HeadingSection nameSection={"variousRecitations"} />
+          <div className="flex  items-center flex-wrap gap-2 relative ">
+            <span className="flex-1 min-w-[250px]">
+              <HeadingSection nameSection={"reciters"} className="md:mx-auto" />
             </span>
-            <form className="">
+            <form className=" md:absolute md:left-0 md:rtl:right-0 ">
               <SearchInput />
             </form>
           </div>
