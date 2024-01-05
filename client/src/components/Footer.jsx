@@ -17,7 +17,7 @@ function Footer() {
               <TitleSite />
             </span>
           </Link>
-          <ul className="flex flex-wrap items-center mb-6 text-xl font-medium text-orange-500 sm:mb-0 dark:text-orange-500">
+          <ul className="flex flex-wrap items-center mb-6 text-md sm:text-xl lg:text-3xl font-medium text-orange-500 sm:mb-0 dark:text-orange-500">
             <li>
               <Link to="/about" className="hover:underline me-4 md:me-6">
                 {t("aboutTitle")}
@@ -30,7 +30,7 @@ function Footer() {
             </li>
           </ul>
         </div>
-        <span className="block text-sm sm:text-md text-gray-500 text-center dark:text-gray-400">
+        <span className="block text-md lg:text-xl text-gray-500 text-center dark:text-gray-400">
           © {new Date(Date.now()).getFullYear()}
           <span> {t("allRightsReserved")}</span>
         </span>

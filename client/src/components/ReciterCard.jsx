@@ -21,7 +21,7 @@ const ReciterCard = ({ slug, name, name_ar, photo, recitations }) => {
                 alt="Bonnie image"
               />
             </span>
-            <h2 className="my-1 text-center text-xl line-clamp-1 capitalize font-medium text-gray-900 dark:text-white">
+            <h2 className="my-1 text-center text-xl line-clamp-1 max-w-[180px] capitalize font-medium text-gray-900 dark:text-white">
               {currentNameBasedOnLanguage}
             </h2>
           </div>

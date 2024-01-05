@@ -29,7 +29,7 @@ const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
         !isVisible && "translate-y-full"
       }`}
     >
-      <Player src={url} onEnded={handleAudioEnded} />
+      <Player src={url} onPause={handleAudioEnded} onEnded={handleAudioEnded} />
     </div>
   );
 };
