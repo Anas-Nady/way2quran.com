@@ -9,21 +9,43 @@ const messageRouter = require("./routes/messageRoute");
 const frequentRecitationRouter = require("./routes/frequentRecitationRoute.js");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
 
 const app = express();
 
-app.use(express.static(__dirname + "/client/dist"));
+// Global Middleware
+// set security HTTP headers
+app.use(helmet());
+
+// Limit request from same API
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requests from this IP, please try again later.",
+});
+app.use("/api", limiter);
 
 // Serve static files
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+app.use(express.static(`${__dirname}/client/dist`));
 
+// development logging
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 
+// Body parsing, reading data from body into req.body
 app.use(cookieParser());
-app.use(express.json({ limit: "5mb" })); // Adjust the limit as needed
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Data sanitization against NoSQl query injection
+app.use(mongoSanitize());
+
+// Data sanitization against XSS
+app.use(xss());
 
 app.use("/api/auth", userRouter);
 app.use("/api/reciters", reciterRouter);
