@@ -14,7 +14,7 @@ const HeadingSection = ({
         isCentering && "mx-auto"
       } font-bold  border-b-2 pb-1 border-dashed dark:text-slate-50 w-fit cursor-default ${className}`}
     >
-      <span className="text-orange-500 dark:text-orange-500">
+      <span className="text-green-500 dark:text-green-500">
         {t(nameSection)}
         {name}
       </span>
