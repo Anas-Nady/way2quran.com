@@ -173,8 +173,11 @@ const UploadRecitation = () => {
         <div className="preview-uploaded-recitation border border-slate-300 dark:border-gray-700 w-fit lg:w-[500px] max-w-[500] px-3 py-2">
           <div className="parent flex justify-center flex-wrap gap-2">
             {fileDetails &&
-              fileDetails.map((file) => (
-                <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
+              fileDetails.map((file, i) => (
+                <div
+                  key={i}
+                  className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  "
+                >
                   <span dir="ltr" className="font-english ring-transparent">
                     {file.name}
                   </span>

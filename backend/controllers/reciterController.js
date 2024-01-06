@@ -4,7 +4,12 @@ const asyncHandler = require("express-async-handler");
 const Reciter = require("./../models/reciterModel.js");
 const Surah = require("../models/surahModel.js");
 const FrequentRecitations = require("../models/frequentRecitationsModel.js");
-const { storage, bucketName } = require("./../db/cloud.js");
+const {
+  storage,
+  bucketName,
+  defaultPhotoPath,
+  cloudBaseUrl,
+} = require("./../db/cloud.js");
 const { promisify } = require("util");
 const archiver = require("archiver");
 
@@ -150,9 +155,9 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
       public: true,
     });
 
-    newReciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+    newReciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
   } else {
-    newReciter.photo = `https://storage.googleapis.com/${bucketName}/imgs/reciter-default-photo.svg`;
+    newReciter.photo = `${cloudBaseUrl}/${bucketName}/${defaultPhotoPath}`;
   }
 
   await newReciter.save();
@@ -300,7 +305,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
     // Add the uploaded audio file to the recitation
     recitationToUpdate.audioFiles.push({
       surah: audioFile.originalname.split(".")[0],
-      audioFile: `https://storage.googleapis.com/${bucketName}/${fileName}`,
+      audioFile: `${cloudBaseUrl}/${bucketName}/${fileName}`,
       downloadUrl: file.metadata.mediaLink,
     });
   });
@@ -407,7 +412,7 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
 
       await streamFinished(req.file.buffer);
 
-      reciter.photo = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+      reciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
     }
 
     reciter.name = req.body.name || reciter.name;
@@ -428,32 +433,6 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
     console.error("Error during updateReciter:", err);
     return next(new AppError("Internal server error", 500));
   }
-});
-
-exports.deleteReciter = asyncHandler(async (req, res, next) => {
-  const reciter = await Reciters.findOneAndDelete({ slug: req.params.slug });
-
-  if (!reciter) {
-    return next(new AppError("Reciter not found", 404));
-  }
-
-  // delete form Google Cloud Storage
-
-  const [files] = await storage
-    .bucket(bucketName)
-    .getFiles({ prefix: `${reciter.slug}/` });
-
-  if (files?.length > 0) {
-    for (const file of files) {
-      console.log(file.name);
-      await file.delete();
-    }
-  }
-
-  res.status(200).json({
-    success: "reciter successfully deleted",
-    data: {},
-  });
 });
 
 exports.deleteReciterRecitation = asyncHandler(async (req, res, next) => {
@@ -550,5 +529,36 @@ exports.deleteReciterSurah = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     message: "success",
+  });
+});
+
+exports.deleteReciter = asyncHandler(async (req, res, next) => {
+  const reciter = await Reciters.findOneAndDelete({ slug: req.params.slug });
+
+  if (!reciter) {
+    return next(new AppError("Reciter not found", 404));
+  }
+
+  // delete form Google Cloud Storage
+  const [files] = await storage
+    .bucket(bucketName)
+    .getFiles({ prefix: `${reciter.slug}/` });
+
+  if (files?.length > 0) {
+    for (const file of files) {
+      await file.delete();
+    }
+  }
+
+  // delete reciter photo if it's not default photo
+  const photoPath = reciter.photo.split(`${bucketName}/`)[1];
+
+  if (photoPath !== defaultPhotoPath) {
+    await storage.bucket(bucketName).file(photoPath).delete();
+  }
+
+  res.status(200).json({
+    success: "reciter successfully deleted",
+    data: {},
   });
 });
