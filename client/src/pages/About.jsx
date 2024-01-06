@@ -13,6 +13,14 @@ import { Heading, HelmetConfig, Layout } from "../components";
 function About() {
   const { t } = useTranslation();
 
+  const socialMedia = [
+    { icon: facebookIcon, href: "https://www.facebook.com/w2quran" },
+    { icon: instagramIcon, href: "https://www.instagram.com/way2quran" },
+    { icon: twitterIcon, href: "https://twitter.com/way2quran" },
+    { icon: soundCloudIcon, href: "https://soundcloud.com/way2quran" },
+    { icon: gmailIcon, href: "mailto:info@way2quran.com" },
+  ];
+
   return (
     <>
       <HelmetConfig title={t("aboutTitle")} />
@@ -33,21 +41,11 @@ function About() {
             </ul>
 
             <div className="social-media-links flex gap-3 mt-8 justify-center">
-              <a href="https://www.facebook.com/w2quran" target="_blank">
-                {facebookIcon}
-              </a>
-              <a href="https://www.instagram.com/way2quran" target="_blank">
-                {instagramIcon}
-              </a>
-              <a href="https://twitter.com/way2quran" target="_blank">
-                {twitterIcon}
-              </a>
-              <a href="https://soundcloud.com/way2quran" target="_blank">
-                {soundCloudIcon}
-              </a>
-              <a href="mailto:info@way2quran.com" target="_blank">
-                {gmailIcon}
-              </a>
+              {socialMedia.map((link, i) => (
+                <a key={i} href={link.href} target="_blank">
+                  {link.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>

@@ -14,8 +14,10 @@ import {
   SharePopup,
   SelectRecitation,
   Layout,
+  ImgReciter,
 } from "../components";
 import { useParams } from "react-router-dom";
+import getTextTranslation from "../utils/getTextTranslation";
 
 const Reciter = ({ updateAudioPlayerData }) => {
   const handleListening = (url) => {
@@ -42,17 +44,18 @@ const Reciter = ({ updateAudioPlayerData }) => {
 
   const handleDownloadAllFiles = (reciterSlug, recitationSlug) => {
     const a = document.createElement("a");
-    const baseURL = `https://${
-      window.location.host
+    const baseURL = `${
+      window.location.origin
     }/api/reciters/download/${reciterSlug.toLowerCase()}/${recitationSlug.toLowerCase()}`;
     a.setAttribute("href", baseURL);
     a.click();
   };
 
-  const reciterName =
-    currentLang == "en"
-      ? reciterInfo?.name
-      : reciterInfo?.name_ar || window.location.host;
+  const reciterName = getTextTranslation(
+    i18n.language,
+    reciterInfo?.name,
+    reciterInfo?.name_ar
+  );
 
   const [selectedRecitationType, setSelectedRecitationType] = useState(
     recitationSlug || "hafs-an-asim"
@@ -87,7 +90,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
   }, [dispatch, recitationSlug, reciterSlug, selectedRecitationType]);
 
   useEffect(() => {
-    // Add or remove the class on the body element based on the popup state
     if (popup) {
       document.body.style.overflow = "hidden";
     } else {
@@ -99,7 +101,6 @@ const Reciter = ({ updateAudioPlayerData }) => {
     if (error) {
       dispatch(getReciterProfileReset());
     }
-    console.log(reciterInfo);
   }, [dispatch]);
 
   return (
@@ -123,11 +124,11 @@ const Reciter = ({ updateAudioPlayerData }) => {
                 success && (
                   <>
                     <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4 h-fit">
-                      <div className="img-reciter block  rounded-full    mx-auto">
-                        <img
-                          src={reciterInfo.photo}
+                      <div className="img-reciter block rounded-full mx-auto">
+                        <ImgReciter
+                          photoDisplay={reciterInfo.photo}
                           alt={reciterName}
-                          className="h-[140px] w-[140px] sm:w-[200px]  sm:h-[200px] rounded-full object-fill "
+                          isBigger={true}
                         />
                       </div>
                       <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">

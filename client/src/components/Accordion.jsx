@@ -34,7 +34,7 @@ const Accordion = ({ recitation, i, isEditReciterPage = false }) => {
   };
 
   return (
-    <div className={`accordion-item  w-[450px]`}>
+    <div className={`accordion-item  w-[520px]`}>
       <button
         type="button"
         className="accordion-button flex items-center justify-between p-5 w-full font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -49,7 +49,9 @@ const Accordion = ({ recitation, i, isEditReciterPage = false }) => {
             <button
               disabled={loadingDeleteRecitation}
               onClick={() => handleDeleteRecitation(recitation.slug)}
-              className={`${loadingDeleteRecitation && "opacity-50"} `}
+              className={`${
+                loadingDeleteRecitation && "opacity-50 cursor-not-allowed"
+              } `}
             >
               {trashIcon}
             </button>
@@ -69,7 +71,9 @@ const Accordion = ({ recitation, i, isEditReciterPage = false }) => {
                 {isEditReciterPage && (
                   <button
                     disabled={loadingDeleteSurah}
-                    className={`${loadingDeleteSurah && "opacity-50"}`}
+                    className={`${
+                      loadingDeleteSurah && "opacity-50 cursor-not-allowed"
+                    }`}
                     onClick={() =>
                       handleDeleteSurah(recitation.slug, surah.slug)
                     }

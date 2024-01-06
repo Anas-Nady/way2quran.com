@@ -54,7 +54,7 @@ function Dashboard() {
         ) : loading ? (
           <Spinner />
         ) : (
-          <PermissionError />
+          error && <PermissionError />
         )}
       </div>
     </>

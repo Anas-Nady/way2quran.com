@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 import {
   Accordion,
   ErrorAlert,
+  ImgReciter,
   Layout,
   NotFoundData,
   Spinner,
 } from "../components";
 import { getReciterProfile } from "../redux/actions/reciterAction";
+import getTextTranslation from "../utils/getTextTranslation";
 
 const PreviewReciter = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,15 @@ const PreviewReciter = () => {
   );
 
   const { reciterSlug } = useParams();
+
+  let reciterName;
+  if (!loading) {
+    reciterName = getTextTranslation(
+      i18n.language,
+      reciterInfo?.name,
+      reciterInfo?.name_ar
+    );
+  }
 
   useEffect(() => {
     dispatch(getReciterProfile(reciterSlug));
@@ -42,18 +53,16 @@ const PreviewReciter = () => {
         <Layout>
           <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4">
             <div className="img-reciter block mx-auto min-w-[200px] h-[150px] max-w-[120px] sm:max-w-[250px] sm:h-[185px]">
-              <img
-                src={reciterInfo.photo}
-                alt="name"
-                className="w-full h-full rounded-lg sm:rounded object-fill"
+              <ImgReciter
+                photoDisplay={reciterInfo.photo}
+                alt={reciterName}
+                isBigger={true}
               />
             </div>
             <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex sm:justify-between">
               <div className="data-reciter flex items-center sm:items-start w-full mx-auto mt-[-10px] sm:my-8 flex-col">
-                <h1 className="text-sm sm:text-lg my-1 sm:my-3 capitalize lg:text-xl xl:text-2xl text-gray-900 dark:text-white font-semibold">
-                  {currentLang == "en"
-                    ? reciterInfo?.name
-                    : reciterInfo.name_ar}
+                <h1 className="text-lg sm:text-xl my-1 sm:my-3 capitalize lg:text-2xl xl:text-4xl text-gray-900 dark:text-white font-semibold">
+                  {reciterName}
                 </h1>
 
                 <div className="text-gray-900 dark:text-slate-50 font-semibold flex gap-1 items-center">

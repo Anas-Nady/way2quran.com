@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input } from "../components";
+import { Button, ImgReciter, Input } from "../components";
 import { updateUserProfile } from "../redux/actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -40,10 +40,9 @@ const AdminProfile = () => {
       <div className="profile border border-slate-100 dark:border-gray-700 p-5 sm:w-[400px]">
         <form>
           <span className="flex justify-center my-5">
-            <img
-              src="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
-              alt="default img"
-              className="min-w-[40px] max-w-[120px] sm:max-w-[200px] rounded-md"
+            <ImgReciter
+              photoDisplay="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
+              alt="default admin photo"
             />
           </span>
           <Input

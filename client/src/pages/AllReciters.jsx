@@ -5,6 +5,7 @@ import {
   Spinner,
   ErrorAlert,
   SearchInput,
+  SelectRecitation,
 } from "../components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -124,6 +125,7 @@ const AllReciters = () => {
       <Pagination
         currentPage={pagination?.page || 0}
         totalPages={pagination?.pages || 0}
+        isAdmin={true}
       />
     </div>
   );

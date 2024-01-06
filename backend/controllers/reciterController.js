@@ -256,7 +256,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
     recitationToUpdate = reciter.recitations[recitationIndex];
   } else {
     recitationToUpdate = {
-      name: recitationType,
+      slug: recitationType,
       audioFiles: [],
       isCompleted: false,
     };

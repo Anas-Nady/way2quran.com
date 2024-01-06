@@ -22,7 +22,7 @@ const Home = () => {
         >
           <div className="flex gap-2 max-w-screen-2xl items-center mx-auto text-center flex-wrap w-full p-8 ">
             <p
-              className="text-3xl xl:text-5xl 2xl:text-[50px] mx-auto text-gray-900 font-semibold dark:text-white leading-[35px] max-w-[900px]"
+              className="text-3xl xl:text-5xl 2xl:text-[50px] mx-auto text-gray-900 font-semibold dark:text-white leading-[35px] max-w-[950px]"
               dangerouslySetInnerHTML={{ __html: t("welcomeTxt") }}
             />
             <div className="mx-auto sm:me-auto">

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-const Pagination = ({ currentPage, totalPages }) => {
+const Pagination = ({ currentPage, totalPages, isAdmin = false }) => {
   const { t } = useTranslation();
   const navigateTo = useNavigate();
 
@@ -34,6 +34,14 @@ const Pagination = ({ currentPage, totalPages }) => {
       >
         {">"}
       </button>
+      {isAdmin && (
+        <input
+          type="text"
+          className="w-10 py-1 dark:bg-gray-600 px-4 rounded-md mx-1"
+          placeholder={currentPage}
+          onChange={(e) => handlePageChange(e.target.value)}
+        />
+      )}
     </div>
   );
 };

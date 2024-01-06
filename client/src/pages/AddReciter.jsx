@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Layout } from "./../components";
+import { Button, ImgReciter, Input, Layout } from "./../components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { createReciter } from "../redux/actions/reciterAction";
@@ -59,11 +59,7 @@ const AddReciter = () => {
       <div className="flex justify-center items-center">
         <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
           <span className="flex justify-center">
-            <img
-              src={photoDisplay}
-              alt="default img"
-              className="w-[150px] h-[150px] rounded-full p-2 shadow-lg object-fill"
-            />
+            <ImgReciter photoDisplay={photoDisplay} />
           </span>
           <form className="my-5">
             <Input
