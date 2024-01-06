@@ -67,10 +67,10 @@ const UploadRecitation = () => {
     dispatch(listReciters());
 
     if (errorUploading) {
-      toast.error(errorUploading);
+      toast.error(errorUploading, { autoClose: false });
     }
     if (successUpload) {
-      toast.success(t("successUploadedAudioFiles"));
+      toast.success(t("successUploadedAudioFiles"), { autoClose: false });
       setFileDetails([]);
       setReciterSlug("");
       setRecitationSlug("");
