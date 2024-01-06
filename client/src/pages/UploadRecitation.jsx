@@ -175,7 +175,7 @@ const UploadRecitation = () => {
             {fileDetails &&
               fileDetails.map((file) => (
                 <div className="one p-2 text-gray-900 dark:text-white bg-slate-200 dark:bg-gray-700 rounded-sm my-1 flex justify-between  ">
-                  <span dir="ltr" className="font-roboto ring-transparent">
+                  <span dir="ltr" className="font-english ring-transparent">
                     {file.name}
                   </span>
                   <span>{checkedIcon}</span>

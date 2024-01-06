@@ -64,7 +64,7 @@ const Accordion = ({ recitation, i, isEditReciterPage = false }) => {
             {recitation.listSurahData.map((surah, j) => (
               <span
                 key={j}
-                className="flex gap-1 bg-slate-100 border border-slate-300 dark:border-gray-700 dark:bg-gray-800 p-2 mt-2 rounded-sm font-roboto "
+                className="flex gap-1 bg-slate-100 border border-slate-300 dark:border-gray-700 dark:bg-gray-800 p-2 mt-2 rounded-sm font-english "
                 dir="ltr"
               >
                 <span>{surah.url.split("/").pop()}</span>

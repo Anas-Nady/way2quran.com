@@ -17,7 +17,7 @@ const Input = ({
     <div className="mb-5">
       <label
         htmlFor={id}
-        className={`block mb-2 capitalize text-sm ${
+        className={`block mb-2 capitalize text-lg ${
           isAdmin && "text-xl"
         } font-medium text-gray-900 dark:text-white`}
       >

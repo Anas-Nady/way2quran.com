@@ -13,19 +13,14 @@ const photo = path.join(__dirname, "/public/social-media-logo.jpg");
 
 async function uploadPhoto() {
   try {
-    const fileName = "imgs/social-media-logo.jpg";
-
-    await storage.bucket(bucketName).upload(photo, {
-      destination: fileName,
-      public: true,
-      resumable: false,
-    });
-
-    const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-
-    console.log(publicUrl);
-
-    // await storage.bucket(bucketName).file('imgs/social-media-logo.svg').delete()
+    // const fileName = "imgs/social-media-logo.jpg";
+    // await storage.bucket(bucketName).upload(photo, {
+    //   destination: fileName,
+    //   public: true,
+    //   resumable: false,
+    // });
+    // const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+    // console.log(publicUrl);
   } catch (err) {
     console.log(err);
   }

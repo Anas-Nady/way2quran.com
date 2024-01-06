@@ -25,14 +25,14 @@ function About() {
     <>
       <HelmetConfig title={t("aboutTitle")} />
       <Layout>
-        <div className="container max-w-screen-lg min-h-[75vh] mt-10">
+        <div className="container max-w-screen-lg min-h-[80vh] mt-10">
           <div className="about-us text-center">
             <Heading sectionTitle={t("aboutTitle")} />
             <ul className="list-none gap-4 flex-col flex justify-start items-start text-start flex-wrap px-3">
               {Array.from({ length: 5 }, (_, index) => (
                 <li
                   key={index + 1}
-                  className="flex justify-center text-sm sm:text-lg text-gray-900 dark:text-slate-50"
+                  className="flex justify-center text-md sm:text-xl text-gray-900 dark:text-slate-50"
                 >
                   <span>{note}</span>
                   {t(`about_${index + 1}`)}

@@ -9,8 +9,8 @@ export default {
     extend: {
       fontFamily: {
         lateef: ["Lateef", "cursive"],
-        notoNaskhArabic: ['"Noto Naskh Arabic"', "serif"],
-        roboto: ["Roboto", "sans -serif"],
+        arabic: ['"Noto Naskh Arabic"', "serif"],
+        english: ["Public Sans", "sans-serif"],
       },
     },
   },

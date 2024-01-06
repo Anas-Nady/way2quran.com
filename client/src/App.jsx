@@ -67,7 +67,7 @@ function App() {
       <Router>
         <main
           className={`bg-slate-50 dark:bg-gray-900 min-h-screen py-7 px-2 relative ${
-            currentLang == "ar" ? "font-notoNaskhArabic" : "font-roboto"
+            currentLang == "ar" ? "font-arabic" : "font-english"
           }`}
         >
           <Navbar />
