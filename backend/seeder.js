@@ -9,11 +9,11 @@ const storage = new Storage({
   keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-const photo = path.join(__dirname, "/public/social.svg");
+const photo = path.join(__dirname, "/public/social-media-logo.jpg");
 
 async function uploadPhoto() {
   try {
-    const fileName = "imgs/social-media-logo.svg";
+    const fileName = "imgs/social-media-logo.jpg";
 
     await storage.bucket(bucketName).upload(photo, {
       destination: fileName,
@@ -24,6 +24,8 @@ async function uploadPhoto() {
     const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
     console.log(publicUrl);
+
+    // await storage.bucket(bucketName).file('imgs/social-media-logo.svg').delete()
   } catch (err) {
     console.log(err);
   }

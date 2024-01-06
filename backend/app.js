@@ -16,12 +16,13 @@ const xss = require("xss-clean");
 const app = express();
 
 // Global Middleware
-
+app.set("trust proxy", 1);
 // Limit request from same API
 const limiter = rateLimit({
   max: 1000,
   windowMs: 15 * 60 * 1000,
   message: "Too many requests from this IP, please try again later.",
+  trustProxy: true,
 });
 app.use("/api", limiter);
 
