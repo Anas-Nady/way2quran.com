@@ -393,6 +393,14 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
       const fileName = `imgs/${req.file.originalname}`;
       const file = storage.bucket(bucketName).file(fileName);
 
+      // check if the reciter has already photo
+      const oldPhotoPath =
+        reciter.photo.split("way2quran_storage/")[1] || defaultPhotoPath;
+      if (oldPhotoPath !== defaultPhotoPath) {
+        console.log(oldPhotoPath);
+        await storage.bucket(bucketName).file(oldPhotoPath).delete();
+      }
+
       const stream = file.createWriteStream({
         metadata: {
           contentType: req.file.mimetype,
