@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { checkedIcon, closeIcon, editIcon, eyeIcon, trashIcon } from "./Icons";
+import {
+  checkedIcon,
+  closeIcon,
+  deleteReciterIcon,
+  editReciterIcon,
+  viewReciterIcon,
+} from "./Icons";
 import { useTranslation } from "react-i18next";
 import { deleteReciter } from "../redux/actions/reciterAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -79,21 +85,24 @@ const Table = ({ reciters }) => {
                   title="view"
                   to={`/dashboard/preview-reciter/${reciter.slug}`}
                 >
-                  {eyeIcon}
+                  {viewReciterIcon}
                 </Link>
                 <Link
                   className="cursor-pointer hover:text-blue-600"
                   title="edit"
                   to={`/dashboard/edit-reciter/${reciter.slug}`}
                 >
-                  {editIcon}
+                  {editReciterIcon}
                 </Link>
                 <button
                   title="delete"
                   onClick={() => handleDeleteReciter(reciter.slug)}
                   disabled={loading}
+                  className={`hover:text-red-500 ${
+                    loading && "cursor-not-allowed opacity-40"
+                  }`}
                 >
-                  {trashIcon}
+                  {deleteReciterIcon}
                 </button>
               </td>
             </tr>

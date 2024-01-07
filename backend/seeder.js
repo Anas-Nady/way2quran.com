@@ -9,32 +9,21 @@ const storage = new Storage({
   keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-// const photo = path.join(__dirname, "/public/last-one.png");
+// const photo = path.join(__dirname, "/public/way2quran-icon.svg");
+// const photoName = photo.split("public/")[1];
+// console.log(photoName);
 
 async function uploadPhoto() {
   try {
-    const fileName = "imgs";
-
-    // Get the file from the bucket
-    const files = storage.bucket(bucketName).file(fileName);
-
-    // Download the file using the file stream
-    for (const file of files) {
-      file
-        .createReadStream()
-        .on("error", (err) => {
-          console.error(`Error downloading file: ${err.message}`);
-        })
-        .on("error", (err) => {
-          console.error(`Error writing file to local storage: ${err.message}`);
-        })
-        .on("finish", () => {
-          console.log("File downloaded successfully");
-        });
-    }
+    const fileName = `imgs/${photoName}`;
+    await storage.bucket(bucketName).upload(photo, {
+      destination: fileName,
+      public: true,
+      resumable: false,
+    });
   } catch (err) {
     console.log(err);
   }
 }
 
-uploadPhoto();
+// uploadPhoto();
