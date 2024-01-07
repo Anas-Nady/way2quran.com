@@ -18,8 +18,11 @@ const surahSchema = mongoose.Schema({
   number: {
     type: String,
     required: true,
+    index: true,
   },
 });
+
+surahSchema.index({ number: 1 });
 
 surahSchema.pre("save", function (next) {
   this.slug = slugify(this.name_translation, { lower: true });

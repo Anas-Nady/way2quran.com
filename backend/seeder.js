@@ -13,14 +13,25 @@ const storage = new Storage({
 
 async function uploadPhoto() {
   try {
-    // const fileName = "imgs/social-media-logo.jpg";
-    // await storage.bucket(bucketName).upload(photo, {
-    //   destination: fileName,
-    //   public: true,
-    //   resumable: false,
-    // });
-    // const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-    // console.log(publicUrl);
+    const fileName = "imgs";
+
+    // Get the file from the bucket
+    const files = storage.bucket(bucketName).file(fileName);
+
+    // Download the file using the file stream
+    for (const file of files) {
+      file
+        .createReadStream()
+        .on("error", (err) => {
+          console.error(`Error downloading file: ${err.message}`);
+        })
+        .on("error", (err) => {
+          console.error(`Error writing file to local storage: ${err.message}`);
+        })
+        .on("finish", () => {
+          console.log("File downloaded successfully");
+        });
+    }
   } catch (err) {
     console.log(err);
   }

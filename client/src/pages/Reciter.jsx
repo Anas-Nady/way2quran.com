@@ -44,10 +44,7 @@ const Reciter = ({ updateAudioPlayerData }) => {
 
   const handleDownloadAllFiles = (reciterSlug, recitationSlug) => {
     const a = document.createElement("a");
-    const baseURL = `${
-      window.location.origin
-    }/api/reciters/download/${reciterSlug.toLowerCase()}/${recitationSlug}`;
-    console.log(baseURL);
+    const baseURL = `${window.location.origin}/api/reciters/download/${reciterSlug}/${recitationSlug}`;
     a.setAttribute("href", baseURL);
     a.click();
   };

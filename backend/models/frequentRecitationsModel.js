@@ -23,7 +23,7 @@ frequentRecitationSchema.index({ slug: 1 }, { unique: true });
 
 frequentRecitationSchema.pre("save", function (next) {
   if (this.isModified("name")) {
-    this.slug = slugify(this.name, { lowercase: true });
+    this.slug = slugify(this.name, { lower: true });
   }
   next();
 });

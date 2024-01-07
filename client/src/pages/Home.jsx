@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { HelmetConfig, Layout, TopReciters } from "../components";
-// import logo from "./../assets/imgs/full-logo.png";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -28,7 +27,7 @@ const Home = () => {
             />
             <div className="mx-auto sm:me-auto">
               <img
-                src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.svg"
+                src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.png"
                 alt="way2quran logo"
                 className="w-[400px] xl:w-[600px] mx-auto 2xl:mx-0 "
               />
