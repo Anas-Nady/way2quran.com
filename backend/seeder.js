@@ -9,7 +9,7 @@ const storage = new Storage({
   keyFilename: `${__dirname}/../cloud-configuration.json`,
 });
 
-// const photo = path.join(__dirname, "/public/social-media-logo.jpg");
+// const photo = path.join(__dirname, "/public/last-one.png");
 
 async function uploadPhoto() {
   try {

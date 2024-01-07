@@ -13,10 +13,13 @@ const frequentRecitationSchema = mongoose.Schema(
     },
     slug: {
       type: String,
+      index: true,
     },
   },
   { timestamp: true }
 );
+
+frequentRecitationSchema.index({ slug: 1 }, { unique: true });
 
 frequentRecitationSchema.pre("save", function (next) {
   if (this.isModified("name")) {

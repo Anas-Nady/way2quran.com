@@ -3,7 +3,7 @@ const slugify = require("slugify");
 
 const reciterSchema = new mongoose.Schema(
   {
-    number: { type: Number, unique: true },
+    number: { type: Number, unique: true, index: true },
     name: { type: String, required: true },
     name_ar: {
       type: String,
@@ -39,7 +39,7 @@ const reciterSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-reciterSchema.index({ number: 1 });
+reciterSchema.index({ number: 1, slug: 1 }, { unique: true });
 
 reciterSchema.pre("save", async function (next) {
   if (!this.number) {
@@ -54,8 +54,6 @@ reciterSchema.pre("save", async function (next) {
         .sort({ number: -1 })
         .limit(1);
 
-      console.log(highestNumberReciter);
-
       // Assign a new number greater than the highest existing number
       if (highestNumberReciter?.number) {
         this.number = highestNumberReciter.number + 1;
@@ -65,7 +63,9 @@ reciterSchema.pre("save", async function (next) {
     }
   }
 
-  this.slug = slugify(this.name, { lowercase: true });
+  if (!this.slug) {
+    this.slug = slugify(this.name, { lower: true });
+  }
   next();
 });
 

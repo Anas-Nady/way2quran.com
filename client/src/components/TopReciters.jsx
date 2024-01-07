@@ -59,6 +59,7 @@ export default function TopReciters() {
 
     dispatch(listReciters("", true));
 
+
     return () => {
       dispatch(listRecitersReset());
     };
