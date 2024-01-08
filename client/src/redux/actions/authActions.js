@@ -23,7 +23,6 @@ export const login = (email, password) => async (dispatch) => {
     );
     dispatch(userLoginSuccess(data));
     sessionStorage.setItem("user", JSON.stringify(data?.user));
-    console.log(data?.user);
   } catch (error) {
     dispatch(
       userLoginFailure(

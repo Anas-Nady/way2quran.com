@@ -5,6 +5,7 @@ const ImgReciter = ({
   alt = "way2quran logo",
   className = "",
   isBigger = false,
+  isCentering = false,
 }) => {
   return (
     <>
@@ -13,7 +14,9 @@ const ImgReciter = ({
         alt={alt}
         className={`w-[150px] h-[150px] ${
           isBigger && "sm:w-[200px]  sm:h-[200px]"
-        }  rounded-full p-2 shadow-lg object-fill ${className}`}
+        }  rounded-full p-2 shadow-md object-fill ${
+          isCentering && "mx-auto"
+        } ${className}`}
       />
     </>
   );

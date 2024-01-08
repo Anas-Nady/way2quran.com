@@ -37,14 +37,13 @@ const AdminProfile = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="profile border border-slate-100 dark:border-gray-700 p-5 sm:w-[400px]">
+      <div className="profile border border-slate-100 dark:border-gray-700 p-5 sm:max-w-[500px]">
         <form>
-          <span className="flex justify-center my-5">
-            <ImgReciter
-              photoDisplay="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
-              alt="default admin photo"
-            />
-          </span>
+          <ImgReciter
+            photoDisplay="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
+            alt="default admin photo"
+            isCentering={true}
+          />
           <Input
             labelText="currentEmail"
             type="email"

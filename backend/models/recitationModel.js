@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const frequentRecitationSchema = mongoose.Schema(
+const recitationSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -19,17 +19,14 @@ const frequentRecitationSchema = mongoose.Schema(
   { timestamp: true }
 );
 
-frequentRecitationSchema.index({ slug: 1 }, { unique: true });
+recitationSchema.index({ slug: 1 }, { unique: true });
 
-frequentRecitationSchema.pre("save", function (next) {
+recitationSchema.pre("save", function (next) {
   if (this.isModified("name")) {
     this.slug = slugify(this.name, { lower: true });
   }
   next();
 });
 
-const FrequentRecitations = mongoose.model(
-  "FrequentRecitations",
-  frequentRecitationSchema
-);
-module.exports = FrequentRecitations;
+const Recitations = mongoose.model("Recitations", recitationSchema);
+module.exports = Recitations;

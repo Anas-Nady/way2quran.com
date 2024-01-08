@@ -11,6 +11,8 @@ const Input = ({
   value,
   required = true,
   isAdmin = false,
+  multiple = false,
+  accept = "*",
 }) => {
   const { t } = useTranslation();
   return (
@@ -28,10 +30,12 @@ const Input = ({
         id={id}
         value={value}
         onChange={onChange}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+        className="max-w-full bg-gray-50 border border-gray-300 text-gray-900 text-lg sm:text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
         placeholder={t(placeholder)}
         required={required}
         disabled={disabled}
+        multiple={multiple}
+        accept={accept}
       />
     </div>
   );

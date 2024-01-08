@@ -3,15 +3,20 @@ const Reciters = require("./../models/reciterModel.js");
 const asyncHandler = require("express-async-handler");
 const Reciter = require("./../models/reciterModel.js");
 const Surah = require("../models/surahModel.js");
-const FrequentRecitations = require("../models/frequentRecitationsModel.js");
+const Recitations = require("../models/recitationModel.js");
+const {
+  hafsAnAsim,
+  completedRecitations,
+  variousRecitations,
+} = require("./../constants/recitationsTxt.js");
 const {
   storage,
   bucketName,
   defaultPhotoPath,
   cloudBaseUrl,
 } = require("./../db/cloud.js");
-const { promisify } = require("util");
 const archiver = require("archiver");
+const buildRecitationFilter = require("./../utils/recitationsFilter.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -37,47 +42,22 @@ exports.getAllReciters = asyncHandler(async (req, res, next) => {
       }
     : {};
 
-  let recitationFilter = {};
-  if (req.query.recitationType) {
-    recitationFilter =
-      req.query.recitationType === "completed-recitations"
-        ? {
-            recitations: {
-              $elemMatch: { slug: "hafs-an-asim", audioFiles: { $size: 114 } },
-            },
-          }
-        : req.query.recitationType === "various-recitations"
-        ? {
-            recitations: {
-              $elemMatch: {
-                slug: "hafs-an-asim",
-                audioFiles: { $not: { $size: 114 } },
-              },
-            },
-          }
-        : {
-            recitations: {
-              $elemMatch: { slug: req.query.recitationType },
-            },
-          };
-  }
+  let recitationFilter = buildRecitationFilter(recitationTypeFromQuery);
 
   let recitation = {};
 
   if (recitationTypeFromQuery) {
     if (
-      recitationTypeFromQuery !== "hafs-an-asim" &&
-      recitationTypeFromQuery !== "various-recitations" &&
-      recitationTypeFromQuery !== "completed-recitations"
+      recitationTypeFromQuery == variousRecitations ||
+      recitationTypeFromQuery == completedRecitations
     ) {
-      recitation = await FrequentRecitations.findOne({
-        slug: req.query.recitationType,
+      recitation = await Recitations.findOne({
+        slug: hafsAnAsim,
       });
     } else {
-      recitation = {
-        name: "Hafs An Asim",
-        name_ar: "حفص عن عاصم",
-      };
+      recitation = await Recitations.findOne({
+        slug: req.query.recitationType,
+      });
     }
   }
 
@@ -144,8 +124,9 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
   const photo = req.file;
 
   if (photo) {
+    const fileExtension = photo.originalname.split(".").pop();
     // Upload photo to Google Cloud Storage
-    const fileName = `imgs/${photo.originalname}`;
+    const fileName = `imgs/${newReciter.slug}.${fileExtension}`;
     const file = storage.bucket(bucketName).file(fileName);
 
     await file.save(photo.buffer, {
@@ -153,6 +134,7 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
         contentType: photo.mimetype,
       },
       public: true,
+      gzip: true,
     });
 
     newReciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
@@ -190,27 +172,15 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
   if (recitationsAreExists) {
     recitationsInfo = await Promise.all(
       reciter.recitations.map(async (recitation) => {
-        let recitationInfo;
+        const temp = await Recitations.findOne({
+          slug: recitation.slug,
+        });
 
-        if (recitation.slug !== "hafs-an-asim") {
-          const temp =
-            (await FrequentRecitations.findOne({
-              slug: recitation.slug,
-            })) || {};
-          if (temp) {
-            recitationInfo = {
-              name: temp?.name,
-              name_ar: temp?.name_ar,
-              slug: temp?.slug,
-            };
-          }
-        } else {
-          recitationInfo = {
-            name: "Hafs An Asim",
-            name_ar: "حفص عن عاصم",
-            slug: "hafs-an-asim",
-          };
-        }
+        const recitationInfo = {
+          name: temp?.name,
+          name_ar: temp?.name_ar,
+          slug: temp?.slug,
+        };
 
         let listSurahData = await Promise.all(
           recitation.audioFiles.map(async (audioFile) => {
@@ -243,7 +213,7 @@ exports.getReciterProfile = asyncHandler(async (req, res, next) => {
 });
 
 exports.uploadRecitations = asyncHandler(async (req, res, next) => {
-  const recitationType = req.body.recitationType || "hafs-an-asim";
+  const recitationType = req.body.recitationType;
   const audioFiles = req.files;
 
   const reciter = await Reciters.findOne({ slug: req.params.slug });
@@ -389,36 +359,25 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
 
   try {
     if (req.file) {
+      const fileExtension = req.file.originalname.split(".").pop();
       // Upload new photo
-      const fileName = `imgs/${req.file.originalname}`;
+      const fileName = `imgs/${reciter.slug}.${fileExtension}`;
       const file = storage.bucket(bucketName).file(fileName);
 
       // check if the reciter has already photo
       const oldPhotoPath =
         reciter.photo.split("way2quran_storage/")[1] || defaultPhotoPath;
       if (oldPhotoPath !== defaultPhotoPath) {
-        console.log(oldPhotoPath);
         await storage.bucket(bucketName).file(oldPhotoPath).delete();
       }
-
-      const stream = file.createWriteStream({
+      // Upload new photo
+      await file.save(req.file.buffer, {
         metadata: {
           contentType: req.file.mimetype,
         },
         gzip: true,
         public: true,
       });
-
-      stream.on("error", (err) => {
-        console.error("Error uploading photo to Google Cloud Storage:", err);
-        return next(
-          new AppError("Error uploading photo to Google Cloud Storage", 500)
-        );
-      });
-
-      const streamFinished = promisify(stream.end).bind(stream);
-
-      await streamFinished(req.file.buffer);
 
       reciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
     }
@@ -428,10 +387,7 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
     reciter.topReciter = req.body.topReciter || reciter.topReciter;
 
     // Save the reciter and handle any errors
-    await reciter.save().catch((err) => {
-      console.error("Error during reciter save:", err);
-      return next(new AppError("Error saving reciter", 500));
-    });
+    await reciter.save();
 
     res.status(200).json({
       status: "success",
@@ -510,7 +466,7 @@ exports.deleteReciterSurah = asyncHandler(async (req, res, next) => {
   }
 
   const recitation = reciter.recitations.find(
-    (rec) => rec.name === recitationSlug
+    (rec) => rec.slug === recitationSlug
   );
 
   // remove from mongoDB

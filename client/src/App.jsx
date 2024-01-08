@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useTranslation } from "react-i18next";
-import { closeIcon } from "./components/Icons";
+import { closeSolidIcon } from "./components/Icons";
 
 const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
   const handleAudioEnded = () => {
@@ -31,12 +31,12 @@ const AudioPlayer = ({ url, isVisible, updateAudioPlayerData }) => {
       }`}
     >
       <span
-        className={`bg-gray-700 rounded-lg -top-6 -right-1 w-7 h-7 flex justify-center items-center text-white cursor-pointer absolute mx-auto text-center ${
+        className={`bg-gray-700 rounded-lg -top-6 -right-1 flex justify-center items-center text-white cursor-pointer absolute font-bold mx-auto text-center ${
           !isVisible && "hidden"
         }`}
         onClick={handleAudioEnded}
       >
-        {closeIcon}
+        {closeSolidIcon}
       </span>
       <Player src={url} onEnded={handleAudioEnded} />
     </div>

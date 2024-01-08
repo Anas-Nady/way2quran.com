@@ -12,7 +12,7 @@ export const listFrequentRecitations = () => async (dispatch) => {
   try {
     dispatch(listFrequentRecitationsRequest());
 
-    const { data } = await axios.get(`/api/frequent-recitations`);
+    const { data } = await axios.get(`/api/recitations`);
     dispatch(listFrequentRecitationsSuccess(data));
   } catch (error) {
     dispatch(
@@ -29,7 +29,7 @@ export const getFrequentRecitations = (id) => async (dispatch) => {
   try {
     dispatch(getFrequentRecitationRequest());
 
-    const { data } = await axios.get(`/api/frequent-recitations/${id}`);
+    const { data } = await axios.get(`/api/recitations/${id}`);
     dispatch(getFrequentRecitationSuccess(data));
   } catch (error) {
     dispatch(

@@ -57,7 +57,7 @@ const Login = () => {
                   <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     {t("signIn")}
                   </h1>
-                  <form className="space-y-4 md:space-y-6" action="#">
+                  <form className="space-y-4 md:space-y-6">
                     <Input
                       labelText={"emailInput"}
                       id={"email"}
@@ -77,9 +77,7 @@ const Login = () => {
 
                     <Button
                       type="submit"
-                      className={`w-full ${
-                        loading && "cursor-not-allowed opacity-40"
-                      }`}
+                      className="w-full"
                       text="signInBtn"
                       handleSubmit={handleSubmit}
                     />

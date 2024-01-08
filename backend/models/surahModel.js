@@ -14,7 +14,7 @@ const surahSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  slug: { type: String },
+  slug: { type: String, index: true },
   number: {
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const surahSchema = mongoose.Schema({
   },
 });
 
-surahSchema.index({ number: 1 });
+surahSchema.index({ number: 1, slug: 1 });
 
 surahSchema.pre("save", function (next) {
   this.slug = slugify(this.name_translation, { lower: true });

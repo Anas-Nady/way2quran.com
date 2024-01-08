@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
@@ -12,11 +12,7 @@ const AudioPlayer = () => {
         !isVisible && "hidden"
       }  bottom-0 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-[1277px] z-50`}
     >
-      <Player
-        // autoPlay
-        src={url}
-        onPlay={(e) => console.log("onPlay", e)}
-      />
+      <Player src={url} />
     </div>
   );
 };

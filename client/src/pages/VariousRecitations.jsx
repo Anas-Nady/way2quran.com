@@ -48,13 +48,13 @@ function VariousRecitations() {
       <Layout>
         <div className="max-w-screen-2xl mx-auto border border-1 border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-800 p-4 min-h-screen">
           <div className="flex  items-center flex-wrap gap-2 relative ">
-            <span className="flex-1 min-w-[250px]">
+            <span className="flex-1 w-[300px]">
               <HeadingSection
                 nameSection={"variousRecitations"}
-                className="md:mx-auto"
+                className="mx-0 lg:mx-auto"
               />
             </span>
-            <form className=" md:absolute md:left-0 md:rtl:right-0 ">
+            <form className="relative lg:absolute lg:left-0 lg:rtl:right-0 ">
               <SearchInput />
             </form>
           </div>
@@ -62,7 +62,7 @@ function VariousRecitations() {
             <Spinner />
           ) : error ? (
             <ErrorAlert error={error} />
-          ) : reciters && reciters.length == 0 ? (
+          ) : reciters && reciters.length == 0 && !loading ? (
             <NotFoundData />
           ) : (
             <>

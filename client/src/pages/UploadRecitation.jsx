@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Spinner, Layout } from "../components";
+import { Button, Layout, Input } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { listFrequentRecitations } from "../redux/actions/frequentRecitationsAction";
 import { listReciters, uploadRecitation } from "../redux/actions/reciterAction";
@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { uploadRecitationReset } from "../redux/slices/reciterSlice";
 import { checkedIcon } from "../components/Icons";
+import Select from "../components/Select";
 
 const UploadRecitation = () => {
   const [audioFiles, setAudioFiles] = useState([]);
@@ -83,83 +84,32 @@ const UploadRecitation = () => {
     <Layout>
       <div className=" flex justify-between gap-2 flex-wrap max-w-screen-xl mx-auto">
         <form>
-          <div className="flex justify-start gap-2 flex-col items-start">
-            <div className="flex gap-2">
-              {loading && <Spinner />}
-              <select
-                value={recitationSlug}
-                onChange={(e) => setRecitationSlug(e.target.value)}
-                className="bg-gray-50 border mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-              >
-                <option
-                  disabled
-                  selected
-                  value=""
-                  className="dark:bg-gray-900 text-xl"
-                >
-                  {t("chooseRecitation")}
-                </option>
-                <option
-                  value="hafs-an-asim"
-                  className="dark:bg-gray-900 text-xl"
-                >
-                  {t("hafsAnAsim")}
-                </option>
-                {recitations &&
-                  recitations.length > 0 &&
-                  recitations.map((recitation, i) => (
-                    <option
-                      value={recitation.slug}
-                      key={i}
-                      className="dark:bg-gray-900 text-xl"
-                    >
-                      {currentLang == "en"
-                        ? recitation.name
-                        : recitation.name_ar}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div className="flex gap-2">
-              {loadingReciters && <Spinner />}
-              <select
-                value={reciterSlug}
-                onChange={(e) => setReciterSlug(e.target.value)}
-                className="bg-gray-50 border  mb-2.5 h-fit p-3 w-[300px] text-xl border-gray-300 text-gray-900 rounded-lg  focus:ring-orange-500 focus:border-orange-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
-              >
-                <option
-                  disabled
-                  selected
-                  value=""
-                  className="dark:bg-gray-900 text-xl"
-                >
-                  {t("chooseReciter")}
-                </option>
-                {reciters &&
-                  reciters.length > 0 &&
-                  reciters.map((reciter, i) => (
-                    <option
-                      value={reciter.slug}
-                      className="dark:bg-gray-900 text-xl"
-                      key={i}
-                    >
-                      {currentLang == "en" ? reciter.name : reciter.name_ar}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <input
-                type="file"
-                multiple
-                id="audioFiles"
-                className="bg-white dark:bg-gray-600 rounded-sm p-2 my-2 w-[300px]"
-                name="audioFiles"
-                required
-                onChange={handleFileUpload}
-                accept="audio/*"
-              />
-            </div>
+          <div className="flex justify-start gap-2 flex-col items-start w-[300px]">
+            <Select
+              value={recitationSlug}
+              onChange={(e) => setRecitationSlug(e.target.value)}
+              options={recitations}
+              loading={loading}
+              placeholder="chooseRecitation"
+            />
+
+            <Select
+              value={reciterSlug}
+              onChange={(e) => setReciterSlug(e.target.value)}
+              options={reciters}
+              loading={loading}
+              placeholder="chooseReciter"
+            />
+
+            <Input
+              name="audioFiles"
+              required={true}
+              type="file"
+              isAdmin={true}
+              onChange={handleFileUpload}
+              multiple={true}
+              accept="audio/*"
+            />
           </div>
 
           <Button

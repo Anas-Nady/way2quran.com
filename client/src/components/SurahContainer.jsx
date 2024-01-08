@@ -28,7 +28,7 @@ const SurahContainer = ({
           </span>
         </div>
 
-        <h2 className="surah-name text-lg sm:text-xl lg:text-2xl font-semibold font-arabic text-gray-900 dark:text-slate-50">
+        <h2 className="surah-name text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 dark:text-slate-50">
           {currentLang == "en" ? `${translation} "${name}"` : `${name_ar}`}
         </h2>
       </div>

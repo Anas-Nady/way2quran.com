@@ -13,14 +13,14 @@ const SearchInput = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative max-w-[300px]">
       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
         {searchIcon}
       </div>
       <input
         type="search"
         id="default-search"
-        className="block w-[270px] p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
+        className="block w-[300px] p-5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-200 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
         placeholder={t("searchPlaceholder")}
         onChange={handleSearch}
       />

@@ -58,9 +58,7 @@ const AddReciter = () => {
     <Layout>
       <div className="flex justify-center items-center">
         <div className="border border-slate-300 dark:border-gray-700  sm:w-[500px] mx-3 p-10">
-          <span className="flex justify-center">
-            <ImgReciter photoDisplay={photoDisplay} />
-          </span>
+          <ImgReciter photoDisplay={photoDisplay} isCentering={true} />
           <form className="my-5">
             <Input
               labelText="reciterNumber"
@@ -97,6 +95,7 @@ const AddReciter = () => {
               labelText="photo"
               type="file"
               name="photo"
+              accept="image/*"
             />
 
             <Button

@@ -37,8 +37,6 @@ const PreviewReciter = () => {
 
   useEffect(() => {
     dispatch(getReciterProfile(reciterSlug));
-    console.log(reciterInfo);
-    console.log(recitationsInfo);
 
     return () => {
       dispatch(getReciterProfileReset());
@@ -52,7 +50,7 @@ const PreviewReciter = () => {
       {reciterInfo && (
         <Layout>
           <div className="my-2 sm:my-5 flex flex-col sm:flex-row m-auto gap-4">
-            <div className="img-reciter block mx-auto min-w-[200px] h-[150px] max-w-[120px] sm:max-w-[250px] sm:h-[185px]">
+            <div className="img-reciter block">
               <ImgReciter
                 photoDisplay={reciterInfo.photo}
                 alt={reciterName}

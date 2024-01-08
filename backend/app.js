@@ -6,7 +6,7 @@ const userRouter = require("./routes/userRoute");
 const reciterRouter = require("./routes/reciterRoute");
 const surahRouter = require("./routes/surahRoute");
 const messageRouter = require("./routes/messageRoute");
-const frequentRecitationRouter = require("./routes/frequentRecitationRoute.js");
+const recitationRouter = require("./routes/recitationRoute.js");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
@@ -48,7 +48,7 @@ app.use(xss());
 app.use("/api/auth", userRouter);
 app.use("/api/reciters", reciterRouter);
 app.use("/api/surah", surahRouter);
-app.use("/api/frequent-recitations", frequentRecitationRouter);
+app.use("/api/recitations", recitationRouter);
 app.use("/api/messages", messageRouter);
 
 app.get("*", (req, res) => {

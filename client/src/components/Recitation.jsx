@@ -6,6 +6,11 @@ import getTextTranslation from "../utils/getTextTranslation";
 function Recitation({ data }) {
   const { i18n } = useTranslation();
 
+  // disappear Hafs An Asim recitation
+  if (data.slug == "hafs-an-asim") {
+    return null;
+  }
+
   return (
     <Link
       to={data.slug}

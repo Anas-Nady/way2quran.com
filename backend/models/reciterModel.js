@@ -43,24 +43,14 @@ reciterSchema.index({ number: 1, slug: 1 }, { unique: true });
 
 reciterSchema.pre("save", async function (next) {
   if (!this.number) {
-    // Check if it's the first reciter
-    const count = await Reciter.countDocuments();
+    // Skip the countDocuments query
 
-    if (count === 0) {
-      this.number = 1;
-    } else {
-      // Find the highest existing number
-      const highestNumberReciter = await Reciter.findOne({}, { number: 1 })
-        .sort({ number: -1 })
-        .limit(1);
+    const highestNumberReciter = await Reciter.findOne({}, { number: 1 })
+      .sort({ number: -1 })
+      .limit(1);
 
-      // Assign a new number greater than the highest existing number
-      if (highestNumberReciter?.number) {
-        this.number = highestNumberReciter.number + 1;
-      } else {
-        this.number = 1;
-      }
-    }
+    // Assign a new number greater than the highest existing number
+    this.number = (highestNumberReciter?.number || 0) + 1;
   }
 
   if (!this.slug) {

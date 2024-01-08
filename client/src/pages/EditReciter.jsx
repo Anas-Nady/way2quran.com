@@ -3,9 +3,11 @@ import {
   Accordion,
   Button,
   ErrorAlert,
+  ImgReciter,
   Input,
   NotFoundData,
   Spinner,
+  TopReciterCheckBox,
 } from "./../components";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,6 +59,11 @@ const EditReciter = () => {
     const selectedImg = e.target.files[0];
     setPhoto(selectedImg);
     setPhotoDisplay(URL.createObjectURL(selectedImg));
+  };
+
+  const handleTopReciters = (e) => {
+    e.preventDefault();
+    setTopReciter(!topReciter);
   };
 
   const handleSubmit = async (e) => {
@@ -124,13 +131,11 @@ const EditReciter = () => {
         <>
           <div className="border border-slate-300 dark:border-gray-700 sm:w-[500px] mx-3 p-10">
             {photoDisplay && (
-              <span className="flex justify-center">
-                <img
-                  src={photoDisplay}
-                  alt="default img"
-                  className="rounded-lg sm:w-[200px] h-[150px] object-fill"
-                />
-              </span>
+              <ImgReciter
+                photoDisplay={photoDisplay}
+                isBigger={true}
+                isCentering={true}
+              />
             )}
             <form className="my-5">
               <Input
@@ -154,22 +159,13 @@ const EditReciter = () => {
                 label="photo"
                 type="file"
                 name="photo"
+                accept="image/*"
               />
-              <div className="flex items-center mb-4">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  checked={topReciter}
-                  onChange={() => setTopReciter(!topReciter)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label
-                  htmlFor="default-checkbox"
-                  className="ms-2 text-xl font-medium text-gray-900 dark:text-gray-300"
-                >
-                  {t("topReciters")}
-                </label>
-              </div>
+
+              <TopReciterCheckBox
+                handleTopReciters={handleTopReciters}
+                checked={topReciter}
+              />
 
               <Button
                 text="save"

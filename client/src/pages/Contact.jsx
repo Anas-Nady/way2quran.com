@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Input, Heading, HelmetConfig, Button, Layout } from "../components";
+import {
+  Input,
+  Heading,
+  HelmetConfig,
+  Button,
+  Layout,
+  TextAreaInput,
+} from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { createMessage } from "../redux/actions/messageAction";
 import { createMessageReset } from "../redux/slices/messageSlice";
@@ -66,22 +73,11 @@ function Contact() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
 
-                <div className="mb-5 max-w-full">
-                  <label
-                    htmlFor="message"
-                    className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
-                  >
-                    {t("textarea")}
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder={t("textareaPlaceholder")}
-                  ></textarea>
-                </div>
+                <TextAreaInput
+                  name="message"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
 
                 <div className="flex justify-center items-center">
                   <Button
