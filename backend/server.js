@@ -10,8 +10,6 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-dotenv.config();
-
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("DB connection successful!"));
