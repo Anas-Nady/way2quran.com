@@ -1,5 +1,6 @@
 const path = require("path");
 const { Storage } = require("@google-cloud/storage");
+require("dotenv").config({ path: "./../.env.local" });
 
 // Initialize Google Cloud Storage
 const keyFilePath = path.join(__dirname, "../../cloud-configuration.json");
