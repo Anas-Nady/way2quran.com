@@ -1,0 +1,171 @@
+{
+  "titleHome": "Way2quran",
+  "title": "Way2quran: Recitations of the Holy Quran from around the Islamic world",
+  "description": "Explore the way2quran website featuring diverse recitations by various Qaris. Download audio clips for offline listening and delve into a Quranic recitations.",
+  "keywords": "Quranic Recitations, Quran Audio, Quran Download, Quranic Verses, Quranic Audio Clips, Quran, Holy Quran, Islamic Scriptures, Islamic Audio, Quranic Teachings, Listen to Quran, Download Quran Recitations, Quranic Audio Downloads, Audio Clips Download, Arabic Quran, English Quran, Learn Quran, Quran Study, Quranic Education, Quranic Learning, Recitation App, Global Quran, Worldwide Quran, International Quran",
+  "listeningNow": "Listening Now",
+  "wayTo": "way2",
+  "quran": "quran",
+  "notFoundData": "There are currently no data to display on this page.",
+  "page": "Page",
+  "of": "of ",
+  "file": "File",
+  "downloadQuranPdf": "Download Quran",
+
+  "NavbarLinks": {
+    "titleHome": "Way2quran",
+    "link_1": "Full Holy Quran",
+    "link_2": "Frequent Recitations",
+    "link_3": "Various Recitations",
+    "downloadQuranPdf": "Download Quran"
+  },
+
+  "HomePage": {
+    "titleHome": "Way2quran",
+    "welcomeTxt_1": "Recitations of ",
+    "welcomeTxt_2": "The Holy Quran",
+    "welcomeTxt_3": " from around the Islamic world"
+  },
+
+  "HolyQuranPage": {
+    "holyQuran": "Full Holy Quran",
+    "searchPlaceholder": "Search...",
+    "page": "Page",
+    "of": "of "
+  },
+
+  "FrequentRecitationsPage": {
+    "searchPlaceholder": "Search...",
+    "frequentRecitations": "Frequent Recitations"
+  },
+
+  "VariousRecitationsPage": {
+    "searchPlaceholder": "Search...",
+    "variousRecitations": "Various Recitations",
+    "page": "Page",
+    "of": "of "
+  },
+
+  "ReciterPage": {
+    "download": "Download",
+    "listening": "Listening",
+    "share": "Share",
+    "downloadAll": "Download All",
+    "topReciters": "Top Reciters",
+    "playingThePlaylist": "Playing now"
+  },
+
+  "SurahPage": {
+    "listening": "Listening",
+    "download": "Download",
+    "share": "Share",
+    "topReciters": "Top Reciters"
+  },
+
+  "LoginPage": {
+    "signIn": "Sign In To Your dashboard",
+    "email": "Email",
+    "password": "Password",
+    "signInBtn": "Sign In"
+  },
+
+  "DashboardLinks": {
+    "addReciter": "Add Reciter",
+    "allReciters": "All Reciters",
+    "uploadRecitation": "Add Recitation",
+    "messages": "Messages",
+    "settings": "Setting",
+    "logout": "Logout"
+  },
+
+  "AddReciter": {
+    "reciterNumber": "Reciter Number",
+    "arName": "The Arabic Name",
+    "enName": "The English Name",
+    "photo": "upload photo",
+    "saveReciter": "Save Reciter",
+    "successCreatedReciter": "created reciter successfully"
+  },
+
+  "AllRecitersPage": {
+    "completedRecitations": "Completed Recitations",
+    "variousRecitations": "Various Recitations",
+    "allReciters": "All Reciters",
+    "reciterName": "Reciter name",
+    "recitationsNumber": "Recitations Number",
+    "totalViewers": "Number of viewers",
+    "mostViewers": "Most viewers",
+    "topReciters": "Top Reciters",
+    "chooseTypeOfRecitation": "Choose Type Of Recitation",
+    "actions": "Actions",
+    "page": "Page",
+    "of": "of ",
+    "createdAt": "Created At",
+    "confirmDelete": "Are you sure to delete this data ?",
+    "searchPlaceholder": "Search...",
+    "resetFilters": "Reset Filters"
+  },
+
+  "EditReciterPage": {
+    "reciterNumber": "Reciter Number",
+    "arName": "The Arabic Name",
+    "enName": "The English Name",
+    "photo": "upload photo",
+    "save": "Save",
+    "topReciters": "Top Reciters",
+    "confirmDelete": "Are you sure to delete this data ?",
+    "notFoundData": "There are currently no data to display on this page.",
+    "recitationNumber": "Recitations Number",
+    "file": "File"
+  },
+
+  "UploadRecitationPage": {
+    "chooseRecitation": "Choose Recitation",
+    "chooseReciter": "Choose Reciter",
+    "uploadNow": "Upload Now",
+    "successUploadedAudioFiles": "uploaded audio files successfully"
+  },
+
+  "MessagesPage": {
+    "name": "Name",
+    "email": "Email",
+    "page": "Page",
+    "of": "of ",
+    "confirmDelete": "Are you sure to delete this data ?",
+    "notFoundData": "There are currently no data to display on this page."
+  },
+
+  "AdminProfile": {
+    "currentEmail": "Current Email",
+    "newEmail": "New Email",
+    "newPassword": "New Password",
+    "save": "Save",
+    "successUpdateAdminProfile": "your data updated successfully"
+  },
+
+  "AboutPage": {
+    "aboutTitle": "About Us",
+    "about_1": "A Quranic website that provides the service of listening to the recitations of various Qaris and downloading their audio clips.",
+    "about_2": "The website aims to facilitate users' access to Quranic recitations easily and conveniently.",
+    "about_3": "The site features a simple and user-friendly interface that allows users to search for their favorite reciters and listen to their recitations.",
+    "about_4": "The website allows users to download audio clips for reciters to listen to later without the need for an internet connection.",
+    "about_5": "The site is considered a valuable resource for those interested in the Quran."
+  },
+
+  "ContactUsPage": {
+    "contactTitle": "Contact Us",
+    "contactDescription": "If there is any technical issue or you need to send your feedback or any other details",
+    "name": "Your name",
+    "email": "Your email",
+    "textarea": "Your message",
+    "sendMessageBtn": "Send a message",
+    "successCreatedMessage": "created message successfully"
+  },
+
+  "Footer": {
+    "aboutTitle": "About Us",
+    "contactTitle": "Contact Us",
+    "allRightsReserved": "Copyright reserved",
+    "thisSiteCreatedBy": "Designed and developed by"
+  }
+}

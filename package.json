@@ -1,0 +1,39 @@
+{
+  "name": "way2quran.com",
+  "version": "1.0.0",
+  "description": "A diverse Quran website featuring recitations by various Qaris. Offers downloadable audio clips for offline listening ",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "client": "cd client && npm run dev",
+    "server": "cd backend && nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "setup": "npm install && cd client && npm install",
+    "prod": "npm install && cd client && npm run build && pm2 restart all"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^7.7.0",
+    "archiver": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.1.5",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.0.2",
+    "slugify": "^1.6.6",
+    "validator": "^13.11.0",
+    "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5"
+  }
+}

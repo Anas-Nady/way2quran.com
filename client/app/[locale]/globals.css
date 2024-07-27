@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Public+Sans:wght@200;300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.audio-container {
+  @apply bg-red-300;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.focus\:ring-4:focus {
+  box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+.children {
+  min-height: calc(100vh - 330px);
+}
+
+section {
+  margin: 10px 0;
+}
+
+input::placeholder,
+input:focus,
+input:disabled {
+  font-family: "Public Sans", sans-serif !important;
+}
+
+.rhap_progress-filled {
+  left: 0 !important;
+  direction: rtl;
+}
+.rhap_volume-container {
+  flex-direction: row-reverse;
+  direction: rtl;
+}
+.rhap_progress-section {
+  flex-direction: row-reverse;
+  direction: rtl;
+}
+
+.rhap_main-controls {
+  flex-direction: row-reverse;
+  direction: rtl;
+}
+
+.rhap_container {
+  border-radius: 2px;
+  @apply bg-slate-600 shadow-none !important;
+}
+
+.rhap_time {
+  color: white !important;
+}
+
+button.slick-arrow {
+  width: 45px !important;
+  height: 45px !important;
+}
+button.slick-arrow::before,
+button.slick-arrow::after {
+  color: orange !important;
+}
+
+.no-overflow-style::-webkit-scrollbar {
+  display: none;
+}
+
+.no-overflow-style {
+  scrollbar-width: none;
+}
+
+ul.slick-dots > li > button::before {
+  color: orange !important;
+}
+
+.rhap_button-clear {
+  color: white !important;
+}
+
+.rhap_progress-filled,
+.rhap_progress-indicator,
+.rhap_volume-indicator {
+  background: white !important;
+}
+.rhap_download-progress {
+  background: rgb(134, 134, 138) !important;
+}
+.rhap_time {
+  @apply font-english;
+}

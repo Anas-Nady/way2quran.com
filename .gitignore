@@ -1,0 +1,13 @@
+node_modules
+
+.env.*
+
+imgs/
+backend/seeder.js
+Way2quran_data.zip
+cloud-configuration.json
+
+.next
+login.cmd
+
+backend/seeder.js

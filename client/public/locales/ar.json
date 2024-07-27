@@ -1,0 +1,171 @@
+{
+  "titleHome": "الطريق الي القرآن",
+  "title": "الطريق الي القرآن: تلاوات للقرآن الكريم من أنحاء العالم الإسلامي",
+  "description": "استماع وتحميل تلاوات للقرآن الكريم من أنحاء العالم الإسلامي",
+  "keywords": "تلاوات قرآنية، صوت القرآن، تحميل القرآن، آيات قرآنية، مقاطع صوتية قرآنية، القرآن، القرآن الكريم، الكتب الإسلامية، صوتيات إسلامية، تعاليم قرآنية، الاستماع إلى القرآن، تحميل تلاوات القرآن، تنزيل مقاطع صوتية قرآنية، القرآن العربي، القرآن الإنجليزي، تعلم القرآن، دراسة القرآن، تعليم قرآني، تعلم القرآن الكريم، تطبيق التلاوة، القرآن العالمي، القرآن على مستوى العالم، القرآن الدولي",
+  "listeningNow": "استمع الآن",
+  "wayTo": "الطريق إلي",
+  "quran": "القرآن",
+  "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة",
+  "page": "صفحة",
+  "of": "من ",
+  "file": "ملف",
+  "downloadQuranPdf": "تحميل المصحف",
+
+  "NavbarLinks": {
+    "titleHome": "الطريق الي القرآن",
+    "link_1": "المصحف الكامل",
+    "link_2": "التلاوات المتواترة",
+    "link_3": "التلاوات المنوعة",
+    "downloadQuranPdf": "تحميل المصحف"
+  },
+
+  "HomePage": {
+    "titleHome": "الطريق الي القرآن",
+    "welcomeTxt_1": "تلاوات ",
+    "welcomeTxt_2": "للقرآن الكريم ",
+    "welcomeTxt_3": "من أنحاء العالم الإسلامى"
+  },
+
+  "HolyQuranPage": {
+    "holyQuran": "المصحف الكامل",
+    "searchPlaceholder": "بحث...",
+    "page": "صفحة",
+    "of": "من "
+  },
+
+  "FrequentRecitationsPage": {
+    "searchPlaceholder": "بحث...",
+    "frequentRecitations": "التلاوات المتواترة"
+  },
+
+  "VariousRecitationsPage": {
+    "variousRecitations": "التلاوات المنوعة",
+    "searchPlaceholder": "بحث...",
+    "page": "صفحة",
+    "of": "من "
+  },
+
+  "ReciterPage": {
+    "download": " تحميل",
+    "listening": "استماع",
+    "share": "مشاركة",
+    "downloadAll": "تحميل الكل",
+    "topReciters": "الأكثر استماعا",
+    "playingThePlaylist": "تشغيل القائمة"
+  },
+
+  "SurahPage": {
+    "listening": "استماع",
+    "download": " تحميل",
+    "share": "مشاركة",
+    "topReciters": "الأكثر استماعا"
+  },
+
+  "LoginPage": {
+    "signIn": "سجل دخولك للوصول إلي لوحة التحكم",
+    "email": "البريد الالكتروني",
+    "password": "كلمة المرور",
+    "signInBtn": "تسجيل الدخول"
+  },
+
+  "DashboardLinks": {
+    "addReciter": "إضافة قارئ",
+    "allReciters": "جميع القراء",
+    "uploadRecitation": "إضافة رواية",
+    "messages": "الرسائل",
+    "settings": "إعدادات",
+    "logout": "تسجيل الخروج"
+  },
+
+  "AddReciter": {
+    "reciterNumber": "رقم القارئ",
+    "arName": "الأسم با اللغة العربية",
+    "enName": "الأسم با اللغة الأنجليزية",
+    "photo": "صورة القارئ",
+    "saveReciter": "إضافة القارئ",
+    "successCreatedReciter": "تم انشاء القارئ بنجاح"
+  },
+
+  "AllRecitersPage": {
+    "allReciters": "جميع القراء",
+    "variousRecitations": "التلاوات المنوعة",
+    "chooseTypeOfRecitation": "عرض حسب نوع التلاوة",
+    "reciterName": "أسم القارئ",
+    "completedRecitations": "التلاوات الكاملة",
+    "topReciters": "الأكثر استماعا",
+    "recitationsNumber": "عدد الرويات",
+    "totalViewers": "عدد المشاهدات",
+    "mostViewers": "الأكثر مشاهدة",
+    "actions": "الأجراءات",
+    "page": "صفحة",
+    "of": "من ",
+    "createdAt": "تاريخ الأنشاء",
+    "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
+    "searchPlaceholder": "بحث...",
+    "resetFilters": "مسح الإختيارات"
+  },
+
+  "EditReciterPage": {
+    "reciterNumber": "رقم القارئ",
+    "arName": "الأسم با اللغة العربية",
+    "enName": "الأسم با اللغة الأنجليزية",
+    "photo": "صورة القارئ",
+    "save": "حفظ",
+    "topReciters": "الأكثر استماعا",
+    "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
+    "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة",
+    "recitationNumber": "عدد التلاوات",
+    "file": "ملف"
+  },
+
+  "UploadRecitationPage": {
+    "chooseRecitation": "أختر التلاوة",
+    "chooseReciter": "أختر القارئ",
+    "uploadNow": "تحميل الأن",
+    "successUploadedAudioFiles": "تم رفع الملفات الصوتية بنجاح"
+  },
+
+  "MessagesPage": {
+    "name": "الأسم",
+    "email": "البريد الالكتروني",
+    "page": "صفحة",
+    "of": "من ",
+    "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
+    "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة"
+  },
+
+  "AdminProfile": {
+    "currentEmail": "الايميل الحالي",
+    "newEmail": "الايميل الجديد",
+    "newPassword": "كلمة المرور الجديدة",
+    "save": "حفظ",
+    "successUpdateAdminProfile": "تم تعديل بياناتك بنجاح"
+  },
+
+  "AboutPage": {
+    "aboutTitle": "من نحن",
+    "about_1": "موقع قرآن كريم يوفر خدمة استماع الى تلاوات القراء وتحميل المقاطع الصوتية لهم",
+    "about_2": "يهدف الموقع إلى تسهيل وصول المستخدمين إلى تلاوات القرآن الكريم بسهولة ويسر.",
+    "about_3": "يتميز الموقع بواجهة مستخدم بسيطة وسهلة الاستخدام تمكن المستخدمين من البحث عن القراء المفضلين لديهم والأستماع إلى تلاواتهم.",
+    "about_4": "يتيح الموقع تحميل مقاطع صوتية للقراء للاستماع إليها في وقت لاحق دون الحاجة إلى اتصال بالإنترنت.",
+    "about_5": "يعتبر الموقع مصدرًا قيمًا للمهتمين بالقرآن الكريم."
+  },
+
+  "ContactUsPage": {
+    "contactTitle": "تواصل معنا",
+    "contactDescription": "هناك أي مشكلة تقنية أو تحتاج إلي ارسال رأيك أو إلي أي تفاصيل أخري",
+    "name": "الأسم",
+    "email": "البريد الالكتروني",
+    "textarea": "الرسالة",
+    "sendMessageBtn": "ارسال",
+    "successCreatedMessage": "تم ارسال رسالتك لنا بنجاح"
+  },
+
+  "Footer": {
+    "contactTitle": "تواصل معنا",
+    "aboutTitle": "من نحن",
+    "allRightsReserved": "جميع الحقوق محفوظة.",
+    "thisSiteCreatedBy": "تم تصميم و برمجة الموقع بواسطة"
+  }
+}
