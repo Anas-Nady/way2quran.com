@@ -3,7 +3,7 @@ import { getSurahInfo, getSurahWithReciter } from "@/actions/surah";
 import { getTranslations } from "next-intl/server";
 import BodyInfo from "@/components/surahPage/BodyInfo";
 import shareMetadata from "./../../../_shareMetadata";
-import { VARIOUS_RECITATIONS } from "@/constants/recitationsName";
+import { HAFS_AN_ASIM, VARIOUS_RECITATIONS } from "@/constants/recitationsName";
 import getName from "@/utils/getNameForCurrentLang";
 import { getReciterInfo } from "@/actions/reciters";
 import Error from "@/components/Error";
@@ -35,7 +35,7 @@ export default async function SurahPage({
   params: { locale, reciterSlug, surahSlug },
   searchParams,
 }) {
-  const recitationSlug = searchParams.recitationSlug;
+  const recitationSlug = searchParams.recitationSlug || HAFS_AN_ASIM;
   const t = await getTranslations("SurahPage");
   const data = await getSurahWithReciter(
     reciterSlug,

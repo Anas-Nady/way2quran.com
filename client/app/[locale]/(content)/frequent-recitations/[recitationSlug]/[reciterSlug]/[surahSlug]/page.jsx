@@ -31,14 +31,14 @@ export async function generateMetadata({
 }
 
 export default async function SurahPage({
-  params: { locale, reciterSlug, surahSlug },
+  params: { locale, reciterSlug, recitationSlug, surahSlug },
   searchParams,
 }) {
-  const recitationSlug = searchParams.recitationSlug;
+  const resolvedRecitationSlug = searchParams.recitationSlug || recitationSlug;
   const t = await getTranslations("SurahPage");
   const data = await getSurahWithReciter(
     reciterSlug,
-    recitationSlug,
+    resolvedRecitationSlug,
     surahSlug
   );
 

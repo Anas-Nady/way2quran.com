@@ -6,6 +6,7 @@ import shareMetadata from "../../../_shareMetadata";
 import getName from "@/utils/getNameForCurrentLang";
 import { getReciterInfo } from "@/actions/reciters";
 import Error from "@/components/Error";
+import { HAFS_AN_ASIM } from "@/constants/recitationsName";
 
 export async function generateMetadata({
   params: { locale, reciterSlug, surahSlug },
@@ -34,7 +35,7 @@ export default async function SurahPage({
   params: { locale, reciterSlug, surahSlug },
   searchParams,
 }) {
-  const recitationSlug = searchParams.recitationSlug;
+  const recitationSlug = searchParams.recitationSlug || HAFS_AN_ASIM;
   const t = await getTranslations("SurahPage");
   const data = await getSurahWithReciter(
     reciterSlug,
