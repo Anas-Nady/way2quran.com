@@ -30,7 +30,7 @@ export default async function sitemap() {
     langs.forEach((lang) => {
       recitersPages.push(
         ...reciters.map((reciter) => ({
-          url: `${baseURL}/${lang}/frequent-recitations/${recitations[j].slug}/${reciter.slug}`,
+          url: `${baseURL}/${lang}/frequent-recitations/${recitations[j].slug}/${reciter.slug}?recitationSlug=${recitations[j].slug}`,
         }))
       );
     });
