@@ -18,7 +18,6 @@ export default function NavbarBtn({ links }) {
   const router = useRouter();
   const pathName = usePathname();
   const currentLang = pathName.split("/")[1];
-  const resetURL = pathName.split(`/${currentLang}`)[1];
   const nextLang = currentLang == "en" ? "ar" : "en";
   const [getAdminFromLocalStorage, setAdminFromLocal] = useState(null);
 
@@ -30,7 +29,7 @@ export default function NavbarBtn({ links }) {
     setDarkMode(!darkMode);
   };
   const toggleLanguage = () => {
-    router.push(`/${nextLang}${resetURL}`);
+    router.push(`/${nextLang}`);
     localStorage.setItem("currentLang", nextLang);
   };
 
@@ -70,7 +69,6 @@ export default function NavbarBtn({ links }) {
           >
             {menuIcon}
           </button>
-
           {getAdminFromLocalStorage && (
             <button
               type="button"
