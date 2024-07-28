@@ -75,8 +75,8 @@ export default async function ReciterPage({ params: { locale, reciterSlug } }) {
         reciter={reciter}
         currentLang={locale}
         recitations={recitations}
+        defaultRecitationSlug={HAFS_AN_ASIM}
         {...translations}
-        recitationSlug={HAFS_AN_ASIM}
       />
     </div>
   );
