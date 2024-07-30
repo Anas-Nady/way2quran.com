@@ -194,7 +194,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
 
   for (const audioFile of audioFiles) {
     const fileName = `${reciter.slug}/${recitationSlug}/${audioFile.originalname}`;
-    const surahNumber = audioFile.originalname.split(".")[0]; // 002 032
+    const surahNumber = parseInt(audioFile.originalname.split(".")[0]);
     const file = storage.bucket(bucketName).file(fileName);
 
     // validation
@@ -204,7 +204,7 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
     }
 
     const isSurahAlreadyExists = recitationToUpdate.audioFiles.some(
-      (existingFile) => Number(existingFile.surahNumber) == Number(surahNumber)
+      (existingFile) => parseInt(existingFile.surahNumber) == surahNumber
     );
 
     if (isSurahAlreadyExists) {
@@ -219,10 +219,9 @@ exports.uploadRecitations = asyncHandler(async (req, res, next) => {
         public: true,
       });
 
-      const listSurah = await Surah.find({}).select("number");
-      const currentSurah = listSurah.find(
-        (surah) => surah.number === surahNumber
-      );
+      const currentSurah = await Surah.findOne({
+        number: surahNumber,
+      });
 
       // Add the uploaded audio file to the recitation
       recitationToUpdate.audioFiles.push({
