@@ -72,9 +72,22 @@ exports.getSurahWithReciter = asyncHandler(async (req, res, next) => {
     (rec) => rec.recitationInfo.toString() === isRecitationExists._id.toString()
   );
 
+  if (!recitation) {
+    return next(
+      new AppError(
+        `this resource: /${reciterSlug}/${recitationSlug}/${surahSlug} is not found`,
+        404
+      )
+    );
+  }
+
   const audioFile = recitation.audioFiles.find(
     (file) => file.surahNumber == isSurahExists.number
   );
+
+  if (!audioFile) {
+    return next(new AppError("No audio file found for this surah", 404));
+  }
 
   surahInfo.url = audioFile.url;
   surahInfo.downloadUrl = audioFile.downloadUrl;
