@@ -190,7 +190,10 @@ export default function MessageCard({
                     </h2>
                     <span>
                       {emailTxt}:
-                      <span className="font-english"> {message.email}</span>
+                      <span className="font-english">
+                        {" "}
+                        {message.senderEmail}
+                      </span>
                     </span>
                     <span className="block w-full my-1 border border-b-1 border-slate-300 dark:border-gray-600"></span>
 
