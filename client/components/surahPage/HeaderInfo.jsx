@@ -132,7 +132,7 @@ export default function HeaderInfo({
         </div>
       </div>
       <div className="flex items-center justify-center">
-        <div className="flex justify-center gap-2 pb-1 mx-auto text-2xl font-semibold text-gray-700 border-b-2 border-gray-200 sm:-mt-11 dark:border-gray-700 dark:text-white sm:text-3xl 2xl:text-4xl">
+        <div className="flex justify-center pb-1 mx-auto text-2xl font-semibold text-gray-700 sm:-mt-11 dark:border-gray-700 dark:text-white sm:text-3xl 2xl:text-4xl">
           <span>{surahName}</span>
         </div>
       </div>
