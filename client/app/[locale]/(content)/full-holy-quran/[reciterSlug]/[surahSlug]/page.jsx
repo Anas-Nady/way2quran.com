@@ -61,7 +61,7 @@ export default async function SurahPage({
   };
 
   return (
-    <div className="container p-3 mx-auto my-3 border shadow-lg bg-slate-100 dark:bg-slate-800 border-1 border-slate-200 dark:border-gray-600 sm:max-w-screen-2xl">
+    <div className="container p-3 mx-auto my-3 bg-white border shadow-xl dark:bg-slate-800 border-1 border-slate-200 dark:border-gray-600 sm:max-w-screen-2xl">
       <HeaderInfo
         reciter={reciter}
         translation={translation}
