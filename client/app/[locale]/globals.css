@@ -3,10 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.audio-container {
-  @apply bg-red-300;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -56,20 +52,11 @@ input:disabled {
 
 .rhap_container {
   border-radius: 2px;
-  @apply bg-slate-600 shadow-none !important;
+  @apply bg-slate-100 dark:bg-slate-600 shadow-none !important;
 }
 
 .rhap_time {
-  color: white !important;
-}
-
-button.slick-arrow {
-  width: 45px !important;
-  height: 45px !important;
-}
-button.slick-arrow::before,
-button.slick-arrow::after {
-  color: orange !important;
+  @apply text-gray-900 dark:text-white;
 }
 
 .no-overflow-style::-webkit-scrollbar {
@@ -85,17 +72,19 @@ ul.slick-dots > li > button::before {
 }
 
 .rhap_button-clear {
-  color: white !important;
+  @apply bg-gray-900 dark:text-white;
 }
 
 .rhap_progress-filled,
 .rhap_progress-indicator,
 .rhap_volume-indicator {
-  background: white !important;
-}
-.rhap_download-progress {
-  background: rgb(134, 134, 138) !important;
+  @apply bg-gray-400 dark:bg-white !important;
 }
 .rhap_time {
   @apply font-english;
+}
+
+.rhap_progress-bar,
+.rhap_download-progress {
+  @apply bg-gray-300 dark:bg-gray-400 !important;
 }
