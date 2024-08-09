@@ -82,28 +82,6 @@ export const updateReciter = async (slug, formData) => {
   return data;
 };
 
-// upload Recitation
-export const uploadRecitation = async (
-  reciterSlug,
-  formData,
-  onUploadProgress
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    onUploadProgress,
-  };
-
-  const { data } = await api.put(
-    `/api/reciters/upload-recitation/${reciterSlug}`,
-    formData,
-    config
-  );
-
-  return data;
-};
-
 export const deleteReciter = async (slug) => {
   const { data } = await api.delete(`/api/reciters/${slug}`, {});
 
