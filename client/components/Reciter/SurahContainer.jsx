@@ -159,7 +159,7 @@ export default function SurahContainer({
               text={shareTxt}
               className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
               icon={shareIcon}
-              handleSubmit={() => handlePopup(`/${surah.slug}`)}
+              handleSubmit={() => handlePopup(`/${surah.surahInfo.slug}`)}
             />
           </div>
         </div>
