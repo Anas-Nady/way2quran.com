@@ -22,11 +22,10 @@ export default function HeaderInfo({
   const surahName = getName(surah, locale);
   const reciterName = getName(reciter, locale);
 
-  const handlePopup = (id) => {
+  const handlePopup = () => {
     setPageURLToShare(
-      `${window.location.protocol}//${window.location.host}${window.location.pathname}`
+      `${window.location.protocol}//${window.location.host}${window.location.pathname}${window.location.search}`
     );
-    setPageURLToShare((prev) => `${prev}${id}`);
     setPopup(!popup);
   };
 
@@ -124,7 +123,7 @@ export default function HeaderInfo({
               />
               <Button
                 text={translation.shareTxt}
-                handleSubmit={() => handlePopup("")}
+                handleSubmit={() => handlePopup()}
                 className="p-2 w-[90px] sm:w-32"
               />
             </div>

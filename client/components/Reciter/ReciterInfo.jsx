@@ -50,7 +50,7 @@ export default function Reciter({
     setPageURLToShare(
       `${window.location.protocol}//${window.location.host}${window.location.pathname}`
     );
-    setPageURLToShare((prev) => `${prev}${id}`);
+    setPageURLToShare((prev) => `${prev}${id}${window.location.search}`);
     setPopup(!popup);
   };
 
