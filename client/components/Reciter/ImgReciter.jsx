@@ -18,7 +18,7 @@ const ImgReciter = ({
         height="200"
         className={`${
           isSmaller
-            ? "h-[100px] w-[100px]"
+            ? "w-[150px] h-[150px]"
             : isBigger
             ? "w-[200px] h-[200px] sm:w-[220px]  sm:h-[220px]"
             : "w-[170px] h-[170px]"
