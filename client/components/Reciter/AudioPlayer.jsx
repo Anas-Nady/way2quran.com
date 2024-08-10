@@ -95,7 +95,7 @@ const AudioPlayer = ({ currentLang }) => {
 
   return (
     <div
-      className={`fixed border-2 border-gray-200 dark:border-gray-600 bottom-0 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-3/4 md:w-2/3 lg:w-2/3 2xl:w-[1477px] z-50 transition-transform duration-500 ease-in-out ${
+      className={`fixed border-2 border-gray-200 dark:border-gray-600 bottom-0 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-3/4 md:w-2/3 lg:w-2/3 2xl:w-[1477px] z-40 transition-transform duration-500 ease-in-out ${
         !isVisible && "translate-y-full"
       } ${!isOpenOnScreen && "translate-y-[60%]"}`}
     >
