@@ -3,11 +3,10 @@ import { usePathname } from "next/navigation";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
-import Image from "next/image";
 import Slider from "react-slick";
-import getObjectFitClass from "@/utils/getObjectFitClass";
 import { HAFS_AN_ASIM, VARIOUS_RECITATIONS } from "@/constants/recitationsName";
 import getName from "@/utils/getNameForCurrentLang";
+import ImgReciter from "../Reciter/ImgReciter";
 
 export default function SliderReciter({ reciters, locale }) {
   const pathName = usePathname();
@@ -69,18 +68,15 @@ export default function SliderReciter({ reciters, locale }) {
               className="flex items-center justify-center transition-transform duration-300 transform card hover:-translate-y-1"
               title={reciterName}
             >
-              <div className="w-full px-2 max-w-[250px] h-[160px] ">
-                <div className="flex justify-end px-1 pt-4"></div>
+              <div className="w-full px-2 min-w-[250px] min-h-[160px] mx-1">
                 <div className="flex flex-col items-center pb-4">
-                  <Image
-                    className={`h-[110px] w-[110px] rounded-full ${getObjectFitClass(
-                      reciter.photo
-                    )}`}
+                  <ImgReciter
                     loading="lazy"
-                    width="100"
-                    height="100"
-                    src={reciter.photo}
+                    width="150"
+                    height="150"
+                    photoDisplay={reciter.photo}
                     alt={reciterName}
+                    isSmaller
                   />
                   <h2
                     dir={locale == "ar" ? "rtl" : "ltr"}
