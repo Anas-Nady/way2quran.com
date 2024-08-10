@@ -1,9 +1,8 @@
 import HeadingPage from "@/components/HeadingPage";
 import Recitation from "./_Recitation";
-import { getRecitations } from "@/actions/recitations";
 import { getTranslations } from "next-intl/server";
 import shareMetadata from "../_shareMetadata";
-import Error from "@/components/Error";
+import recitations from "@/constants/recitations";
 
 export async function generateMetadata({ params: { locale } }) {
   const t = await getTranslations({
@@ -17,15 +16,6 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function FrequentRecitations({ params: { locale } }) {
-  const res = await getRecitations();
-
-  if (!res.ok) {
-    return <Error message={"Failed to get recitations"} />;
-  }
-
-  const data = await res.json();
-
-  const { recitations } = data;
   const t = await getTranslations({
     locale,
     namespace: "FrequentRecitationsPage",

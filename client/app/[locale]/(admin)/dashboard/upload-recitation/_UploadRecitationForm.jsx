@@ -9,6 +9,7 @@ import ToastMessage from "@/components/ToastMessage";
 
 import api from "@/lib/api";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import recitations from "@/constants/recitations";
 
 export default function UploadRecitationForm({
   currentLang,
@@ -30,7 +31,6 @@ export default function UploadRecitationForm({
   const [successUpload, setSuccessUpload] = useState(false);
 
   const [reciters, setReciters] = useState([]);
-  const [recitations, setRecitations] = useState([]);
 
   const [loadingData, setLoadingData] = useState(false);
 
@@ -109,17 +109,14 @@ export default function UploadRecitationForm({
   const fetchData = async () => {
     setLoadingData(true);
     try {
-      const resRecitations = await fetch(`/api/recitations`);
       const resReciters = await fetch(
         `/api/reciters?sort=-number&pageSize=10000`,
         { cache: "no-store" }
       );
 
-      const dataRecitations = await resRecitations.json();
       const dataReciters = await resReciters.json();
 
       setReciters(dataReciters.reciters);
-      setRecitations(dataRecitations.recitations);
     } catch (error) {
       console.log(error);
     } finally {
@@ -156,7 +153,6 @@ export default function UploadRecitationForm({
               onChange={(e) => setRecitationSlug(e.target.value)}
               options={recitations}
               placeholder={chooseRecitationTxt}
-              loadingData={loadingData}
             />
           </span>
 
