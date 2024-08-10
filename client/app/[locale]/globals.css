@@ -71,7 +71,7 @@ ul.slick-dots > li > button::before {
 }
 
 .rhap_button-clear {
-  @apply bg-gray-900 dark:text-white;
+  @apply text-gray-600 dark:text-white;
 }
 
 .rhap_progress-filled,
