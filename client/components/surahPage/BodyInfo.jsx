@@ -1,4 +1,4 @@
-import { AyatQuranFont } from "@/fonts/font";
+import { ayatQuranFont } from "@/fonts/font";
 import { bismillahArabicSVG } from "../Icons";
 
 function BodyInfo({ locale, surahText }) {
@@ -17,7 +17,7 @@ function BodyInfo({ locale, surahText }) {
               <span className="mb-1 leading-normal aya-arabic font-arabic">
                 {aya.textArabic}
                 <span
-                  className={`${AyatQuranFont.className} text-[40px] sm:text-5xl 2xl:text-6xl`}
+                  className={`${ayatQuranFont.className} text-[40px] sm:text-5xl 2xl:text-6xl`}
                 >
                   {aya.id}
                 </span>
@@ -28,7 +28,7 @@ function BodyInfo({ locale, surahText }) {
                 <span className="mb-1 leading-normal aya-arabic font-english">
                   {aya.textEnglish}
                   <span
-                    className={`${AyatQuranFont.className} text-[40px] sm:text-5xl 2xl:text-6xl`}
+                    className={`${ayatQuranFont.className} text-[40px] sm:text-5xl 2xl:text-6xl`}
                   >
                     {aya.id}
                   </span>

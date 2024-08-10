@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import AudioPlayer from "@/components/Reciter/AudioPlayer";
 import rootMetadata from "@/constants/rootMetadata";
+import { arabicFont, englishFont } from "@/fonts/font";
 
 export const viewport = {
   themeColor: "#374151",
@@ -17,7 +18,9 @@ export default function RootLayout({ children, params: { locale } }) {
   return (
     <html
       lang={locale}
-      className={`dark ${locale == "ar" ? "font-arabic" : "font-english"}`}
+      className={`dark  ${
+        locale === "ar" ? arabicFont.className : englishFont.className
+      }`}
     >
       <body
         dir={locale == "en" ? "ltr" : "rtl"}
