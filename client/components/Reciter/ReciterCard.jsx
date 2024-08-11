@@ -23,7 +23,7 @@ export default function ReciterCard({ reciter, recitationSlug }) {
             <span className="mb-2 ">
               <ImgReciter photoDisplay={photo} alt={reciterName} />
             </span>
-            <h2 className="my-1 text-center text-2xl line-clamp-1 max-w-[180px] capitalize font-semibold text-gray-900 dark:text-white">
+            <h2 className="my-1 text-center text-2xl line-clamp-1 max-w-[250px] capitalize font-semibold text-gray-900 dark:text-white">
               {reciterName}
             </h2>
           </div>
