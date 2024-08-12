@@ -96,8 +96,9 @@ export default function HeaderInfo({
                     </>
                   </div>
                 )}
-                <div className="flex gap-2 w-[200px] md:w-[300px] cursor-default">
-                  <p className="block w-full px-3 py-2 mt-2 text-xl text-center text-gray-900 border border-gray-300 rounded-lg bg-gray-50 h-fit dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <div className="flex gap-2 cursor-default max-w-[300px] mx-2">
+                  <p className="block w-full px-4 py-3 mt-2 text-lg text-center text-gray-900 border border-gray-300 rounded-lg md:text-xl md:px-8 bg-gray-50 h-fit dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <span className="font-bold">{surahName}</span> -{" "}
                     {recitationName}
                   </p>
                 </div>
@@ -128,11 +129,6 @@ export default function HeaderInfo({
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-center">
-        <div className="flex justify-center pb-1 mx-auto text-2xl font-semibold text-gray-700 sm:-mt-11 dark:border-gray-700 dark:text-white sm:text-3xl 2xl:text-4xl">
-          <span>{surahName}</span>
         </div>
       </div>
     </div>
