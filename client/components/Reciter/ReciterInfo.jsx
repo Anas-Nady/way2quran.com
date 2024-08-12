@@ -7,6 +7,7 @@ import SharePopup from "./SharePopup";
 import { starIcon } from "../Icons";
 import getName from "@/utils/getNameForCurrentLang";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function Reciter({
   currentLang,
@@ -35,6 +36,8 @@ export default function Reciter({
   const [selectedRecitationSlug, setSelectedRecitationSlug] =
     useState(recitationSlug);
 
+  const [loading, setLoading] = useState(false);
+
   const handleDownloadAllFiles = async (reciterSlug, recitationSlug) => {
     const link = document.createElement("a");
     const baseURL = `${window.location.protocol}//${window.location.host}/api/reciters/download-recitation/${reciterSlug}/${recitationSlug}`;
@@ -56,7 +59,12 @@ export default function Reciter({
 
   const changeSelectedRecitation = (e) => {
     setSelectedRecitationSlug(e.target.value);
-    router.push(`${pathname}?recitationSlug=${e.target.value}`);
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      router.push(`${pathname}?recitationSlug=${e.target.value}`);
+    }, 100);
   };
 
   const handleClosePopup = () => {
@@ -158,33 +166,38 @@ export default function Reciter({
 
               <div className="recitations">
                 <div className="grid grid-cols-1 gap-2">
-                  {recitations.map((recitation) => {
-                    if (
-                      recitation.recitationInfo.slug === selectedRecitationSlug
-                    ) {
+                  {loading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    recitations.map((recitation) => {
                       if (
-                        recitation.audioFiles &&
-                        recitation.audioFiles.length > 0
+                        recitation.recitationInfo.slug ===
+                        selectedRecitationSlug
                       ) {
-                        return (
-                          <SurahContainer
-                            key={recitation.recitationInfo.slug}
-                            reciterName={reciterName}
-                            currentLang={currentLang}
-                            recitations={recitations}
-                            surahsInfo={recitation.audioFiles}
-                            handlePopup={handlePopup}
-                            listeningTxt={listeningTxt}
-                            downloadTxt={downloadTxt}
-                            playingThePlaylistTxt={playingThePlaylistTxt}
-                            selectedRecitationSlug={selectedRecitationSlug}
-                            shareTxt={shareTxt}
-                            playlist={playlist}
-                          />
-                        );
+                        if (
+                          recitation.audioFiles &&
+                          recitation.audioFiles.length > 0
+                        ) {
+                          return (
+                            <SurahContainer
+                              key={recitation.recitationInfo.slug}
+                              reciterName={reciterName}
+                              currentLang={currentLang}
+                              recitations={recitations}
+                              surahsInfo={recitation.audioFiles}
+                              handlePopup={handlePopup}
+                              listeningTxt={listeningTxt}
+                              downloadTxt={downloadTxt}
+                              playingThePlaylistTxt={playingThePlaylistTxt}
+                              selectedRecitationSlug={selectedRecitationSlug}
+                              shareTxt={shareTxt}
+                              playlist={playlist}
+                            />
+                          );
+                        }
                       }
-                    }
-                  })}
+                    })
+                  )}
                 </div>
               </div>
             </div>
