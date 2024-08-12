@@ -7,10 +7,13 @@ import Table from "./_Table";
 import SelectTypeRecitation from "./_SelectTypeRecitation";
 import {
   COMPLETED_RECITATIONS,
+  HAFS_AN_ASIM,
   VARIOUS_RECITATIONS,
 } from "@/constants/recitationsName";
 import Link from "next/link";
 import Error from "@/components/Error";
+import recitations from "@/constants/recitations";
+import getName from "@/utils/getNameForCurrentLang";
 
 export default async function AllRecitersPage({
   params: { locale },
@@ -38,10 +41,20 @@ export default async function AllRecitersPage({
 
   const { reciters, pagination } = data;
 
+  const recitationsOptions = recitations.map((recitation) => {
+    if (recitation.slug === HAFS_AN_ASIM) return;
+
+    return {
+      label: getName(recitation, locale),
+      slug: recitation.slug,
+    };
+  });
+
   const options = [
     { slug: "", label: t("allReciters") },
     { slug: COMPLETED_RECITATIONS, label: t("completedRecitations") },
     { slug: VARIOUS_RECITATIONS, label: t("variousRecitations") },
+    ...recitationsOptions,
   ];
 
   const tHeadTranslation = {
