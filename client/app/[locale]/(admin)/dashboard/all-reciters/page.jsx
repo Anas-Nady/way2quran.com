@@ -2,7 +2,7 @@ import SearchInput from "@/components/SearchInput";
 import CheckboxFilter from "./_CheckboxFilter";
 import Pagination from "@/components/Pagination";
 import { getTranslations } from "next-intl/server";
-import { getRecitersWithoutCache, listAllReciters } from "@/actions/reciters";
+import { getRecitersWithoutCache } from "@/actions/reciters";
 import Table from "./_Table";
 import SelectTypeRecitation from "./_SelectTypeRecitation";
 import {
@@ -51,7 +51,7 @@ export default async function AllRecitersPage({
     actionsTxt: t("actions"),
     createdAtTxt: t("createdAt"),
     confirmDeleteTxt: t("confirmDelete"),
-    totalViewersTxt: t("totalViewers"),
+    recitationsNumberTxt: t("recitationsNumber"),
   };
 
   return (
@@ -66,10 +66,6 @@ export default async function AllRecitersPage({
           <CheckboxFilter
             labelText={t("topReciters")}
             filterOption={"isTopReciter"}
-          />
-          <CheckboxFilter
-            labelText={t("mostViewers")}
-            filterOption={"sortBy"}
           />
         </div>
         <Link
