@@ -80,7 +80,7 @@ export default function NavbarBtn({ links }) {
         </div>
         <div
           className={`items-center justify-between w-full lg:flex lg:w-auto lg:order-1 ${
-            currentLang == "en" ? "lg:ml-[30px]" : "lg:mr-[50px] xl:mr-[70px]"
+            currentLang == "ar" && "lg:mr-[30px] xl:mr-[130px]"
           } ${isMenuOpen ? "block" : "hidden"}`}
         >
           <NavbarLinks
