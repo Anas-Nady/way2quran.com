@@ -69,7 +69,7 @@ export default async function SurahPage({
         recitationName={getName(recitation, locale)}
         locale={locale}
       />
-      <BodyInfo locale={locale} surahText={surah?.verses || []} />
+      <BodyInfo locale={locale} surah={surah} surahText={surah?.verses || []} />
     </div>
   );
 }

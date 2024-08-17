@@ -98,8 +98,7 @@ export default function HeaderInfo({
                 )}
                 <div className="flex gap-2 cursor-default max-w-[300px] mx-2">
                   <p className="block w-full px-4 py-3 mt-2 text-lg text-center text-gray-900 border border-gray-300 rounded-lg md:text-xl md:px-8 bg-gray-50 h-fit dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <span className="font-bold">{surahName}</span> -{" "}
-                    {recitationName}
+                    <span>{surahName}</span> - {recitationName}
                   </p>
                 </div>
               </div>
