@@ -64,7 +64,6 @@ export default async function AllRecitersPage({
     actionsTxt: t("actions"),
     createdAtTxt: t("createdAt"),
     confirmDeleteTxt: t("confirmDelete"),
-    recitationsNumberTxt: t("recitationsNumber"),
   };
 
   return (
@@ -101,8 +100,6 @@ export default async function AllRecitersPage({
         </div>
       </section>
       <Pagination
-        pageTxt={t("page")}
-        ofTxt={t("of")}
         currentPage={pagination?.page || 0}
         totalPages={pagination?.pages || 0}
       />
