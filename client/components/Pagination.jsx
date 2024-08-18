@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import PaginationBtn from "./PaginationBtn";
 
-const Pagination = ({ currentPage, totalPages, pageTxt, ofTxt }) => {
+const Pagination = ({ currentPage, totalPages }) => {
+  const t = useTranslations();
+
   if (totalPages > 1) {
     return (
       <div className="flex items-center justify-center py-2 mt-4 text-gray-900 bg-white border border-gray-200 dark:border-gray-700 dark:text-slate-50 dark:bg-gray-800">
@@ -11,8 +14,8 @@ const Pagination = ({ currentPage, totalPages, pageTxt, ofTxt }) => {
           text={"<"}
         />
         <span className="mx-2 font-medium text-mg sm:text-lg lg:text-xl">
-          {pageTxt} <span className="font-english">{currentPage}</span> {ofTxt}{" "}
-          <span className="font-english">{totalPages}</span>
+          {t("page")} <span className="font-english">{currentPage}</span>{" "}
+          {t("of")} <span className="font-english">{totalPages}</span>
         </span>
 
         <PaginationBtn
