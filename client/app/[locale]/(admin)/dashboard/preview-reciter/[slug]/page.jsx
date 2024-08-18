@@ -1,11 +1,11 @@
 "use client";
-import { eyeIcon, starIcon } from "@/components/Icons";
 import ImgReciter from "@/components/Reciter/ImgReciter";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { getReciterDetailsWithoutCache } from "@/actions/reciters";
 import { useEffect, useState } from "react";
 import Error from "@/components/Error";
 import getName from "@/utils/getNameForCurrentLang";
+import TopReciterBadge from "@/components/Reciter/TopReciterBadge";
 
 export default function PreviewReciterPage({ params: { locale, slug } }) {
   const [recitations, setRecitations] = useState([]);
@@ -57,20 +57,7 @@ export default function PreviewReciterPage({ params: { locale, slug } }) {
                   <span>{getName(reciter, locale)}</span>
                 </h1>
 
-                {reciter?.isTopReciter && (
-                  <div className="flex items-center gap-1 mb-2 font-semibold text-gray-900 dark:text-slate-50">
-                    <>
-                      <span className="text-yellow-300">{starIcon}</span>
-                      <span className="text-lg">
-                        {locale == "en" ? "Top Reciter" : "الأكثر استماعا"}
-                      </span>
-                    </>
-                  </div>
-                )}
-                <span className="flex items-center justify-between gap-1 mb-1 text-sm font-semibold font-english lg:text-lg">
-                  {eyeIcon}
-                  {reciter.totalViewers.toLocaleString()}
-                </span>
+                {reciter?.isTopReciter && <TopReciterBadge />}
                 <div className="flex gap-2 w-[200px] md:w-[300px]">
                   <select
                     value={selectedRecitationSlug}

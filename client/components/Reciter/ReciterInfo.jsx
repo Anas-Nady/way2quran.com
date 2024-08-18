@@ -4,10 +4,10 @@ import SurahContainer from "./SurahContainer";
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import SharePopup from "./SharePopup";
-import { starIcon } from "../Icons";
 import getName from "@/utils/getNameForCurrentLang";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import LoadingSpinner from "../LoadingSpinner";
+import TopReciterBadge from "./TopReciterBadge";
 
 export default function Reciter({
   currentLang,
@@ -108,16 +108,7 @@ export default function Reciter({
                     <h1 className="my-1 text-3xl font-semibold text-center text-gray-700 capitalize sm:my-3 sm:text-4xl sm:text-start xl:text-6xl dark:text-white">
                       {reciterName}
                     </h1>
-                    {reciter.isTopReciter && (
-                      <div className="flex items-center gap-1 mb-2 text-white">
-                        <>
-                          <span className="text-yellow-300">{starIcon}</span>
-                          <span className="text-lg font-semibold text-gray-900 dark:text-slate-50">
-                            {topRecitersTxt}
-                          </span>
-                        </>
-                      </div>
-                    )}
+                    {reciter.isTopReciter && <TopReciterBadge />}
                     <div className="flex gap-2 w-[200px] md:w-[300px]">
                       <select
                         value={selectedRecitationSlug}

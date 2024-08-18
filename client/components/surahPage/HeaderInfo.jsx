@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import ImgReciter from "../Reciter/ImgReciter";
 import SharePopup from "../Reciter/SharePopup";
-import { starIcon } from "../Icons";
 import { handleSession } from "../Reciter/SurahContainer";
 import getName from "@/utils/getNameForCurrentLang";
+import TopReciterBadge from "../Reciter/TopReciterBadge";
 
 export default function HeaderInfo({
   translation,
@@ -86,16 +86,7 @@ export default function HeaderInfo({
                 <h1 className="my-1 text-4xl font-semibold text-center text-gray-700 capitalize sm:my-3 lg:text-5xl sm:text-start xl:text-6xl dark:text-white">
                   {reciterName}
                 </h1>
-                {reciter.isTopReciter && (
-                  <div className="flex items-center gap-1 mb-2 text-white">
-                    <>
-                      <span className="text-yellow-300">{starIcon}</span>
-                      <span className="text-lg font-semibold text-gray-900 dark:text-slate-50">
-                        {translation.topRecitersTxt}
-                      </span>
-                    </>
-                  </div>
-                )}
+                {reciter.isTopReciter && <TopReciterBadge />}
                 <div className="flex gap-2 cursor-default max-w-[300px] mx-2">
                   <p className="block w-full px-4 py-3 mt-2 text-lg text-center text-gray-900 border border-gray-300 rounded-lg md:text-xl md:px-8 bg-gray-50 h-fit dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <span>{surahName}</span> - {recitationName}
