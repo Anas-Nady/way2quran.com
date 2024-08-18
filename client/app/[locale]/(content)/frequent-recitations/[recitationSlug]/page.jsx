@@ -2,7 +2,6 @@ import HeadingPage from "@/components/HeadingPage";
 import Pagination from "@/components/Pagination";
 import ReciterCard from "@/components/Reciter/ReciterCard";
 import { listAllReciters } from "@/actions/reciters";
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import shareMetadata from "../../_shareMetadata";
 import Error from "@/components/Error";
@@ -30,7 +29,6 @@ export default async function FrequentRecitersPage({
   params: { locale, recitationSlug },
   searchParams,
 }) {
-  const t = await getTranslations({ locale });
   const currentPage = searchParams?.currentPage || 1;
 
   const recitation = await getRecitationInfo(recitationSlug);
@@ -77,8 +75,6 @@ export default async function FrequentRecitersPage({
         <Pagination
           currentPage={pagination.page || 0}
           totalPages={pagination.pages || 0}
-          pageTxt={t("page")}
-          ofTxt={t("of")}
         />
       </>
     </section>

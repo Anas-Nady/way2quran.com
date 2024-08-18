@@ -9,8 +9,6 @@ export default function Messages({ params: { locale }, searchParams }) {
     nameTxt: t("name"),
     emailTxt: t("email"),
     confirmDeleteTxt: t("confirmDelete"),
-    pageTxt: t("page"),
-    ofTxt: t("of"),
   };
 
   return (

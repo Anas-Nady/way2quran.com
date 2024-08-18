@@ -14,8 +14,6 @@ import getFontClass from "@/utils/getFontClass";
 export default function MessageCard({
   nameTxt,
   emailTxt,
-  pageTxt,
-  ofTxt,
   notFoundDataTxt,
   currentLang,
   confirmDeleteTxt,
@@ -214,8 +212,6 @@ export default function MessageCard({
           <Pagination
             currentPage={pagination?.page || 0}
             totalPages={pagination?.pages || 0}
-            pageTxt={pageTxt}
-            ofTxt={ofTxt}
           />
         </>
       )}

@@ -71,8 +71,6 @@ export default async function VariousRecitationsPage({
         <Pagination
           currentPage={pagination.page || 0}
           totalPages={pagination.pages || 0}
-          pageTxt={t("page")}
-          ofTxt={t("of")}
         />
       </>
     </section>
