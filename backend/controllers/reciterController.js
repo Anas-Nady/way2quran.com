@@ -15,6 +15,7 @@ const {
   searchQuery,
   sortQuery,
 } = require("./../utils/recitationsQuery.js");
+const { hafsAnAsim } = require("../constants/recitationsTxt.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -371,7 +372,24 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
 
     reciter.arabicName = req.body.arabicName || reciter.arabicName;
     reciter.englishName = req.body.englishName || reciter.englishName;
-    reciter.isTopReciter = req.body.isTopReciter || reciter.isTopReciter;
+
+    if (req.body.isTopReciter === "true") {
+      const recitation = await Recitations.findOne({ slug: hafsAnAsim });
+
+      const hasHafsAnAsimRecitation = reciter.recitations.some(
+        (rec) => rec.recitationInfo.toString() === recitation._id.toString()
+      );
+
+      if (!hasHafsAnAsimRecitation) {
+        return next(
+          new AppError(
+            "The reciter does not have `Hafs An Asim` recitation.",
+            400
+          )
+        );
+      }
+    }
+    reciter.isTopReciter = req.body.isTopReciter;
 
     // Save the reciter and handle any errors
     await reciter.save();
