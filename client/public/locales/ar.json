@@ -29,7 +29,9 @@
 
   "HolyQuranPage": {
     "holyQuran": "المصحف الكامل",
-    "searchPlaceholder": "بحث..."
+    "searchPlaceholder": "بحث...",
+    "page": "صفحة",
+    "of": "من "
   },
 
   "FrequentRecitationsPage": {
@@ -39,7 +41,9 @@
 
   "VariousRecitationsPage": {
     "variousRecitations": "التلاوات المنوعة",
-    "searchPlaceholder": "بحث..."
+    "searchPlaceholder": "بحث...",
+    "page": "صفحة",
+    "of": "من "
   },
 
   "ReciterPage": {
@@ -94,6 +98,8 @@
     "totalViewers": "عدد المشاهدات",
     "mostViewers": "الأكثر مشاهدة",
     "actions": "الأجراءات",
+    "page": "صفحة",
+    "of": "من ",
     "createdAt": "تاريخ الأنشاء",
     "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
     "searchPlaceholder": "بحث...",
@@ -123,6 +129,8 @@
   "MessagesPage": {
     "name": "الأسم",
     "email": "البريد الالكتروني",
+    "page": "صفحة",
+    "of": "من ",
     "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
     "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة"
   },

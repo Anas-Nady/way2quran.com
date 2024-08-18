@@ -29,7 +29,9 @@
 
   "HolyQuranPage": {
     "holyQuran": "Full Holy Quran",
-    "searchPlaceholder": "Search..."
+    "searchPlaceholder": "Search...",
+    "page": "Page",
+    "of": "of "
   },
 
   "FrequentRecitationsPage": {
@@ -39,7 +41,9 @@
 
   "VariousRecitationsPage": {
     "searchPlaceholder": "Search...",
-    "variousRecitations": "Various Recitations"
+    "variousRecitations": "Various Recitations",
+    "page": "Page",
+    "of": "of "
   },
 
   "ReciterPage": {
@@ -94,6 +98,8 @@
     "topReciters": "Top Reciters",
     "chooseTypeOfRecitation": "Choose Type Of Recitation",
     "actions": "Actions",
+    "page": "Page",
+    "of": "of ",
     "createdAt": "Created At",
     "confirmDelete": "Are you sure to delete this data ?",
     "searchPlaceholder": "Search...",
@@ -123,6 +129,8 @@
   "MessagesPage": {
     "name": "Name",
     "email": "Email",
+    "page": "Page",
+    "of": "of ",
     "confirmDelete": "Are you sure to delete this data ?",
     "notFoundData": "There are currently no data to display on this page."
   },
