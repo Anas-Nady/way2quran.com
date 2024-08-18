@@ -82,7 +82,9 @@ export default async function AllRecitersPage({
         </div>
         <Link
           href={`/${locale}/dashboard/all-reciters`}
-          className="text-lg hover:underline text-sky-500"
+          className={`text-lg hover:underline text-sky-500 ${
+            Object.keys(searchParams).length > 0 ? "visible" : "invisible"
+          }`}
         >
           {t("resetFilters")}
         </Link>
