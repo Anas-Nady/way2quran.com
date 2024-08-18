@@ -39,7 +39,7 @@ export default function Form({
   };
 
   const handleTopReciters = () => {
-    setIsTopReciter(!isTopReciter);
+    setIsTopReciter((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
@@ -66,6 +66,7 @@ export default function Form({
           : err.message;
 
       setErrorMessage(currentError);
+      setIsTopReciter(reciter.isTopReciter);
       setErrorHappen(true);
     } finally {
       setLoading(false);
