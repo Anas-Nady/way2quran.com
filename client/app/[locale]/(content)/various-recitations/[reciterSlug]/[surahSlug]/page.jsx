@@ -51,7 +51,7 @@ export default async function SurahPage({
     );
   }
 
-  const { reciter, recitation, surah } = data;
+  const { reciter, recitation, surah, nextSurah, previousSurah } = data;
 
   const translation = {
     topRecitersTxt: t("topReciters"),
@@ -70,7 +70,13 @@ export default async function SurahPage({
         recitationName={getName(recitation, locale)}
         locale={locale}
       />
-      <BodyInfo locale={locale} surah={surah} surahText={surah?.verses || []} />
+      <BodyInfo
+        locale={locale}
+        surah={surah}
+        surahText={surah?.verses || []}
+        nextSurah={nextSurah}
+        previousSurah={previousSurah}
+      />
     </div>
   );
 }
