@@ -81,9 +81,33 @@ exports.getSurahWithReciter = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const audioFile = recitation.audioFiles.find(
-    (file) => file.surahNumber == isSurahExists.number
-  );
+  let audioFile;
+  let nextSurahNumber;
+  let previousSurahNumber;
+
+  for (let i = 0; i < recitation.audioFiles.length; i++) {
+    if (recitation.audioFiles[i].surahNumber == isSurahExists.number) {
+      audioFile = recitation.audioFiles[i];
+      nextSurahNumber = recitation.audioFiles[i + 1]?.surahNumber;
+      previousSurahNumber = recitation.audioFiles[i - 1]?.surahNumber;
+      break;
+    }
+  }
+
+  let nextSurah;
+  let previousSurah;
+
+  if (nextSurahNumber) {
+    nextSurah = await Surah.findOne({ number: nextSurahNumber }).select(
+      "arabicName englishName number"
+    );
+  }
+
+  if (previousSurahNumber) {
+    previousSurah = await Surah.findOne({ number: previousSurahNumber }).select(
+      "arabicName englishName number"
+    );
+  }
 
   if (!audioFile) {
     return next(new AppError("No audio file found for this surah", 404));
@@ -95,6 +119,8 @@ exports.getSurahWithReciter = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     surah: surahInfo,
+    nextSurah,
+    previousSurah,
     recitation: {
       arabicName: isRecitationExists.arabicName,
       englishName: isRecitationExists.englishName,
