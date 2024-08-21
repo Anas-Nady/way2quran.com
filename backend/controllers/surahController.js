@@ -99,13 +99,13 @@ exports.getSurahWithReciter = asyncHandler(async (req, res, next) => {
 
   if (nextSurahNumber) {
     nextSurah = await Surah.findOne({ number: nextSurahNumber }).select(
-      "arabicName englishName number"
+      "arabicName englishName slug number"
     );
   }
 
   if (previousSurahNumber) {
     previousSurah = await Surah.findOne({ number: previousSurahNumber }).select(
-      "arabicName englishName number"
+      "arabicName englishName slug number"
     );
   }
 
