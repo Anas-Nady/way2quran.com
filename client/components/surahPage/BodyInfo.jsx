@@ -1,7 +1,8 @@
 import { ayatQuranFont } from "@/fonts/font";
 import { bismillahArabicSVG } from "../Icons";
+import SurahNavigationLink from "./SurahNavigationLink";
 
-function BodyInfo({ locale, surah, surahText }) {
+function BodyInfo({ locale, surah, surahText, nextSurah, previousSurah }) {
   return (
     <div className="max-w-screen-xl mx-auto">
       {surah.slug !== "at-tawbah" && (
@@ -40,6 +41,24 @@ function BodyInfo({ locale, surah, surahText }) {
           </div>
         </div>
       ))}
+      <div className="flex items-center justify-between gap-4 mb-2">
+        <div className={`${!previousSurah && "invisible"}`}>
+          <SurahNavigationLink
+            locale={locale}
+            surah={previousSurah}
+            direction={"right"}
+            currentSurahSlug={surah.slug}
+          />
+        </div>
+        <div className={`${!nextSurah && "invisible"}`}>
+          <SurahNavigationLink
+            locale={locale}
+            surah={nextSurah}
+            direction={"left"}
+            currentSurahSlug={surah.slug}
+          />
+        </div>
+      </div>
     </div>
   );
 }
