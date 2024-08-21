@@ -87,7 +87,7 @@ export const searchIcon = (
 
 export const rightArrowIcon = (
   <svg
-    className="w-6 h-6"
+    className="w-4 h-4 sm:w-6 sm:h-6"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -97,7 +97,7 @@ export const rightArrowIcon = (
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth="1.5"
+      strokeWidth={1.5}
       d="M1 5h12m0 0L9 1m4 4L9 9"
     />
   </svg>
@@ -108,9 +108,9 @@ export const leftArrowIcon = (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth={1.5}
+    strokeWidth={2}
     stroke="currentColor"
-    className="w-6 h-6"
+    className="w-4 h-4 sm:w-6 sm:h-6"
   >
     <path
       strokeLinecap="round"
