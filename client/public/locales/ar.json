@@ -11,6 +11,8 @@
   "of": "من ",
   "file": "ملف",
   "downloadQuranPdf": "تحميل المصحف",
+  "quranicSurahs": "السور القرآنية",
+  "whatYouWantToRead": "ماذا تريد أن تقرأ؟",
 
   "NavbarLinks": {
     "titleHome": "الطريق الي القرآن",
@@ -163,6 +165,7 @@
   },
 
   "Footer": {
+    "quranicSurahs": "السور القرآنية",
     "contactTitle": "تواصل معنا",
     "aboutTitle": "من نحن",
     "allRightsReserved": "جميع الحقوق محفوظة.",

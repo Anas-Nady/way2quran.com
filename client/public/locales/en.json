@@ -11,6 +11,8 @@
   "of": "of ",
   "file": "File",
   "downloadQuranPdf": "Download Quran",
+  "quranicSurahs": "Quranic Surahs",
+  "whatYouWantToRead": "What do you want to read?",
 
   "NavbarLinks": {
     "titleHome": "Way2quran",
@@ -163,6 +165,7 @@
   },
 
   "Footer": {
+    "quranicSurahs": "Quranic Surahs",
     "aboutTitle": "About Us",
     "contactTitle": "Contact Us",
     "allRightsReserved": "Copyright reserved",
