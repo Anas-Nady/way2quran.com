@@ -14,8 +14,8 @@ export const getSurahWithReciter = async (
   return await res.json();
 };
 
-export const getSurahInfo = async (slug) => {
-  const res = await fetch(`${baseURL}/api/surah/${slug}`);
+export const getSurahInfo = async (slug, select = "") => {
+  const res = await fetch(`${baseURL}/api/surah/${slug}?selectField=${select}`);
 
   if (!res.ok) {
     return null;
