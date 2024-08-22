@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Error from "@/components/Error";
 import getName from "@/utils/getNameForCurrentLang";
 import TopReciterBadge from "@/components/Reciter/TopReciterBadge";
+import SurahCard from "@/components/surahPage/SurahCard";
 
 export default function PreviewReciterPage({ params: { locale, slug } }) {
   const [recitations, setRecitations] = useState([]);
@@ -95,24 +96,16 @@ export default function PreviewReciterPage({ params: { locale, slug } }) {
           </div>
         )}
         <div className="my-5 recitations">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-9">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {recitations.map((recitation) => {
               if (recitation.recitationInfo.slug === selectedRecitationSlug) {
                 if (recitation.audioFiles && recitation.audioFiles.length > 0) {
-                  return recitation.audioFiles.map((surah, i) => (
-                    <div className="one w-fit" key={i}>
-                      <div className="flex items-center gap-4 ">
-                        <div className="flex items-center justify-center w-10 h-10 text-gray-900 rotate-45 bg-green-200 border rounded-sm dark:bg-green-800 border-slate-500 dark:text-white">
-                          <span className="block font-semibold text-center -rotate-45 font-english">
-                            {Number(surah.surahNumber)}
-                          </span>
-                        </div>
-
-                        <h2 className="text-lg font-semibold text-gray-900 surah-name line-clamp-1 sm:text-xl lg:text-2xl dark:text-slate-50">
-                          {getName(surah.surahInfo, locale)}
-                        </h2>
-                      </div>
-                    </div>
+                  return recitation.audioFiles.map((surah) => (
+                    <SurahCard
+                      surah={surah.surahInfo}
+                      locale={locale}
+                      key={surah.slug}
+                    />
                   ));
                 }
               }
