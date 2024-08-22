@@ -1,3 +1,4 @@
+import Surahs from "@/constants/surahs";
 import api, { baseURL } from "@/lib/api";
 
 export default async function sitemap() {
@@ -36,6 +37,16 @@ export default async function sitemap() {
     });
   }
 
+  // Get All Surahs Pages
+  const surahsPages = [];
+  langs.forEach((lang) => {
+    Surahs.map((surah) => {
+      surahsPages.push({
+        url: `${baseURL}/${lang}/surah/${surah.slug}`,
+      });
+    });
+  });
+
   const defaultRoutes = [
     { url: `${baseURL}/ar` },
     { url: `${baseURL}/en` },
@@ -51,9 +62,16 @@ export default async function sitemap() {
     { url: `${baseURL}/ar/frequent-recitations` },
     { url: `${baseURL}/ar/download-quran-pdf` },
     { url: `${baseURL}/en/download-quran-pdf` },
+    { url: `${baseURL}/en/surah` },
+    { url: `${baseURL}/ar/surah` },
   ];
 
-  const allPages = [...defaultRoutes, ...recitationPages, ...recitersPages];
+  const allPages = [
+    ...defaultRoutes,
+    ...recitationPages,
+    ...recitersPages,
+    ...surahsPages,
+  ];
 
   return allPages;
 }
