@@ -57,13 +57,7 @@ exports.searchQuery = function (search) {
         englishName: new RegExp(trimmedSearch, "i"),
       },
       {
-        arabicName: new RegExp(trimmedSearch.replace(/ا/, "أ"), "i"),
-      },
-      {
-        arabicName: new RegExp(trimmedSearch, "i"),
-      },
-      {
-        arabicName: new RegExp(trimmedSearch.replace(/ا/, "إ"), "i"),
+        arabicName: new RegExp(trimmedSearch.replace(/ا/g, "[اأإآ]"), "i"),
       },
     ],
   };
