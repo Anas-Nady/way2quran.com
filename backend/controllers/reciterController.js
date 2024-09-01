@@ -142,8 +142,10 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
     );
   }
 
-  reciter.totalViewers++;
-  await reciter.save();
+  if (!req.cookies.jwt) {
+    reciter.totalViewers++;
+    await reciter.save();
+  }
 
   res.status(200).json({
     message: "success",
