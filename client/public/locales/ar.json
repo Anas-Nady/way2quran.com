@@ -7,12 +7,14 @@
   "wayTo": "الطريق إلي",
   "quran": "القرآن",
   "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة",
-  "page": "صفحة",
-  "of": "من ",
   "file": "ملف",
   "downloadQuranPdf": "تحميل المصحف",
   "quranicSurahs": "السور القرآنية",
   "whatYouWantToRead": "ماذا تريد أن تقرأ؟",
+  "previous": "السابق",
+  "next": "التالي",
+  "search": "بحث...",
+  "noResultsFound": "لا يوجد نتائج",
 
   "NavbarLinks": {
     "titleHome": "الطريق الي القرآن",
@@ -32,7 +34,6 @@
   "HolyQuranPage": {
     "holyQuran": "المصحف الكامل",
     "searchPlaceholder": "بحث...",
-    "page": "صفحة",
     "of": "من "
   },
 
@@ -44,7 +45,6 @@
   "VariousRecitationsPage": {
     "variousRecitations": "التلاوات المنوعة",
     "searchPlaceholder": "بحث...",
-    "page": "صفحة",
     "of": "من "
   },
 
@@ -72,12 +72,23 @@
   },
 
   "DashboardLinks": {
+    "statistics": "الأحصائيات",
     "addReciter": "إضافة قارئ",
     "allReciters": "جميع القراء",
     "uploadRecitation": "إضافة رواية",
     "messages": "الرسائل",
     "settings": "إعدادات",
     "logout": "تسجيل الخروج"
+  },
+
+  "Statistics": {
+    "statistics": "الأحصائيات",
+    "weekly": "اسبوعيا",
+    "monthly": "شهريا",
+    "yearly": "سنويا",
+    "totalVisitors": "مجموع الزواز",
+    "quranName": "اسم المصحف",
+    "totalDownloads": "عدد التحميلات"
   },
 
   "AddReciter": {
@@ -100,8 +111,6 @@
     "totalViewers": "عدد المشاهدات",
     "mostViewers": "الأكثر مشاهدة",
     "actions": "الأجراءات",
-    "page": "صفحة",
-    "of": "من ",
     "createdAt": "تاريخ الأنشاء",
     "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
     "searchPlaceholder": "بحث...",
@@ -131,8 +140,6 @@
   "MessagesPage": {
     "name": "الأسم",
     "email": "البريد الالكتروني",
-    "page": "صفحة",
-    "of": "من ",
     "confirmDelete": "هل أنت متأكد من حذف هذه البيانات ؟",
     "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة"
   },
@@ -156,11 +163,11 @@
 
   "ContactUsPage": {
     "contactTitle": "تواصل معنا",
-    "contactDescription": "هناك أي مشكلة تقنية أو تحتاج إلي ارسال رأيك أو إلي أي تفاصيل أخري",
-    "name": "الأسم",
+    "contactDescription": "للتواصل والاقتراحات يرجي مراسلتنا",
+    "name": "اسمك",
     "email": "البريد الالكتروني",
-    "textarea": "الرسالة",
-    "sendMessageBtn": "ارسال",
+    "textarea": "رسالتك",
+    "sendMessageBtn": "إرسال",
     "successCreatedMessage": "تم ارسال رسالتك لنا بنجاح"
   },
 

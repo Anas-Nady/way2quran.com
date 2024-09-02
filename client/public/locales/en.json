@@ -13,6 +13,10 @@
   "downloadQuranPdf": "Download Quran",
   "quranicSurahs": "Quranic Surahs",
   "whatYouWantToRead": "What do you want to read?",
+  "previous": "Previous",
+  "next": "Next",
+  "search": "Search...",
+  "noResultsFound": "No results found.",
 
   "NavbarLinks": {
     "titleHome": "Way2quran",
@@ -72,12 +76,23 @@
   },
 
   "DashboardLinks": {
+    "statistics": "Statistics",
     "addReciter": "Add Reciter",
     "allReciters": "All Reciters",
     "uploadRecitation": "Add Recitation",
     "messages": "Messages",
     "settings": "Setting",
     "logout": "Logout"
+  },
+
+  "Statistics": {
+    "statistics": "Statistics",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "totalVisitors": "Total Visitors",
+    "quranName": "Quran Name",
+    "totalDownloads": "Total Downloads"
   },
 
   "AddReciter": {
@@ -156,7 +171,7 @@
 
   "ContactUsPage": {
     "contactTitle": "Contact Us",
-    "contactDescription": "If there is any technical issue or you need to send your feedback or any other details",
+    "contactDescription": "For contact and suggestions, please send us a message.",
     "name": "Your name",
     "email": "Your email",
     "textarea": "Your message",
