@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import NavbarBtn from "./NavbarBtn";
+import Navbar from "./Navbar";
 import { useTranslations } from "next-intl";
 import { defaultReciterPhoto } from "@/constants/images";
 
@@ -38,7 +38,7 @@ export default function Header() {
             alt={t("titleHome")}
           />
         </Link>
-        <NavbarBtn links={links} />
+        <Navbar links={links} />
       </div>
     </nav>
   );
