@@ -1,6 +1,7 @@
 const express = require("express");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError.js");
+const visitorRouter = require("./routes/visitorRoute");
 const userRouter = require("./routes/userRoute");
 const reciterRouter = require("./routes/reciterRoute");
 const recitationRouter = require("./routes/recitationRoute.js");
@@ -12,6 +13,7 @@ const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const logVisitorMiddleware = require("./middlewares/logVisitorMiddleware.js");
 
 const app = express();
 
@@ -50,6 +52,10 @@ app.use(mongoSanitize());
 // Data sanitization against XSS
 app.use(xss());
 
+// Apply the logVisitor middleware
+app.use(logVisitorMiddleware);
+
+app.use("/api/visitors", visitorRouter);
 app.use("/api/auth", userRouter);
 app.use("/api/reciters", reciterRouter);
 app.use("/api/surah", surahRouter);
