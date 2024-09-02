@@ -8,6 +8,9 @@ export default function PaginationBtn({
   conditionDisabled,
   text,
   totalPages,
+  isActive,
+  isPrevious,
+  isNext,
 }) {
   const pathName = usePathname();
   const router = useRouter();
@@ -21,11 +24,22 @@ export default function PaginationBtn({
     }
   };
 
+  let baseClasses =
+    "flex items-center font-medium justify-center px-4 leading-tight border text-lg sm:text-xl py-2";
+  let activeClasses =
+    "text-blue-600 bg-blue-50 font-english hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white";
+  let normalClasses =
+    "text-gray-500 bg-white font-english hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white";
+  let previousNextClasses = "rounded-s-lg font-arabic rounded-e-lg border-e-0";
+
   return (
     <button
-      className={`${
+      type="button"
+      className={`${baseClasses} ${isActive ? activeClasses : normalClasses} ${
+        isPrevious ? previousNextClasses : ""
+      } ${isNext ? previousNextClasses : ""} ${
         conditionDisabled && "cursor-not-allowed"
-      } mx-1 px-3 py-1 border rounded hover:bg-gray-200 dark:hover:bg-gray-700`}
+      }`}
       onClick={() => handlePageChange(conditionClick)}
       disabled={conditionDisabled}
     >
