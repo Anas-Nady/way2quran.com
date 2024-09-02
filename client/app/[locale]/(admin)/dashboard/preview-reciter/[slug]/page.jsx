@@ -7,6 +7,7 @@ import Error from "@/components/Error";
 import getName from "@/utils/getNameForCurrentLang";
 import TopReciterBadge from "@/components/Reciter/TopReciterBadge";
 import SurahCard from "@/components/surahPage/SurahCard";
+import { eyeIcon } from "@/components/Icons";
 
 export default function PreviewReciterPage({ params: { locale, slug } }) {
   const [recitations, setRecitations] = useState([]);
@@ -59,6 +60,10 @@ export default function PreviewReciterPage({ params: { locale, slug } }) {
                 </h1>
 
                 {reciter?.isTopReciter && <TopReciterBadge />}
+                <span className="flex items-center justify-between gap-1 mb-1 text-sm font-semibold font-english lg:text-lg">
+                  {eyeIcon}
+                  {reciter.totalViewers.toLocaleString()}
+                </span>
                 <div className="flex gap-2 w-[200px] md:w-[300px]">
                   <select
                     value={selectedRecitationSlug}
