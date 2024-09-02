@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import MessageCard from "./_MessageCard";
+import MessageList from "./_MessageList";
 
 export default function Messages({ params: { locale }, searchParams }) {
   const t = useTranslations("MessagesPage");
@@ -13,7 +13,7 @@ export default function Messages({ params: { locale }, searchParams }) {
 
   return (
     <div className="relative border-slate-100 dark:border-red-950">
-      <MessageCard
+      <MessageList
         {...translations}
         currentLang={locale}
         searchParams={searchParams}
