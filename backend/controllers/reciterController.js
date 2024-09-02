@@ -16,6 +16,7 @@ const {
   sortQuery,
 } = require("./../utils/recitationsQuery.js");
 const { hafsAnAsim } = require("../constants/recitationsTxt.js");
+const ViewRecord = require("../models/viewRecordModel.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -142,11 +143,27 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (!req.cookies.jwt) {
+  const userIp =
+    req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+
+  const existingView = await ViewRecord.findOne({
+    "reference.type": "Reciter",
+    "reference.id": reciter._id,
+    userIp,
+  });
+
+  if (!existingView) {
     reciter.totalViewers++;
     await reciter.save();
-  }
 
+    await ViewRecord.create({
+      reference: {
+        type: "Reciter",
+        id: reciter._id,
+      },
+      userIp,
+    });
+  }
   res.status(200).json({
     message: "success",
     reciter,
