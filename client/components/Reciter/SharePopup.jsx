@@ -24,18 +24,18 @@ const SharePopup = ({
     <div
       className={`popup ${
         popup ? "flex" : "hidden"
-      } fixed top-0 left-0 w-full h-full bg-slate-600 bg-opacity-95 z-50 justify-center items-center`}
+      } fixed top-0 left-0 w-full h-full bg-slate-600 bg-opacity-70  dark:bg-opacity-70 z-50 justify-center items-center`}
     >
-      <div className="p-4 md:p-5 text-center z-50 border-2 dark:border-gray-500 border-gray-100 bg-slate-200 dark:bg-gray-900 text-slate-50 w-[500px] relative">
+      <div className="p-4 mx-3 sm:mx-0 md:p-5 text-center z-40 border-2 dark:border-gray-500 border-gray-100 bg-slate-200 dark:bg-gray-900 text-slate-50 w-[500px] relative">
         <span
-          className="absolute -top-2 -left-1.5 w-8 h-8 cursor-pointer bg-slate-200 text-black border-black dark:bg-gray-900 dark:text-white dark:border-white border rounded-full flex justify-center items-center"
+          className="absolute -top-2 rtl:-right-1.5 ltr:-left-1.5 w-8 h-8 z-50 cursor-pointer bg-slate-200 text-black border-black dark:bg-gray-900 dark:text-white dark:border-white border rounded-full flex justify-center items-center"
           onClick={() => handlePopup("")}
         >
           {closeIcon}
         </span>
         <div className="flex flex-col items-center gap-2">
           <div className="relative w-full">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-1 sm:ps-3.5 pointer-events-none">
               {shareIcon}
             </div>
             <input
