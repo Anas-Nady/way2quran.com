@@ -56,7 +56,7 @@ export default function ContactUsForm({
       {success && (
         <ToastMessage success={true} message={successCreatedMessageTxt} />
       )}
-      <form className="px-5 my-7" onSubmit={handleSendMessage}>
+      <form className="px-5" onSubmit={handleSendMessage}>
         <div className="mx-auto inputs">
           <Input
             labelText={labelName}
