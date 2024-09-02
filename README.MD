@@ -41,3 +41,7 @@ To run the project locally, follow these steps:
 
 ![App Screenshot](screenshot/screenshot_1.png)
 ![App Screenshot](screenshot/screenshot_2.png)
+
+## Email Template
+
+![App Screenshot](screenshot/screenshot_3.png)
