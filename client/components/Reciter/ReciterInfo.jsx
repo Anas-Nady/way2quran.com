@@ -8,6 +8,7 @@ import getName from "@/utils/getNameForCurrentLang";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import LoadingSpinner from "../LoadingSpinner";
 import TopReciterBadge from "./TopReciterBadge";
+import { eyeIcon } from "../Icons";
 
 export default function Reciter({
   currentLang,
@@ -107,6 +108,12 @@ export default function Reciter({
                       {reciterName}
                     </h1>
                     {reciter.isTopReciter && <TopReciterBadge />}
+                    <div className="flex items-center justify-between gap-1 mb-1 text-sm font-semibold text-gray-700 dark:text-white lg:text-lg">
+                      <span>{eyeIcon}</span>
+                      <span className="rtl:mt-1 rtl:font-arabic ltr:font-english">
+                        {reciter.totalViewers.toLocaleString()}
+                      </span>
+                    </div>
                     <div className="flex gap-2 w-[200px] md:w-[300px]">
                       <select
                         value={selectedRecitationSlug}
