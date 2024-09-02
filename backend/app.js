@@ -2,6 +2,7 @@ const express = require("express");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError.js");
 const visitorRouter = require("./routes/visitorRoute");
+const searchRouter = require("./routes/searchRoute");
 const userRouter = require("./routes/userRoute");
 const reciterRouter = require("./routes/reciterRoute");
 const recitationRouter = require("./routes/recitationRoute.js");
@@ -56,6 +57,7 @@ app.use(xss());
 app.use(logVisitorMiddleware);
 
 app.use("/api/visitors", visitorRouter);
+app.use("/api/search", searchRouter);
 app.use("/api/auth", userRouter);
 app.use("/api/reciters", reciterRouter);
 app.use("/api/surah", surahRouter);
