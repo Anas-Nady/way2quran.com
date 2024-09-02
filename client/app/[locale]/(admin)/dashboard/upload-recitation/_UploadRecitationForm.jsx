@@ -89,8 +89,6 @@ export default function UploadRecitationForm({
       setSuccessUpload(true);
       setAudioFiles([]);
       setFileDetails([]);
-      setReciterSlug("");
-      setRecitationSlug("");
       setProgress(0);
       // Clear file input value after upload
       document.getElementById("fileInput").value = "";
