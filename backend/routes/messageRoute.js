@@ -6,7 +6,7 @@ const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 60 * 1000,
-  max: 3,
+  max: 10,
   trustProxy: true,
   handler: (req, res) => {
     res
@@ -20,12 +20,10 @@ router
   .post(limiter, messageController.createMessage)
   .get(protect, isAdmin, messageController.listAllMessages);
 
-router
-  .route("/unread")
-  .get(protect, isAdmin, messageController.getUnreadMessages);
+router.use(protect, isAdmin);
 
-router
-  .route("/:slug")
-  .delete(protect, isAdmin, messageController.deleteMessage);
+router.route("/unread").get(messageController.getUnreadMessages);
+router.route("/send-message").post(messageController.sendMessage);
+router.route("/:slug").delete(messageController.deleteMessage);
 
 module.exports = router;
