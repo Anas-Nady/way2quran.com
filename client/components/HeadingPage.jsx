@@ -14,7 +14,7 @@ const HeadingPage = ({
       className={`my-5 relative whitespace-nowrap text-gray-700 ${
         isHeadingSections
           ? "text-2xl sm:text-3xl 2xl:text-4xl"
-          : "text-3xl sm:text-3xl rtl:lg:text-5xl ltr:xl:text-5xl 2xl:text-5xl"
+          : "text-3xl sm:text-3xl rtl:lg:text-5xl ltr:xl:text-6xl rtl:2xl:text-[65px] ltr:2xl:text-6xl"
       } text-center ${
         isCentering && "mx-auto"
       } font-bold pb-2 dark:text-slate-50 w-fit cursor-default ${className}`}
