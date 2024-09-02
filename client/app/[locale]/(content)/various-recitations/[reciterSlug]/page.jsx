@@ -6,7 +6,7 @@ import {
   getRecitersWithoutCache,
 } from "@/actions/reciters";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import { HAFS_AN_ASIM, VARIOUS_RECITATIONS } from "@/constants/recitationsName";
+import { VARIOUS_RECITATIONS } from "@/constants/recitationsName";
 import shareMetadata from "../../_shareMetadata";
 import Error from "@/components/Error";
 import getName from "@/utils/getNameForCurrentLang";
@@ -67,7 +67,6 @@ export default async function ReciterPage({ params: { locale, reciterSlug } }) {
         reciter={reciter}
         currentLang={locale}
         recitations={recitations}
-        defaultRecitationSlug={HAFS_AN_ASIM}
         {...translations}
       />
     </div>

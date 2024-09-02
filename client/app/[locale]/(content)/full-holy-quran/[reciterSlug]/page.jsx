@@ -6,10 +6,7 @@ import {
 } from "@/actions/reciters";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import getSocialMediaPhoto from "@/utils/getSocialMediaPhoto";
-import {
-  COMPLETED_RECITATIONS,
-  HAFS_AN_ASIM,
-} from "@/constants/recitationsName";
+import { COMPLETED_RECITATIONS } from "@/constants/recitationsName";
 import shareMetadata from "../../_shareMetadata";
 import Error from "@/components/Error";
 import getName from "@/utils/getNameForCurrentLang";
@@ -75,7 +72,6 @@ export default async function ReciterPage({ params: { locale, reciterSlug } }) {
         reciter={reciter}
         currentLang={locale}
         recitations={recitations}
-        defaultRecitationSlug={HAFS_AN_ASIM}
         {...translations}
       />
     </div>

@@ -90,7 +90,6 @@ export default async function ReciterPage({
         reciter={reciter}
         currentLang={locale}
         recitations={recitations}
-        defaultRecitationSlug={recitationSlug}
         {...translations}
       />
     </div>
