@@ -27,7 +27,7 @@ export default function Contact() {
     <div className="relative my-10">
       <HeadingPage name={t("contactTitle")} color="orange" />
       <div className="container max-w-lg">
-        <p className="mt-3 text-center text-gray-500 dark:text-white ">
+        <p className="mb-5 text-center text-gray-600 text-md sm:text-lg dark:text-gray-400">
           {t("contactDescription")}
         </p>
         <ContactUsForm {...translations} />
