@@ -64,6 +64,7 @@ export default async function AllRecitersPage({
     actionsTxt: t("actions"),
     createdAtTxt: t("createdAt"),
     confirmDeleteTxt: t("confirmDelete"),
+    totalViewersTxt: t("totalViewers"),
   };
 
   return (
@@ -78,6 +79,10 @@ export default async function AllRecitersPage({
           <CheckboxFilter
             labelText={t("topReciters")}
             filterOption={"isTopReciter"}
+          />
+          <CheckboxFilter
+            labelText={t("totalViewers")}
+            filterOption={"sortBy"}
           />
         </div>
         <Link
