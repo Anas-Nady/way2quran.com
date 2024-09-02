@@ -21,6 +21,7 @@ export default function Table({
   topRecitersTxt,
   actionsTxt,
   createdAtTxt,
+  totalViewersTxt,
   recitationsNumberTxt,
 }) {
   const router = useRouter();
@@ -67,8 +68,9 @@ export default function Table({
         <thead className="text-gray-700 text-md bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr className="border-b border-slate-300 dark:border-gray-600">
             <th className="p-2 sm:px-6 sm:py-3">{reciterNameTxt}</th>
-            <th className="p-2 sm:px-6 sm:py-3">{recitationsNumberTxt}</th>
+            <th className="p-2 sm:px-6 sm:py-3">{totalViewersTxt}</th>
             <th className="p-2 sm:px-6 sm:py-3">{topRecitersTxt}</th>
+            <th className="p-2 sm:px-6 sm:py-3">{recitationsNumberTxt}</th>
             <th className="p-2 sm:px-6 sm:py-3">{createdAtTxt}</th>
             <th className="p-2 sm:px-6 sm:py-3">{actionsTxt}</th>
           </tr>
@@ -94,7 +96,7 @@ export default function Table({
               </th>
 
               <td className="p-2 sm:px-6 sm:py-3 font-english">
-                {reciter.totalRecitations}
+                {reciter.totalViewers.toLocaleString()}
               </td>
 
               <td
@@ -105,6 +107,10 @@ export default function Table({
                 }`}
               >
                 {reciter.isTopReciter ? checkedIcon : closeIcon}
+              </td>
+
+              <td className="p-2 sm:px-6 sm:py-3 font-english">
+                {reciter.totalRecitations}
               </td>
 
               <td className="p-2 sm:px-6 sm:py-3 font-english">
