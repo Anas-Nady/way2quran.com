@@ -22,7 +22,7 @@ export default function ToastMessage({
     <div
       className={`${!isOpen && "hidden"} ${getFontClass(
         message
-      )} flex absolute top-[30px] left-1/2 transform -translate-x-1/2 items-center w-full gap-4 max-w-[400px] mx-auto p-4 mb-4 text-gray-500 bg-white rounded-lg shadow border border-gray-300 dark:border-gray-600 dark:text-gray-400 dark:bg-gray-800`}
+      )} flex absolute top-[30px] z-50 left-1/2 transform -translate-x-1/2 items-center w-full gap-4 max-w-[400px] mx-auto p-4 mb-4 text-gray-500 bg-white rounded-lg shadow border border-gray-300 dark:border-gray-600 dark:text-gray-400 dark:bg-gray-800`}
       role="alert"
       dir={getTextDirection(message)}
     >
