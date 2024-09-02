@@ -13,12 +13,10 @@ export default function Reciter({
   currentLang,
   reciter,
   recitations,
-  defaultRecitationSlug,
   listeningTxt,
   downloadTxt,
   shareTxt,
   downloadAllTxt,
-  topRecitersTxt,
   playingThePlaylistTxt,
 }) {
   const router = useRouter();
@@ -31,7 +29,7 @@ export default function Reciter({
   const [pageURLToShare, setPageURLToShare] = useState("");
   const searchParams = useSearchParams();
   const recitationSlug =
-    searchParams.get("recitationSlug") || defaultRecitationSlug;
+    searchParams.get("recitationSlug") || recitations[0]?.recitationInfo?.slug;
 
   const [selectedRecitationSlug, setSelectedRecitationSlug] =
     useState(recitationSlug);
