@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import {
   audioIcon,
+  chartLineIcon,
   messagesIcon,
   settingsIcon,
   userIcon,
@@ -25,6 +26,11 @@ export default function DashboardLayout({ children, params: { locale } }) {
   const t = useTranslations("DashboardLinks");
 
   const dashboardLinks = [
+    {
+      name: t("statistics"),
+      icon: chartLineIcon,
+      url: "statistics",
+    },
     {
       name: t("addReciter"),
       icon: userIcon,
@@ -54,13 +60,13 @@ export default function DashboardLayout({ children, params: { locale } }) {
 
   return (
     <AdminAuthenticationLayout>
-      <div className="dark:bg-gray-900 bg-slate-50 min-h-screen my-2 flex">
+      <div className="flex min-h-screen my-2 dark:bg-gray-900 bg-slate-50">
         <DashboardAsideBar
           currentLang={locale}
           dashboardLinks={dashboardLinks}
           logoutTxt={t("logout")}
         />
-        <div className="container p-6 dark:bg-gray-800 text-gray-900  dark:text-slate-300 bg-slate-100">
+        <div className="container p-6 text-gray-900 dark:bg-gray-800 dark:text-slate-300 bg-slate-100">
           {children}
         </div>
       </div>
