@@ -10,7 +10,7 @@ export async function generateMetadata({ params: { locale } }) {
   const title = t("aboutTitle");
   const pageUrl = `/${locale}/about-us`;
 
-  return shareMetadata({title, locale, pageUrl});
+  return shareMetadata({ title, locale, pageUrl });
 }
 
 export default function AboutPage() {
@@ -22,15 +22,19 @@ export default function AboutPage() {
         <div className="text-center about-us">
           <HeadingPage name={t("aboutTitle")} color="orange" />
 
-          <div className="max-w-screen-lg mx-auto ">
-            <ul className="flex flex-col flex-wrap items-start justify-start gap-4 px-3 list-none text-start">
+          <div className="max-w-screen-lg mx-auto">
+            <ul className="flex flex-col flex-wrap items-start justify-start gap-4 px-3 my-10 list-none text-star">
               {Array.from({ length: 5 }, (_, index) => (
                 <li
                   key={index + 1}
-                  className="flex justify-center text-gray-900 text-md sm:text-xl dark:text-slate-50"
+                  className="flex justify-center gap-2 items-start font-medium text-green-500 text-md sm:text-xl xl:text-2xl 2xl:text-[28px] dark:text-green-500 text-start"
                 >
-                  <span>{noteIcon}</span>
-                  {t(`about_${index + 1}`)}
+                  <span className="font-bold text-gray-800 xl:mt-1 2xl:mt-2 dark:text-white">
+                    {noteIcon}
+                  </span>
+                  <span className="leading-normal">
+                    {t(`about_${index + 1}`)}
+                  </span>
                 </li>
               ))}
             </ul>
