@@ -48,11 +48,9 @@ function QuranList({ quran, quranName }) {
             loading="lazy"
           />
         </div>
-        <div className="flex items-center justify-between gap-1 px-1.5 py-2 text-gray-700 bg-gray-300 dark:bg-gray-600 dark:text-white">
-          <h3 className="font-semibold text-center line-clamp-1 text-md lg:text-lg xl:text-xl 2xl:text-2xl">
-            {quranName}
-          </h3>
-        </div>
+        <h3 className="py-2 text-lg font-semibold text-center text-gray-700 bg-gray-300 line-clamp-1 dark:bg-gray-600 md:text-xl xl:text-2xl dark:text-white">
+          {quranName}
+        </h3>
       </button>
     </>
   );
