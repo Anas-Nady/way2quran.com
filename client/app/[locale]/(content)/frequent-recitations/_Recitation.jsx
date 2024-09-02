@@ -22,7 +22,7 @@ export default function Recitation({ data }) {
       title={getNameTranslation}
     >
       <div className="overflow-hidden whitespace-nowrap text-ellipsis">
-        <h2 className="font-medium text-gray-900 text-md sm:text-lg dark:font-semibold dark:text-white">
+        <h2 className="font-medium text-gray-900 text-md sm:text-lg xl:text-xl dark:font-semibold dark:text-white">
           {getNameTranslation}
         </h2>
       </div>
