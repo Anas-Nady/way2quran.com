@@ -26,7 +26,7 @@ export default function LoginForm({
     try {
       const data = await login({ email, password });
       localStorage.setItem("user", JSON.stringify(data?.user));
-      router.replace(`/${currentLang}/dashboard/add-reciter`);
+      router.replace(`/${currentLang}/dashboard/statistics`);
     } catch (err) {
       const errorMessage =
         err.response && err.response.data.message
@@ -39,7 +39,7 @@ export default function LoginForm({
   };
 
   return (
-    <form className="space-y-4  md:space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
       {error && <ToastMessage message={error} error={true} />}
       <Input
         labelText={emailInput}

@@ -7,10 +7,10 @@ export default function Dashboard() {
   const pathName = usePathname();
 
   useEffect(() => {
-    router.push(`${pathName}/add-reciter`);
+    router.push(`${pathName}/statistics`);
   }, []);
 
   return (
-    <div className="container p-6 dark:bg-gray-800 text-gray-900 dark:text-slate-300 bg-slate-100"></div>
+    <div className="container p-6 text-gray-900 dark:bg-gray-800 dark:text-slate-300 bg-slate-100"></div>
   );
 }

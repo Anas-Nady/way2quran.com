@@ -29,7 +29,7 @@ export default function IsAuthenticated({ children }) {
   }, []);
 
   if (isAdmin && !isLoading) {
-    return redirect(`/${currentLang}/dashboard/add-reciter`);
+    return redirect(`/${currentLang}/dashboard/statistics`);
   }
 
   if (!isAdmin && !isLoading) return <>{children}</>;
