@@ -7,6 +7,8 @@ import rootMetadata from "@/constants/rootMetadata";
 import { arabicFont, englishFont } from "@/fonts/font";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import SearchPopup from "@/components/Search/SearchPopup";
+import { SearchProvider } from "@/components/Search/SearchContext";
 
 export const viewport = {
   themeColor: "#374151",
@@ -33,11 +35,14 @@ export default async function RootLayout({ children, params: { locale } }) {
         className="bg-slate-50 dark:bg-gray-900"
       >
         <main className={`relative bg-slate-50 dark:bg-gray-900`}>
-          <Header currentLang={locale} />
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <div className="px-2 children">{children}</div>
-          </NextIntlClientProvider>
-          <Footer currentLang={locale} />
+          <SearchProvider>
+            <Header currentLang={locale} />
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <div className="px-2 children">{children}</div>
+              <SearchPopup currentLang={locale} />
+            </NextIntlClientProvider>
+            <Footer currentLang={locale} />
+          </SearchProvider>
           <AudioPlayer currentLang={locale} />
           <ScrollToTop />
         </main>
