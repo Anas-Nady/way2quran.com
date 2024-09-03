@@ -3,16 +3,16 @@ const Visitor = require("./../models/visitorModel.js");
 const logVisitor = async (req, res, next) => {
   try {
     const ipAddress =
-      req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+      req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     const userAgent = req.headers["user-agent"];
 
-    const existingVisitor = await Visitor.findOne({ ipAddress });
+    const uniqueIdentifier = `${ipAddress}-${userAgent}`;
+
+    const existingVisitor = await Visitor.findOne({ uniqueIdentifier });
 
     if (!existingVisitor) {
-      // If the IP address is not found, create a new visitor entry
-      await Visitor.create({ ipAddress, userAgent });
+      await Visitor.create({ ipAddress, userAgent, uniqueIdentifier });
     } else {
-      // If the IP address exists, update the visitDate
       existingVisitor.visitDate = Date.now();
       await existingVisitor.save();
     }
