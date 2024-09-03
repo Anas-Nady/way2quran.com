@@ -25,6 +25,7 @@ const ImgReciter = ({
         }  rounded-full p-2 shadow-sm ${getObjectFitClass(photoDisplay)} ${
           isCentering ? "mx-auto" : ""
         } ${className}`}
+        priority
       />
     </>
   );

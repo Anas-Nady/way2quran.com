@@ -24,6 +24,7 @@ export default function HomePage() {
               sizes="(max-width: 400px) 90vw, (max-width: 600px) 80vw, 600px"
               width="600"
               height="300"
+              priority
             />
           </div>
         </div>

@@ -46,6 +46,7 @@ function QuranList({ quran, quranName }) {
             width={600}
             height={600}
             loading="lazy"
+            priority
           />
         </div>
         <h3 className="py-2 text-lg font-semibold text-center text-gray-700 bg-gray-300 line-clamp-1 dark:bg-gray-600 md:text-xl xl:text-2xl dark:text-white">

@@ -36,6 +36,7 @@ export default function Header() {
             width={60}
             height={80}
             alt={t("titleHome")}
+            priority
           />
         </Link>
         <Navbar links={links} />
