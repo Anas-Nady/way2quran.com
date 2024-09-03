@@ -16,7 +16,10 @@ const VisitorsStatistics = ({
 
   const fetchVisitorCount = async (range) => {
     try {
-      const response = await fetch(`/api/visitors/count/${range}`);
+      const response = await fetch(`/api/visitors/count/${range}`, {
+        next: { revalidate: 0 },
+      });
+
       if (response.ok) {
         const data = await response.json();
         switch (range) {
