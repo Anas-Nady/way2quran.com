@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import listQuranPdf from "@/constants/listQuranPdf";
 import getName from "@/utils/getNameForCurrentLang";
 
@@ -7,8 +8,32 @@ export default function StatisticsTable({
   currentLang,
   quranNameTxt,
   totalDownloadsTxt,
-  downloadsCount,
 }) {
+  const [downloadsCount, setDownloadsCount] = useState([]);
+
+  useEffect(() => {
+    const fetchDownloadCounts = async () => {
+      try {
+        const response = await fetch("/api/download/counts", {
+          next: { revalidate: 0 },
+        }); // Assuming you have an API route to get the data
+        if (response.ok) {
+          const { data: downloadCounts } = await response.json();
+          setDownloadsCount(downloadCounts);
+        } else {
+          console.error(
+            "Failed to fetch download counts:",
+            response.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching download counts:", error);
+      }
+    };
+
+    fetchDownloadCounts();
+  }, []);
+
   return (
     <div>
       <table className="w-full text-left text-gray-500 border text-md md:text-xl rtl:text-right border-slate-300 dark:border-gray-600 dark:text-gray-400">
