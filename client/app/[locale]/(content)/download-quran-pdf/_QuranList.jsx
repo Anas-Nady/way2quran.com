@@ -43,9 +43,8 @@ function QuranList({ quran, quranName }) {
             src={quran.img}
             className="object-cover w-[367px] h-[538px]"
             alt={quranName}
-            width={600}
-            height={600}
-            loading="lazy"
+            width={367}
+            height={538}
             priority
           />
         </div>
