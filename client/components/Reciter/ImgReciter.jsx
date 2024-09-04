@@ -9,6 +9,14 @@ const ImgReciter = ({
   isSmaller = false,
   isCentering = false,
 }) => {
+  const sizeClass = isSmaller
+    ? "w-[150px] h-[150px] sm:w-[170px] sm:h-[170px]"
+    : isBigger
+    ? "w-[200px] h-[200px] sm:w-[220px] sm:h-[220px]"
+    : "w-[200px] h-[200px]";
+
+  const centeringClass = isCentering ? "mx-auto" : "";
+
   return (
     <>
       <Image
@@ -16,15 +24,9 @@ const ImgReciter = ({
         alt={alt}
         width="200"
         height="200"
-        className={`${
-          isSmaller
-            ? "w-[150px] h-[150px]"
-            : isBigger
-            ? "w-[200px] h-[200px] sm:w-[220px]  sm:h-[220px]"
-            : "w-[170px] h-[170px]"
-        }  rounded-full p-2 shadow-sm ${getObjectFitClass(photoDisplay)} ${
-          isCentering ? "mx-auto" : ""
-        } ${className}`}
+        className={`${sizeClass} ${centeringClass} ${className}  rounded-full p-2 shadow-sm ${getObjectFitClass(
+          photoDisplay
+        )} ${className}`}
         priority
       />
     </>
