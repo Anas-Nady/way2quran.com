@@ -57,6 +57,10 @@
     "playingThePlaylist": "تشغيل القائمة"
   },
 
+  "ReciterCard": {
+    "reciterImageAlt": "صورة قارئ القرآن {name}"
+  },
+
   "SurahPage": {
     "listening": "استماع",
     "download": " تحميل",
@@ -83,6 +87,7 @@
 
   "Statistics": {
     "statistics": "الأحصائيات",
+    "today": "يوميا",
     "weekly": "اسبوعيا",
     "monthly": "شهريا",
     "yearly": "سنويا",

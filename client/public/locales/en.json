@@ -61,6 +61,10 @@
     "playingThePlaylist": "Playing now"
   },
 
+  "ReciterCard": {
+    "reciterImageAlt": "Portrait of Quran reciter {name}"
+  },
+
   "SurahPage": {
     "listening": "Listening",
     "download": "Download",
@@ -87,6 +91,7 @@
 
   "Statistics": {
     "statistics": "Statistics",
+    "today": "Today",
     "weekly": "Weekly",
     "monthly": "Monthly",
     "yearly": "Yearly",

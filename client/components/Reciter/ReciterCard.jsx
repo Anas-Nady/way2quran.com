@@ -3,12 +3,14 @@ import Link from "next/link";
 import ImgReciter from "./ImgReciter";
 import { usePathname } from "next/navigation";
 import getName from "@/utils/getNameForCurrentLang";
+import { useTranslations } from "next-intl";
 
 export default function ReciterCard({ reciter, recitationSlug }) {
   const { slug, photo } = reciter;
   const pathName = usePathname();
   const currentLang = pathName.split("/")[1];
   const reciterName = getName(reciter, currentLang);
+  const t = useTranslations("ReciterCard");
 
   return (
     <Link
@@ -21,7 +23,10 @@ export default function ReciterCard({ reciter, recitationSlug }) {
           <div className="flex justify-end px-1 pt-4"></div>
           <div className="flex flex-col items-center pb-5">
             <span className="mb-2 ">
-              <ImgReciter photoDisplay={photo} alt={reciterName} />
+              <ImgReciter
+                photoDisplay={photo}
+                alt={t("reciterImageAlt", { name: reciterName })}
+              />
             </span>
             <h2 className="my-1 text-center text-2xl line-clamp-1 max-w-[250px] capitalize font-semibold text-gray-900 dark:text-white">
               {reciterName}
