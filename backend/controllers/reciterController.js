@@ -16,7 +16,6 @@ const {
   sortQuery,
 } = require("./../utils/recitationsQuery.js");
 const { hafsAnAsim } = require("../constants/recitationsTxt.js");
-const ViewRecord = require("../models/viewRecordModel.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -123,6 +122,8 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
 exports.getReciterDetails = asyncHandler(async (req, res, next) => {
   const slug = req.params.reciterSlug;
+  const increaseViews = req.query.increaseViews === "true";
+
   const reciter = await Reciters.findOne({ slug })
     .populate({
       path: "recitations.recitationInfo",
@@ -143,27 +144,12 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const userIp =
-    req.ip || req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-
-  const existingView = await ViewRecord.findOne({
-    "reference.type": "Reciter",
-    "reference.id": reciter._id,
-    userIp,
-  });
-
-  if (!existingView) {
+  if (increaseViews) {
+    // Increment total viewers and save
     reciter.totalViewers++;
     await reciter.save();
-
-    await ViewRecord.create({
-      reference: {
-        type: "Reciter",
-        id: reciter._id,
-      },
-      userIp,
-    });
   }
+
   res.status(200).json({
     message: "success",
     reciter,
