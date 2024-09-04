@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import SearchPopup from "@/components/Search/SearchPopup";
 import { SearchProvider } from "@/components/Search/SearchContext";
+import GoogleAnalyticsScript from "@/utils/GoogleAnalyticsScript";
 
 export const viewport = {
   themeColor: "#374151",
@@ -45,6 +46,7 @@ export default async function RootLayout({ children, params: { locale } }) {
           </SearchProvider>
           <AudioPlayer currentLang={locale} />
           <ScrollToTop />
+          <GoogleAnalyticsScript />
         </main>
       </body>
     </html>
