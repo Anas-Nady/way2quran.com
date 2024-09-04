@@ -15,7 +15,6 @@ const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
-const logVisitorMiddleware = require("./middlewares/logVisitorMiddleware.js");
 
 const app = express();
 
@@ -53,9 +52,6 @@ app.use(mongoSanitize());
 
 // Data sanitization against XSS
 app.use(xss());
-
-// Apply the logVisitor middleware
-app.use(logVisitorMiddleware);
 
 app.use("/api/visitors", visitorRouter);
 app.use("/api/search", searchRouter);
