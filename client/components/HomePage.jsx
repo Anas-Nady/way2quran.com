@@ -1,8 +1,27 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
+
+  useEffect(() => {
+    const getCurrentUserIp = async () => {
+      try {
+        await fetch("/api/visitors/track", {
+          method: "POST",
+          next: { revalidate: 1 * 24 * 3600 }, // 1 day
+        });
+        return;
+      } catch (error) {
+        console.error("Error get ip", error);
+      }
+    };
+
+    getCurrentUserIp();
+  }, []);
 
   return (
     <>
@@ -19,7 +38,6 @@ export default function HomePage() {
             <Image
               src="https://storage.googleapis.com/way2quran_storage/imgs/full-logo.webp"
               alt={t("titleHome")}
-              loading="lazy"
               className="w-[400px]  md:w-[500px] xl:w-[600px] mx-auto 2xl:mx-0"
               sizes="(max-width: 400px) 90vw, (max-width: 600px) 80vw, 600px"
               width="600"

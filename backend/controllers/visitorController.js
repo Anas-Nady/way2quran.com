@@ -68,3 +68,17 @@ exports.getVisitorCount = asyncHandler(async (req, res) => {
     total: totalCount,
   });
 });
+
+exports.logVisitorTracking = asyncHandler(async (req, res) => {
+  const ipAddress =
+    req.headers["x-forwarded-for"] || req.ip || req.connection.remoteAddress;
+
+  const userAgent = req.headers["user-agent"];
+
+  const randomVal = Math.random() * Date.now();
+  const uniqueIdentifier = `${ipAddress}-${userAgent}-${randomVal}`;
+
+  await Visitor.create({ ipAddress, userAgent, uniqueIdentifier });
+
+  res.status(200).json({ ipAddress });
+});

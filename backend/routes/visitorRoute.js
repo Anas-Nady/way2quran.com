@@ -20,5 +20,6 @@ const limiter = rateLimit({
 const router = express.Router();
 
 router.get("/count", getVisitorCount);
+router.post("/track", limiter, logVisitorTracking);
 
 module.exports = router;
