@@ -43,7 +43,7 @@ export async function getReciterInfo(reciterSlug) {
 
 export async function getReciterDetails(reciterSlug) {
   const res = await fetch(
-    `${baseURL}/api/reciters/reciter-profile/${reciterSlug}`,
+    `${baseURL}/api/reciters/reciter-profile/${reciterSlug}?increaseViews=true`,
     { next: { revalidate: CACHE } }
   );
 
