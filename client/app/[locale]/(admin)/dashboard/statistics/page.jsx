@@ -7,6 +7,7 @@ export default async function StatisticsPage({ params: { locale } }) {
 
   const visitorTranslations = {
     statisticsTxt: t("statistics"),
+    todayTxt: t("today"),
     weeklyTxt: t("weekly"),
     monthlyTxt: t("monthly"),
     yearlyTxt: t("yearly"),
