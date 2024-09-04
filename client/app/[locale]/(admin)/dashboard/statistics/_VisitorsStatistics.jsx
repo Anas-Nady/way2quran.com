@@ -4,60 +4,45 @@ import VisitorStat from "./_VisitorStat";
 
 const VisitorsStatistics = ({
   statisticsTxt,
+  todayTxt,
   weeklyTxt,
   monthlyTxt,
   yearlyTxt,
   totalVisitorsTxt,
 }) => {
-  const [totalVisitors, setTotalVisitors] = useState(0);
-  const [weeklyVisitors, setWeeklyVisitors] = useState(0);
-  const [monthlyVisitors, setMonthlyVisitors] = useState(0);
-  const [yearlyVisitors, setYearlyVisitors] = useState(0);
+  const [visitorStats, setVisitorStats] = useState({
+    totalVisitors: 0,
+    todayVisitors: 0,
+    weeklyVisitors: 0,
+    monthlyVisitors: 0,
+    yearlyVisitors: 0,
+  });
 
-  const fetchVisitorCount = async (range) => {
+  const fetchVisitorCounts = async () => {
     try {
-      const response = await fetch(`/api/visitors/count/${range}`, {
+      const response = await fetch(`/api/visitors/count`, {
         next: { revalidate: 0 },
       });
 
       if (response.ok) {
         const data = await response.json();
-        switch (range) {
-          case "weekly":
-            setWeeklyVisitors(data.visitorCount);
-            break;
-          case "monthly":
-            setMonthlyVisitors(data.visitorCount);
-            break;
-          case "yearly":
-            setYearlyVisitors(data.visitorCount);
-            break;
-          case "total":
-            setTotalVisitors(data.visitorCount);
-            break;
-          default:
-            console.warn("Unknown range:", range);
-            break;
-        }
+        setVisitorStats({
+          totalVisitors: data.total,
+          todayVisitors: data.today,
+          weeklyVisitors: data.weekly,
+          monthlyVisitors: data.monthly,
+          yearlyVisitors: data.yearly,
+        });
       } else {
-        console.error("Failed to fetch visitor count:", response.statusText);
+        console.error("Failed to fetch visitor counts:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching visitor count:", error);
+      console.error("Error fetching visitor counts:", error);
     }
   };
 
   useEffect(() => {
-    const fetchAllVisitorCounts = async () => {
-      await Promise.all([
-        fetchVisitorCount("total"),
-        fetchVisitorCount("weekly"),
-        fetchVisitorCount("monthly"),
-        fetchVisitorCount("yearly"),
-      ]);
-    };
-
-    fetchAllVisitorCounts();
+    fetchVisitorCounts();
   }, []);
 
   return (
@@ -66,10 +51,14 @@ const VisitorsStatistics = ({
         {statisticsTxt}
       </h2>
       <div>
-        <VisitorStat label={weeklyTxt} count={weeklyVisitors} />
-        <VisitorStat label={monthlyTxt} count={monthlyVisitors} />
-        <VisitorStat label={yearlyTxt} count={yearlyVisitors} />
-        <VisitorStat label={totalVisitorsTxt} count={totalVisitors} />
+        <VisitorStat label={todayTxt} count={visitorStats.todayVisitors} />
+        <VisitorStat label={weeklyTxt} count={visitorStats.weeklyVisitors} />
+        <VisitorStat label={monthlyTxt} count={visitorStats.monthlyVisitors} />
+        <VisitorStat label={yearlyTxt} count={visitorStats.yearlyVisitors} />
+        <VisitorStat
+          label={totalVisitorsTxt}
+          count={visitorStats.totalVisitors}
+        />
       </div>
     </div>
   );
