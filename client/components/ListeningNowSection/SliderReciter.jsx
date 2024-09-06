@@ -80,7 +80,7 @@ export default function SliderReciter({ reciters, locale }) {
                   />
                   <h2
                     dir={locale == "ar" ? "rtl" : "ltr"}
-                    className="mt-1 text-lg font-semibold text-center sm:text-xl line-clamp-1 "
+                    className="mt-1 text-lg font-semibold text-center sm:text-xl xl:text-2xl line-clamp-1 "
                   >
                     {reciterName}
                   </h2>
