@@ -10,9 +10,11 @@ export default function HomePage() {
   useEffect(() => {
     const getCurrentUserIp = async () => {
       try {
-        await fetch("/api/visitors/track", {
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
+        const { ip } = await ipResponse.json(); // Extract IP address
+
+        await fetch(`/api/visitors/track?userIP=${ip}`, {
           method: "POST",
-          next: { revalidate: 1 * 24 * 3600 }, // 1 day
         });
         return;
       } catch (error) {
