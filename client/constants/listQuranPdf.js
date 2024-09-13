@@ -1,7 +1,8 @@
 const IMAGE_BASE_URL =
   "https://storage.googleapis.com/way2quran_storage/imgs/quran-pdf";
 
-const DOWNLOAD_LINK_BASE_URL = "https://drive.google.com/file";
+const DOWNLOAD_LINK_BASE_URL =
+  "https://storage.googleapis.com/download/storage/v1/b/way2quran_storage/o/quran-pdf";
 
 const listQuranPdf = [
   {
@@ -9,7 +10,7 @@ const listQuranPdf = [
     englishName: "Tajweed Quran",
     slug: "tajweed-quran",
     id: 20,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1pYbbUcdKh7yC_rSJbVPMqIh6oYacUc9t/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%A7%D9%84%D8%AA%D8%AC%D9%88%D9%8A%D8%AF.pdf?generation=1725911606693234&alt=media`,
     img: `${IMAGE_BASE_URL}/tajweed.webp`,
   },
   {
@@ -17,7 +18,7 @@ const listQuranPdf = [
     englishName: "Madina Mushaf",
     slug: "madina-mushaf",
     id: 21,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1bfYBkiBn32U1nSHizdkMfqQKLectV5yT/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9-%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9.pdf?generation=1725911572020202&alt=media`,
     img: `${IMAGE_BASE_URL}/madina.jpeg`,
   },
   {
@@ -25,7 +26,7 @@ const listQuranPdf = [
     englishName: "Warsh Quran",
     slug: "warsh-quran",
     id: 22,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1o9U4V4wYnNFxS0orFX7cStrYVdfTouOI/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D9%88%D8%B1%D8%B4-%D8%B9%D9%86-%D9%86%D8%A7%D9%81%D8%B9.pdf?generation=1725911619589211&alt=media`,
     img: `${IMAGE_BASE_URL}/warsh.jpg`,
   },
   {
@@ -33,7 +34,7 @@ const listQuranPdf = [
     englishName: "Qalun Quran",
     slug: "qalun-quran",
     id: 23,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1MR4mdFDF7yMVx5oTOD0ObWT9YqYeVEDG/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D9%82%D8%A7%D9%84%D9%88%D9%86-%D8%B9%D9%86-%D9%86%D8%A7%D9%81%D8%B9.pdf?generation=1725911634138131&alt=media`,
     img: `${IMAGE_BASE_URL}/qalun.jpg`,
   },
   {
@@ -41,7 +42,7 @@ const listQuranPdf = [
     englishName: "Shu'bah Quran",
     slug: "shubah-quran",
     id: 24,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/12K4eGiSUSvp365efjYXgAPiCRhBmoJXF/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%B4%D8%B9%D8%A8%D8%A9-%D8%B9%D9%86-%D8%B9%D8%A7%D8%B5%D9%85.pdf?generation=1725911675950521&alt=media`,
     img: `${IMAGE_BASE_URL}/shubah.webp`,
   },
   {
@@ -49,7 +50,7 @@ const listQuranPdf = [
     englishName: "Duri Quran",
     slug: "duri-quran",
     id: 25,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1TxEEDqJnBShwhxJ2uf3XzjB1JvTEZ194/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81%20-%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A-%D8%B9%D9%86-%D8%A7%D9%84%D9%83%D8%B3%D8%A7%D8%A6%D9%8A.pdf?generation=1725911624228527&alt=media`,
     img: `${IMAGE_BASE_URL}/duri.jpg`,
   },
   {
@@ -57,7 +58,7 @@ const listQuranPdf = [
     englishName: "Susi Quran",
     slug: "susi-quran",
     id: 26,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1z_X0fXrTXPOLyt_RurkK9zLFXjCJ6fQA/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%A7%D9%84%D8%B3%D9%88%D8%B3%D9%8A-%D8%B9%D9%86-%D8%A3%D8%A8%D9%8A-%D8%B9%D9%85%D8%B1%D9%88.pdf?generation=1725911712673079&alt=media`,
     img: `${IMAGE_BASE_URL}/susi.jpg`,
   },
   {
@@ -65,7 +66,7 @@ const listQuranPdf = [
     englishName: "Al-Bazzi Quran",
     slug: "al-bazzi-quran",
     id: 27,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1vjSpO_W-1TlkXJhwm4-j0Jcz9aDqD3cE/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%A7%D9%84%D8%A8%D8%B2%D9%8A-%D8%B9%D9%86-%D8%A7%D8%A8%D9%86-%D9%83%D8%AB%D9%8A%D8%B1.pdf?generation=1725911677478891&alt=media`,
     img: `${IMAGE_BASE_URL}/alBazzi.png`,
   },
   {
@@ -73,7 +74,7 @@ const listQuranPdf = [
     englishName: "Qatar Mushaf",
     slug: "qatar-mushaf",
     id: 28,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1gqDBzq7YorVXovmv9AOIbAgTVDbSagqY/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%AF%D9%88%D9%84%D8%A9-%D9%82%D8%B7%D8%B1.pdf?generation=1725911774161821&alt=media`,
     img: `${IMAGE_BASE_URL}/qatar.jpg`,
   },
   {
@@ -81,16 +82,15 @@ const listQuranPdf = [
     englishName: "Kuwait Mushaf",
     slug: "kuwait-mushaf",
     id: 29,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1YtaQXazDU7IbDEmlyoyV4trcRMIGtyxj/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D9%85%D8%B5%D8%AD%D9%81-%D8%AF%D9%88%D9%84%D8%A9-%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA.pdf?generation=1725911800512605&alt=media`,
     img: `${IMAGE_BASE_URL}/kuwait.png`,
   },
-
   {
     arabicName: "جزء تبارك",
     englishName: "Juz' Tabarak",
     slug: "juz-tabarak",
     id: 30,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1IPYP1OGGNn8T4kBIgHd2zxTHguYdlGpk/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D8%AC%D8%B2%D8%A1-%D8%AA%D8%A8%D8%A7%D8%B1%D9%83.pdf?generation=1725911719899414&alt=media`,
     img: `${IMAGE_BASE_URL}/tabarak.webp`,
   },
   {
@@ -98,7 +98,7 @@ const listQuranPdf = [
     englishName: "Juz' Qad Samia",
     slug: "juz-qad-samia",
     id: 31,
-    downloadLink: `${DOWNLOAD_LINK_BASE_URL}/d/1V5GQdhgZy2XuH_Bwa4ZwlTOih-1FcVIj/view?usp=sharing}`,
+    downloadLink: `${DOWNLOAD_LINK_BASE_URL}%2F%D8%AC%D8%B2%D8%A1-%D9%82%D8%AF-%D8%B3%D9%85%D8%B9.pdf?generation=1725911698131210&alt=media`,
     img: `${IMAGE_BASE_URL}/qadSamia.png`,
   },
 ];
