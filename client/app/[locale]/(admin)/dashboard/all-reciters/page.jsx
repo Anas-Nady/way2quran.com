@@ -81,7 +81,7 @@ export default async function AllRecitersPage({
             filterOption={"isTopReciter"}
           />
           <CheckboxFilter
-            labelText={t("totalViewers")}
+            labelText={t("mostViewers")}
             filterOption={"sortBy"}
           />
         </div>
