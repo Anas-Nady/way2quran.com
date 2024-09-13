@@ -10,6 +10,7 @@ import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import SearchPopup from "@/components/Search/SearchPopup";
 import { SearchProvider } from "@/components/Search/SearchContext";
 import GoogleAnalyticsScript from "@/utils/GoogleAnalyticsScript";
+import VisitorSiteTracking from "@/components/VisitorSiteTracking";
 
 export const viewport = {
   themeColor: "#374151",
@@ -35,19 +36,21 @@ export default async function RootLayout({ children, params: { locale } }) {
         dir={locale == "en" ? "ltr" : "rtl"}
         className="bg-slate-50 dark:bg-gray-900"
       >
-        <main className={`relative bg-slate-50 dark:bg-gray-900`}>
-          <SearchProvider>
-            <Header currentLang={locale} />
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <div className="px-2 children">{children}</div>
-              <SearchPopup currentLang={locale} />
-            </NextIntlClientProvider>
-            <Footer currentLang={locale} />
-          </SearchProvider>
-          <AudioPlayer currentLang={locale} />
-          <ScrollToTop />
-          <GoogleAnalyticsScript />
-        </main>
+        <VisitorSiteTracking>
+          <main className={`relative bg-slate-50 dark:bg-gray-900`}>
+            <SearchProvider>
+              <Header currentLang={locale} />
+              <NextIntlClientProvider locale={locale} messages={messages}>
+                <div className="px-2 children">{children}</div>
+                <SearchPopup currentLang={locale} />
+              </NextIntlClientProvider>
+              <Footer currentLang={locale} />
+            </SearchProvider>
+            <AudioPlayer currentLang={locale} />
+            <ScrollToTop />
+            <GoogleAnalyticsScript />
+          </main>
+        </VisitorSiteTracking>
       </body>
     </html>
   );
