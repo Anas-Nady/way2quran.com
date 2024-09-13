@@ -10,16 +10,12 @@ function QuranList({ quran, quranName }) {
     setToast({ message: "Tracking download...", error: false });
     try {
       // Track the download
-      const trackResponse = await fetch(`/api/download/quran/${pdfName}`, {
+      await fetch(`/api/download/quran/${pdfName}`, {
         method: "GET",
       });
 
-      if (!trackResponse.ok) {
-        throw new Error("Failed to track download.");
-      }
-
       // Open the download link
-      window.open(downloadLink, "_blank");
+      window.location.href = downloadLink;
     } catch (error) {
       setToast({
         message: error.message || "An error occurred. Please try again later.",
@@ -43,8 +39,8 @@ function QuranList({ quran, quranName }) {
             src={quran.img}
             className="object-cover w-[367px] h-[538px]"
             alt={quranName}
-            width={367}
-            height={538}
+            width={600}
+            height={600}
             priority
           />
         </div>
