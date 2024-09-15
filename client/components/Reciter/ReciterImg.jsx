@@ -1,11 +1,10 @@
 import getObjectFitClass from "@/utils/getObjectFitClass";
 import Image from "next/image";
 
-const ImgReciter = ({
+const ReciterImg = ({
   photoDisplay,
   alt = "Way2quran",
   className = "",
-  isBigger = false,
   isSmaller = false,
   isCentering = false,
 }) => {
@@ -20,7 +19,7 @@ const ImgReciter = ({
         alt={alt}
         width="200"
         height="200"
-        className={`${sizeClass} ${centeringClass} ${className}  rounded-full p-2 shadow-sm ${getObjectFitClass(
+        className={`${sizeClass} ${centeringClass} ${className} rounded-full p-2 shadow-sm ${getObjectFitClass(
           photoDisplay
         )} ${className}`}
         priority
@@ -29,4 +28,4 @@ const ImgReciter = ({
   );
 };
 
-export default ImgReciter;
+export default ReciterImg;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Slider from "react-slick";
 import { HAFS_AN_ASIM, VARIOUS_RECITATIONS } from "@/constants/recitationsName";
 import getName from "@/utils/getNameForCurrentLang";
-import ImgReciter from "../Reciter/ImgReciter";
+import ReciterImg from "../Reciter/ReciterImg";
 
 export default function SliderReciter({ reciters, locale }) {
   const pathName = usePathname();
@@ -70,7 +70,7 @@ export default function SliderReciter({ reciters, locale }) {
             >
               <div className="w-full px-2 min-w-[250px] min-h-[160px] mx-1">
                 <div className="flex flex-col items-center pb-4">
-                  <ImgReciter
+                  <ReciterImg
                     loading="lazy"
                     width="150"
                     height="150"

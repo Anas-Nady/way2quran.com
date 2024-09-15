@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import ImgReciter from "@/components/Reciter/ImgReciter";
+import ReciterImg from "@/components/Reciter/ReciterImg";
 import Input from "@/components/Input";
 import ToastMessage from "@/components/ToastMessage";
 import TopReciterCheckBox from "./_TopReciterCheckBox";
@@ -78,11 +78,7 @@ export default function Form({
       <div className="border border-slate-300 dark:border-gray-700 sm:w-[500px] mx-3 p-10">
         {errorHappen && <ToastMessage error={true} message={errorMessage} />}
         {photoDisplay && (
-          <ImgReciter
-            photoDisplay={photoDisplay}
-            isBigger={true}
-            isCentering={true}
-          />
+          <ReciterImg photoDisplay={photoDisplay} isCentering={true} />
         )}
         <form>
           <Input labelText={numberTxt} name="number" value={number} readOnly />

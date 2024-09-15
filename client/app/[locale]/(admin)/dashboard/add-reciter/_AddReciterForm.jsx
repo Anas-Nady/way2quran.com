@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button";
-import ImgReciter from "@/components/Reciter/ImgReciter";
+import ReciterImg from "@/components/Reciter/ReciterImg";
 import Input from "@/components/Input";
 import ToastMessage from "@/components/ToastMessage";
 import { createReciter } from "@/actions/reciters";
@@ -114,7 +114,7 @@ export default function AddReciterForm({
           message={"Please select an image file less than 1MB"}
         />
       )}
-      <ImgReciter photoDisplay={photoDisplay} isCentering={true} />
+      <ReciterImg photoDisplay={photoDisplay} isCentering={true} />
 
       <form className="my-5" onSubmit={handleSubmit}>
         <Input

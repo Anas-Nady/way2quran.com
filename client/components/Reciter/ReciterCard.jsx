@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import ImgReciter from "./ImgReciter";
+import ReciterImg from "./ReciterImg";
 import { usePathname } from "next/navigation";
 import getName from "@/utils/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
@@ -23,7 +23,7 @@ export default function ReciterCard({ reciter, recitationSlug }) {
           <div className="flex justify-end px-1 pt-4"></div>
           <div className="flex flex-col items-center pb-5">
             <span className="mb-2 ">
-              <ImgReciter
+              <ReciterImg
                 photoDisplay={photo}
                 alt={t("reciterImageAlt", { name: reciterName })}
               />

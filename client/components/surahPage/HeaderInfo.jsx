@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
-import ImgReciter from "../Reciter/ImgReciter";
+import ReciterImg from "../Reciter/ReciterImg";
 import SharePopup from "../Reciter/SharePopup";
 import { handleSession } from "../Reciter/SurahContainer";
 import getName from "@/utils/getNameForCurrentLang";
@@ -74,11 +74,7 @@ export default function HeaderInfo({
       <div>
         <div className="flex flex-col gap-4 m-auto my-2 sm:my-5 sm:flex-row h-fit">
           <div className="block mx-auto rounded-full img-reciter">
-            <ImgReciter
-              photoDisplay={reciter.photo}
-              alt={reciterName}
-              isBigger={true}
-            />
+            <ReciterImg photoDisplay={reciter.photo} alt={reciterName} />
           </div>
           <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex sm:justify-between">
             <div className="data-reciter flex justify-between items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">

@@ -1,5 +1,5 @@
 "use client";
-import ImgReciter from "./ImgReciter";
+import ReciterImg from "./ReciterImg";
 import SurahContainer from "./SurahContainer";
 import { useEffect, useState } from "react";
 import Button from "../Button";
@@ -96,11 +96,7 @@ export default function Reciter({
             <div className="p-3 mx-auto bg-white border shadow-lg dark:bg-slate-800 border-1 border-slate-200 dark:border-gray-600 sm:max-w-screen-2xl">
               <div className="flex flex-col gap-4 m-auto my-2 sm:my-5 sm:flex-row h-fit">
                 <div className="block mx-auto rounded-full img-reciter">
-                  <ImgReciter
-                    photoDisplay={reciter.photo}
-                    alt={reciterName}
-                    isBigger={true}
-                  />
+                  <ReciterImg photoDisplay={reciter.photo} alt={reciterName} />
                 </div>
                 <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex  sm:justify-between">
                   <div className="data-reciter flex items-center sm:items-start lg:items-center w-full mx-auto mt-[-10px] sm:my-2  flex-col">

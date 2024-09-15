@@ -1,5 +1,5 @@
 "use client";
-import ImgReciter from "@/components/Reciter/ImgReciter";
+import ReciterImg from "@/components/Reciter/ReciterImg";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { getReciterDetailsWithoutCache } from "@/actions/reciters";
 import { useEffect, useState } from "react";
@@ -46,10 +46,9 @@ export default function PreviewReciterPage({ params: { locale, slug } }) {
         {reciter && (
           <div className="grid justify-center mx-auto place-content-center sm:flex-row max-w-screen-2xl">
             <div className="img-reciter">
-              <ImgReciter
+              <ReciterImg
                 photoDisplay={reciter.photo}
                 alt={getName(reciter, locale)}
-                isBigger={true}
               />
             </div>
             <div className="info-reciter flex-col sm:flex-row gap-1 sm:flex-1 max-w-[100%] flex sm:justify-between">

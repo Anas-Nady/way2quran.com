@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import ImgReciter from "@/components/Reciter/ImgReciter";
+import ReciterImg from "@/components/Reciter/ReciterImg";
 import Input from "@/components/Input";
 import ToastMessage from "@/components/ToastMessage";
 import { updateUserProfile } from "@/actions/user";
@@ -59,7 +59,7 @@ export default function AdminProfileForm({
         {successUpdate && (
           <ToastMessage success={true} message={successUpdateAdminProfileTxt} />
         )}
-        <ImgReciter
+        <ReciterImg
           photoDisplay="https://storage.googleapis.com/way2quran_storage/imgs/profile.svg"
           alt="default admin photo"
           isCentering={true}
