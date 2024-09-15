@@ -32,7 +32,9 @@ export default function AddReciterForm({
 
   const handleFileChange = (e) => {
     const selectedImg = e.target.files[0];
-    const isValidImgType = selectedImg.type.startsWith("image");
+    const isValidImgType =
+      selectedImg.type.startsWith("image") &&
+      selectedImg.type !== "image/svg+xml";
 
     if (!isValidImgType) {
       setInvalidImgType(true);
@@ -103,7 +105,7 @@ export default function AddReciterForm({
       {invalidImgType && (
         <ToastMessage
           error
-          message={"Please select an image file (jpg, jpeg, png, or svg)"}
+          message={"Please select an image file (jpg, jpeg, png)"}
         />
       )}
       {invalidImgSize && (
