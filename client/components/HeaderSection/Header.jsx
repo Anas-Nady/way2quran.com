@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import { useTranslations } from "next-intl";
-import { defaultReciterPhoto } from "@/constants/images";
+import logo from "@/public/logo.png";
 
 export default function Header() {
   const t = useTranslations("NavbarLinks");
@@ -31,10 +31,10 @@ export default function Header() {
       <div className="flex flex-wrap items-center justify-between py-3 mx-auto lg:container">
         <Link href="/" className="rtl:mr-1 ltr:ms-1 lg:rtl:mr-0 lg:ltr:ms-0">
           <Image
-            className="w-[60px] h-[80px]"
-            src={defaultReciterPhoto}
-            width={60}
-            height={80}
+            className="object-cover w-[90px]"
+            src={logo}
+            width={90}
+            height={90}
             alt={t("titleHome")}
             priority
           />
