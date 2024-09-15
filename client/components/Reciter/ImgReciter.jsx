@@ -9,11 +9,7 @@ const ImgReciter = ({
   isSmaller = false,
   isCentering = false,
 }) => {
-  const sizeClass = isSmaller
-    ? "w-[150px] h-[150px] sm:w-[170px] sm:h-[170px]"
-    : isBigger
-    ? "w-[200px] h-[200px] sm:w-[220px] sm:h-[220px]"
-    : "w-[200px] h-[200px]";
+  const sizeClass = isSmaller ? "w-[200px] h-[200px]" : "w-[220px] h-[220px]";
 
   const centeringClass = isCentering ? "mx-auto" : "";
 
