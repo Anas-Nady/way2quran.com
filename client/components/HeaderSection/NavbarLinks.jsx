@@ -17,7 +17,7 @@ function NavbarLinks({ currentLang, links, isMenuVisible, toggleMenu }) {
           : "lg:mr-[20px] 2xl:mr-[50px]"
       } ${isMenuVisible ? "block" : "hidden"}`}
     >
-      <ul className="flex flex-col p-4 mt-3 text-lg font-bold border border-gray-100 rounded-lg lg:p-0 sm:text-xl ltr:lg:text-lg rtl:lg:text-xl ltr:xl:text-2xl rtl:xl:text-2xl bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+      <ul className="flex flex-col p-4 text-lg font-bold border border-gray-100 rounded-b-lg lg:p-0 sm:text-xl ltr:lg:text-lg rtl:lg:text-xl ltr:xl:text-2xl rtl:xl:text-2xl bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
         <>
           {links.map((link, i) => (
             <li key={i} onClick={toggleMenu} className="text-start">
