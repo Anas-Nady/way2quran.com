@@ -1,7 +1,7 @@
 const messageModel = require("./../models/messageModel.js");
 const AppError = require("./../utils/appError.js");
 const asyncHandler = require("express-async-handler");
-const smtpTransporter = require("../utils/smtpTransport.js");
+const smtpTransporter = require("../config/smtpTransport.js");
 const EmailTemplate = require("../templates/email.js");
 const { SUBJECT } = require("../constants/email.js");
 
