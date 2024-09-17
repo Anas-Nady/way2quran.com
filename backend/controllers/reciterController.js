@@ -16,6 +16,7 @@ const {
   sortQuery,
 } = require("./../utils/recitationsQuery.js");
 const { hafsAnAsim } = require("../constants/recitationsTxt.js");
+const redisClient = require("../config/redisClient.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -150,10 +151,18 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
     await reciter.save();
   }
 
-  res.status(200).json({
-    message: "success",
+  const dataResponse = {
     reciter,
     recitations: reciter.recitations,
+  };
+
+  // set the reciter's content in the cache.
+  // the data will be stored indefinitely
+  redisClient.set(`${slug}`, JSON.stringify(dataResponse));
+
+  res.status(200).json({
+    message: "success",
+    ...dataResponse,
   });
 });
 

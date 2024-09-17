@@ -2,6 +2,7 @@ const express = require("express");
 const reciterController = require("../controllers/reciterController.js");
 const upload = require("../middlewares/multerMiddleware.js");
 const { protect, isAdmin } = require("../middlewares/authMiddleware.js");
+const cacheMiddleware = require("./../middlewares/cacheMiddleware.js");
 
 const router = express.Router();
 
@@ -42,7 +43,7 @@ router
 
 router
   .route("/:reciter-profile/:reciterSlug")
-  .get(reciterController.getReciterDetails);
+  .get(cacheMiddleware, reciterController.getReciterDetails);
 
 router
   .route("/delete-surah/:reciterSlug/:recitationSlug/:surahSlug")
