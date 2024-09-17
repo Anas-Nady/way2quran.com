@@ -9,7 +9,7 @@ const {
   bucketName,
   defaultPhotoPath,
   cloudBaseUrl,
-} = require("./../db/cloud.js");
+} = require("./../config/googleStorage.js");
 const {
   recitationsFilter,
   searchQuery,
