@@ -7,7 +7,6 @@ function Footer({ currentLang }) {
   const currentYear = new Date().getFullYear();
 
   const links = [
-    { href: `/${currentLang}/surah`, title: t("quranicSurahs") },
     { href: `/${currentLang}/about-us`, title: t("aboutTitle") },
     { href: `/${currentLang}/contact-us`, title: t("contactTitle") },
   ];
