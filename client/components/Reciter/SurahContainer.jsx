@@ -2,9 +2,9 @@
 
 import { downloadIcon, listenIcon, playIcon, shareIcon } from "../Icons";
 import Button from "../Button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import getName from "@/utils/getNameForCurrentLang";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const handleSession = (surahs) => {
   // This ensures the code only runs in the browser environment
@@ -38,6 +38,15 @@ export default function SurahContainer({
   const router = useRouter();
   const pathName = usePathname();
   const [checkedStates, setCheckedStates] = useState({});
+
+  // this useEffect to sync checkedStates with playlist
+  useEffect(() => {
+    const newCheckedStates = {};
+    surahsInfo.forEach((surah) => {
+      newCheckedStates[surah.surahNumber] = playlist.has(surah);
+    });
+    setCheckedStates(newCheckedStates);
+  }, [playlist, surahsInfo]);
 
   const handleDownload = (downloadUrl) => {
     const anchor = document.createElement("a");
@@ -102,6 +111,12 @@ export default function SurahContainer({
     window.dispatchEvent(new Event("session"));
   };
 
+  // Modify handlePopup to reset the playlist
+  const handleSharePopup = (id) => {
+    resetPlaylist();
+    handlePopup(id);
+  };
+
   return (
     <>
       {surahsInfo.map((surah) => (
@@ -159,7 +174,7 @@ export default function SurahContainer({
               text={shareTxt}
               className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
               icon={shareIcon}
-              handleSubmit={() => handlePopup(`/${surah.surahInfo.slug}`)}
+              handleSubmit={() => handleSharePopup(`/${surah.surahInfo.slug}`)}
             />
           </div>
         </div>
