@@ -1,47 +1,83 @@
-# Way2quran.com
+# Way2quran.com 🕌📖
 
-- **Way2Quran** provides listening and downloading quran recitations of most popular reciters around the world
+**Way2Quran** is your gateway to the world of Quranic recitations! 🎧🌍
 
-- **Way2Quran** Support for both **_Arabic_** and **_English_** languages, as well as **_light_** and **_dark_** mode themes.
+## Features 🌟
 
-## Technologies Used
+- 🎙️ Listen and download Quran recitations from popular reciters worldwide
+- 🌐 Support for both **Arabic** and **English** languages
+- 🌓 Light and dark mode themes
+- 💾 Cache reciter's content using Redis for faster access
+- 🚀 Static Site Generation (SSG) in Next.js for building reciter pages at build time
+- ⚡ Lazy loading and code splitting for faster initial load times
+- ☁️ Integrate with Google Cloud Storage for secure file and photo uploads
 
-- **Frontend**: **_Next.js_** for a fast and interactive user experience.
-- **Backend:** **_Node.js_** and **_Express_** for robust server-side functionalities.
-- **Database**: **_MongoDB_** for efficient data storage and retrieval.
-- **Data Storage**: **_Google Cloud Storage_** for secure and scalable storage solutions.
+- 📱 Responsive design for seamless experience across all devices
+- ♿ Accessibility implementation following WCAG guidelines
+- 🔍 Dynamic SEO and metadata for both Arabic and English languages
+- 🔒 JWT authentication and data encryption
+- 📧 SMTP service using Nodemailer for client communication
 
-## Installation
+## Technologies Used 🛠️
+
+- **Frontend**: **Next.js** for a fast and interactive user experience
+- **Backend**: **Node.js** and **Express** for robust server-side functionalities
+- **Database**: **MongoDB** for efficient data storage and retrieval
+- **Caching**: **Redis** for improved performance
+- **Cloud Storage**: **Google Cloud Storage** for secure and scalable storage solutions
+- **Email Service**: **Nodemailer** for SMTP integration
+
+## Installation 🚀
 
 To run the project locally, follow these steps:
 
-- First, you need to **[install node.js](https://nodejs.org/en)**
-- Clone this repository.
-- Install dependencies using `npm run setup`.
-- Set up your MongoDB database and Google Cloud Storage.
-- Configure environment variables in `.env` file.
+1. Install [Node.js](https://nodejs.org/en)
+2. Clone this repository
+3. Install dependencies:
+   ```bash
+   npm run setup
+   ```
+4. Set up your MongoDB database, Redis, and Google Cloud Storage
+5. Configure environment variables in `.env.local` file:
 
-  ```bash
-       CLIENT_URL=next.js url
-       NODE_ENV = ---
-       MONGO_DB_URL= ---
-       PORT=---
-       JWT_SECRET=---
-       JWT_EXPIRES_IN=---
-       JWT_COOKIE_EXPIRES_IN=---
+   ```bash
+   NODE_ENV=---
+   PORT=---
+   REDIS_PORT=6379
 
-       BUCKET_NAME=---
-  ```
+   MONGO_DB_URL=---
 
-- Add `cloud-configuration.json` file in the root directory to enable access to Google Cloud services.
+   JWT_SECRET=---
+   JWT_EXPIRES_IN=---
+   JWT_COOKIE_EXPIRES_IN=---
 
-- Run the application using `npm run dev`
+   SMTP_HOST=
+   SMTP_PORT=
+   SMTP_EMAIL=
+   SMTP_PASSWORD=
 
-## Screenshot
+   CLIENT_URL=---
+   BUCKET_NAME=---
+   ```
 
-![App Screenshot](screenshot/screenshot_1.png)
-![App Screenshot](screenshot/screenshot_2.png)
+6. Add `cloud-configuration.json` file in the root directory for Google Cloud services access
+7. Run the application:
+   ```bash
+   npm run dev
+   ```
 
-## Email Template
+## Screenshots 📸
 
-![App Screenshot](screenshot/screenshot_3.png)
+![App Screenshot](screenshots/screenshot_1.png)
+
+## Dashboard
+
+![App Screenshot](screenshots/1.png)
+![App Screenshot](screenshots/2.png)
+![App Screenshot](screenshots/3.png)
+![App Screenshot](screenshots/4.png)
+![App Screenshot](screenshots/5.png)
+
+## Email Template 📧
+
+![Email Template](screenshots/email-template.png)
