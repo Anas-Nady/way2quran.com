@@ -4,30 +4,29 @@ const asyncHandler = require("express-async-handler");
 const getDateRanges = () => {
   const now = new Date();
 
-  const todayStart = new Date().setHours(0, 0, 0, 0);
-  const todayEnd = new Date().setHours(23, 59, 59, 999);
+  const todayStart = new Date(now);
+  todayStart.setHours(0, 0, 0, 0);
 
-  const weeklyStart = new Date(
-    now.setDate(now.getDate() - now.getDay())
-  ).setHours(0, 0, 0, 0);
-  const weeklyEnd = new Date(
-    now.setDate(now.getDate() - now.getDay() + 6)
-  ).setHours(23, 59, 59, 999);
+  const todayEnd = new Date(now);
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const weeklyStart = new Date(now);
+  weeklyStart.setDate(now.getDate() - now.getDay());
+  weeklyStart.setHours(0, 0, 0, 0);
+
+  const weeklyEnd = new Date(now);
+  weeklyEnd.setDate(now.getDate() - now.getDay() + 6);
+  weeklyEnd.setHours(23, 59, 59, 999);
 
   const monthlyStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  const monthlyEnd = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0
-  ).setHours(23, 59, 59, 999);
+
+  const monthlyEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  monthlyEnd.setHours(23, 59, 59, 999);
 
   const yearlyStart = new Date(now.getFullYear(), 0, 1);
-  const yearlyEnd = new Date(now.getFullYear(), 11, 31).setHours(
-    23,
-    59,
-    59,
-    999
-  );
+
+  const yearlyEnd = new Date(now.getFullYear(), 11, 31);
+  yearlyEnd.setHours(23, 59, 59, 999);
 
   return {
     today: { start: todayStart, end: todayEnd },
