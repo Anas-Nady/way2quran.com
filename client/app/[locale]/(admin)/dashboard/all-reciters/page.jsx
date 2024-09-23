@@ -51,7 +51,7 @@ export default async function AllRecitersPage({
   });
 
   const options = [
-    { slug: "", label: t("allReciters") },
+    { slug: " ", label: t("allReciters") },
     { slug: COMPLETED_RECITATIONS, label: t("completedRecitations") },
     { slug: VARIOUS_RECITATIONS, label: t("variousRecitations") },
     ...recitationsOptions,
