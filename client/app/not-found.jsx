@@ -22,7 +22,7 @@ export default function NotFound() {
               <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
                 Sorry, we can't find{" "}
                 <span className="font-bold text-green-600 dark:text-green-500">
-                  {pathName}
+                  {decodeURIComponent(pathName)}
                 </span>
                 . You'll find lots to explore on the home page.{" "}
               </p>
