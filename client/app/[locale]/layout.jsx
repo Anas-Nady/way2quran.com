@@ -32,26 +32,26 @@ export default async function RootLayout({ children, params: { locale } }) {
         locale === "ar" ? arabicFont.className : englishFont.className
       }`}
     >
-      <body
-        dir={locale == "en" ? "ltr" : "rtl"}
-        className="bg-slate-50 dark:bg-gray-900"
-      >
-        <VisitorSiteTracking>
-          <main className={`relative bg-slate-50 dark:bg-gray-900`}>
-            <SearchProvider>
-              <Header currentLang={locale} />
-              <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <body
+          dir={locale == "en" ? "ltr" : "rtl"}
+          className="bg-slate-50 dark:bg-gray-900"
+        >
+          <VisitorSiteTracking>
+            <main className={`relative bg-slate-50 dark:bg-gray-900`}>
+              <SearchProvider>
+                <Header currentLang={locale} />
                 <div className="px-2 children">{children}</div>
+                <Footer currentLang={locale} />
                 <SearchPopup currentLang={locale} />
-              </NextIntlClientProvider>
-              <Footer currentLang={locale} />
-            </SearchProvider>
-            <AudioPlayer currentLang={locale} />
-            <ScrollToTop />
+              </SearchProvider>
+              <AudioPlayer currentLang={locale} />
+              <ScrollToTop />
+            </main>
             <GoogleAnalyticsScript />
-          </main>
-        </VisitorSiteTracking>
-      </body>
+          </VisitorSiteTracking>
+        </body>
+      </NextIntlClientProvider>
     </html>
   );
 }
