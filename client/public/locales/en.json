@@ -20,9 +20,9 @@
 
   "NavbarLinks": {
     "titleHome": "Way2quran",
-    "link_1": "Full Holy Quran",
-    "link_2": "Frequent Recitations",
-    "link_3": "Various Recitations",
+    "holyQuran": "Full Holy Quran",
+    "frequentRecitations": "Frequent Recitations",
+    "variousRecitations": "Various Recitations",
     "downloadQuranPdf": "Download Quran"
   },
 

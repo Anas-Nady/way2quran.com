@@ -18,9 +18,9 @@
 
   "NavbarLinks": {
     "titleHome": "الطريق الي القرآن",
-    "link_1": "المصحف الكامل",
-    "link_2": "التلاوات المتواترة",
-    "link_3": "التلاوات المنوعة",
+    "holyQuran": "المصحف الكامل",
+    "frequentRecitations": "التلاوات المتواترة",
+    "variousRecitations": "التلاوات المنوعة",
     "downloadQuranPdf": "تحميل المصحف"
   },
 

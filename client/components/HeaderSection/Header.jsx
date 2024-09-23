@@ -9,15 +9,15 @@ export default function Header() {
 
   const links = [
     {
-      name: t("link_1"),
+      name: t("holyQuran"),
       path: "full-holy-quran",
     },
     {
-      name: t("link_2"),
+      name: t("frequentRecitations"),
       path: "frequent-recitations",
     },
     {
-      name: t("link_3"),
+      name: t("variousRecitations"),
       path: "various-recitations",
     },
     {
