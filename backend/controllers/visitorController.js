@@ -69,8 +69,11 @@ exports.getVisitorCount = asyncHandler(async (req, res) => {
 });
 
 exports.logVisitorTracking = asyncHandler(async (req, res) => {
-  const ipAddress = req.query.userIp;
-  req.headers["x-forwarded-for"] || req.ip || req.connection.remoteAddress;
+  const ipAddress =
+    req.query.userIP ||
+    req.headers["x-forwarded-for"] ||
+    req.ip ||
+    req.connection.remoteAddress;
 
   const userAgent = req.headers["user-agent"];
 
