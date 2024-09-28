@@ -43,7 +43,11 @@ const NavbarIcons: React.FC<NavbarIconsProps> = ({
   };
 
   useEffect(() => {
-    setAdminFromLocal(JSON.parse(localStorage.getItem("user") || "")?.isAdmin);
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      setAdminFromLocal(parsedData?.isAdmin || null);
+    }
     if (darkMode) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
   }, [darkMode]);
