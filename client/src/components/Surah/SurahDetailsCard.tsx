@@ -187,7 +187,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
 
             <Button
               className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
-              onClick={() => handleSharePopup(`/${surah.surahInfo.slug}`)}
+              onClick={() => handleSharePopup(`surahs/${surah.surahInfo.slug}`)}
             >
               {translations.share} {shareIcon}
             </Button>

@@ -22,10 +22,10 @@ import {
   VARIOUS_RECITATIONS,
 } from "@/constants/Recitations";
 
-type ReciterDetailsProps  = LocaleProps &{
+type ReciterDetailsProps = LocaleProps & {
   reciter: ReciterProfile;
   recitations: ReciterRecitation[];
-}
+};
 
 function getRecitationSlug(slug: string): string {
   return slug === VARIOUS_RECITATIONS || slug === COMPLETED_RECITATIONS
@@ -88,9 +88,9 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
 
   const openPopup = (params?: string): void => {
     setPageURL(
-      `${window.location.protocol}//${window.location.host}/${locale}/surahs`
+      `${window.location.protocol}//${window.location.host}/${locale}`
     );
-    setPageURL((prev) => `${prev}${params}`);
+    setPageURL((prev) => `${prev}/${params}`);
     setPopupVisibility((prev) => !prev);
   };
 
@@ -169,7 +169,11 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
                   {translations.downloadAll}
                 </Button>
                 <Button
-                  onClick={() => openPopup("")}
+                  onClick={() =>
+                    openPopup(
+                      `reciters/${reciter.slug}?recitationSlug=${selectedRecitationSlug}`
+                    )
+                  }
                   className="p-2 w-[90px] sm:w-32"
                 >
                   {translations.share}
