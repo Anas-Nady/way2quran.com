@@ -120,6 +120,11 @@ export default function AddReciterForm() {
       setFormState((prevState) => ({
         ...prevState,
         success: true,
+        englishName: "",
+        arabicName: "",
+        number: "",
+        photo: null,
+        photoDisplay: defaultReciterPhoto,
       }));
     } catch (err: unknown) {
       setFormState((prevState) => ({
@@ -133,24 +138,6 @@ export default function AddReciterForm() {
       }));
     }
   };
-
-  // Reset form on success
-  useEffect(() => {
-    if (success) {
-      setFormState({
-        arabicName: "",
-        englishName: "",
-        number: "",
-        success: false,
-        error: "",
-        loading: false,
-        photo: null,
-        photoDisplay: defaultReciterPhoto,
-        invalidImgSize: false,
-        invalidImgType: false,
-      });
-    }
-  }, [success]);
 
   return (
     <>
@@ -176,6 +163,7 @@ export default function AddReciterForm() {
           name="number"
           id="number"
           value={number}
+          required={false}
           onChange={(e) =>
             setFormState((prevState) => ({
               ...prevState,
@@ -218,6 +206,7 @@ export default function AddReciterForm() {
           name="photo"
           id="photo"
           accept="image/*"
+          required={false}
         />
         <Button disabled={loading} type="submit">
           {t("saveReciter")}
