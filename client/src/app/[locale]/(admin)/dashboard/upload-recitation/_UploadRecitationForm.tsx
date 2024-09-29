@@ -180,6 +180,7 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
               }
               options={RECITATIONS}
               placeholder={t("chooseRecitation")}
+              required={true}
             />
           </span>
 
@@ -195,6 +196,7 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
               }
               options={reciters}
               placeholder={t("chooseReciter")}
+              required={true}
             />
           </span>
           <Input
