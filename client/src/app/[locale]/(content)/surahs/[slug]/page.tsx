@@ -5,6 +5,7 @@ import SurahVerses from "@/components/Surah/SurahVerses";
 import PageHeading from "@/components/ui/PageHeading";
 import { PageParams } from "@/types/types";
 import SURAHS_LIST from "@/constants/SurahsList";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 type SurahPageProps = PageParams & {
   params: { slug: string };
@@ -36,6 +37,7 @@ export async function generateStaticParams() {
 const SurahPage: React.FC<SurahPageProps> = async ({
   params: { locale, slug },
 }) => {
+  unstable_setRequestLocale(locale);
   const surahFetch = await getSurahInfo({
     slug,
     select: "verses",
