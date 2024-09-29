@@ -30,8 +30,6 @@ const Layout: React.FC<LayoutProps> = async ({
   children,
   params: { locale },
 }) => {
-  unstable_setRequestLocale(locale);
-
   const messages = await getMessages();
 
   return (
