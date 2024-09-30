@@ -24,15 +24,14 @@ type SurahDetailsCardProps = LocaleProps & {
 };
 
 export const storeSurahsInSession = (surahs: SurahAudioFile[]) => {
-  // This ensures the code only runs in the browser environment
-  const sessionSurahs = surahs.map((surah) => ({
+  const storedSurahs = surahs.map((surah) => ({
     number: surah.surahNumber,
-    src: surah.url,
+    url: surah.url,
     arabicName: surah.surahInfo.arabicName,
     englishName: surah.surahInfo.englishName,
   }));
   window.sessionStorage.removeItem("surahs");
-  window.sessionStorage.setItem("surahs", JSON.stringify(sessionSurahs));
+  window.sessionStorage.setItem("surahs", JSON.stringify(storedSurahs));
 };
 
 const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
