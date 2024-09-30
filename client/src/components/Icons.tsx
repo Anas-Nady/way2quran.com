@@ -804,3 +804,16 @@ export const chartLineIcon = (
     />
   </svg>
 );
+
+export const playPauseIcon = (
+  <svg fill="none" viewBox="0 0 24 24" height="24" width="24">
+    <path fill="currentColor" d="M9 9h2v6H9V9zM15 15h-2V9h2v6z" />
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      className="text-green-500 dark:text-green-500"
+      d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11zm-2 0a9 9 0 11-18 0 9 9 0 0118 0z"
+      clipRule="evenodd"
+    />
+  </svg>
+);

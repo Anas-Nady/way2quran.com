@@ -84,3 +84,13 @@ export type SelectOption = {
   slug: string;
   disabled?: boolean;
 };
+
+export interface PlayerState {
+  isPlaying: boolean;
+  currentTrack: string;
+  surahNumber: number;
+  surahName: string;
+  reciterName: string;
+  recitationName?: string;
+  isExpanded?: boolean;
+}

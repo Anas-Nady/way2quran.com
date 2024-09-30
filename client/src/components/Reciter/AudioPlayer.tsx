@@ -1,21 +1,10 @@
 "use client";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { closeSolidIcon, downArrowIcon, upArrowIcon } from "../Icons";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps, SurahDetails } from "@/types/types";
-
-interface PlayerState {
-  isPlaying: boolean;
-  currentTrack: string;
-  surahNumber: number;
-  surahName: string;
-  reciterName: string;
-  recitationName?: string;
-  isExpanded?: boolean;
-}
+import { LocaleProps, PlayerState, SurahDetails } from "@/types/types";
 
 const AudioPlayer: React.FC<LocaleProps> = ({ locale }) => {
   const [playerState, setPlayerState] = useState<Partial<PlayerState>>({
@@ -44,6 +33,7 @@ const AudioPlayer: React.FC<LocaleProps> = ({ locale }) => {
     });
     window.sessionStorage.removeItem("playerState");
     window.sessionStorage.removeItem("surahsList");
+    window.dispatchEvent(new Event("playerStateChange"));
   };
 
   const handleAudioEnded = (): void => {
@@ -87,6 +77,7 @@ const AudioPlayer: React.FC<LocaleProps> = ({ locale }) => {
     );
 
     window.dispatchEvent(new Event("session"));
+    window.dispatchEvent(new Event("playerStateChange"));
   };
 
   useEffect(() => {

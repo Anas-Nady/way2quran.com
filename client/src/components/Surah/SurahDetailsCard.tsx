@@ -3,9 +3,16 @@ import { SurahAudioFile, ReciterRecitation, LocaleProps } from "@/types/types";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { downloadIcon, listenIcon, playIcon, shareIcon } from "../Icons";
+import {
+  downloadIcon,
+  listenIcon,
+  playIcon,
+  shareIcon,
+  playPauseIcon,
+} from "../Icons";
 import Button from "../ui/Button";
 import Checkbox from "../ui/Checkbox";
+import { PlayerState } from "@/types/types";
 
 type SurahDetailsCardProps = LocaleProps & {
   openPopup: (params?: string) => void;
@@ -16,7 +23,7 @@ type SurahDetailsCardProps = LocaleProps & {
   selectedRecitationSlug: string;
 };
 
-export const handleSession = (surahs: SurahAudioFile[]) => {
+export const storeSurahsInSession = (surahs: SurahAudioFile[]) => {
   // This ensures the code only runs in the browser environment
   const sessionSurahs = surahs.map((surah) => ({
     number: surah.surahNumber,
@@ -37,6 +44,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
   playlist,
   selectedRecitationSlug,
 }) => {
+  const [currentSurahPlaying, setCurrentSurahPlaying] = useState(0);
   const t = useTranslations("ReciterPage");
   const translations = {
     listening: t("listening"),
@@ -94,7 +102,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       getName(firstAudio.surahInfo, locale),
       firstAudio.surahNumber
     );
-    handleSession(extractPlaylist);
+    storeSurahsInSession(extractPlaylist);
 
     // Reset all checkboxes & remove playlist
     resetPlaylist();
@@ -122,7 +130,8 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       surahName,
       recitationName,
     };
-    handleSession(surahs);
+    storeSurahsInSession(surahs);
+    setCurrentSurahPlaying(surahNumber);
     sessionStorage.setItem("playerState", JSON.stringify(playerState));
     window.dispatchEvent(new Event("session"));
   };
@@ -132,68 +141,101 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     openPopup(params);
   };
 
+  useEffect(() => {
+    const handlePlayerStateChange = () => {
+      const storedPlayerState = sessionStorage.getItem("playerState");
+      if (storedPlayerState) {
+        const currentPlayerState: PlayerState = JSON.parse(storedPlayerState);
+        setCurrentSurahPlaying(currentPlayerState.surahNumber);
+      } else {
+        setCurrentSurahPlaying(0);
+      }
+    };
+
+    window.addEventListener("playerStateChange", handlePlayerStateChange);
+
+    return () => {
+      window.removeEventListener("playerStateChange", handlePlayerStateChange);
+    };
+  }, []);
+
   return (
     <>
-      {surahs.map((surah) => (
-        <div
-          id={surah.surahInfo.slug}
-          key={surah.surahInfo.slug}
-          className="one bg-gray-50 border-2 border-slate-200 dark:border-gray-600 dark:bg-slate-700 hover:scale-[1.01] z-10 duration-100 flex justify-between p-3 flex-wrap gap-3 "
-        >
-          <div className="flex items-center justify-center flex-1 gap-4">
-            <Checkbox
-              labelText=""
-              checked={!!checkedStates[surah.surahNumber]}
-              onChange={() => handlePlaylist(surah)}
-            />
-            <div
-              className="flex items-center flex-1 gap-4 cursor-pointer"
-              onClick={() =>
-                router.push(
-                  `/${locale}/surahs/${surah.surahInfo.slug}?recitationSlug=${selectedRecitationSlug}`
-                )
-              }
-            >
-              <div className="flex items-center justify-center w-10 h-10 text-gray-900 rotate-45 bg-green-300 border rounded-sm dark:bg-green-800 border-slate-500 dark:text-white">
-                <span className="block text-center -rotate-45 font-english">
-                  {surah.surahNumber}
-                </span>
+      {surahs.map((surah) => {
+        const isPlaying = currentSurahPlaying === surah.surahNumber;
+        return (
+          <div
+            id={surah.surahInfo.slug}
+            key={surah.surahInfo.slug}
+            className={`one bg-gray-50 border-2 dark:bg-slate-700 border-slate-200 dark:border-gray-600 hover:scale-[1.01] z-10 duration-100 flex justify-between p-3 flex-wrap gap-3`}
+          >
+            <div className="flex items-center justify-center flex-1 gap-4">
+              <Checkbox
+                labelText=""
+                checked={!!checkedStates[surah.surahNumber]}
+                onChange={() => handlePlaylist(surah)}
+              />
+              <div
+                className="flex items-center flex-1 gap-4 cursor-pointer"
+                onClick={() =>
+                  router.push(
+                    `/${locale}/surahs/${surah.surahInfo.slug}?recitationSlug=${selectedRecitationSlug}`
+                  )
+                }
+              >
+                <div className="flex items-center justify-center w-10 h-10 text-gray-900 rotate-45 bg-green-300 border rounded-sm dark:bg-green-800 border-slate-500 dark:text-white">
+                  <span className="block text-center -rotate-45 font-english">
+                    {surah.surahNumber}
+                  </span>
+                </div>
+                <h2
+                  className={`surah-name min-w-[100px] text-lg sm:text-xl lg:text-2xl font-semibold ${
+                    isPlaying
+                      ? "text-green-500 dark:text-green-400"
+                      : "text-gray-700 dark:text-slate-50"
+                  }`}
+                >
+                  {getName(surah.surahInfo, locale)}
+                </h2>
               </div>
-              <h2 className="surah-name min-w-[100px] text-lg sm:text-xl lg:text-2xl font-semibold text-gray-700 dark:text-slate-50">
-                {getName(surah.surahInfo, locale)}
-              </h2>
+            </div>
+            <div className="flex flex-col items-center justify-between w-full gap-2 mx-auto text-gray-800 buttons sm:flex-row dark:text-white sm:mx-0 md:w-fit">
+              <Button
+                className={`${
+                  isPlaying &&
+                  "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500"
+                } px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between`}
+                onClick={() =>
+                  handleListening(
+                    surah.url,
+                    reciterName,
+                    getName(surah.surahInfo, locale),
+                    surah.surahNumber
+                  )
+                }
+              >
+                {translations.listening}{" "}
+                {isPlaying ? playPauseIcon : listenIcon}
+              </Button>
+              <Button
+                className="px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between"
+                onClick={() => handleDownload(surah.downloadUrl)}
+              >
+                {translations.download} {downloadIcon}
+              </Button>
+
+              <Button
+                className="px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between"
+                onClick={() =>
+                  handleSharePopup(`surahs/${surah.surahInfo.slug}`)
+                }
+              >
+                {translations.share} {shareIcon}
+              </Button>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-between w-full gap-2 mx-auto text-gray-800 buttons sm:flex-row dark:text-white sm:mx-0 md:w-fit">
-            <Button
-              className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
-              onClick={() =>
-                handleListening(
-                  surah.url,
-                  reciterName,
-                  getName(surah.surahInfo, locale),
-                  surah.surahNumber
-                )
-              }
-            >
-              {translations.listening} {listenIcon}
-            </Button>
-            <Button
-              className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
-              onClick={() => handleDownload(surah.downloadUrl)}
-            >
-              {translations.download} {downloadIcon}
-            </Button>
-
-            <Button
-              className="flex gap-1 px-5 py-3 w-full sm:w-[33%]  justify-center sm:justify-between"
-              onClick={() => handleSharePopup(`surahs/${surah.surahInfo.slug}`)}
-            >
-              {translations.share} {shareIcon}
-            </Button>
-          </div>
-        </div>
-      ))}
+        );
+      })}
       {playlist.size > 1 && (
         <div className="fixed bottom-0 z-50 min-w-[230px] font-bold text-gray-100 translate-x-1/2 right-1/2">
           <div
