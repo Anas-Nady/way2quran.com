@@ -32,7 +32,7 @@ const AudioPlayer: React.FC<LocaleProps> = ({ locale }) => {
       isExpanded: true,
     });
     window.sessionStorage.removeItem("playerState");
-    window.sessionStorage.removeItem("surahsList");
+    window.sessionStorage.removeItem("surahs");
     window.dispatchEvent(new Event("playerStateChange"));
   };
 
