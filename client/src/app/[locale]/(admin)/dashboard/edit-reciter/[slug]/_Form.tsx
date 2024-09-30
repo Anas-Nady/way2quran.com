@@ -115,6 +115,7 @@ export default function Form({ reciter, locale }: FormProps) {
             id="number"
             value={formState.number}
             readonly
+            required={false}
           />
           <Input
             labelText={translations.arNameTxt}
@@ -122,6 +123,7 @@ export default function Form({ reciter, locale }: FormProps) {
             id="arabicName"
             value={formState.arabicName}
             onChange={handleInputChange}
+            required={false}
           />
           <Input
             labelText={translations.enNameTxt}
@@ -130,6 +132,7 @@ export default function Form({ reciter, locale }: FormProps) {
             className="font-english"
             value={formState.englishName}
             onChange={handleInputChange}
+            required={false}
           />
           <Input
             onChange={handleFileChange}
@@ -138,6 +141,7 @@ export default function Form({ reciter, locale }: FormProps) {
             name="photo"
             id="photo"
             accept="image/*"
+            required={false}
           />
           <Checkbox
             labelText={translations.topRecitersTxt}
