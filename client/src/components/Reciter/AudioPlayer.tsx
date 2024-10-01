@@ -1,128 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { closeSolidIcon, downArrowIcon, upArrowIcon } from "../Icons";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps, PlayerState, SurahDetails } from "@/types/types";
+import { usePlayer } from "@/contexts/PlayerContext";
 
-const AudioPlayer: React.FC<LocaleProps> = ({ locale }) => {
-  const [playerState, setPlayerState] = useState<Partial<PlayerState>>({
-    isPlaying: false,
-    currentTrack: "",
-    surahNumber: 0,
-    surahName: "",
-    reciterName: "",
-    recitationName: "",
-    isExpanded: true,
-  });
-
-  const togglePlayerExpansion = (): void => {
-    setPlayerState((prev) => ({ ...prev, isExpanded: !prev.isExpanded }));
-  };
-
-  const closeAudio = (): void => {
-    setPlayerState({
-      isPlaying: false,
-      currentTrack: "",
-      surahNumber: 0,
-      surahName: "",
-      reciterName: "",
-      recitationName: "",
-      isExpanded: true,
-    });
-    window.sessionStorage.removeItem("playerState");
-    window.sessionStorage.removeItem("surahs");
-    window.dispatchEvent(new Event("playerStateChange"));
-  };
-
-  const handleAudioEnded = (): void => {
-    const storedSurahs: SurahDetails[] = JSON.parse(
-      sessionStorage.getItem("surahs") || "[]"
-    );
-    const currentSurah: SurahDetails | undefined = storedSurahs.find(
-      (surah: SurahDetails) => playerState.surahNumber === surah.number
-    );
-
-    if (
-      !currentSurah ||
-      currentSurah.number >= 114 ||
-      storedSurahs[storedSurahs.length - 1].number === currentSurah.number
-    ) {
-      closeAudio();
-      return;
-    }
-
-    const nextSurah: SurahDetails | undefined =
-      storedSurahs[storedSurahs.indexOf(currentSurah) + 1];
-
-    if (!nextSurah) {
-      closeAudio();
-      return;
-    }
-
-    const storedPlayerState = sessionStorage.getItem("playerState");
-    const currentPlayerState: PlayerState = storedPlayerState
-      ? JSON.parse(storedPlayerState)
-      : null;
-
-    sessionStorage.setItem(
-      "playerState",
-      JSON.stringify({
-        ...currentPlayerState,
-        currentTrack: nextSurah.url,
-        surahNumber: nextSurah.number,
-        surahName: getName(nextSurah, locale),
-      })
-    );
-
-    window.dispatchEvent(new Event("session"));
-    window.dispatchEvent(new Event("playerStateChange"));
-  };
-
-  useEffect(() => {
-    const storedPlayerStateString = sessionStorage.getItem("playerState");
-    let storedPlayerState: PlayerState | null = null;
-
-    // Check if there is valid data in sessionStorage before parsing
-    if (storedPlayerStateString) {
-      try {
-        storedPlayerState = JSON.parse(storedPlayerStateString);
-      } catch (error) {
-        console.error("Error parsing player state from sessionStorage:", error);
-      }
-    }
-
-    if (storedPlayerState) {
-      setPlayerState(storedPlayerState);
-    }
-
-    const handleSessionEvent = (): void => {
-      const storedPlayerStateString = sessionStorage.getItem("playerState");
-      let storedPlayerState: PlayerState | null = null;
-
-      if (storedPlayerStateString) {
-        try {
-          storedPlayerState = JSON.parse(storedPlayerStateString);
-        } catch (error) {
-          console.error(
-            "Error parsing player state from sessionStorage:",
-            error
-          );
-        }
-      }
-
-      if (storedPlayerState) {
-        setPlayerState(storedPlayerState);
-      }
-    };
-
-    window.addEventListener("session", handleSessionEvent);
-
-    return () => {
-      window.removeEventListener("session", handleSessionEvent);
-    };
-  }, []);
+const AudioPlayer: React.FC = () => {
+  const { playerState, closeAudio, togglePlayerExpansion, handleAudioEnded } =
+    usePlayer();
 
   return (
     <div

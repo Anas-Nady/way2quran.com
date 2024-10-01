@@ -28,7 +28,7 @@ export type SurahVerse = {
 
 export type SurahDetails = LocalizedEntity & {
   number: number;
-  url?: string;
+  url: string;
   verses?: SurahVerse[];
 };
 
@@ -93,4 +93,5 @@ export interface PlayerState {
   reciterName: string;
   recitationName?: string;
   isExpanded?: boolean;
+  surahs: SurahDetails[];
 }

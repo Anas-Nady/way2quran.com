@@ -9,10 +9,11 @@ import VisitorSiteTracking from "@/components/VisitorSiteTracking";
 import { arabicFont, englishFont } from "@/fonts";
 import GoogleAnalyticsScript from "@/scripts/GoogleAnalytics";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 import React from "react";
 import rootMetadata from "./_rootMetadata";
 import { PageParams } from "@/types/types";
+import PlayerProvider from "@/contexts/PlayerContext";
 
 export const viewport = {
   themeColor: "#374151",
@@ -45,16 +46,18 @@ const Layout: React.FC<LayoutProps> = async ({
           className="bg-slate-50 dark:bg-gray-900"
         >
           <VisitorSiteTracking>
-            <main className={`relative bg-slate-50 dark:bg-gray-900`}>
-              <SearchProvider>
-                <Header locale={locale} />
-                <div className="px-2 children">{children}</div>
-                <Footer locale={locale} />
-                <SearchPopup locale={locale} />
-              </SearchProvider>
-              <AudioPlayer locale={locale} />
-              <ScrollToTop />
-            </main>
+            <PlayerProvider locale={locale}>
+              <main className={`relative bg-slate-50 dark:bg-gray-900`}>
+                <SearchProvider>
+                  <Header locale={locale} />
+                  <div className="px-2 children">{children}</div>
+                  <Footer locale={locale} />
+                  <SearchPopup locale={locale} />
+                </SearchProvider>
+                <AudioPlayer />
+                <ScrollToTop />
+              </main>
+            </PlayerProvider>
             <GoogleAnalyticsScript />
           </VisitorSiteTracking>
         </body>

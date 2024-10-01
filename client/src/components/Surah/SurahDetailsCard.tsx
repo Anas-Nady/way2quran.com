@@ -12,7 +12,7 @@ import {
 } from "../Icons";
 import Button from "../ui/Button";
 import Checkbox from "../ui/Checkbox";
-import { PlayerState } from "@/types/types";
+import { usePlayer } from "@/contexts/PlayerContext";
 
 type SurahDetailsCardProps = LocaleProps & {
   openPopup: (params?: string) => void;
@@ -21,17 +21,6 @@ type SurahDetailsCardProps = LocaleProps & {
   reciterName: string;
   playlist: Set<SurahAudioFile>;
   selectedRecitationSlug: string;
-};
-
-export const storeSurahsInSession = (surahs: SurahAudioFile[]) => {
-  const storedSurahs = surahs.map((surah) => ({
-    number: surah.surahNumber,
-    url: surah.url,
-    arabicName: surah.surahInfo.arabicName,
-    englishName: surah.surahInfo.englishName,
-  }));
-  window.sessionStorage.removeItem("surahs");
-  window.sessionStorage.setItem("surahs", JSON.stringify(storedSurahs));
 };
 
 const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
@@ -43,7 +32,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
   playlist,
   selectedRecitationSlug,
 }) => {
-  const [currentSurahPlaying, setCurrentSurahPlaying] = useState(0);
+  const { playerState, storeSurahs, setPlayerState } = usePlayer();
   const t = useTranslations("ReciterPage");
   const translations = {
     listening: t("listening"),
@@ -101,7 +90,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       getName(firstAudio.surahInfo, locale),
       firstAudio.surahNumber
     );
-    storeSurahsInSession(extractPlaylist);
+    storeSurahs(extractPlaylist);
 
     // Reset all checkboxes & remove playlist
     resetPlaylist();
@@ -129,10 +118,8 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       surahName,
       recitationName,
     };
-    storeSurahsInSession(surahs);
-    setCurrentSurahPlaying(surahNumber);
-    sessionStorage.setItem("playerState", JSON.stringify(playerState));
-    window.dispatchEvent(new Event("session"));
+    storeSurahs(surahs);
+    setPlayerState((prev) => ({ ...prev, ...playerState }));
   };
 
   const handleSharePopup = (params: string) => {
@@ -140,28 +127,10 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     openPopup(params);
   };
 
-  useEffect(() => {
-    const handlePlayerStateChange = () => {
-      const storedPlayerState = sessionStorage.getItem("playerState");
-      if (storedPlayerState) {
-        const currentPlayerState: PlayerState = JSON.parse(storedPlayerState);
-        setCurrentSurahPlaying(currentPlayerState.surahNumber);
-      } else {
-        setCurrentSurahPlaying(0);
-      }
-    };
-
-    window.addEventListener("playerStateChange", handlePlayerStateChange);
-
-    return () => {
-      window.removeEventListener("playerStateChange", handlePlayerStateChange);
-    };
-  }, []);
-
   return (
     <>
       {surahs.map((surah) => {
-        const isPlaying = currentSurahPlaying === surah.surahNumber;
+        const isPlaying = playerState.surahNumber === surah.surahNumber;
         return (
           <div
             id={surah.surahInfo.slug}
