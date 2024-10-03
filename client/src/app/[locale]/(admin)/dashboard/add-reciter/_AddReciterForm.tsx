@@ -4,7 +4,7 @@ import ReciterImg from "@/components/Reciter/ReciterImg";
 import Input from "@/components/ui/Input";
 import ToastMessage from "@/components/ui/ToastMessage";
 import { createReciter } from "@/actions/reciters";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { defaultReciterPhoto } from "@/constants/Images";
 import { useTranslations } from "next-intl";
 import getErrorMessage from "@/helpers/getErrorMessage";
@@ -208,7 +208,7 @@ export default function AddReciterForm() {
           accept="image/*"
           required={false}
         />
-        <Button disabled={loading} type="submit">
+        <Button disabled={loading} isLoading={loading} type="submit">
           {t("saveReciter")}
         </Button>
       </form>

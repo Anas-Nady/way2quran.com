@@ -1,3 +1,4 @@
+import React from "react";
 import shareMetadata from "@/app/[locale]/(content)/_shareMetadata";
 import PageHeading from "@/components/ui/PageHeading";
 import { noteIcon } from "@/components/Icons";
