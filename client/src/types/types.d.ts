@@ -87,6 +87,7 @@ export type SelectOption = {
 
 export interface PlayerState {
   isPlaying: boolean;
+  isPaused: boolean;
   currentTrack: string;
   surahNumber: number;
   surahName: string;

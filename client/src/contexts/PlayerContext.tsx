@@ -35,6 +35,7 @@ export function usePlayer() {
 const defaultPlayerState = {
   isPlaying: false,
   currentTrack: "",
+  isPaused: false,
   surahNumber: 0,
   surahName: "",
   reciterName: "",

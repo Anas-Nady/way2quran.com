@@ -6,8 +6,13 @@ import "react-h5-audio-player/lib/styles.css";
 import { usePlayer } from "@/contexts/PlayerContext";
 
 const AudioPlayer: React.FC = () => {
-  const { playerState, closeAudio, togglePlayerExpansion, handleAudioEnded } =
-    usePlayer();
+  const {
+    playerState,
+    setPlayerState,
+    closeAudio,
+    togglePlayerExpansion,
+    handleAudioEnded,
+  } = usePlayer();
 
   return (
     <div
@@ -45,6 +50,8 @@ const AudioPlayer: React.FC = () => {
         src={playerState.currentTrack}
         autoPlay
         onEnded={handleAudioEnded}
+        onPause={() => setPlayerState((prev) => ({ ...prev, isPaused: false }))}
+        onPlay={() => setPlayerState((prev) => ({ ...prev, isPaused: true }))}
       />
     </div>
   );

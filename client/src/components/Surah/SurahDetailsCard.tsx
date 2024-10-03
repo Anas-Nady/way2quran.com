@@ -33,6 +33,10 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
   selectedRecitationSlug,
 }) => {
   const { playerState, storeSurahs, setPlayerState } = usePlayer();
+  const [activeSurah, setActiveSurah] = useState({
+    number: 0,
+    isPaused: false,
+  });
   const t = useTranslations("ReciterPage");
   const translations = {
     listening: t("listening"),
@@ -96,6 +100,13 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     resetPlaylist();
   };
 
+  useEffect(() => {
+    setActiveSurah({
+      number: playerState.surahNumber,
+      isPaused: playerState.isPaused,
+    });
+  }, [playerState.surahNumber, playerState.isPaused]);
+
   const handleListening = (
     url: string,
     reciterName: string,
@@ -130,7 +141,9 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
   return (
     <>
       {surahs.map((surah) => {
-        const isPlaying = playerState.surahNumber === surah.surahNumber;
+        const isPaused = activeSurah.isPaused;
+        const isActive = activeSurah.number == surah.surahNumber;
+
         return (
           <div
             id={surah.surahInfo.slug}
@@ -158,7 +171,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
                 </div>
                 <h2
                   className={`surah-name min-w-[100px] text-lg sm:text-xl lg:text-2xl font-semibold ${
-                    isPlaying
+                    isActive
                       ? "text-green-500 dark:text-green-400"
                       : "text-gray-700 dark:text-slate-50"
                   }`}
@@ -170,7 +183,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
             <div className="flex flex-col items-center justify-between w-full gap-2 mx-auto text-gray-800 buttons sm:flex-row dark:text-white sm:mx-0 md:w-fit">
               <Button
                 className={`${
-                  isPlaying &&
+                  isActive &&
                   "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500"
                 } px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between`}
                 onClick={() =>
@@ -183,7 +196,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
                 }
               >
                 {translations.listening}{" "}
-                {isPlaying ? playPauseIcon : listenIcon}
+                {isPaused && isActive ? playPauseIcon : listenIcon}
               </Button>
               <Button
                 className="px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between"
