@@ -37,6 +37,13 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     number: 0,
     isPaused: false,
   });
+  const selectedRecitation = recitations?.find(
+    (recitation) => recitation.recitationInfo.slug === selectedRecitationSlug
+  );
+  const selectedRecitationName = selectedRecitation
+    ? getName(selectedRecitation.recitationInfo, locale)
+    : "";
+
   const t = useTranslations("ReciterPage");
   const translations = {
     listening: t("listening"),
@@ -113,24 +120,16 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     surahName: string,
     surahNumber: number
   ) => {
-    const selectedRecitation = recitations?.find(
-      (recitation) => recitation.recitationInfo.slug === selectedRecitationSlug
-    );
-
-    const recitationName = selectedRecitation
-      ? getName(selectedRecitation.recitationInfo, locale)
-      : "";
-
-    const playerState = {
+    const newPlayerState = {
       surahNumber,
       isPlaying: true,
       currentTrack: url,
       reciterName,
       surahName,
-      recitationName,
+      recitationName: selectedRecitationName,
     };
     storeSurahs(surahs);
-    setPlayerState((prev) => ({ ...prev, ...playerState }));
+    setPlayerState((prev) => ({ ...prev, ...newPlayerState }));
   };
 
   const handleSharePopup = (params: string) => {
@@ -138,11 +137,19 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     openPopup(params);
   };
 
+  const checkIfActiveSurah = (surah: SurahAudioFile) => {
+    return (
+      reciterName === playerState.reciterName &&
+      selectedRecitationName === playerState.recitationName &&
+      activeSurah.number === surah.surahNumber
+    );
+  };
+
   return (
     <>
       {surahs.map((surah) => {
         const isPaused = activeSurah.isPaused;
-        const isActive = activeSurah.number == surah.surahNumber;
+        const isActive = checkIfActiveSurah(surah);
 
         return (
           <div
