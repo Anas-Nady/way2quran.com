@@ -71,29 +71,27 @@ export default async function RecitersPage({
         <span className="flex-1 min-w-[250px]">
           <PageHeading text={recitationName} />
         </span>
-        <form className="relative lg:absolute lg:left-0 lg:rtl:right-0 ">
+        <div className="relative lg:absolute lg:left-0 lg:rtl:right-0">
           <SearchInput />
-        </form>
-      </div>
-      <>
-        <div className="flex flex-wrap content-start justify-center gap-2 my-6">
-          {reciters.map((reciter: ReciterProfile) => {
-            return (
-              <ReciterCard
-                key={reciter.slug}
-                locale={locale}
-                reciter={reciter}
-                recitationSlug={recitationSlug}
-              />
-            );
-          })}
-          {reciters?.length === 0 && <NotFound />}
         </div>
-        <Pagination
-          currentPage={pagination.page || 0}
-          totalPages={pagination.pages || 0}
-        />
-      </>
+      </div>
+      <div className="flex flex-wrap content-start justify-center gap-2 my-6">
+        {reciters.map((reciter: ReciterProfile) => {
+          return (
+            <ReciterCard
+              key={reciter.slug}
+              locale={locale}
+              reciter={reciter}
+              recitationSlug={recitationSlug}
+            />
+          );
+        })}
+        {reciters?.length === 0 && <NotFound />}
+      </div>
+      <Pagination
+        currentPage={pagination.page || 0}
+        totalPages={pagination.pages || 0}
+      />
     </section>
   );
 }
