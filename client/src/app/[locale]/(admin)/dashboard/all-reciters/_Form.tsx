@@ -30,7 +30,10 @@ const Form: React.FC<FormProps> = ({
   const t = useTranslations("AllRecitersPage");
 
   return (
-    <form className="flex flex-col flex-wrap items-start justify-between gap-3">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="flex flex-col flex-wrap items-start justify-between gap-3"
+    >
       <SearchInput />
       <SelectOptions
         options={RECITATIONS_LIST}
