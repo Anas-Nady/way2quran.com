@@ -12,10 +12,10 @@ import {
   ReciterProfile,
   SearchParams,
 } from "@/types/types";
-import RECITATIONS_LIST, { HAFS_AN_ASIM } from "@/constants/Recitations";
+import RECITATIONS_LIST from "@/constants/Recitations";
 import getName from "@/helpers/getNameForCurrentLang";
 
-function getSelectedRecitation(slug: string): RecitationMetadata | undefined {
+function getSelectedRecitation(slug: string): RecitationMetadata {
   return (
     RECITATIONS_LIST.find((rec: RecitationMetadata) => rec.slug === slug) ||
     RECITATIONS_LIST[2]
@@ -30,8 +30,8 @@ export async function generateMetadata({
   params: { locale },
   searchParams,
 }: RecitersProps) {
-  const recitationSlug = searchParams.recitationSlug || HAFS_AN_ASIM;
-  const recitationInfo = getSelectedRecitation(recitationSlug);
+  const recitationInfo = getSelectedRecitation(searchParams.recitationSlug);
+  const recitationSlug = recitationInfo.slug;
   const recitationName = recitationInfo ? getName(recitationInfo, locale) : "";
 
   return shareMetadata({
@@ -47,8 +47,8 @@ export default async function RecitersPage({
 }: RecitersProps) {
   const search = searchParams?.search || "";
   const currentPage = searchParams?.currentPage || 1;
-  const recitationSlug = searchParams.recitationSlug || HAFS_AN_ASIM;
-  const recitationInfo = getSelectedRecitation(recitationSlug);
+  const recitationInfo = getSelectedRecitation(searchParams.recitationSlug);
+  const recitationSlug = recitationInfo.slug;
 
   const recitationName = recitationInfo ? getName(recitationInfo, locale) : "";
 
