@@ -7,10 +7,10 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { LocaleProps } from "@/types/types";
 
-type NavbarLinksProps  = LocaleProps &{
+type NavbarLinksProps = LocaleProps & {
   isMenuVisible: boolean;
   toggleMenu: () => void;
-}
+};
 
 const NavbarLinks: React.FC<NavbarLinksProps> = ({
   locale,
@@ -42,12 +42,10 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({
   return (
     <div
       className={`items-center justify-between w-full lg:flex lg:w-auto lg:order-1 ${
-        locale === "ar"
-          ? "xl:mr-[50px] 2xl:mr-[80px]"
-          : "lg:mr-[20px] 2xl:mr-[50px]"
-      } ${isMenuVisible ? "block" : "hidden"}`}
+        isMenuVisible ? "block" : "hidden"
+      }`}
     >
-      <ul className="flex flex-col p-4 text-lg font-bold border border-gray-100 rounded-b-lg lg:p-0 sm:text-xl ltr:lg:text-lg rtl:lg:text-xl ltr:xl:text-2xl rtl:xl:text-2xl bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
+      <ul className="flex flex-col p-4 text-lg font-bold border border-gray-100 rounded-b-lg lg:p-0 sm:text-xl ltr:lg:text-lg rtl:lg:text-xl ltr:xl:text-2xl rtl:xl:text-2xl bg-gray-50 lg:space-x-6 2xl:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700">
         {links.map((link) => (
           <li key={link.route} onClick={toggleMenu} className="text-start">
             <Link
