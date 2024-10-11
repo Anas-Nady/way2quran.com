@@ -13,7 +13,7 @@ const PageHeading: React.FC<PageHeadingProps> = ({
 }) => {
   return (
     <h1
-      className={`my-5 relative whitespace-nowrap text-gray-700 text-3xl sm:text-3xl rtl:lg:text-5xl ltr:xl:text-6xl rtl:2xl:text-[65px] ltr:2xl:text-6xl
+      className={`my-5 relative whitespace-nowrap text-gray-700 text-4xl rtl:lg:text-5xl ltr:xl:text-6xl rtl:2xl:text-[65px] ltr:2xl:text-6xl
       text-center mx-auto font-bold pb-2 dark:text-slate-50 w-fit cursor-default ${className}`}
     >
       <span className={`text-${color}-500 dark:text-${color}-500`}>{text}</span>
