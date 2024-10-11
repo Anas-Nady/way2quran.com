@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { closeSolidIcon, downArrowIcon, upArrowIcon } from "../Icons";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
@@ -13,6 +13,22 @@ const AudioPlayer: React.FC = () => {
     togglePlayerExpansion,
     handleAudioEnded,
   } = usePlayer();
+
+  useEffect(() => {
+    const handleKeypress = (event: any) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        const btn = document.getElementsByClassName(
+          "rhap_play-pause-button"
+        )[0] as HTMLButtonElement | null;
+
+        if (btn) btn.click();
+      }
+    };
+    document.addEventListener("keypress", handleKeypress);
+
+    return () => document.removeEventListener("keypress", handleKeypress);
+  }, []);
 
   return (
     <div
