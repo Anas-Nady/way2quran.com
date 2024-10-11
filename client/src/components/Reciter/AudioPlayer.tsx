@@ -15,7 +15,7 @@ const AudioPlayer: React.FC = () => {
   } = usePlayer();
 
   useEffect(() => {
-    const handleKeypress = (event: any) => {
+    const handleKeypress = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         event.preventDefault();
         const btn = document.getElementsByClassName(
