@@ -28,7 +28,7 @@ export default function AboutPage() {
               {Array.from({ length: 5 }, (_, index) => (
                 <li
                   key={index + 1}
-                  className="flex justify-center gap-2 items-start font-medium text-green-500 text-md sm:text-xl xl:text-2xl 2xl:text-[28px] dark:text-green-500 text-start"
+                  className="flex justify-center gap-2 items-start font-medium text-green-500 text-lg sm:text-xl xl:text-2xl 2xl:text-3xl dark:text-green-500 text-start"
                 >
                   <span className="font-bold text-gray-800 xl:mt-1 2xl:mt-2 dark:text-white">
                     {noteIcon}
