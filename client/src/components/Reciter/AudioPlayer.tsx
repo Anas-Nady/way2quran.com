@@ -15,20 +15,27 @@ const AudioPlayer: React.FC = () => {
   } = usePlayer();
 
   useEffect(() => {
-    const handleKeypress = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
-        event.preventDefault();
-        const btn = document.getElementsByClassName(
-          "rhap_play-pause-button"
-        )[0] as HTMLButtonElement | null;
+    const handleKeypress = (e: KeyboardEvent) => {
+      const keyMap: { [key: string]: string } = {
+        Space: "rhap_play-pause-button",
+        ArrowLeft: "rhap_rewind-button",
+        ArrowRight: "rhap_forward-button",
+      };
+      const buttonClass = keyMap[e.code];
 
-        if (btn) btn.click();
+      if (buttonClass && playerState.isPlaying) {
+        e.preventDefault();
+
+        const btn = document.getElementsByClassName(
+          buttonClass
+        )[0] as HTMLButtonElement | null;
+        btn?.click();
       }
     };
-    document.addEventListener("keypress", handleKeypress);
+    document.addEventListener("keydown", handleKeypress);
 
-    return () => document.removeEventListener("keypress", handleKeypress);
-  }, []);
+    return () => document.removeEventListener("keydown", handleKeypress);
+  }, [playerState.isPlaying]);
 
   return (
     <div
