@@ -1,10 +1,8 @@
 "use client";
-
+import React from "react";
 import SurahListCard from "@/components/Surah/SurahListCard";
 import SURAHS_LIST from "@/constants/SurahsList";
-import { LocaleProps } from "@/types/types";
 import { useSearchParams } from "next/navigation";
-import React from "react";
 
 const SurahsList: React.FC<LocaleProps> = ({ locale }) => {
   const searchParams = useSearchParams();

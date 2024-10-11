@@ -1,6 +1,5 @@
 import { socialMediaPhoto } from "@/constants/Images";
 import { CLIENT_URL } from "@/lib/Api";
-import { LocaleProps } from "@/types/types";
 
 type ShareMetadataProps = LocaleProps & {
   title: string;

@@ -1,8 +1,7 @@
+import React, { useEffect, useState } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
-import { SurahAudioFile, ReciterRecitation, LocaleProps } from "@/types/types";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import {
   downloadIcon,
   listenIcon,
@@ -129,7 +128,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       recitationName: selectedRecitationName,
     };
     storeSurahs(surahs);
-    setPlayerState((prev) => ({ ...prev, ...newPlayerState }));
+    setPlayerState((prev: PlayerState) => ({ ...prev, ...newPlayerState }));
   };
 
   const handleSharePopup = (params: string) => {

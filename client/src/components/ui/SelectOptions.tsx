@@ -1,6 +1,5 @@
-import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps, SelectOption } from "@/types/types";
 import React from "react";
+import getName from "@/helpers/getNameForCurrentLang";
 
 type SelectOptionsProps = LocaleProps & {
   options: SelectOption[];

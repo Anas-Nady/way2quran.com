@@ -1,7 +1,6 @@
 "use client";
-import { PaginationDetails } from "@/types/types";
-import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const Pagination: React.FC<PaginationDetails> = ({
   currentPage,

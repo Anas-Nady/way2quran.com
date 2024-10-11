@@ -1,8 +1,7 @@
+import React from "react";
 import { ayatQuranFont } from "@/fonts/index";
 import { bismillahArabicSVG } from "../Icons";
 import SurahNavLink from "./SurahNavLink";
-import React from "react";
-import { LocaleProps, SurahDetails, SurahVerse } from "@/types/types";
 
 type SurahVersesProps = LocaleProps & {
   surah: SurahDetails;

@@ -3,7 +3,6 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import PageHeading from "@/components/ui/PageHeading";
 import shareMetadata from "@/app/[locale]/(content)/_shareMetadata";
-import { PageParams } from "@/types/types";
 
 export async function generateMetadata({ params: { locale } }: PageParams) {
   const t = await getTranslations({ locale, namespace: "ContactUsPage" });

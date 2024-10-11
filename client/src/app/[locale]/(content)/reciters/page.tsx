@@ -6,12 +6,6 @@ import ErrorAlert from "@/components/common/ErrorAlert";
 import PageHeading from "@/components/ui/PageHeading";
 import SearchInput from "@/components/ui/SearchInput";
 import Pagination from "@/components/common/Pagination";
-import {
-  PageParams,
-  RecitationMetadata,
-  ReciterProfile,
-  SearchParams,
-} from "@/types/types";
 import RECITATIONS_LIST from "@/constants/Recitations";
 import getName from "@/helpers/getNameForCurrentLang";
 

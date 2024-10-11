@@ -66,8 +66,12 @@ const AudioPlayer: React.FC = () => {
         src={playerState.currentTrack}
         autoPlay
         onEnded={handleAudioEnded}
-        onPause={() => setPlayerState((prev) => ({ ...prev, isPaused: false }))}
-        onPlay={() => setPlayerState((prev) => ({ ...prev, isPaused: true }))}
+        onPause={() =>
+          setPlayerState((prev: PlayerState) => ({ ...prev, isPaused: false }))
+        }
+        onPlay={() =>
+          setPlayerState((prev: PlayerState) => ({ ...prev, isPaused: true }))
+        }
       />
     </div>
   );

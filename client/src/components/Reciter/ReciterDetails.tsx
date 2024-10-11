@@ -1,14 +1,8 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
-import {
-  SurahAudioFile,
-  ReciterRecitation,
-  ReciterProfile,
-  LocaleProps,
-} from "@/types/types";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import TopReciterBadge from "./TopReciterBadge";
 import ReciterImg from "./ReciterImg";
 import SharePopup from "./SharePopup";

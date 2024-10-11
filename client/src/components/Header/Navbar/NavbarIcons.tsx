@@ -12,8 +12,6 @@ import {
 import IconButton from "./IconButton";
 import { usePathname, useRouter } from "next/navigation";
 import { useSearch } from "../Search/SearchContext";
-import { LocaleProps } from "@/types/types";
-
 type NavbarIconsProps = LocaleProps & {
   isMenuVisible: boolean;
   toggleMenu: () => void;

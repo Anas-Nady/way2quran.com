@@ -4,7 +4,6 @@ import { closeIcon, searchIcon } from "@/components/Icons";
 import { useSearch } from "./SearchContext";
 import { useTranslations } from "next-intl";
 import SearchResults from "./SearchResults";
-import { LocaleProps } from "@/types/types";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
 const SearchPopup: React.FC<LocaleProps> = ({ locale }) => {

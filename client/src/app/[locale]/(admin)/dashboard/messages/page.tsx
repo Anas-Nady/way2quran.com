@@ -1,4 +1,3 @@
-import { PageParams, SearchParams } from "@/types/types";
 import MessageList from "./_MessageList";
 
 type MessagesProps = PageParams & {

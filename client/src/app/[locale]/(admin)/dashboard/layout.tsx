@@ -1,8 +1,7 @@
+import React from "react";
 import AuthenticationLayout from "@/components/common/AuthenticationLayout";
 import DashboardAsideBar from "./_components/DashboardAsideBar";
 import type { Metadata } from "next";
-import React from "react";
-import { PageParams } from "@/types/types";
 
 export const metadata: Metadata = {
   title: "Dashboard",

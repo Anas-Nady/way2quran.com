@@ -1,7 +1,6 @@
-import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps, SurahDetails } from "@/types/types";
-import Link from "next/link";
 import React from "react";
+import getName from "@/helpers/getNameForCurrentLang";
+import Link from "next/link";
 
 type SurahListCardProps = LocaleProps & {
   surah: SurahDetails;

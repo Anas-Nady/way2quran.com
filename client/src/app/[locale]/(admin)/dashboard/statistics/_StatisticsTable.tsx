@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import QuranPDFList from "@/constants/QuranPDFList";
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
-import { LocaleProps } from "@/types/types";
 
 type DownloadCount = {
   _id: string;

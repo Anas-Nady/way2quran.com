@@ -1,12 +1,11 @@
 "use client";
-import { deleteReciter, listAllReciters } from "@/actions/reciters";
 import React, { useCallback, useEffect, useState } from "react";
+import { deleteReciter, listAllReciters } from "@/actions/reciters";
 import { useTranslations } from "next-intl";
 import ToastMessage from "@/components/ui/ToastMessage";
 import Pagination from "@/components/common/Pagination";
 import Form from "./_Form";
 import Table from "./_Table";
-import { LocaleProps, ReciterProfile, SearchParams } from "@/types/types";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
 type RecitersListProps = LocaleProps & {

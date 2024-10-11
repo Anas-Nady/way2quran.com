@@ -1,7 +1,6 @@
 "use client";
 
 import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 interface Result {

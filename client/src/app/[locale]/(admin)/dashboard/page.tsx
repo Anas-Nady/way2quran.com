@@ -1,5 +1,4 @@
 "use client";
-import { PageParams } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

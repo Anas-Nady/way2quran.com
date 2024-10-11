@@ -1,10 +1,9 @@
 "use client";
+import React, { useState } from "react";
 import { arrowDownIcon, arrowUpIcon, trashIcon } from "@/components/Icons";
 import ToastMessage from "@/components/ui/ToastMessage";
 import { deleteRecitation, deleteSurah } from "@/actions/reciters";
-import React, { useState } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
-import { SurahAudioFile, ReciterRecitation, LocaleProps } from "@/types/types";
 import { useTranslations } from "next-intl";
 import EmptyState from "@/components/ui/EmptyState";
 import getErrorMessage from "@/helpers/getErrorMessage";

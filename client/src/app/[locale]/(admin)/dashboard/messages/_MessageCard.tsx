@@ -1,10 +1,9 @@
+import React from "react";
 import { deleteMessage } from "@/actions/messages";
 import { trashIcon } from "@/components/Icons";
 import getFontClass from "@/helpers/getFontClass";
 import getTextDirection from "@/helpers/getTextDirection";
-import { LocaleProps, UserMessage } from "@/types/types";
 import { useTranslations } from "next-intl";
-import React from "react";
 import { ErrorState, LoadingState } from "./_MessageList";
 import getErrorMessage from "@/helpers/getErrorMessage";
 

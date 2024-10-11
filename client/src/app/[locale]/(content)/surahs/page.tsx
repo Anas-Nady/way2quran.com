@@ -1,11 +1,10 @@
+import React from "react";
 import shareMetadata from "../_shareMetadata";
 import { getTranslations } from "next-intl/server";
 import PageHeading from "@/components/ui/PageHeading";
 import SurahsList from "@/components/Surah/SurahsList";
 import { useTranslations } from "next-intl";
-import React from "react";
 import SearchInput from "@/components/ui/SearchInput";
-import { PageParams } from "@/types/types";
 
 export async function generateMetadata({ params: { locale } }: PageParams) {
   const t = await getTranslations();

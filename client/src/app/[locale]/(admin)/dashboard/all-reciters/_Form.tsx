@@ -5,7 +5,6 @@ import SearchInput from "@/components/ui/SearchInput";
 import SelectOptions from "@/components/ui/SelectOptions";
 import Checkbox from "../../../../../components/ui/Checkbox";
 import RECITATIONS_LIST from "@/constants/Recitations";
-import { LocaleProps } from "@/types/types";
 
 type FormProps = LocaleProps & {
   selectedRecitation: string;

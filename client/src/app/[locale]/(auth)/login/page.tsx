@@ -1,10 +1,9 @@
+import React from "react";
 import LoginForm from "./_LoginForm";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import React from "react";
 import SiteTitle from "@/components/ui/SiteTitle";
 import type { Metadata } from "next";
-import { PageParams } from "@/types/types";
 import AuthenticationLayout from "@/components/common/AuthenticationLayout";
 
 export const metadata: Metadata = {

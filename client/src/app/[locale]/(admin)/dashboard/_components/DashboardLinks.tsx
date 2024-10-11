@@ -1,11 +1,10 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import LogoutBtn from "./LogoutBtn";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import DASHBOARD_LINKS from "@/constants/DashboardLinks";
 import { getUnReadMessages } from "@/actions/messages";
-import { LocaleProps } from "@/types/types";
 
 type DashboardLinks = LocaleProps & {
   isOpen: boolean;

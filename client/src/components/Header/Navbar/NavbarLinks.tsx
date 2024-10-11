@@ -1,11 +1,10 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import IconButton from "./IconButton";
 import { searchIcon } from "@/components/Icons";
 import { useSearch } from "../Search/SearchContext";
-import React from "react";
 import { useTranslations } from "next-intl";
-import { LocaleProps } from "@/types/types";
 
 type NavbarLinksProps = LocaleProps & {
   isMenuVisible: boolean;

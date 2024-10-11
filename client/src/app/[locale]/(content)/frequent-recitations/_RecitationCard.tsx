@@ -1,7 +1,6 @@
-import getName from "@/helpers/getNameForCurrentLang";
-import { LocaleProps, RecitationMetadata } from "@/types/types";
-import Link from "next/link";
 import React from "react";
+import getName from "@/helpers/getNameForCurrentLang";
+import Link from "next/link";
 
 type RecitationCardProps = LocaleProps & {
   recitation: RecitationMetadata;

@@ -1,9 +1,7 @@
 "use client";
-
+import React from "react";
 import Link from "next/link";
 import { leftArrowIcon, rightArrowIcon } from "../Icons";
-import React from "react";
-import { LocaleProps, SurahDetails } from "@/types/types";
 
 type SurahNavLinkProps = LocaleProps & {
   surah: SurahDetails;

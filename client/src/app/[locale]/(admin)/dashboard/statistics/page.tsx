@@ -1,7 +1,6 @@
+import React from "react";
 import VisitorsStatistics from "./_VisitorsStatistics";
 import StatisticsTable from "./_StatisticsTable";
-import React from "react";
-import { PageParams } from "@/types/types";
 
 const StatisticsPage: React.FC<PageParams> = ({ params: { locale } }) => {
   return (

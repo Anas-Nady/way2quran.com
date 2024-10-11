@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 import ToastMessage from "@/components/ui/ToastMessage";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { LocaleProps } from "@/types/types";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
 export default function LoginForm({ locale }: LocaleProps) {

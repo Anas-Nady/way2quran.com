@@ -1,3 +1,4 @@
+import React from "react";
 import {
   getReciterDetails,
   getReciterInfo,
@@ -9,8 +10,6 @@ import shareMetadata from "../../_shareMetadata";
 import getName from "@/helpers/getNameForCurrentLang";
 import ErrorAlert from "@/components/common/ErrorAlert";
 import ReciterDetails from "@/components/Reciter/ReciterDetails";
-import React from "react";
-import { PageParams } from "@/types/types";
 import { RECITATIONS } from "@/constants/Recitations";
 
 type ReciterPageProps = PageParams & {

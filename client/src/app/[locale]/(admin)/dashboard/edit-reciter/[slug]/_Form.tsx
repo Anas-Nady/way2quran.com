@@ -1,10 +1,9 @@
 "use client";
 
+import React, { useState } from "react";
 import ReciterImg from "@/components/Reciter/ReciterImg";
 import { updateReciter } from "@/actions/reciters";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { LocaleProps, ReciterProfile } from "@/types/types";
 import ToastMessage from "@/components/ui/ToastMessage";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -102,57 +101,55 @@ export default function Form({ reciter, locale }: FormProps) {
   };
 
   return (
-    <>
-      <div className="border border-slate-300 dark:border-gray-700 sm:w-[500px] mx-3 p-10">
-        {errorHappen && <ToastMessage error={true} message={errorMessage} />}
-        {formState.photoDisplay && (
-          <ReciterImg src={formState.photoDisplay} isCentering={true} />
-        )}
-        <form onSubmit={handleSubmit}>
-          <Input
-            labelText={translations.numberTxt}
-            name="number"
-            id="number"
-            value={formState.number}
-            readonly
-            required={false}
-          />
-          <Input
-            labelText={translations.arNameTxt}
-            name="arabicName"
-            id="arabicName"
-            value={formState.arabicName}
-            onChange={handleInputChange}
-            required={false}
-          />
-          <Input
-            labelText={translations.enNameTxt}
-            name="englishName"
-            id="englishName"
-            className="font-english"
-            value={formState.englishName}
-            onChange={handleInputChange}
-            required={false}
-          />
-          <Input
-            onChange={handleFileChange}
-            labelText={translations.photoTxt}
-            type="file"
-            name="photo"
-            id="photo"
-            accept="image/*"
-            required={false}
-          />
-          <Checkbox
-            labelText={translations.topRecitersTxt}
-            checked={formState.isTopReciter}
-            onChange={handleTopReciters}
-          />
-          <Button type="submit" disabled={loading}>
-            {translations.saveTxt}
-          </Button>
-        </form>
-      </div>
-    </>
+    <div className="border border-slate-300 dark:border-gray-700 sm:w-[500px] mx-3 p-10">
+      {errorHappen && <ToastMessage error={true} message={errorMessage} />}
+      {formState.photoDisplay && (
+        <ReciterImg src={formState.photoDisplay} isCentering={true} />
+      )}
+      <form onSubmit={handleSubmit}>
+        <Input
+          labelText={translations.numberTxt}
+          name="number"
+          id="number"
+          value={formState.number}
+          readonly
+          required={false}
+        />
+        <Input
+          labelText={translations.arNameTxt}
+          name="arabicName"
+          id="arabicName"
+          value={formState.arabicName}
+          onChange={handleInputChange}
+          required={false}
+        />
+        <Input
+          labelText={translations.enNameTxt}
+          name="englishName"
+          id="englishName"
+          className="font-english"
+          value={formState.englishName}
+          onChange={handleInputChange}
+          required={false}
+        />
+        <Input
+          onChange={handleFileChange}
+          labelText={translations.photoTxt}
+          type="file"
+          name="photo"
+          id="photo"
+          accept="image/*"
+          required={false}
+        />
+        <Checkbox
+          labelText={translations.topRecitersTxt}
+          checked={formState.isTopReciter}
+          onChange={handleTopReciters}
+        />
+        <Button type="submit" disabled={loading}>
+          {translations.saveTxt}
+        </Button>
+      </form>
+    </div>
   );
 }

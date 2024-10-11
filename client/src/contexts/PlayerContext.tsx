@@ -1,12 +1,6 @@
 "use client";
-import getName from "@/helpers/getNameForCurrentLang";
-import {
-  LocaleProps,
-  PlayerState,
-  SurahAudioFile,
-  SurahDetails,
-} from "@/types/types";
 import React, { createContext, useContext, useState } from "react";
+import getName from "@/helpers/getNameForCurrentLang";
 
 interface PlayerContextProps {
   playerState: PlayerState;

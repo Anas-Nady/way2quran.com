@@ -1,7 +1,6 @@
 import { RECITATIONS } from "@/constants/Recitations";
 import Surahs from "@/constants/SurahsList";
 import api, { CLIENT_URL } from "@/lib/Api";
-import { ReciterProfile } from "@/types/types";
 
 export default async function sitemap() {
   const recitations = RECITATIONS;

@@ -1,12 +1,12 @@
-export type LocaleProps = {
+type LocaleProps = {
   locale: "ar" | "en";
 };
 
-export type PageParams = {
+type PageParams = {
   params: LocaleProps;
 };
 
-export type SearchParams = {
+type SearchParams = {
   search: string;
   currentPage: number;
   recitationSlug: string;
@@ -14,41 +14,41 @@ export type SearchParams = {
   isTopReciter: boolean | string;
 };
 
-export type LocalizedEntity = {
+type LocalizedEntity = {
   arabicName: string;
   englishName: string;
   slug: string;
 };
 
-export type SurahVerse = {
+type SurahVerse = {
   id: number;
   textArabic: string;
   textEnglish: string;
 };
 
-export type SurahDetails = LocalizedEntity & {
+type SurahDetails = LocalizedEntity & {
   number: number;
   url: string;
   verses?: SurahVerse[];
 };
 
-export type RecitationMetadata = LocalizedEntity & {};
+type RecitationMetadata = LocalizedEntity & {};
 
-export type SurahAudioFile = {
+type SurahAudioFile = {
   surahInfo: SurahDetails;
   surahNumber: number;
   url: string;
   downloadUrl: string;
 };
 
-export type ReciterRecitation = {
+type ReciterRecitation = {
   recitationInfo: RecitationMetadata;
   audioFiles: SurahAudioFile[];
   isCompleted: boolean;
   totalDownloads: number;
 };
 
-export type ReciterProfile = LocalizedEntity & {
+type ReciterProfile = LocalizedEntity & {
   number: number;
   photo: string;
   recitations?: ReciterRecitation[];
@@ -58,7 +58,7 @@ export type ReciterProfile = LocalizedEntity & {
   createdAt?: string;
 };
 
-export type UserMessage = {
+type UserMessage = {
   senderName: string;
   senderEmail: string;
   content: string;
@@ -66,26 +66,26 @@ export type UserMessage = {
   isRead?: boolean;
 };
 
-export type UserPopupMessage = {
+type UserPopupMessage = {
   username: string;
   email: string;
   messageContent: string;
   visible: boolean;
 };
 
-export type PaginationDetails = {
+type PaginationDetails = {
   currentPage: number;
   totalPages: number;
 };
 
-export type SelectOption = {
+type SelectOption = {
   arabicName: string;
   englishName: string;
   slug: string;
   disabled?: boolean;
 };
 
-export interface PlayerState {
+interface PlayerState {
   isPlaying: boolean;
   isPaused: boolean;
   currentTrack: string;

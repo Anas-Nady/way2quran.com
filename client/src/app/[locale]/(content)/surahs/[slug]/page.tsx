@@ -3,7 +3,6 @@ import shareMetadata from "../../_shareMetadata";
 import { getSurahInfo } from "@/actions/surah";
 import SurahVerses from "@/components/Surah/SurahVerses";
 import PageHeading from "@/components/ui/PageHeading";
-import { PageParams } from "@/types/types";
 import SURAHS_LIST from "@/constants/SurahsList";
 import { unstable_setRequestLocale } from "next-intl/server";
 

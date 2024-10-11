@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Form from "./_Form";
 import Accordion from "./_Accordion";
 import EmptyState from "@/components/ui/EmptyState";
-import { LocaleProps, ReciterProfile, ReciterRecitation } from "@/types/types";
 import { getReciterDetails } from "@/actions/reciters";
 import ErrorAlert from "@/components/common/ErrorAlert";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";

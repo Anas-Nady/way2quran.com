@@ -1,11 +1,10 @@
 "use client";
-
+import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import ReciterImg from "@/components/Reciter/ReciterImg";
 import Input from "@/components/ui/Input";
 import ToastMessage from "@/components/ui/ToastMessage";
 import { updateUserProfile } from "@/actions/user";
-import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import getErrorMessage from "@/helpers/getErrorMessage";
 

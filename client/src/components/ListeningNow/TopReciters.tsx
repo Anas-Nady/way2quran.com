@@ -4,7 +4,6 @@ import { HAFS_AN_ASIM } from "@/constants/Recitations";
 import SliderReciters from "./Slider";
 import { useTranslations } from "next-intl";
 import { listAllReciters } from "@/actions/reciters";
-import { LocaleProps } from "@/types/types";
 
 const TopReciters: React.FC<LocaleProps> = ({ locale }) => {
   const t = useTranslations();

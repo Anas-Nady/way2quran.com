@@ -1,9 +1,8 @@
 "use client";
-
+import React from "react";
 import getFontClass from "@/helpers/getFontClass";
 import getTextDirection from "@/helpers/getTextDirection";
 import Link from "next/link";
-import React from "react";
 
 interface ErrorAlertProps {
   message: string;

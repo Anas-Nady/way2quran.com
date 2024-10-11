@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "@/components/Header/Header";
 import "./globals.css";
 import Footer from "@/components/common/Footer";
@@ -10,9 +11,7 @@ import { arabicFont, englishFont } from "@/fonts";
 import GoogleAnalyticsScript from "@/scripts/GoogleAnalytics";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import React from "react";
 import rootMetadata from "./_rootMetadata";
-import { PageParams } from "@/types/types";
 import PlayerProvider from "@/contexts/PlayerContext";
 
 export const viewport = {

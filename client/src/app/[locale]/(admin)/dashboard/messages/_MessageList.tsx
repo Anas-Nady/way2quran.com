@@ -1,21 +1,12 @@
 "use client";
-
-import { getMessages } from "@/actions/messages";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-
+import { getMessages } from "@/actions/messages";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import MessagePopup from "./_MessagePopup";
 import MessageCard from "./_MessageCard";
 import Pagination from "@/components/common/Pagination";
 import EmptyState from "@/components/ui/EmptyState";
 import ToastMessage from "@/components/ui/ToastMessage";
-import type {
-  UserPopupMessage,
-  UserMessage,
-  PaginationDetails,
-  SearchParams,
-  LocaleProps,
-} from "@/types/types";
 
 export type LoadingState = {
   deleteMessageLoading?: boolean;

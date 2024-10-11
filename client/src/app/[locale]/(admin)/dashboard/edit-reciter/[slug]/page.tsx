@@ -1,4 +1,3 @@
-import { PageParams } from "@/types/types";
 import ReciterDetails from "./_ReciterDetails";
 
 export type EditReciterPageProps = PageParams & {

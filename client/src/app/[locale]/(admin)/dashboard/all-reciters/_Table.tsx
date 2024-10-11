@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { LocaleProps, ReciterProfile } from "@/types/types";
 import {
   checkedIcon,
   closeIcon,

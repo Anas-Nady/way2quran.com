@@ -1,8 +1,7 @@
+import React from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import SiteTitle from "../ui/SiteTitle";
-import React from "react";
-import { LocaleProps } from "@/types/types";
 
 const Footer: React.FC<LocaleProps> = ({ locale }) => {
   const t = useTranslations("Footer");

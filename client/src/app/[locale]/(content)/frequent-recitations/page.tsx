@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import shareMetadata from "../_shareMetadata";
 import RecitationCard from "./_RecitationCard";
-import { PageParams, RecitationMetadata } from "@/types/types";
 import PageHeading from "@/components/ui/PageHeading";
 import RECITATIONS_LIST from "@/constants/Recitations";
 

@@ -7,7 +7,6 @@ import Slider from "react-slick";
 import { HAFS_AN_ASIM } from "@/constants/Recitations";
 import getName from "@/helpers/getNameForCurrentLang";
 import ReciterImg from "../Reciter/ReciterImg";
-import { LocaleProps, ReciterProfile } from "@/types/types";
 
 type SliderProps = LocaleProps & {
   reciters: ReciterProfile[];

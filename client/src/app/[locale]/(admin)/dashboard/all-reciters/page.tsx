@@ -1,4 +1,3 @@
-import { PageParams, SearchParams } from "@/types/types";
 import RecitersList from "./_RecitersList";
 
 type AllRecitersPageProps = PageParams & {

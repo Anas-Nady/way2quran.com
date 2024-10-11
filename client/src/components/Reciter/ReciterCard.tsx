@@ -4,7 +4,6 @@ import ReciterImg from "./ReciterImg";
 
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
-import { LocaleProps, ReciterProfile } from "@/types/types";
 
 type ReciterCardProps = LocaleProps & {
   reciter: ReciterProfile;

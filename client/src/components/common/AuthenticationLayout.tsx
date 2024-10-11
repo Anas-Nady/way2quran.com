@@ -1,10 +1,8 @@
 "use client";
-
+import React, { useEffect, useState } from "react";
 import { getUserProfile } from "@/actions/user";
 import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import Loading from "@/app/[locale]/loading";
-import { LocaleProps } from "@/types/types";
 
 type AuthMode = "admin" | "user";
 

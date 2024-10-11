@@ -1,10 +1,9 @@
 "use client";
-import ReciterImg from "@/components/Reciter/ReciterImg";
 import React, { useCallback, useEffect, useState } from "react";
+import ReciterImg from "@/components/Reciter/ReciterImg";
 import getName from "@/helpers/getNameForCurrentLang";
 import TopReciterBadge from "@/components/Reciter/TopReciterBadge";
 import { eyeIcon } from "@/components/Icons";
-import { ReciterRecitation, ReciterProfile, PageParams } from "@/types/types";
 import { getReciterDetails } from "@/actions/reciters";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorAlert from "@/components/common/ErrorAlert";

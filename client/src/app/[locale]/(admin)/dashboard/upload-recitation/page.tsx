@@ -1,4 +1,3 @@
-import { PageParams } from "@/types/types";
 import UploadRecitationForm from "./_UploadRecitationForm";
 
 export default function UploadRecitation({ params: { locale } }: PageParams) {

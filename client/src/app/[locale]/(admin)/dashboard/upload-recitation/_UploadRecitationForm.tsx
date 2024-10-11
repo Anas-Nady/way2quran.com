@@ -1,16 +1,15 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import { checkedIcon } from "@/components/Icons";
 import Input from "@/components/ui/Input";
 import ProgressBar from "./_ProgressBar";
-import React, { useEffect, useState } from "react";
 import ToastMessage from "@/components/ui/ToastMessage";
 import api from "@/lib/Api";
 import { RECITATIONS } from "@/constants/Recitations";
 import { useTranslations } from "next-intl";
 import SelectOptions from "@/components/ui/SelectOptions";
 import { AxiosProgressEvent } from "axios";
-import { LocaleProps, ReciterProfile } from "@/types/types";
 import { listAllReciters } from "@/actions/reciters";
 import getErrorMessage from "@/helpers/getErrorMessage";
 

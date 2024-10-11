@@ -7,8 +7,6 @@ import getFontClass from "@/helpers/getFontClass";
 import api from "@/lib/Api";
 import TextAreaInput from "@/components/ui/TextAreaInput";
 import ToastMessage from "@/components/ui/ToastMessage";
-import { UserPopupMessage } from "@/types/types";
-
 interface MessagePopupProps {
   messageDetails: UserPopupMessage;
   setSelectedMessage: React.Dispatch<React.SetStateAction<UserPopupMessage>>;
