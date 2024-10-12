@@ -119,6 +119,14 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     surahName: string,
     surahNumber: number
   ) => {
+    if (playerState.currentTrack === url) {
+      const btn = document.getElementsByClassName(
+        "rhap_play-pause-button"
+      )[0] as HTMLButtonElement | null;
+      btn?.click();
+      return;
+    }
+
     const newPlayerState = {
       surahNumber,
       isPlaying: true,
@@ -188,10 +196,9 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
             </div>
             <div className="flex flex-col items-center justify-between w-full gap-2 mx-auto text-gray-800 buttons sm:flex-row dark:text-white sm:mx-0 md:w-fit">
               <Button
-                disabled={isActive}
                 className={`${
                   isActive &&
-                  "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500 cursor-not-allowed"
+                  "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500"
                 } px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between`}
                 onClick={() =>
                   handleListening(
