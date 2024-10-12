@@ -188,9 +188,10 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
             </div>
             <div className="flex flex-col items-center justify-between w-full gap-2 mx-auto text-gray-800 buttons sm:flex-row dark:text-white sm:mx-0 md:w-fit">
               <Button
+                disabled={isActive}
                 className={`${
                   isActive &&
-                  "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500"
+                  "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500 cursor-not-allowed"
                 } px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between`}
                 onClick={() =>
                   handleListening(
