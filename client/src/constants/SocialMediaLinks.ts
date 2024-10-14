@@ -6,6 +6,7 @@ import {
   telegramIcon,
   twitterIcon,
   whatsappIcon,
+  youtubeIcon,
 } from "@/components/Icons";
 
 export const socialMediaLinks = [
@@ -14,6 +15,10 @@ export const socialMediaLinks = [
   { icon: twitterIcon, href: "https://twitter.com/way2quran" },
   { icon: soundCloudIcon, href: "https://soundcloud.com/way2quran" },
   { icon: gmailIcon, href: "mailto:info@way2quran.com" },
+  {
+    icon: youtubeIcon,
+    href: `https://youtube.com/@way2quran1?si=twC_-ehK-TfpYHpb`,
+  },
 ];
 
 export const socialMediaShare = [
