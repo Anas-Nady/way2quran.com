@@ -61,13 +61,14 @@ export default async function RecitersPage({
 
   return (
     <section className="relative p-4 mx-auto bg-white border max-w-screen-2xl border-1 border-slate-200 dark:border-gray-600 dark:bg-gray-800">
-      <div className="relative flex flex-col flex-wrap items-center justify-center gap-2 lg:flex-row lg:justify-start lg:gap-5">
-        <span className="flex-1 min-w-[250px]">
-          <PageHeading text={recitationName} />
-        </span>
-        <div className="relative lg:absolute lg:left-0 lg:rtl:right-0">
+      <div className="flex flex-col-reverse items-center justify-between gap-4 mb-6 md:flex-row">
+        <div className="w-full md:w-1/4">
           <SearchInput />
         </div>
+        <div className="w-full md:w-2/4">
+          <PageHeading text={recitationName} />
+        </div>
+        <div className="w-full md:w-1/4"></div>
       </div>
       <div className="flex flex-wrap content-start justify-center gap-2 my-6">
         {reciters.map((reciter: ReciterProfile) => {
