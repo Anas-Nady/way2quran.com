@@ -33,7 +33,9 @@ const Form: React.FC<FormProps> = ({
       onSubmit={(e) => e.preventDefault()}
       className="flex flex-col flex-wrap items-start justify-between gap-3"
     >
-      <SearchInput />
+      <div className="w-[200px] md:w-[300px]">
+        <SearchInput />
+      </div>
       <SelectOptions
         options={RECITATIONS_LIST}
         locale={locale}
