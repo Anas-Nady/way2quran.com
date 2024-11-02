@@ -80,6 +80,7 @@
     "monthly": "Monthly",
     "yearly": "Yearly",
     "totalVisitors": "Total Visitors",
+    "restartServer": "Restart Server",
     "quranName": "Quran Name",
     "totalDownloads": "Total Downloads"
   },

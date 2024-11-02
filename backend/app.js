@@ -9,6 +9,7 @@ const reciterRouter = require("./routes/reciterRoute");
 const recitationRouter = require("./routes/recitationRoute.js");
 const surahRouter = require("./routes/surahRoute");
 const messageRouter = require("./routes/messageRoute");
+const restartRouter = require("./routes/restartRoute.js");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -61,6 +62,7 @@ app.use("/api/reciters", reciterRouter);
 app.use("/api/surah", surahRouter);
 app.use("/api/recitations", recitationRouter);
 app.use("/api/messages", messageRouter);
+app.use("/api/restart-server", restartRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

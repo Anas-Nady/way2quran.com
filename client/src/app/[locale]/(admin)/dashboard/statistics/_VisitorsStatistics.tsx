@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import VisitorStat from "./_VisitorStat";
 import { useTranslations } from "next-intl";
+import Button from "@/components/ui/Button";
+import ToastMessage from "@/components/ui/ToastMessage";
 
 type VisitorsStats = {
   [key: string]: number;
@@ -9,6 +11,7 @@ type VisitorsStats = {
 
 const VisitorsStatistics = () => {
   const t = useTranslations("Statistics");
+
   const translate = {
     statistics: t("statistics"),
     today: t("today"),
@@ -24,6 +27,9 @@ const VisitorsStatistics = () => {
     weeklyVisitors: 0,
     monthlyVisitors: 0,
     yearlyVisitors: 0,
+  });
+  const [restartState, setRestartState] = useState({
+    loading: false,
   });
 
   const fetchVisitorCounts = async () => {
@@ -53,6 +59,21 @@ const VisitorsStatistics = () => {
     fetchVisitorCounts();
   }, []);
 
+  const handleRestartServer = async () => {
+    setRestartState({ loading: true });
+    try {
+      await fetch("/api/restart-server", {
+        method: "POST",
+      });
+    } catch (error: unknown) {
+      console.log(error);
+    } finally {
+      setRestartState({
+        loading: false,
+      });
+    }
+  };
+
   return (
     <div>
       <h2 className="my-5 text-lg font-semibold border-b-2 border-green-500 dark:border-green-500 sm:text-xl lg:text-2xl xl:text-4xl 2xl:text-5xl">
@@ -80,6 +101,13 @@ const VisitorsStatistics = () => {
           count={visitorStats.totalVisitors}
         />
       </div>
+      <Button
+        type="button"
+        isLoading={restartState.loading}
+        onClick={handleRestartServer}
+      >
+        {t("restartServer")}
+      </Button>
     </div>
   );
 };
