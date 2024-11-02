@@ -19,6 +19,7 @@ exports.globalSearch = asyncHandler(async (req, res, next) => {
     {
       $project: {
         _id: 0,
+        number: 1,
         arabicName: 1,
         englishName: 1,
         slug: 1,
