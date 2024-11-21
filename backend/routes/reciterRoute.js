@@ -46,7 +46,7 @@ router
   .get(cacheMiddleware, reciterController.getReciterDetails);
 
 router
-  .route("/delete-surah/:reciterSlug/:recitationSlug/:surahSlug")
+  .route("/delete-surah/:reciterSlug/:recitationSlug/:surahSlug/:audioName")
   .delete(protect, isAdmin, reciterController.deleteSurah);
 
 router

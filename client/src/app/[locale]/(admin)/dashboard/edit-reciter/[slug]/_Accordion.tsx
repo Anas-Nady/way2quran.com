@@ -73,7 +73,8 @@ const Accordion: React.FC<AccordionProps> = ({
   const handleDeleteSurah = async (
     reciterSlug: string,
     recitationSlug: string,
-    surahSlug: string
+    surahSlug: string,
+    audioName: string
   ) => {
     const result = confirm(t("confirmDelete"));
 
@@ -81,7 +82,7 @@ const Accordion: React.FC<AccordionProps> = ({
       setState((prev) => ({ ...prev, loading: true }));
 
       try {
-        await deleteSurah(reciterSlug, recitationSlug, surahSlug);
+        await deleteSurah(reciterSlug, recitationSlug, surahSlug, audioName);
 
         setState((prevState) => ({
           ...prevState,
@@ -171,7 +172,8 @@ const Accordion: React.FC<AccordionProps> = ({
                           handleDeleteSurah(
                             reciterSlug,
                             recitation.recitationInfo.slug,
-                            surah.surahInfo.slug
+                            surah.surahInfo.slug,
+                            surah.url.split("/")?.pop() || ""
                           )
                         }
                       >

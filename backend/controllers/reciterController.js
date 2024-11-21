@@ -524,6 +524,7 @@ exports.deleteSurah = asyncHandler(async (req, res, next) => {
   const reciterSlug = req.params.reciterSlug;
   const recitationSlug = req.params.recitationSlug;
   const surahSlug = req.params.surahSlug;
+  const audioName = req.params.audioName;
 
   if (!reciterSlug) return next(new AppError("Reciter slug is required", 400));
 
@@ -556,11 +557,14 @@ exports.deleteSurah = asyncHandler(async (req, res, next) => {
 
   const reciter = await Reciters.findOne(filter);
   if (!reciter) {
-    return next(new AppError("Reciter not found", 404));
+    return next(
+      new AppError("Reciter not found or does not have this resource.", 404)
+    );
   }
 
   // Remove from Google Cloud Storage
-  const folderPath = `${reciterSlug}/${recitationSlug}/${surahNumber}`;
+  const folderPath = `${reciterSlug}/${recitationSlug}/${audioName}`;
+
   const [files] = await storage
     .bucket(bucketName)
     .getFiles({ prefix: folderPath });
