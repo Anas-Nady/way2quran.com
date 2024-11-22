@@ -23,6 +23,7 @@ exports.globalSearch = asyncHandler(async (req, res, next) => {
         arabicName: 1,
         englishName: 1,
         slug: 1,
+        number: 1,
       },
     },
     {
