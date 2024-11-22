@@ -33,7 +33,7 @@ module.exports = {
       args: "start",
       instances: 1,
       env: {
-        NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+        NEXT_PUBLIC_API_URL: process.env.CLIENT_URL,
       },
     },
   ],
