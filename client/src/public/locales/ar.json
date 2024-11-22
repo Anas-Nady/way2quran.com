@@ -16,7 +16,7 @@
   "NavbarLinks": {
     "titleHome": "الطريق الي القرآن",
     "holyQuran": "المصحف الكامل",
-    "frequentRecitations": "التلاوات المتواترة",
+    "frequentRecitations": "القراءات المتواترة",
     "variousRecitations": "التلاوات المنوعة",
     "downloadQuranPdf": "تحميل المصحف"
   },
@@ -28,7 +28,7 @@
     "part_3": "من أنحاء العالم الإسلامى"
   },
 
-  "frequentRecitations": "التلاوات المتواترة",
+  "frequentRecitations": "القراءات المتواترة",
 
   "ReciterPage": {
     "download": " تحميل",
