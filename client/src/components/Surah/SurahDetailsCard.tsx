@@ -98,7 +98,8 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       firstAudio.url,
       reciterName,
       getName(firstAudio.surahInfo, locale),
-      firstAudio.surahNumber
+      firstAudio.surahNumber,
+      true
     );
     storeSurahs(extractPlaylist);
 
@@ -117,7 +118,8 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     url: string,
     reciterName: string,
     surahName: string,
-    surahNumber: number
+    surahNumber: number,
+    isPlaylist: boolean
   ) => {
     if (playerState.currentTrack === url) {
       const btn = document.getElementsByClassName(
@@ -135,7 +137,9 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       surahName,
       recitationName: selectedRecitationName,
     };
-    storeSurahs(surahs);
+    if (isPlaylist) {
+      storeSurahs(surahs);
+    }
     setPlayerState((prev: PlayerState) => ({ ...prev, ...newPlayerState }));
   };
 
@@ -205,18 +209,22 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
                     surah.url,
                     reciterName,
                     getName(surah.surahInfo, locale),
-                    surah.surahNumber
+                    surah.surahNumber,
+                    false
                   )
                 }
               >
-                {translations.listening}{" "}
-                {isPaused && isActive ? playPauseIcon : listenIcon}
+                <span>{translations.listening}</span>{" "}
+                <span className="flex-1">
+                  {isPaused && isActive ? playPauseIcon : listenIcon}
+                </span>
               </Button>
               <Button
-                className="px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between"
+                className="px-5 py-3 w-full gap-1 sm:w-[33%] justify-center sm:justify-between"
                 onClick={() => handleDownload(surah.downloadUrl)}
               >
-                {translations.download} {downloadIcon}
+                <span>{translations.download}</span>{" "}
+                <span className="flex-1">{downloadIcon}</span>
               </Button>
 
               <Button
