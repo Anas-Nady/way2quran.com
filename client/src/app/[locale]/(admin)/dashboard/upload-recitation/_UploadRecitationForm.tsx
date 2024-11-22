@@ -122,6 +122,7 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
       }));
 
       (document.getElementById("fileInput") as HTMLInputElement).value = "";
+      handleRestartServer();
     } catch (err: unknown) {
       setFormState((prev) => ({
         ...prev,
@@ -152,6 +153,19 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleRestartServer = async () => {
+    try {
+      const res = await fetch("/api/restart-server", {
+        method: "POST",
+      });
+
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
