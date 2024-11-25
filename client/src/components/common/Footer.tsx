@@ -25,7 +25,10 @@ const Footer: React.FC<LocaleProps> = ({ locale }) => {
           <ul className="flex flex-wrap sm:items-center font-medium text-orange-500 gap-4 sm:gap-9 ltr:text-sm rtl:text-[18px] rtl:sm:text-xl rtl:lg:text-2xl ltr:sm:text-xl ltr:lg:text-2xl dark:text-orange-500">
             {links.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="hover:underline">
+                <Link
+                  href={link.href}
+                  className="hover:underline font-kufiArabic"
+                >
                   {link.title}
                 </Link>
               </li>

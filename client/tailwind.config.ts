@@ -10,6 +10,7 @@ module.exports = {
       fontFamily: {
         arabic: ['"Noto Naskh Arabic"', "serif"],
         english: ["Public Sans", "sans-serif"],
+        kufiArabic: ['"Noto Kufi Arabic"', "serif"],
       },
     },
   },
