@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import VisitorStat from "./_VisitorStat";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import ToastMessage from "@/components/ui/ToastMessage";
 
 type VisitorsStats = {
   [key: string]: number;
