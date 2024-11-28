@@ -92,10 +92,11 @@ export const deleteRecitation = async (
 export const deleteSurah = async (
   reciterSlug: string,
   recitationSlug: string,
-  surahSlug: string
+  surahSlug: string,
+  audioName: string
 ) => {
   const { data } = await api.delete(
-    `/api/reciters/delete-surah/${reciterSlug}/${recitationSlug}/${surahSlug}`
+    `/api/reciters/delete-surah/${reciterSlug}/${recitationSlug}/${surahSlug}/${audioName}`
   );
   return data;
 };
