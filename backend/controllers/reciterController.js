@@ -152,18 +152,16 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
   }
 
   const dataResponse = {
+    message: "success",
     reciter,
     recitations: reciter.recitations,
   };
 
   // set the reciter's content in the cache.
-  // the data will be stored indefinitely
-  redisClient.set(`${slug}`, JSON.stringify(dataResponse));
+  const cachedTime = 3600 * 24; // one day
+  redisClient.setEx(`${slug}`, cachedTime, JSON.stringify(dataResponse));
 
-  res.status(200).json({
-    message: "success",
-    ...dataResponse,
-  });
+  res.status(200).json(dataResponse);
 });
 
 exports.uploadRecitations = asyncHandler(async (req, res, next) => {
