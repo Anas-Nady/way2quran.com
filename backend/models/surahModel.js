@@ -17,6 +17,7 @@ const surahSchema = mongoose.Schema({
   },
   slug: { type: String, index: true },
   verses: [{ id: Number, textArabic: String, textEnglish: String }],
+  pageNumber: { type: Number, required: true },
 });
 
 surahSchema.index({ number: 1, slug: 1 });
