@@ -65,7 +65,6 @@ const PlayerProvider: React.FC<PlayerProviderProps> = ({
       playerState.surahs[playerState.surahs.length - 1].number ===
         prevSurah.number
     ) {
-      closeAudio();
       return;
     }
 
@@ -73,7 +72,6 @@ const PlayerProvider: React.FC<PlayerProviderProps> = ({
       playerState.surahs[playerState.surahs.indexOf(prevSurah) + 1];
 
     if (!nextSurah) {
-      closeAudio();
       return;
     }
 
