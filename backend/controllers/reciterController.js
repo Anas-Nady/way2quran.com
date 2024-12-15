@@ -286,6 +286,8 @@ exports.deleteRecitation = asyncHandler(async (req, res, next) => {
   }
 
   const folderPath = `${reciterSlug}/${recitationSlug}`;
+  const zipFilePath = `zip-files/${reciterSlug}/${recitationSlug}.zip`;
+
   const filter = {
     slug: reciterSlug,
     "recitations.recitationInfo": isRecitationExists._id,
@@ -316,6 +318,9 @@ exports.deleteRecitation = asyncHandler(async (req, res, next) => {
   await Promise.all(
     files.map((file) => storage.bucket(bucketName).file(file.name).delete())
   );
+
+  // delete from zip file
+  await storage.bucket(bucketName).file(zipFilePath).delete();
 
   reciter.recitations = reciter.recitations.filter(
     (rec) =>
