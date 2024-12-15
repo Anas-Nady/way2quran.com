@@ -29,7 +29,7 @@ const ToastMessage: React.FC<ToastMessageProps> = ({
     }, duration);
 
     return () => clearTimeout(timeout);
-  }, [duration]);
+  }, [duration, resetErrorState]);
 
   const handleDismissClick = () => {
     closeToastMessage(false);
