@@ -30,7 +30,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 const corsOptions = {
-  origin: [process.env.CLIENT_URL],
+  origin: process.env.CLIENT_URL,
   methods: "GET,PUT,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
@@ -45,8 +45,8 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 
 // Body parsing, reading data from body into req.body
 app.use(cookieParser());
-app.use(express.json({ limit: "2gb" }));
-app.use(express.urlencoded({ extended: true, limit: "2gb" }));
+app.use(express.json({ limit: "5gb" }));
+app.use(express.urlencoded({ extended: true, limit: "5gb" }));
 
 // Data sanitization against NoSQl query injection
 app.use(mongoSanitize());
