@@ -12,6 +12,7 @@ import SelectOptions from "@/components/ui/SelectOptions";
 import { AxiosProgressEvent } from "axios";
 import { listAllReciters } from "@/actions/reciters";
 import getErrorMessage from "@/helpers/getErrorMessage";
+import { restartServer } from "@/actions/server";
 
 type FileDetails = {
   name: string;
@@ -121,7 +122,7 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
       }));
 
       (document.getElementById("fileInput") as HTMLInputElement).value = "";
-      handleRestartServer();
+      restartServer();
     } catch (err: unknown) {
       setFormState((prev) => ({
         ...prev,
@@ -152,19 +153,6 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleRestartServer = async () => {
-    try {
-      const res = await fetch("/api/restart-server", {
-        method: "POST",
-      });
-
-      const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>

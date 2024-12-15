@@ -10,6 +10,7 @@ import { AxiosProgressEvent } from "axios";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../upload-audios/_ProgressBar";
+import { restartServer } from "@/actions/server";
 
 interface IFormState {
   reciterSlug: string;
@@ -227,6 +228,7 @@ export default function UploadZipFileForm({ locale }: { locale: "ar" | "en" }) {
       }
       setFileZipState((prev) => ({ ...prev, size: 0, name: "" }));
       (document.getElementById("zipFile") as HTMLInputElement).value = "";
+      restartServer();
     } catch (err: unknown) {
       setFormState((prev) => ({
         ...prev,
