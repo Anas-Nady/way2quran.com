@@ -74,14 +74,14 @@ const ReciterPage: React.FC<ReciterPageProps> = async ({
     return <ErrorAlert message={data.message} />;
   }
 
-  const { reciter, recitations } = data;
+  const { reciter } = data;
 
   return (
     <div>
       <ReciterDetails
         reciter={reciter}
         locale={locale}
-        recitations={recitations}
+        recitations={reciter?.recitations}
       />
     </div>
   );

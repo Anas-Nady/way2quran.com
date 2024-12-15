@@ -31,7 +31,7 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({ locale, slug }) => {
           setError(data.message);
         } else {
           setReciter(data.reciter);
-          setRecitations(data.recitations);
+          setRecitations(data.reciter?.recitations);
         }
       } catch (err: unknown) {
         setError(getErrorMessage(err));

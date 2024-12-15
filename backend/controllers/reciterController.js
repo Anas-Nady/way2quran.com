@@ -135,8 +135,6 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
       select: "-verses", // Exclude 'verses' field from 'surahId'
     });
 
-  console.log(reciter.recitations[0].audioFiles.length);
-
   if (!reciter) {
     return next(
       new AppError(
@@ -155,7 +153,6 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
   const dataResponse = {
     message: "success",
     reciter,
-    recitations: reciter.recitations,
   };
 
   // set the reciter's content in the cache.

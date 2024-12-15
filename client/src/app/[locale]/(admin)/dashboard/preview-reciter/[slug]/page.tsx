@@ -38,8 +38,8 @@ const PreviewReciterPage: React.FC<PreviewReciterPageProps> = ({
       return;
     }
 
-    setRecitations(data.recitations);
     setReciter(data.reciter);
+    setRecitations(data.reciter.recitations);
     setSelectedRecitationSlug(data.recitations[0]?.recitationInfo.slug);
     setIsLoading(false);
   }, [slug]);
