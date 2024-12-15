@@ -120,14 +120,14 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
   }
 
   // check if the reciter has already recitation
-  const isReciterExists = await Reciters.findOne({
+  const reciter = await Reciters.findOne({
     slug: reciterSlug,
   }).populate({
     path: "recitations.recitationInfo",
     model: "Recitations",
   });
 
-  if (!isReciterExists) {
+  if (!reciter) {
     return next(
       new AppError(
         `Reciter: ${reciterSlug} does not exist have ${recitationSlug}`,
@@ -136,14 +136,14 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const reciterRecitations = isReciterExists.recitations.map(
-    (rec) => rec.recitationInfo.slug
+  const recitation = reciter.recitations.find(
+    (rec) => rec.recitationInfo.slug === recitationSlug
   );
 
-  if (!reciterRecitations.includes(recitationSlug)) {
+  if (!recitation) {
     return next(
       new AppError(
-        `Recitation: ${recitationSlug} does not exists with the reciter`,
+        `Recitation: ${recitationSlug} does not exists for reciter: ${reciterSlug}`,
         404
       )
     );
@@ -153,27 +153,31 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
   const zipFilePath = `zip-files/${reciterSlug}/${recitationSlug}.zip`;
   const newZipFile = storage.bucket(bucketName).file(zipFilePath);
 
-  await newZipFile.save(zipFile.buffer, {
-    metadata: {
-      contentType: zipFile.mimetype,
-    },
-    public: true,
-    gzip: true,
-  });
+  try {
+    await newZipFile.save(zipFile.buffer, {
+      metadata: {
+        contentType: zipFile.mimetype,
+      },
+      public: true,
+      gzip: true,
+    });
 
-  // save the zip download url to reciter.recitations.downloadURL
-  isReciterExists.recitations.forEach((rec) => {
-    if (rec.recitationInfo.slug === recitationSlug) {
-      rec.downloadURL = `${newZipFile.metadata.mediaLink}`;
-    }
-  });
+    // Save the download URL to recitation
+    recitation.downloadURL = `${zipFileObject.metadata.mediaLink}`;
 
-  await isReciterExists.save();
+    await reciter.save();
 
-  res.status(200).json({
-    status: "success",
-    message: "Recitation zip uploaded successfully",
-  });
+    res.status(200).json({
+      status: "success",
+      message: "Recitation zip uploaded successfully",
+    });
+  } catch (error) {
+    await newZipFile.delete();
+
+    recitation.downloadURL = undefined;
+    await reciter.save();
+    return next(new AppError("Failed to upload zip file", error, 500));
+  }
 });
 
 exports.uploadAudioFiles = asyncHandler(async (req, res, next) => {
