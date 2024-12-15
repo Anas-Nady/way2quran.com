@@ -231,13 +231,16 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
 
 exports.deleteReciter = asyncHandler(async (req, res, next) => {
   const slug = req.params.slug;
-  const reciter = await Reciters.findOne({ slug });
+  const reciter = await Reciters.findOne({ slug }).populate({
+    path: "recitations.recitationInfo",
+    model: "Recitations",
+  });
 
   if (!reciter) {
     return next(new AppError(`Reciter: ${slug} not found`, 404));
   }
 
-  // delete form Google Cloud Storage
+  // delete audio files form Google Storage
   const [files] = await storage
     .bucket(bucketName)
     .getFiles({ prefix: `${reciter.slug}/` });
@@ -255,6 +258,18 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
     const photoIsExist = storage.bucket(bucketName).file(photoPath);
 
     if (photoIsExist) await photoIsExist.delete();
+  }
+
+  // delete zip files
+  if (reciter.recitations.length > 0) {
+    Promise.all(
+      reciter.recitations.map(async (rec) =>
+        storage
+          .bucket(bucketName)
+          .file(`zip-files/${reciter.slug}/${rec.recitationInfo.slug}.zip`)
+          .delete()
+      )
+    );
   }
 
   await Reciters.deleteOne({ slug });
