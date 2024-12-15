@@ -163,7 +163,7 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
     });
 
     // Save the download URL to recitation
-    recitation.downloadURL = `${zipFileObject.metadata.mediaLink}`;
+    recitation.downloadURL = `${newZipFile.metadata.mediaLink}`;
 
     await reciter.save();
 
