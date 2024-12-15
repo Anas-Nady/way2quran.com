@@ -159,7 +159,6 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
         contentType: zipFile.mimetype,
       },
       public: true,
-      gzip: true,
     });
 
     // Save the download URL to recitation
