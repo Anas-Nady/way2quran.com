@@ -62,6 +62,9 @@ const reciterSchema = new mongoose.Schema(
           type: Number,
           default: 0,
         },
+        downloadURL: {
+          type: String,
+        },
       },
     ],
     totalRecitations: {

@@ -16,19 +16,9 @@ router
     reciterController.createReciter
   );
 
-router.get(
-  "/download-recitation/:reciterSlug/:recitationSlug",
-  reciterController.downloadRecitation
-);
-
 router
-  .route("/upload-recitation/:reciterSlug/:recitationSlug")
-  .put(
-    protect,
-    isAdmin,
-    upload.array("audioFiles"),
-    reciterController.uploadRecitations
-  );
+  .route("/missing-recitation-downloadURl")
+  .get(protect, isAdmin, reciterController.getRecitersMissingRecitations);
 
 router
   .route("/:slug")

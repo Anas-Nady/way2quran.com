@@ -62,6 +62,7 @@
     "addReciter": "إضافة قارئ",
     "allReciters": "جميع القراء",
     "uploadRecitation": "إضافة رواية",
+    "uploadZipFile": "إضافة ملف ZIP",
     "messages": "الرسائل",
     "settings": "إعدادات",
     "logout": "تسجيل الخروج"
@@ -122,7 +123,11 @@
     "chooseRecitation": "أختر التلاوة",
     "chooseReciter": "أختر القارئ",
     "uploadNow": "تحميل الأن",
-    "successUploadedAudioFiles": "تم رفع الملفات الصوتية بنجاح"
+    "noZipFileSelected": "يرجي رفع فولدر التلاوة",
+    "notZipFile": "هذا ليس ملف ZIP. يرجي اختار الصيغة الصحيحة",
+    "fileName": "اسم الملف",
+    "fileSize": "حجم الملف",
+    "successUploadedAudioFiles": "تم رفع الملفات بنجاح"
   },
 
   "MessagesPage": {

@@ -102,13 +102,12 @@ export default function UploadRecitationForm({ locale }: LocaleProps) {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / (progressEvent.total || 1)
           );
-          console.log(percentCompleted);
           setFormState((prev) => ({ ...prev, progress: percentCompleted }));
         },
       };
 
-      await api.put(
-        `/api/reciters/upload-recitation/${reciterSlug}/${recitationSlug}`,
+      await api.post(
+        `/api/recitations/files/audio/${reciterSlug}/${recitationSlug}`,
         formData,
         config
       );

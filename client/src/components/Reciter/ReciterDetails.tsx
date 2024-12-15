@@ -61,7 +61,7 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
     recitationSlug: string
   ) => {
     const link = document.createElement("a");
-    const baseURL = `${window.location.protocol}//${window.location.host}/api/reciters/download-recitation/${reciterSlug}/${recitationSlug}`;
+    const baseURL = `${window.location.protocol}//${window.location.host}/api/recitations/download/${reciterSlug}/${recitationSlug}`;
     link.setAttribute("href", baseURL);
 
     link.click();

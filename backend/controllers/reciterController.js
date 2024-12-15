@@ -3,7 +3,6 @@ const asyncHandler = require("express-async-handler");
 const Reciters = require("./../models/reciterModel.js");
 const Recitations = require("../models/recitationModel.js");
 const Surah = require("../models/surahModel.js");
-const archiver = require("archiver");
 const {
   storage,
   bucketName,
@@ -136,6 +135,8 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
       select: "-verses", // Exclude 'verses' field from 'surahId'
     });
 
+  console.log(reciter.recitations[0].audioFiles.length);
+
   if (!reciter) {
     return next(
       new AppError(
@@ -162,192 +163,6 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
   redisClient.setEx(`${slug}`, cachedTime, JSON.stringify(dataResponse));
 
   res.status(200).json(dataResponse);
-});
-
-exports.uploadRecitations = asyncHandler(async (req, res, next) => {
-  const recitationSlug = req.params.recitationSlug;
-  const reciterSlug = req.params.reciterSlug;
-  const audioFiles = req.files;
-
-  if (!recitationSlug) {
-    return next(new AppError("Recitation slug is required", 400));
-  }
-
-  if (!audioFiles || audioFiles.length === 0) {
-    return next(new AppError("No audio files found in the request.", 400));
-  }
-
-  const reciter = await Reciters.findOne({ slug: reciterSlug });
-  if (!reciter) {
-    return next(new AppError(`Reciter: ${reciterSlug} not found`, 404));
-  }
-
-  const isRecitationFound = await Recitations.findOne({ slug: recitationSlug });
-  if (!isRecitationFound) {
-    return next(
-      new AppError(`Invalid recitation name: ${recitationSlug}`, 400)
-    );
-  }
-
-  let recitationToUpdate;
-  let recitationIndex = reciter.recitations.findIndex(
-    (rec) => rec.recitationInfo.toString() === isRecitationFound._id.toString()
-  );
-
-  if (recitationIndex >= 0) {
-    recitationToUpdate = reciter.recitations[recitationIndex];
-  } else {
-    recitationToUpdate = {
-      recitationInfo: isRecitationFound._id,
-      audioFiles: [],
-      isCompleted: false,
-      totalDownloads: 0,
-    };
-  }
-
-  for (const audioFile of audioFiles) {
-    const fileName = `${reciter.slug}/${recitationSlug}/${audioFile.originalname}`;
-    const surahNumber = parseInt(audioFile.originalname.split(".")[0]);
-    const file = storage.bucket(bucketName).file(fileName);
-
-    // validation
-    const isSurahNumberValid = surahNumber >= 1 && surahNumber <= 144;
-    if (!isSurahNumberValid) {
-      return next(new AppError(`Invalid surah number: ${surahNumber}`, 400));
-    }
-
-    const isSurahAlreadyExists = recitationToUpdate.audioFiles.some(
-      (existingFile) => parseInt(existingFile.surahNumber) == surahNumber
-    );
-
-    if (isSurahAlreadyExists) {
-      continue;
-    }
-
-    try {
-      await file.save(audioFile.buffer, {
-        metadata: {
-          contentType: audioFile.mimetype,
-        },
-        public: true,
-      });
-
-      const currentSurah = await Surah.findOne({
-        number: surahNumber,
-      });
-
-      // Add the uploaded audio file to the recitation
-      recitationToUpdate.audioFiles.push({
-        surahInfo: currentSurah._id,
-        surahNumber: surahNumber,
-        url: `${cloudBaseUrl}/${bucketName}/${fileName}`,
-        downloadUrl: file.metadata.mediaLink,
-      });
-    } catch (err) {
-      return next(
-        new AppError(
-          `Failed to upload ${audioFile.originalname} - ${err.message}`
-        )
-      );
-    }
-  }
-
-  // Sort the audioFiles based on the surah's name
-  recitationToUpdate.audioFiles.sort(
-    (a, b) => parseInt(a.surahNumber) - parseInt(b.surahNumber)
-  );
-
-  if (recitationToUpdate.audioFiles.length === 114) {
-    recitationToUpdate.isCompleted = true;
-  }
-
-  // Save the updated reciter document
-  if (recitationIndex >= 0) {
-    reciter.recitations[recitationIndex] = recitationToUpdate;
-  } else {
-    reciter.recitations.push(recitationToUpdate);
-    reciter.totalRecitations += 1;
-  }
-
-  await reciter.save();
-
-  res.status(200).json({
-    status: "success",
-    data: reciter,
-  });
-});
-
-exports.downloadRecitation = asyncHandler(async (req, res, next) => {
-  const reciterSlug = req.params.reciterSlug;
-  const recitationSlug = req.params.recitationSlug;
-  const folderPath = `${reciterSlug}/${recitationSlug}`;
-
-  const reciter = await Reciters.findOne({ slug: reciterSlug });
-  if (!reciter) {
-    return next(new AppError(`Reciter: ${reciterSlug} not found`, 400));
-  }
-
-  const recitation = await Recitations.findOne({
-    slug: recitationSlug,
-  });
-  if (!recitation) {
-    return next(
-      new AppError(
-        `Recitation: ${recitationSlug} not found with that slug`,
-        400
-      )
-    );
-  }
-
-  const reciterRecitation = reciter.recitations.find(
-    (rec) => rec.recitationInfo.toString() === recitation._id.toString()
-  );
-  if (!reciterRecitation) {
-    return next(
-      new AppError(`The reciter does not have: ${recitationSlug}.`, 400)
-    );
-  }
-
-  reciterRecitation.numOfDownloads++;
-  await reciter.save();
-
-  // Initialize archiver
-  const archive = archiver("zip", {
-    zlib: { level: 9 },
-  });
-
-  // Pipe the archive to the response stream
-  archive.pipe(res);
-
-  const [files] = await storage
-    .bucket(bucketName)
-    .getFiles({ prefix: folderPath });
-
-  // Filter files based on the folder structure
-  const filteredFiles = files.filter((file) =>
-    file.name.startsWith(`${folderPath}/`)
-  );
-
-  if (filteredFiles.length === 0) {
-    return res
-      .status(404)
-      .json({ status: "error", message: "No files found in the folder." });
-  }
-
-  filteredFiles.forEach((file) => {
-    const fileReadStream = storage
-      .bucket(bucketName)
-      .file(file.name)
-      .createReadStream();
-    archive.append(fileReadStream, {
-      name: file.name.replace(`${folderPath}/`, ""),
-    });
-  });
-
-  // Finalize the archive after appending all files
-  const zipFileName = `${folderPath}.zip`;
-  res.setHeader("Content-Disposition", `attachment; filename="${zipFileName}"`);
-  archive.finalize();
 });
 
 exports.updateReciter = asyncHandler(async (req, res, next) => {
@@ -582,7 +397,7 @@ exports.deleteSurah = asyncHandler(async (req, res, next) => {
   // remove from mongoDB
   if (recitation) {
     recitation.audioFiles = recitation.audioFiles.filter(
-      (audioFile) => audioFile.surahNumber !== surahNumber
+      (audioFile) => audioFile.surahNumber.toString() !== surahNumber.toString()
     );
   }
 
@@ -590,5 +405,54 @@ exports.deleteSurah = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     message: "success",
+  });
+});
+
+exports.getRecitersMissingRecitations = asyncHandler(async (req, res, next) => {
+  const recitersWithoutDownloadURL = await Reciters.aggregate([
+    {
+      $match: {
+        "recitations.recitationInfo": { $exists: true },
+      },
+    },
+    {
+      $project: {
+        arabicName: 1,
+        englishName: 1,
+        slug: 1,
+        number: 1,
+        recitations: {
+          $filter: {
+            input: "$recitations",
+            as: "recitation",
+            cond: { $not: { $ifNull: ["$$recitation.downloadURL", false] } },
+          },
+        },
+      },
+    },
+    {
+      $match: {
+        "recitations.0": { $exists: true },
+      },
+    },
+    {
+      $project: {
+        arabicName: 1,
+        englishName: 1,
+        slug: 1,
+        number: 1,
+      },
+    },
+    {
+      $sort: {
+        arabicName: 1,
+      },
+    },
+  ]);
+
+  res.status(200).json({
+    status: "success",
+    size: recitersWithoutDownloadURL.length,
+    reciters: recitersWithoutDownloadURL,
   });
 });

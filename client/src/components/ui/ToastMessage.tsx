@@ -10,6 +10,7 @@ interface ToastMessageProps {
   error?: boolean;
   message: string;
   duration?: number;
+  resetErrorState?: () => void;
 }
 
 const ToastMessage: React.FC<ToastMessageProps> = ({
@@ -17,16 +18,23 @@ const ToastMessage: React.FC<ToastMessageProps> = ({
   error = false,
   message,
   duration = 8000,
+  resetErrorState = () => {},
 }) => {
   const [toastVisibility, closeToastMessage] = useState<boolean>(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       closeToastMessage(false);
+      resetErrorState();
     }, duration);
 
     return () => clearTimeout(timeout);
   }, [duration]);
+
+  const handleDismissClick = () => {
+    closeToastMessage(false);
+    resetErrorState();
+  };
 
   return (
     <div
@@ -50,7 +58,7 @@ const ToastMessage: React.FC<ToastMessageProps> = ({
       <button
         className="ms-auto -mx-1.5 -my-1.5 bg-white border border-gray-400 text-gray-800 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-100 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
         type="button"
-        onClick={() => closeToastMessage(false)}
+        onClick={handleDismissClick}
       >
         {closeIcon}
       </button>

@@ -68,6 +68,7 @@
     "addReciter": "Add Reciter",
     "allReciters": "All Reciters",
     "uploadRecitation": "Add Recitation",
+    "uploadZipFile": "Upload Zip File",
     "messages": "Messages",
     "settings": "Setting",
     "logout": "Logout"
@@ -128,6 +129,10 @@
     "chooseRecitation": "Choose Recitation",
     "chooseReciter": "Choose Reciter",
     "uploadNow": "Upload Now",
+    "noZipFileSelected": "No ZIP folder selected",
+    "notZipFile": "Invalid type, You must select only a zip file",
+    "fileName": "File Name",
+    "fileSize": "File Size",
     "successUploadedAudioFiles": "uploaded audio files successfully"
   },
 
