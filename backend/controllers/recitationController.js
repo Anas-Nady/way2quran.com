@@ -1,13 +1,17 @@
-const Recitation = require("../models/recitationModel");
+const Surah = require("../models/surahModel");
 const asyncHandler = require("express-async-handler");
 const AppError = require("../utils/appError");
-const { storage, bucketName } = require("../config/googleStorage");
+const {
+  storage,
+  bucketName,
+  cloudBaseUrl,
+} = require("../config/googleStorage");
 const Reciters = require("../models/reciterModel");
 const Recitations = require("../models/recitationModel");
 const archiver = require("archiver");
 
 exports.getAllRecitations = asyncHandler(async (req, res, next) => {
-  const recitations = await Recitation.find({});
+  const recitations = await Recitations.find({});
 
   if (!recitations) {
     return next(new AppError("No recitations found.", 404));
@@ -20,7 +24,7 @@ exports.getAllRecitations = asyncHandler(async (req, res, next) => {
 });
 
 exports.getRecitation = asyncHandler(async (req, res, next) => {
-  const recitation = await Recitation.findOne({ slug: req.params.slug });
+  const recitation = await Recitations.findOne({ slug: req.params.slug });
 
   if (!recitation) {
     return next(new AppError("The recitation not found", 404));
