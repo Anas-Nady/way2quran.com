@@ -22,8 +22,8 @@ export default function WelcomeSection({ locale }: LocaleProps) {
             {t("part_3")}
           </p>
           <div className="hidden lg:flex gap-4 justify-center items-center">
-            {links.map((link) => (
-              <Link href={link.downloadURL} target="_blank">
+            {links.map((link, idx) => (
+              <Link href={link.downloadURL} key={idx} target="_blank">
                 <Image src={link.src} width={180} height={50} alt={link.alt} />
               </Link>
             ))}
@@ -40,8 +40,8 @@ export default function WelcomeSection({ locale }: LocaleProps) {
             priority
           />
           <div className="flex lg:hidden gap-5 flex-wrap items-center justify-center">
-            {links.map((link) => (
-              <Link href={link.downloadURL} target="_blank">
+            {links.map((link, idx) => (
+              <Link href={link.downloadURL} key={idx} target="_blank">
                 <Image src={link.src} width={100} height={50} alt={link.alt} />
               </Link>
             ))}
