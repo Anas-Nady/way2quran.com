@@ -24,7 +24,13 @@ export default function WelcomeSection({ locale }: LocaleProps) {
           <div className="hidden lg:flex gap-4 justify-center items-center">
             {links.map((link, idx) => (
               <Link href={link.downloadURL} key={idx} target="_blank">
-                <Image src={link.src} width={180} height={50} alt={link.alt} />
+                <Image
+                  className="hover:scale-95 duration-200"
+                  src={link.src}
+                  width={180}
+                  height={50}
+                  alt={link.alt}
+                />
               </Link>
             ))}
           </div>
