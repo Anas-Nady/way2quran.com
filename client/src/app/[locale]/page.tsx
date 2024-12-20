@@ -5,7 +5,7 @@ import TopReciters from "@/components/ListeningNow/TopReciters";
 const App: React.FC<PageParams> = ({ params: { locale } }) => {
   return (
     <>
-      <WelcomeSection />
+      <WelcomeSection locale={locale} />
       <TopReciters locale={locale} />
     </>
   );
