@@ -7,7 +7,7 @@ import SearchPopup from "@/components/Header/Search/SearchPopup";
 import AudioPlayer from "@/components/Reciter/AudioPlayer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import VisitorSiteTracking from "@/components/VisitorSiteTracking";
-import { arabicFont, englishFont } from "@/fonts";
+import { arabicFont, englishFont } from "@/assets/fonts";
 import GoogleAnalyticsScript from "@/scripts/GoogleAnalytics";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";

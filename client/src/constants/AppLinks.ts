@@ -1,6 +1,6 @@
-import googlePlay from "./../public/google-play.png";
-import appleStore from "./../public/apple-store.png";
-import appGallery from "./../public/app-gallery.png";
+import googlePlay from "@/assets/images/google-play.png";
+import appleStore from "@/assets/images/apple-store.png";
+import appGallery from "@/assets/images/app-gallery.png";
 
 export const APP_LINKS = {
   en: [

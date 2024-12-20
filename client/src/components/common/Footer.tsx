@@ -13,7 +13,7 @@ const Footer: React.FC<LocaleProps> = ({ locale }) => {
   ];
 
   return (
-    <footer className="bg-slate-50 dark:bg-gray-900 h-[185px] border-t-[1px] border-gray-200 dark:border-gray-700 py-6">
+    <footer className="bg-slate-50 dark:bg-gray-900 h-[185px] border-t-[1px] border-gray-200 dark:border-gray-700 p-6">
       <div className="container w-full py-4">
         <div className="flex flex-col flex-wrap items-center justify-center gap-5 mb-4 md:flex-row md:justify-between sm:mb-0">
           <Link

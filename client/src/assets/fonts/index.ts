@@ -14,11 +14,9 @@ const arabicFont = Noto_Naskh_Arabic({
 });
 
 // setup noto kufi arabic
-const kufiArabicFont = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+const kufiArabicFont = localFont({
   display: "swap",
-  fallback: ["Arial", "sans-serif"],
+  src: "./NotoKufiArabic.ttf",
   preload: true,
 });
 

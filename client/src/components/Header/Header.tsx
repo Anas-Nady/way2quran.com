@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/logo.png";
+import logo from "@/assets/images/logo.png";
 import Navbar from "./Navbar/Navbar";
 const Header: React.FC<LocaleProps> = ({ locale }) => {
   const t = useTranslations("NavbarLinks");

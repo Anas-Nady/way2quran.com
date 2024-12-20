@@ -1,5 +1,5 @@
 import React from "react";
-import { ayatQuranFont } from "@/fonts/index";
+import { ayatQuranFont } from "@/assets/fonts/index";
 import { bismillahArabicSVG } from "../Icons";
 import SurahNavLink from "./SurahNavLink";
 
