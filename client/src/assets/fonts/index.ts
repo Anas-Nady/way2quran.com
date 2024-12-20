@@ -1,8 +1,8 @@
 import localFont from "next/font/local";
 import {
+  Noto_Kufi_Arabic,
   Noto_Naskh_Arabic,
   Public_Sans,
-  Noto_Kufi_Arabic,
 } from "next/font/google";
 
 const arabicFont = Noto_Naskh_Arabic({
@@ -13,10 +13,11 @@ const arabicFont = Noto_Naskh_Arabic({
   preload: true,
 });
 
-// setup noto kufi arabic
-const kufiArabicFont = localFont({
+const kufiArabicFont = Noto_Kufi_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  src: "./NotoKufiArabic.ttf",
+  fallback: ["Arial", "sans-serif"],
   preload: true,
 });
 
