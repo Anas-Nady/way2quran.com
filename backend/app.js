@@ -3,7 +3,7 @@ const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError.js");
 const visitorRouter = require("./routes/visitorRoute");
 const searchRouter = require("./routes/searchRoute");
-const downloadTrackingRouter = require("./routes/downloadTrackingRoute.js");
+const quranDownloadRouter = require("./routes/quranDownloadRoute.js");
 const userRouter = require("./routes/userRoute");
 const reciterRouter = require("./routes/reciterRoute");
 const recitationRouter = require("./routes/recitationRoute.js");
@@ -56,7 +56,7 @@ app.use(xss());
 
 app.use("/api/visitors", visitorRouter);
 app.use("/api/search", searchRouter);
-app.use("/api/download", downloadTrackingRouter);
+app.use("/api/downloads", quranDownloadRouter);
 app.use("/api/auth", userRouter);
 app.use("/api/reciters", reciterRouter);
 app.use("/api/surah", surahRouter);

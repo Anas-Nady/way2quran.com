@@ -12,12 +12,11 @@ interface ToastType {
 
 interface QuranListProps {
   quran: {
-    id: number;
     arabicName: string;
     englishName: string;
     slug: string;
-    img: string;
-    downloadLink: string;
+    downloadURL: string;
+    imageURL: string;
   };
   quranName: string;
 }
@@ -30,16 +29,16 @@ const QuranList: React.FC<QuranListProps> = ({ quran, quranName }) => {
   });
 
   const handleDownload = async (
-    pdfName: string,
+    slug: string,
     downloadLink: string
   ): Promise<void> => {
     setToast({ message: "Tracking download...", error: false });
     try {
-      await fetch(`/api/download/quran/${pdfName}`, {
-        method: "GET",
-      });
-
       window.location.href = downloadLink;
+
+      await fetch(`/api/downloads/increment/${slug}`, {
+        method: "POST",
+      });
     } catch (err: unknown) {
       setToast({
         message: getErrorMessage(err),
@@ -53,14 +52,14 @@ const QuranList: React.FC<QuranListProps> = ({ quran, quranName }) => {
       {toast.error && <ToastMessage error={true} message={toast.message} />}
       <button
         type="button"
-        onClick={() => handleDownload(quran.slug, quran.downloadLink)}
+        onClick={() => handleDownload(quran.slug, quran.downloadURL)}
         title={quranName}
-        key={quran.id}
+        key={quran.slug}
         className="flex p-2 flex-col mt-2 duration-300 border cursor-pointer hover:scale-[1.01] hover:-translate-y-1 quran-pdf dark:border-gray-700"
       >
         <div className="flex justify-center flex-1 overflow-hidden duration-200">
           <Image
-            src={quran.img}
+            src={quran.imageURL}
             className="object-cover w-[367px] h-[538px]"
             alt={quranName}
             width={600}
