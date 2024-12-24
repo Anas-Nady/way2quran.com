@@ -60,14 +60,24 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
     reciterSlug: string,
     recitationSlug: string
   ) => {
+    let baseURL = `${window.location.protocol}//${window.location.host}/api/recitations/download/${reciterSlug}/${recitationSlug}`;
+
+    // Find the recitation with the matching slug
+    const matchingRecitation = recitations.find(
+      (rec) => rec.recitationInfo?.slug === recitationSlug
+    );
+
+    // Use the download URL if available
+    if (matchingRecitation?.downloadURL) {
+      baseURL = matchingRecitation.downloadURL;
+    }
+
     const link = document.createElement("a");
-    const baseURL = `${window.location.protocol}//${window.location.host}/api/recitations/download/${reciterSlug}/${recitationSlug}`;
-    link.setAttribute("href", baseURL);
+    link.href = baseURL;
 
+    document.body.appendChild(link);
     link.click();
-
-    // Clean up
-    link.remove();
+    document.body.removeChild(link);
   };
 
   const handleRecitationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

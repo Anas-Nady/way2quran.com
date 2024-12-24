@@ -46,6 +46,7 @@ type ReciterRecitation = {
   audioFiles: SurahAudioFile[];
   isCompleted: boolean;
   totalDownloads: number;
+  downloadURL?: string;
 };
 
 type ReciterProfile = LocalizedEntity & {
