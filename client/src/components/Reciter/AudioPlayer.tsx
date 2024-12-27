@@ -22,8 +22,9 @@ const AudioPlayer: React.FC = () => {
         ArrowRight: "rhap_forward-button",
       };
       const buttonClass = keyMap[e.code];
+      const target = e.target as HTMLElement;
 
-      if (buttonClass && playerState.isPlaying) {
+      if (buttonClass && playerState.isPlaying && target.tagName !== "INPUT") {
         e.preventDefault();
 
         const btn = document.getElementsByClassName(
