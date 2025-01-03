@@ -214,17 +214,14 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
                   )
                 }
               >
-                <span>{translations.listening}</span>{" "}
-                <span className="flex-1">
-                  {isPaused && isActive ? playPauseIcon : listenIcon}
-                </span>
+                {translations.listening}{" "}
+                {isPaused && isActive ? playPauseIcon : listenIcon}
               </Button>
               <Button
-                className="px-5 py-3 w-full gap-1 sm:w-[33%] justify-center sm:justify-between"
+                className="px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between"
                 onClick={() => handleDownload(surah.downloadUrl)}
               >
-                <span>{translations.download}</span>{" "}
-                <span className="flex-1">{downloadIcon}</span>
+                {translations.download} {downloadIcon}
               </Button>
 
               <Button
