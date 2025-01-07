@@ -34,6 +34,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "@types/uuid": "^10.0.0",
     "child_process": "^1.0.2",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
