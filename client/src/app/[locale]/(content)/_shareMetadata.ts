@@ -1,4 +1,4 @@
-import { socialMediaPhoto } from "@/constants/Images";
+import { icon, socialMediaPhoto } from "@/constants/Images";
 import { CLIENT_URL } from "@/lib/Api";
 
 type ShareMetadataProps = LocaleProps & {
@@ -13,6 +13,8 @@ const shareMetadata = async function ({
   pageUrl,
   photo = socialMediaPhoto,
 }: ShareMetadataProps) {
+  const reciterPhoto = photo !== socialMediaPhoto ? photo : icon;
+
   return {
     title,
     twitter: {
@@ -32,6 +34,10 @@ const shareMetadata = async function ({
         en: `/en/${pageUrl}`,
         ar: `/ar/${pageUrl}`,
       },
+    },
+    icons: {
+      icon: reciterPhoto,
+      apple: reciterPhoto,
     },
   };
 };
