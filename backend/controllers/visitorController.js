@@ -10,12 +10,20 @@ const getDateRanges = () => {
   const todayEnd = new Date(now);
   todayEnd.setHours(23, 59, 59, 999);
 
+  const weekStartDay = 6;
+
+  const currentDay = now.getDay();
+  const offset =
+    currentDay < weekStartDay
+      ? currentDay + (7 - weekStartDay)
+      : currentDay - weekStartDay;
+
   const weeklyStart = new Date(now);
-  weeklyStart.setDate(now.getDate() - now.getDay());
+  weeklyStart.setDate(now.getDate() - offset);
   weeklyStart.setHours(0, 0, 0, 0);
 
-  const weeklyEnd = new Date(now);
-  weeklyEnd.setDate(now.getDate() - now.getDay() + 6);
+  const weeklyEnd = new Date(weeklyStart);
+  weeklyEnd.setDate(weeklyStart.getDate() + 6);
   weeklyEnd.setHours(23, 59, 59, 999);
 
   const monthlyStart = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -70,17 +78,12 @@ exports.getVisitorCount = asyncHandler(async (req, res) => {
 
 exports.logVisitorTracking = asyncHandler(async (req, res) => {
   const ipAddress =
-    req.query.userIP ||
-    req.headers["x-forwarded-for"] ||
-    req.ip ||
-    req.connection.remoteAddress;
+    req.query.userIP || req.headers["x-forwarded-for"] || req.ip;
 
+  const visitorId = req.query.visitorId;
   const userAgent = req.headers["user-agent"];
 
-  const randomVal = Math.random() * Date.now();
-  const uniqueIdentifier = `${ipAddress}-${userAgent}-${randomVal}`;
+  await Visitor.create({ ipAddress, userAgent, visitorId });
 
-  await Visitor.create({ ipAddress, userAgent, uniqueIdentifier });
-
-  res.status(200).json({ ipAddress });
+  res.status(200).json({ message: "success" });
 });
