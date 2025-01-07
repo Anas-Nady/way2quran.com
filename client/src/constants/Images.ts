@@ -1,5 +1,5 @@
 export const icon =
-  "https://storage.googleapis.com/way2quran_storage/imgs/way2quran-icon.svg";
+  "https://storage.googleapis.com/way2quran_storage/imgs/way2quran-icon.png";
 export const defaultReciterPhoto =
   "https://storage.googleapis.com/way2quran_storage/imgs/small-logo.png";
 
