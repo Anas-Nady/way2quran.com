@@ -4,7 +4,7 @@ const IMAGE_BASE_URL =
 const DOWNLOAD_LINK_BASE_URL =
   "https://storage.googleapis.com/download/storage/v1/b/way2quran_storage/o/quran-pdf";
 
-const QuranPDFList = [
+const MushafList = [
   {
     arabicName: "مصحف التجويد",
     englishName: "Tajweed Quran",
@@ -91,4 +91,4 @@ const QuranPDFList = [
   },
 ];
 
-export default QuranPDFList;
+export default MushafList;

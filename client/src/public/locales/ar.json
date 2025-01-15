@@ -8,7 +8,7 @@
   "quran": "القرآن",
   "notFoundData": "لا يوجد حاليا بيانات لعرضها في هذه الصفحة",
   "file": "ملف",
-  "downloadQuranPdf": "تحميل المصحف",
+  "downloadMushaf": "تحميل المصحف",
   "quranicSurahs": "السور القرآنية",
   "search": "بحث...",
   "noResultsFound": "لا يوجد نتائج",
@@ -18,7 +18,7 @@
     "holyQuran": "المصحف الكامل",
     "frequentRecitations": "القراءات المتواترة",
     "variousRecitations": "التلاوات المنوعة",
-    "downloadQuranPdf": "تحميل المصحف"
+    "downloadMushaf": "تحميل المصحف"
   },
 
   "HomePage": {

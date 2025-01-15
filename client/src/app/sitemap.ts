@@ -58,8 +58,8 @@ export default async function sitemap() {
     { url: `${CLIENT_URL}/ar/reciters?recitationSlug=various-recitations` },
     { url: `${CLIENT_URL}/en/frequent-recitations` },
     { url: `${CLIENT_URL}/ar/frequent-recitations` },
-    { url: `${CLIENT_URL}/ar/download-quran-pdf` },
-    { url: `${CLIENT_URL}/en/download-quran-pdf` },
+    { url: `${CLIENT_URL}/ar/download-mushaf` },
+    { url: `${CLIENT_URL}/en/download-mushaf` },
     { url: `${CLIENT_URL}/en/surahs` },
     { url: `${CLIENT_URL}/ar/surahs` },
   ];

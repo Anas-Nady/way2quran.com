@@ -1,29 +1,29 @@
 {
-  "titleHome": "Way2quran",
-  "title": "Way2quran: Recitations of the Holy Quran from around the Islamic world",
+  "titleHome": "Way2Quran",
+  "title": "Way2Quran: Recitations of the Holy Quran from around the Islamic world",
   "description": "Explore the way2quran website featuring diverse recitations by various Qaris. Download audio clips for offline listening and delve into a Quranic recitations.",
   "keywords": "Quranic Recitations, Quran Audio, Quran Download, Quranic Verses, Quranic Audio Clips, Quran, Holy Quran, Islamic Scriptures, Islamic Audio, Quranic Teachings, Listen to Quran, Download Quran Recitations, Quranic Audio Downloads, Audio Clips Download, Arabic Quran, English Quran, Learn Quran, Quran Study, Quranic Education, Quranic Learning, Recitation App, Global Quran, Worldwide Quran, International Quran",
   "listeningNow": "Listening Now",
   "wayTo": "way2",
-  "quran": "quran",
+  "quran": "Quran",
   "notFoundData": "There are currently no data to display on this page.",
   "file": "File",
-  "downloadQuranPdf": "Download Quran",
+  "downloadMushaf": "Download Mushaf",
   "quranicSurahs": "Quranic Surahs",
   "whatYouWantToRead": "What do you want to read?",
   "search": "Search...",
   "noResultsFound": "No results found.",
 
   "NavbarLinks": {
-    "titleHome": "Way2quran",
+    "titleHome": "Way2Quran",
     "holyQuran": "Full Holy Quran",
     "frequentRecitations": "Frequent Recitations",
     "variousRecitations": "Various Recitations",
-    "downloadQuranPdf": "Download Quran"
+    "downloadMushaf": "Download Mushaf"
   },
 
   "HomePage": {
-    "titleHome": "Way2quran",
+    "titleHome": "Way2Quran",
     "part_1": "Recitations of ",
     "part_2": "The Holy Quran",
     "part_3": " from around the Islamic world"

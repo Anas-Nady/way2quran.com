@@ -10,7 +10,7 @@ interface ToastType {
   error: boolean;
 }
 
-interface QuranListProps {
+interface MushafListProps {
   quran: {
     arabicName: string;
     englishName: string;
@@ -21,7 +21,7 @@ interface QuranListProps {
   quranName: string;
 }
 
-const QuranList: React.FC<QuranListProps> = ({ quran, quranName }) => {
+const MushafList: React.FC<MushafListProps> = ({ quran, quranName }) => {
   const [toast, setToast] = useState<ToastType>({
     message: "",
     type: "",
@@ -67,7 +67,7 @@ const QuranList: React.FC<QuranListProps> = ({ quran, quranName }) => {
             priority
           />
         </div>
-        <h3 className="py-2 text-lg font-semibold text-center text-gray-700 bg-gray-300 line-clamp-1 dark:bg-gray-600 md:text-xl xl:text-2xl dark:text-white">
+        <h3 className="py-2 text-lg w-full font-semibold text-center text-gray-700 bg-gray-300 line-clamp-1 dark:bg-gray-600 md:text-xl xl:text-2xl dark:text-white">
           {quranName}
         </h3>
       </button>
@@ -75,4 +75,4 @@ const QuranList: React.FC<QuranListProps> = ({ quran, quranName }) => {
   );
 };
 
-export default QuranList;
+export default MushafList;

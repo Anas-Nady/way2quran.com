@@ -33,8 +33,8 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({
       route: `/${locale}/reciters?recitationSlug=various-recitations`,
     },
     {
-      name: t("downloadQuranPdf"),
-      route: `/${locale}/download-quran-pdf`,
+      name: t("downloadMushaf"),
+      route: `/${locale}/download-mushaf`,
     },
   ];
 
