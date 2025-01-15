@@ -10,26 +10,25 @@ const getDateRanges = () => {
   const todayEnd = new Date(now);
   todayEnd.setHours(23, 59, 59, 999);
 
-  const weekStartDay = 6;
+  const monthlyStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-  const currentDay = now.getDay();
-  const offset =
-    currentDay < weekStartDay
-      ? currentDay + (7 - weekStartDay)
-      : currentDay - weekStartDay;
+  const monthlyEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  monthlyEnd.setHours(23, 59, 59, 999);
 
-  const weeklyStart = new Date(now);
-  weeklyStart.setDate(now.getDate() - offset);
+  const dayOfMonth = now.getDate();
+  const weekIndex = Math.floor((dayOfMonth - 1) / 7);
+
+  const weeklyStart = new Date(monthlyStart);
+  weeklyStart.setDate(1 + weekIndex * 7);
   weeklyStart.setHours(0, 0, 0, 0);
 
   const weeklyEnd = new Date(weeklyStart);
   weeklyEnd.setDate(weeklyStart.getDate() + 6);
   weeklyEnd.setHours(23, 59, 59, 999);
 
-  const monthlyStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
-  const monthlyEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  monthlyEnd.setHours(23, 59, 59, 999);
+  if (weeklyEnd > monthlyEnd) {
+    weeklyEnd.setTime(monthlyEnd.getTime());
+  }
 
   const yearlyStart = new Date(now.getFullYear(), 0, 1);
 
