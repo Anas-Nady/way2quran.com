@@ -38,10 +38,13 @@ export default function ContactUsForm() {
     }));
 
     try {
+      const message = `${formState.content} \n\n \"${t(
+        "messageFromWebsite"
+      )}\"`;
       await createMessage({
         senderName: formState.senderName,
         senderEmail: formState.senderEmail,
-        content: formState.content,
+        content: message,
       });
       setFormState((prev) => ({
         ...prev,

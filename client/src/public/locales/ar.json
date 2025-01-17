@@ -161,7 +161,8 @@
     "email": "البريد الالكتروني",
     "textarea": "رسالتك",
     "sendMessageBtn": "إرسال",
-    "successCreatedMessage": "تم ارسال رسالتك لنا بنجاح"
+    "successCreatedMessage": "تم ارسال رسالتك لنا بنجاح",
+    "messageFromWebsite": "هذه الرسالة من الموقع"
   },
 
   "Footer": {

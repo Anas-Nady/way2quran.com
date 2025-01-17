@@ -167,7 +167,8 @@
     "email": "Your email",
     "textarea": "Your message",
     "sendMessageBtn": "Send a message",
-    "successCreatedMessage": "created message successfully"
+    "successCreatedMessage": "created message successfully",
+    "messageFromWebsite": "This message is from the website"
   },
 
   "Footer": {
