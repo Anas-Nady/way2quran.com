@@ -127,12 +127,12 @@ const MessagePopup: React.FC<MessagePopupProps> = ({
             />
           </div>
           <div className="flex items-center justify-start p-4 border-t-2 border-gray-300 dark:border-gray-600">
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex items-center justify-center gap-1 w-[500px]">
               <TextAreaInput
                 name="message"
                 id="message"
                 label=""
-                rows={15}
+                rows={10}
                 value={sendMessageContent}
                 onChange={(e) => setSendMessageContent(e.target.value)}
               />

@@ -18,7 +18,7 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   rows = 4,
 }) => {
   return (
-    <div className="max-w-full mb-5">
+    <div className="w-full mb-5">
       <label
         htmlFor={id}
         className="block mb-2 text-lg font-medium text-center text-gray-900 dark:text-white"
