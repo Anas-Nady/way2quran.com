@@ -18,7 +18,7 @@ export default function StatisticsTable({ locale }: LocaleProps) {
   useEffect(() => {
     const fetchDownloadCounts = async () => {
       try {
-        const response = await fetch("/api/downloads", {
+        const response = await fetch("/api/mushaf", {
           next: { revalidate: 0 },
         });
 

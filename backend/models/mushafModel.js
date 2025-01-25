@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const quranDownloadSchema = mongoose.Schema(
+const mushafSchema = mongoose.Schema(
   {
     arabicName: {
       type: String,
@@ -35,8 +35,8 @@ const quranDownloadSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-quranDownloadSchema.index({ name: 1 });
+mushafSchema.index({ name: 1 });
 
-const QuranDownload = mongoose.model("QuranDownload", quranDownloadSchema);
+const Mushaf = mongoose.model("Mushaf", mushafSchema);
 
-module.exports = QuranDownload;
+module.exports = Mushaf;

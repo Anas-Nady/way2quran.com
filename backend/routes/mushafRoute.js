@@ -2,7 +2,7 @@ const express = require("express");
 const {
   incrementDownloadCount,
   getAllDownloadCounts,
-} = require("../controllers/quranDownloadController.js");
+} = require("../controllers/mushafController.js");
 
 const router = express.Router();
 

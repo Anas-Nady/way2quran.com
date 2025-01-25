@@ -36,7 +36,7 @@ const MushafList: React.FC<MushafListProps> = ({ quran, quranName }) => {
     try {
       window.location.href = downloadLink;
 
-      await fetch(`/api/downloads/increment/${slug}`, {
+      await fetch(`/api/mushaf/increment/${slug}`, {
         method: "POST",
       });
     } catch (err: unknown) {
