@@ -1,18 +1,18 @@
-import googlePlayEn from "@/assets/images/google-play-en.png";
+import androidApkEn from "@/assets/images/android-apk-en.png";
 import appleStoreEn from "@/assets/images/apple-store-en.png";
 import appGalleryEn from "@/assets/images/app-gallery-en.png";
 
-import googlePlayAr from "@/assets/images/google-play-ar.png";
+import androidApkAr from "@/assets/images/android-apk-ar.png";
 import appleStoreAr from "@/assets/images/apple-store-ar.png";
 import appGalleryAr from "@/assets/images/app-gallery-ar.png";
 
 export const APP_LINKS = {
   en: [
     {
-      alt: "Download Way2Quran app from Google Play",
-      src: googlePlayEn,
+      alt: "Download Way2Quran android apk",
+      src: androidApkEn,
       downloadURL:
-        "https://play.google.com/store/apps/details?id=com.anasnady.way2quran.en",
+        "https://storage.googleapis.com/way2quran_storage/apk/Way2Quran-en.apk",
     },
     {
       alt: "Download Way2Quran app from Apple Store",
@@ -27,10 +27,10 @@ export const APP_LINKS = {
   ],
   ar: [
     {
-      alt: "تحميل تطبيق الطريق إلي القرآن من متجر جوجل بلاي",
-      src: googlePlayAr,
+      alt: "تحميل تطبيق الطريق إلي القرآن  بصيغة أندرويد",
+      src: androidApkAr,
       downloadURL:
-        "https://play.google.com/store/apps/details?id=com.anasnady.way2quran",
+        "https://storage.googleapis.com/way2quran_storage/apk/Way2Quran-ar.apk",
     },
     {
       alt: "تحميل تطبيق الطريق إلي القرآن من متجر أبل",
