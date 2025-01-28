@@ -39,16 +39,6 @@ exports.getUnreadMessages = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.getMessage = asyncHandler(async (req, res, next) => {
-  const message = await messageModel.findOne({ slug: req.params.slug });
-
-  if (!message) {
-    return next(new AppError("this message is not available!.", 404));
-  }
-
-  res.status(200).json({ message: "success", data: message });
-});
-
 exports.createMessage = asyncHandler(async (req, res, next) => {
   const { senderName, senderEmail, content } = req.body;
 
