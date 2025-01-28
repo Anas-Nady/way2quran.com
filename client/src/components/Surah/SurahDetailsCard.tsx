@@ -22,6 +22,14 @@ type SurahDetailsCardProps = LocaleProps & {
   selectedRecitationSlug: string;
 };
 
+interface HandleListeningProps {
+  url: string;
+  reciterName: string;
+  surahName: string;
+  firstSurah: SurahAudioFile;
+  isPlaylist: boolean;
+}
+
 const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
   locale,
   openPopup,
@@ -94,13 +102,13 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     const extractPlaylist = Array.from(playlist.values());
     const firstAudio = extractPlaylist[0];
 
-    handleListening(
-      firstAudio.url,
+    handleListening({
+      url: firstAudio.url,
       reciterName,
-      getName(firstAudio.surahInfo, locale),
-      firstAudio.surahNumber,
-      true
-    );
+      surahName: getName(firstAudio.surahInfo, locale),
+      firstSurah: firstAudio,
+      isPlaylist: true,
+    });
     storeSurahs(extractPlaylist);
 
     // Reset all checkboxes & remove playlist
@@ -109,18 +117,18 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
 
   useEffect(() => {
     setActiveSurah({
-      number: playerState.surahNumber,
+      number: playerState.surahs[playerState.surahIndex]?.number,
       isPaused: playerState.isPaused,
     });
-  }, [playerState.surahNumber, playerState.isPaused]);
+  }, [playerState.surahIndex, playerState.isPaused]);
 
-  const handleListening = (
-    url: string,
-    reciterName: string,
-    surahName: string,
-    surahNumber: number,
-    isPlaylist: boolean
-  ) => {
+  const handleListening = ({
+    url,
+    reciterName,
+    surahName,
+    firstSurah,
+    isPlaylist,
+  }: HandleListeningProps) => {
     if (playerState.currentTrack === url) {
       const btn = document.getElementsByClassName(
         "rhap_play-pause-button"
@@ -130,15 +138,17 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     }
 
     const newPlayerState = {
-      surahNumber,
+      surahIndex: 0,
       isPlaying: true,
+      isPlaylist,
       currentTrack: url,
       reciterName,
       surahName,
       recitationName: selectedRecitationName,
     };
-    if (isPlaylist) {
-      storeSurahs(surahs);
+    // If it's not a playlist, store the selected surah
+    if (isPlaylist === false) {
+      storeSurahs([firstSurah]);
     }
     setPlayerState((prev: PlayerState) => ({ ...prev, ...newPlayerState }));
   };
@@ -205,13 +215,13 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
                   "border-green-500 text-green-600 font-semibold dark:text-green-400 dark:border-green-500"
                 } px-5 py-3 w-full sm:w-[33%] justify-center sm:justify-between`}
                 onClick={() =>
-                  handleListening(
-                    surah.url,
+                  handleListening({
+                    url: surah.url,
                     reciterName,
-                    getName(surah.surahInfo, locale),
-                    surah.surahNumber,
-                    false
-                  )
+                    surahName: getName(surah.surahInfo, locale),
+                    firstSurah: surah,
+                    isPlaylist: false,
+                  })
                 }
               >
                 {translations.listening}{" "}

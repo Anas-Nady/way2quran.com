@@ -4,6 +4,7 @@ import { closeSolidIcon, downArrowIcon, upArrowIcon } from "../Icons";
 import Player from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { usePlayer } from "@/contexts/PlayerContext";
+import { loopIcon } from "@/components/Icons";
 
 const AudioPlayer: React.FC = () => {
   const {
@@ -13,6 +14,13 @@ const AudioPlayer: React.FC = () => {
     togglePlayerExpansion,
     handleAudioEnded,
   } = usePlayer();
+
+  const handleLoopClick = () => {
+    setPlayerState((prev: PlayerState) => ({
+      ...prev,
+      loopback: !prev.loopback,
+    }));
+  };
 
   useEffect(() => {
     const handleKeypress = (e: KeyboardEvent) => {
@@ -74,6 +82,19 @@ const AudioPlayer: React.FC = () => {
         src={playerState.currentTrack}
         autoPlay
         onEnded={handleAudioEnded}
+        customAdditionalControls={[
+          <div
+            key="loop-button"
+            onClick={handleLoopClick}
+            style={{
+              cursor: "pointer",
+              color: playerState.loopback ? "#22c55e" : "gray", // Change color when loop is active
+              marginLeft: "10px",
+            }}
+          >
+            {loopIcon}
+          </div>,
+        ]}
         onPause={() =>
           setPlayerState((prev: PlayerState) => ({ ...prev, isPaused: false }))
         }

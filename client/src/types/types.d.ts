@@ -89,11 +89,13 @@ type SelectOption = {
 interface PlayerState {
   isPlaying: boolean;
   isPaused: boolean;
+  isPlaylist: boolean;
   currentTrack: string;
-  surahNumber: number;
+  surahIndex: number;
   surahName: string;
   reciterName: string;
   recitationName?: string;
   isExpanded?: boolean;
   surahs: SurahDetails[];
+  loopback: boolean;
 }

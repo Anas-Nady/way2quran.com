@@ -28,14 +28,16 @@ export function usePlayer() {
 
 const defaultPlayerState = {
   isPlaying: false,
+  isPlaylist: false,
   currentTrack: "",
   isPaused: false,
-  surahNumber: 0,
+  surahIndex: -1,
   surahName: "",
   reciterName: "",
   recitationName: "",
   isExpanded: false,
   surahs: [],
+  loopback: false,
 };
 
 const PlayerProvider: React.FC<PlayerProviderProps> = ({
@@ -55,30 +57,50 @@ const PlayerProvider: React.FC<PlayerProviderProps> = ({
   };
 
   const handleAudioEnded = (): void => {
-    const prevSurah: SurahDetails | undefined = playerState.surahs.find(
-      (surah: SurahDetails) => playerState.surahNumber === surah.number
-    );
+    const { surahIndex, isPlaylist, loopback, surahs } = playerState;
 
-    if (
-      !prevSurah ||
-      prevSurah.number === 114 ||
-      playerState.surahs[playerState.surahs.length - 1].number ===
-        prevSurah.number
-    ) {
-      return;
+    let nextIndex: number;
+
+    if (!isPlaylist) {
+      // Handle non-playlist mode
+      if (!loopback) return; // If loopback is disabled, do nothing
+
+      // Force the player to restart the current surah
+      const currentSurah = surahs[surahIndex];
+      setPlayerState((prev) => ({
+        ...prev,
+        currentTrack: "", // Clear the current track to force a reload
+      }));
+
+      // Use a timeout to ensure the state update is processed before reloading the track
+      setTimeout(() => {
+        setPlayerState((prev) => ({
+          ...prev,
+          currentTrack: currentSurah.url,
+          surahIndex: surahIndex, // Keep the same index
+          surahName: getName(currentSurah, locale),
+        }));
+      }, 0);
+
+      return; // Exit the function after handling loopback
+    } else {
+      // Handle playlist mode
+      if (loopback) {
+        // Loopback is enabled: go to the next surah or wrap around to the first
+        nextIndex = surahIndex === surahs.length - 1 ? 0 : surahIndex + 1;
+      } else {
+        // Loopback is disabled: stop at the end of the playlist
+        if (surahIndex === surahs.length - 1) return;
+        nextIndex = surahIndex + 1;
+      }
     }
 
-    const nextSurah: SurahDetails | undefined =
-      playerState.surahs[playerState.surahs.indexOf(prevSurah) + 1];
-
-    if (!nextSurah) {
-      return;
-    }
-
+    // Update player state with the next surah
+    const nextSurah = surahs[nextIndex];
     setPlayerState((prev) => ({
       ...prev,
       currentTrack: nextSurah.url,
-      surahNumber: nextSurah?.number,
+      surahIndex: nextIndex,
       surahName: getName(nextSurah, locale),
     }));
   };
@@ -91,6 +113,7 @@ const PlayerProvider: React.FC<PlayerProviderProps> = ({
       arabicName: surah.surahInfo.arabicName,
       englishName: surah.surahInfo.englishName,
     }));
+
     setPlayerState((prev) => ({ ...prev, surahs: storedSurahs }));
   };
 
