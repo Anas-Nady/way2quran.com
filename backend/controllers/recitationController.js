@@ -67,7 +67,7 @@ exports.downloadRecitation = asyncHandler(async (req, res, next) => {
     );
   }
 
-  reciterRecitation.numOfDownloads++;
+  reciterRecitation.totalDownloads++;
   await reciter.save();
 
   // Initialize archiver
