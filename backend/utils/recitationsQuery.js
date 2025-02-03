@@ -27,7 +27,7 @@ exports.recitationsFilter = async (recitationSlug) => {
     return {
       recitations: {
         $elemMatch: {
-          recitationInfo: recitation._id.toString(),
+          recitationInfo: recitation._id,
           audioFiles: { $not: { $size: 114 } },
         },
       },
