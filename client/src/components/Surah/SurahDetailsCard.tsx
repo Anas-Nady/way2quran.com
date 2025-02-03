@@ -120,7 +120,7 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       number: playerState.surahs[playerState.surahIndex]?.number,
       isPaused: playerState.isPaused,
     });
-  }, [playerState.surahIndex, playerState.isPaused]);
+  }, [playerState.surahIndex, playerState.isPaused, playerState.surahs]);
 
   const handleListening = ({
     url,
