@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -165,6 +165,10 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
       activeSurah.number === surah.surahNumber
     );
   };
+
+  useEffect(() => {
+    playlist.add(surahs[0]);
+  }, []);
 
   return (
     <>
