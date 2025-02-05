@@ -1,6 +1,6 @@
 import api, { CLIENT_URL } from "@/lib/Api";
 
-const CACHE = 1 * 24 * 3600; // one day
+const CACHE = 3600; // one hour
 
 interface RecitersQueryProps {
   recitationSlug?: string;

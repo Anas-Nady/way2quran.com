@@ -156,7 +156,7 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
   };
 
   // set the reciter's content in the cache.
-  const cachedTime = 3600 * 24; // one day
+  const cachedTime = 3600; // one hour
   redisClient.setEx(`${slug}`, cachedTime, JSON.stringify(dataResponse));
 
   res.status(200).json(dataResponse);
