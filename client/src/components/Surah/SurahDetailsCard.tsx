@@ -166,10 +166,6 @@ const SurahDetailsCard: React.FC<SurahDetailsCardProps> = ({
     );
   };
 
-  useEffect(() => {
-    playlist.add(surahs[0]);
-  }, []);
-
   return (
     <>
       {surahs.map((surah) => {
