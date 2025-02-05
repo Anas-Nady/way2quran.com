@@ -137,27 +137,33 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
                   </span>
                 </div>
                 <div className="flex gap-2 w-[200px] md:w-[300px]">
-                  <select
-                    value={selectedRecitationSlug}
-                    onChange={handleRecitationChange}
-                    className="bg-gray-50 border mb-2.5 h-fit p-3 text-xl w-full border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                  >
-                    <option
-                      disabled={true}
-                      value=""
-                      className="text-xl dark:bg-gray-900"
-                    ></option>
-                    {recitations.length > 0 &&
-                      recitations.map((recitation) => (
-                        <option
-                          value={recitation.recitationInfo.slug}
-                          key={recitation.recitationInfo.slug}
-                          className="text-xl dark:bg-gray-900"
-                        >
-                          {getName(recitation.recitationInfo, locale)}
-                        </option>
-                      ))}
-                  </select>
+                  {recitations.length > 1 ? (
+                    <select
+                      value={selectedRecitationSlug}
+                      onChange={handleRecitationChange}
+                      className="bg-gray-50 border mb-2.5 h-fit p-3 text-xl w-full border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                    >
+                      <option
+                        disabled={true}
+                        value=""
+                        className="text-xl dark:bg-gray-900"
+                      ></option>
+                      {recitations.length > 0 &&
+                        recitations.map((recitation) => (
+                          <option
+                            value={recitation.recitationInfo.slug}
+                            key={recitation.recitationInfo.slug}
+                            className="text-xl dark:bg-gray-900"
+                          >
+                            {getName(recitation.recitationInfo, locale)}
+                          </option>
+                        ))}
+                    </select>
+                  ) : (
+                    <div className="text-2xl w-full rounded-lg px-2 font-medium py-3 text-center dark:bg-gray-700 bg-slate-100 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-slate-200 ">
+                      {getName(recitations[0].recitationInfo, locale)}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col justify-between gap-2 my-2 sm:items-center sm:my-12">
