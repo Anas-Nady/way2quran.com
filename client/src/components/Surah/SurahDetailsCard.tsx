@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
