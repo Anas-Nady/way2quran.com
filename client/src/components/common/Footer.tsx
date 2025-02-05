@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import SiteTitle from "../ui/SiteTitle";
+import { kufiArabicFont } from "@/assets/fonts";
 
 const Footer: React.FC<LocaleProps> = ({ locale }) => {
   const t = useTranslations("Footer");
@@ -28,8 +29,8 @@ const Footer: React.FC<LocaleProps> = ({ locale }) => {
                 <Link
                   href={link.href}
                   className={`hover:underline ${
-                    locale == "ar" ? "font-kufiArabic" : "font-english"
-                  }`}
+                    locale === "ar" && kufiArabicFont.className
+                  } ${locale == "ar" ? "font-kufiArabic" : "font-english"}`}
                 >
                   {link.title}
                 </Link>
