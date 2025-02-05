@@ -16,6 +16,7 @@ const {
 } = require("./../utils/recitationsQuery.js");
 const { hafsAnAsim } = require("../constants/recitationsTxt.js");
 const redisClient = require("../config/redisClient.js");
+const fs = require("fs");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -95,19 +96,54 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
 
   if (photo) {
     const fileExtension = photo.originalname.split(".").pop();
-    // Upload photo to Google Cloud Storage
     const fileName = `imgs/${newReciter.slug}.${fileExtension}`;
     const file = storage.bucket(bucketName).file(fileName);
 
-    await file.save(photo.buffer, {
-      metadata: {
-        contentType: photo.mimetype,
-      },
-      public: true,
-      gzip: true,
-    });
+    try {
+      // Create a readable stream from the file on disk
+      const readableStream = fs.createReadStream(photo.path);
 
-    newReciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
+      // Upload the photo to GCS using a stream
+      await new Promise((resolve, reject) => {
+        readableStream
+          .pipe(
+            file.createWriteStream({
+              metadata: {
+                contentType: photo.mimetype,
+              },
+              public: true,
+              gzip: true,
+            })
+          )
+          .on("error", (error) => {
+            reject(error);
+          })
+          .on("finish", () => {
+            resolve();
+          });
+      });
+
+      // Set the photo URL in the reciter document
+      newReciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
+
+      // Delete the temporary file from disk
+      fs.unlink(photo.path, (err) => {
+        if (err) {
+          console.error("Failed to delete temporary file:", err);
+        }
+      });
+    } catch (err) {
+      // Delete the temporary file if the upload fails
+      fs.unlink(photo.path, (err) => {
+        if (err) {
+          console.error("Failed to delete temporary file:", err);
+        }
+      });
+
+      return next(
+        new AppError(`Failed to upload reciter photo: ${err.message}`, 500)
+      );
+    }
   } else {
     newReciter.photo = `${cloudBaseUrl}/${bucketName}/${defaultPhotoPath}`;
   }
