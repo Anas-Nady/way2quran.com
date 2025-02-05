@@ -20,7 +20,7 @@ exports.incrementDownloadCount = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllDownloadCounts = asyncHandler(async (req, res) => {
-  const counts = await Mushaf.find({});
+  const counts = await Mushaf.find({}).sort("-totalDownloads");
 
   res.status(200).json({ success: true, data: counts });
 });
