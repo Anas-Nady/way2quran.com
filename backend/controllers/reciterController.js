@@ -201,33 +201,67 @@ exports.getReciterDetails = asyncHandler(async (req, res, next) => {
 exports.updateReciter = asyncHandler(async (req, res, next) => {
   try {
     const reciter = await Reciters.findOne({ slug: req.params.slug });
+    const photo = req.file;
 
     if (!reciter) {
       return next(new AppError("No reciter has that slug", 404));
     }
 
-    if (req.file) {
-      const fileExtension = req.file.originalname.split(".").pop();
-      // Upload new photo
+    if (photo) {
+      const fileExtension = photo.originalname.split(".").pop();
       const fileName = `imgs/${reciter.slug}.${fileExtension}`;
       const file = storage.bucket(bucketName).file(fileName);
 
-      // check if the reciter has already photo
-      const reciterPhoto =
-        reciter.photo.split("way2quran_storage/")[1] || defaultPhotoPath;
-      if (reciterPhoto !== defaultPhotoPath) {
-        await storage.bucket(bucketName).file(reciterPhoto).delete();
-      }
-      // Upload new photo
-      await file.save(req.file.buffer, {
-        metadata: {
-          contentType: req.file.mimetype,
-        },
-        gzip: true,
-        public: true,
-      });
+      try {
+        // Check if reciter already has a photo and delete it
+        const reciterPhoto =
+          reciter.photo.split("way2quran_storage/")[1] || defaultPhotoPath;
+        if (reciterPhoto !== defaultPhotoPath) {
+          await storage.bucket(bucketName).file(reciterPhoto).delete();
+        }
 
-      reciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
+        // Create a readable stream from the file on disk
+        const readableStream = fs.createReadStream(photo.path);
+
+        // Upload the photo to GCS using a stream
+        await new Promise((resolve, reject) => {
+          readableStream
+            .pipe(
+              file.createWriteStream({
+                metadata: {
+                  contentType: photo.mimetype,
+                },
+                public: true,
+                gzip: true,
+              })
+            )
+            .on("error", (error) => {
+              reject(error);
+            })
+            .on("finish", () => {
+              resolve();
+            });
+        });
+
+        // Set the new photo URL
+        reciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
+
+        // Delete the temporary file from disk
+        fs.unlink(photo.path, (err) => {
+          if (err) {
+            console.error("Failed to delete temporary file:", err);
+          }
+        });
+      } catch (err) {
+        fs.unlink(photo.path, (err) => {
+          if (err) {
+            console.error("Failed to delete temporary file:", err);
+          }
+        });
+        return next(
+          new AppError(`Failed to upload reciter photo: ${err.message}`, 500)
+        );
+      }
     }
 
     reciter.arabicName = req.body.arabicName || reciter.arabicName;
