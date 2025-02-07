@@ -3,11 +3,11 @@ node_modules
 .env.*
 
 imgs/
-backend/seeder.js
+server/seeder.ts
 Way2quran_data.zip
-cloud-configuration.json
+GCS.json
 
 .next
 login.cmd
 
-backend/seeder.js
+dist

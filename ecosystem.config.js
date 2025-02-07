@@ -4,7 +4,7 @@ module.exports = {
   apps: [
     {
       name: "backend-server",
-      script: "./backend/server.js",
+      script: "./server/server.js",
       instances: 3,
       exec_mode: "cluster",
       env: {
