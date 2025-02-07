@@ -20,7 +20,7 @@ const recitationSchema = mongoose.Schema(
       default: 0,
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 recitationSchema.index({ slug: 1 }, { unique: true });
