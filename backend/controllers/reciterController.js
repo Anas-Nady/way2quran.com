@@ -16,7 +16,7 @@ const {
 } = require("./../utils/recitationsQuery.js");
 const { hafsAnAsim } = require("../constants/recitationsTxt.js");
 const redisClient = require("../config/redisClient.js");
-const fs = require("fs");
+const uploadFileToGCS = require("../utils/uploadFileToGCS.js");
 
 exports.getAllReciters = asyncHandler(async (req, res, next) => {
   const pageSize = Number(req.query.pageSize) || 50;
@@ -95,55 +95,12 @@ exports.createReciter = asyncHandler(async (req, res, next) => {
   const photo = req.file;
 
   if (photo) {
-    const fileExtension = photo.originalname.split(".").pop();
-    const fileName = `imgs/${newReciter.slug}.${fileExtension}`;
-    const file = storage.bucket(bucketName).file(fileName);
-
-    try {
-      // Create a readable stream from the file on disk
-      const readableStream = fs.createReadStream(photo.path);
-
-      // Upload the photo to GCS using a stream
-      await new Promise((resolve, reject) => {
-        readableStream
-          .pipe(
-            file.createWriteStream({
-              metadata: {
-                contentType: photo.mimetype,
-              },
-              public: true,
-              gzip: true,
-            })
-          )
-          .on("error", (error) => {
-            reject(error);
-          })
-          .on("finish", () => {
-            resolve();
-          });
-      });
-
-      // Set the photo URL in the reciter document
-      newReciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
-
-      // Delete the temporary file from disk
-      fs.unlink(photo.path, (err) => {
-        if (err) {
-          console.error("Failed to delete temporary file:", err);
-        }
-      });
-    } catch (err) {
-      // Delete the temporary file if the upload fails
-      fs.unlink(photo.path, (err) => {
-        if (err) {
-          console.error("Failed to delete temporary file:", err);
-        }
-      });
-
-      return next(
-        new AppError(`Failed to upload reciter photo: ${err.message}`, 500)
-      );
-    }
+    const uploadPhoto = uploadFileToGCS({
+      fileToUpload: photo,
+      folderName: "imgs",
+      fileName: newReciter.slug,
+    });
+    newReciter.photo = uploadPhoto.publicURL;
   } else {
     newReciter.photo = `${cloudBaseUrl}/${bucketName}/${defaultPhotoPath}`;
   }
@@ -208,64 +165,34 @@ exports.updateReciter = asyncHandler(async (req, res, next) => {
     }
 
     if (photo) {
-      const fileExtension = photo.originalname.split(".").pop();
-      const fileName = `imgs/${reciter.slug}.${fileExtension}`;
-      const file = storage.bucket(bucketName).file(fileName);
-
       try {
-        // Check if reciter already has a photo and delete it
-        const reciterPhoto =
-          reciter.photo.split("way2quran_storage/")[1] || defaultPhotoPath;
+        const reciterPhoto = reciter.photo.split("way2quran_storage/")[1];
         if (reciterPhoto !== defaultPhotoPath) {
-          await storage.bucket(bucketName).file(reciterPhoto).delete();
+          await storage.bucket(bucketName).file(reciterPhoto)?.delete();
         }
 
-        // Create a readable stream from the file on disk
-        const readableStream = fs.createReadStream(photo.path);
-
-        // Upload the photo to GCS using a stream
-        await new Promise((resolve, reject) => {
-          readableStream
-            .pipe(
-              file.createWriteStream({
-                metadata: {
-                  contentType: photo.mimetype,
-                },
-                public: true,
-                gzip: true,
-              })
-            )
-            .on("error", (error) => {
-              reject(error);
-            })
-            .on("finish", () => {
-              resolve();
-            });
+        const uploadPhoto = uploadFileToGCS({
+          fileToUpload: photo,
+          folderName: "imgs",
+          fileName: reciter.slug,
         });
 
         // Set the new photo URL
-        reciter.photo = `${cloudBaseUrl}/${bucketName}/${fileName}`;
-
-        // Delete the temporary file from disk
-        fs.unlink(photo.path, (err) => {
-          if (err) {
-            console.error("Failed to delete temporary file:", err);
-          }
-        });
+        reciter.photo = uploadPhoto.publicURL;
       } catch (err) {
-        fs.unlink(photo.path, (err) => {
-          if (err) {
-            console.error("Failed to delete temporary file:", err);
-          }
-        });
         return next(
           new AppError(`Failed to upload reciter photo: ${err.message}`, 500)
         );
       }
     }
 
-    reciter.arabicName = req.body.arabicName || reciter.arabicName;
-    reciter.englishName = req.body.englishName || reciter.englishName;
+    if (req.body.arabicName) {
+      reciter.arabicName = req.body.arabicName;
+    }
+
+    if (req.body.englishName) {
+      reciter.englishName = req.body.englishName;
+    }
 
     if (req.body.isTopReciter === "true") {
       const recitation = await Recitations.findOne({ slug: hafsAnAsim });
@@ -315,24 +242,20 @@ exports.deleteReciter = asyncHandler(async (req, res, next) => {
     .bucket(bucketName)
     .getFiles({ prefix: `${reciter.slug}/` });
 
-  if (files && files?.length > 0) {
-    for (const file of files) {
-      await file.delete();
-    }
+  if (files.length) {
+    await Promise.all(files.map((file) => file.delete()));
   }
 
   // delete reciter photo if it's not default photo
-  const photoPath = reciter.photo?.split(`${bucketName}/`)[1];
+  const photoPath = reciter.photo.split(`${bucketName}/`)[1];
 
   if (photoPath !== defaultPhotoPath) {
-    const photoIsExist = storage.bucket(bucketName).file(photoPath);
-
-    if (photoIsExist) await photoIsExist.delete();
+    await storage.bucket(bucketName).file(photoPath)?.delete();
   }
 
   // delete zip files
-  if (reciter.recitations.length > 0) {
-    Promise.all(
+  if (reciter.recitations.length) {
+    await Promise.all(
       reciter.recitations.map(async (rec) =>
         storage
           .bucket(bucketName)
@@ -394,16 +317,9 @@ exports.deleteRecitation = asyncHandler(async (req, res, next) => {
     .bucket(bucketName)
     .getFiles({ prefix: folderPath });
 
-  if (files.length === 0) {
-    return res
-      .status(404)
-      .json({ status: "error", message: "No files found in the folder." });
+  if (files.length) {
+    await Promise.all(files.map((file) => file.delete()));
   }
-
-  await Promise.all(
-    files.map((file) => storage.bucket(bucketName).file(file.name).delete())
-  );
-
   // delete from zip file
   await storage.bucket(bucketName).file(zipFilePath).delete();
 
@@ -412,7 +328,7 @@ exports.deleteRecitation = asyncHandler(async (req, res, next) => {
       rec.recitationInfo._id.toString() !== isRecitationExists._id.toString()
   );
 
-  reciter.totalRecitations -= 1;
+  reciter.totalRecitations = Math.max(0, reciter.totalRecitations - 1);
   await reciter.save();
 
   res.status(200).json({
@@ -469,11 +385,8 @@ exports.deleteSurah = asyncHandler(async (req, res, next) => {
     .bucket(bucketName)
     .getFiles({ prefix: folderPath });
 
-  if (files.length > 0) {
-    // Delete each file
-    await Promise.all(
-      files.map((file) => storage.bucket(bucketName).file(file.name).delete())
-    );
+  if (files.length) {
+    await Promise.all(files.map((file) => file.delete()));
   }
 
   const recitation = reciter.recitations.find(

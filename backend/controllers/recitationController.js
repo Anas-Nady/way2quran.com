@@ -1,15 +1,11 @@
 const Surah = require("../models/surahModel");
 const asyncHandler = require("express-async-handler");
 const AppError = require("../utils/appError");
-const {
-  storage,
-  bucketName,
-  cloudBaseUrl,
-} = require("../config/googleStorage");
+const { storage, bucketName } = require("../config/googleStorage");
 const Reciters = require("../models/reciterModel");
 const Recitations = require("../models/recitationModel");
 const archiver = require("archiver");
-const fs = require("fs");
+const uploadFileToGCS = require("../utils/uploadFileToGCS");
 
 exports.getAllRecitations = asyncHandler(async (req, res, next) => {
   const recitations = await Recitations.find({});
@@ -154,53 +150,24 @@ exports.uploadZipFile = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // TODO: Upload the zip file to Google Cloud Storage
-  const zipFilePath = `zip-files/${reciterSlug}/${recitationSlug}.zip`;
-  const newZipFile = storage.bucket(bucketName).file(zipFilePath);
-
   try {
-    // Create a readable stream from the file on disk
-    const readableStream = fs.createReadStream(zipFile.path);
-
-    // Upload the file using a stream
-    await new Promise((resolve, reject) => {
-      readableStream
-        .pipe(
-          newZipFile.createWriteStream({
-            metadata: {
-              contentType: zipFile.mimetype,
-            },
-            public: true,
-            resumable: true,
-          })
-        )
-        .on("error", (error) => {
-          reject(error);
-        })
-        .on("finish", () => {
-          resolve();
-        });
+    // Upload the zip file to Google Cloud Storage
+    const uploadZipFile = uploadFileToGCS({
+      fileToUpload: zipFile,
+      folderName: "zip-files",
+      fileName: `${reciterSlug}/${recitationSlug}`,
     });
 
     // Save the download URL to the recitation
-    recitation.downloadURL = `${newZipFile.metadata.mediaLink}`;
+    recitation.downloadURL = uploadZipFile.downloadURL;
 
     await reciter.save();
-
-    // Delete the temporary file from disk
-    fs.unlink(zipFile.path, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
 
     res.status(200).json({
       status: "success",
       message: "Recitation zip uploaded successfully",
     });
   } catch (error) {
-    await newZipFile.delete();
-
     recitation.downloadURL = undefined;
     await reciter.save();
     return next(
@@ -251,9 +218,7 @@ exports.uploadAudioFiles = asyncHandler(async (req, res, next) => {
   }
 
   for (const audioFile of audioFiles) {
-    const fileName = `${reciter.slug}/${recitationSlug}/${audioFile.originalname}`;
     const surahNumber = parseInt(audioFile.originalname.split(".")[0]);
-    const file = storage.bucket(bucketName).file(fileName);
 
     // validation
     const isSurahNumberValid = surahNumber >= 1 && surahNumber <= 144;
@@ -265,39 +230,14 @@ exports.uploadAudioFiles = asyncHandler(async (req, res, next) => {
       (existingFile) => parseInt(existingFile.surahNumber) == surahNumber
     );
 
-    if (isSurahAlreadyExists) {
-      continue;
-    }
+    if (isSurahAlreadyExists) continue;
 
     try {
-      // Create a readable stream from the file on disk
-      const readableStream = fs.createReadStream(audioFile.path);
-
-      // Upload the file to GCS using a stream
-      await new Promise((resolve, reject) => {
-        readableStream
-          .pipe(
-            file.createWriteStream({
-              metadata: {
-                contentType: audioFile.mimetype,
-              },
-              public: true,
-            })
-          )
-          .on("error", (error) => {
-            reject(error);
-          })
-          .on("finish", () => {
-            resolve();
-          });
+      const uploadAudioFile = uploadFileToGCS({
+        fileToUpload: audioFile,
+        folderName: `${reciter.slug}/${recitationSlug}`,
+        fileName: audioFile.originalname.split(".")[0],
       });
-
-      // await file.save(audioFile.buffer, {
-      //   metadata: {
-      //     contentType: audioFile.mimetype,
-      //   },
-      //   public: true,
-      // });
 
       const currentSurah = await Surah.findOne({
         number: surahNumber,
@@ -307,23 +247,10 @@ exports.uploadAudioFiles = asyncHandler(async (req, res, next) => {
       recitationToUpdate.audioFiles.push({
         surahInfo: currentSurah._id,
         surahNumber: surahNumber,
-        url: `${cloudBaseUrl}/${bucketName}/${fileName}`,
-        downloadUrl: file.metadata.mediaLink,
-      });
-
-      // Delete the temporary file from disk
-      fs.unlink(audioFile.path, (err) => {
-        if (err) {
-          console.error("Failed to delete temporary file:", err);
-        }
+        url: uploadAudioFile.publicURL,
+        downloadUrl: uploadAudioFile.downloadURL,
       });
     } catch (err) {
-      // Delete the temporary file if the upload fails
-      fs.unlink(audioFile.path, (err) => {
-        if (err) {
-          console.error("Failed to delete temporary file:", err);
-        }
-      });
       return next(
         new AppError(
           `Failed to upload ${audioFile.originalname} - ${err.message}`
