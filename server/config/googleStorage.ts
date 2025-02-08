@@ -3,10 +3,7 @@ import { Storage } from "@google-cloud/storage";
 require("dotenv").config({ path: "./../.env.local" });
 
 // Initialize Google Cloud Storage
-export const keyFilePath = path.join(
-  __dirname,
-  "../../cloud-configuration.json"
-);
+export const keyFilePath = path.join(__dirname, "../../GCS.json");
 
 export const storage = new Storage({
   keyFilename: keyFilePath,
