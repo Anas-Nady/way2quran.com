@@ -51,7 +51,7 @@ const uploadFileToGCS = async ({
     });
 
     return {
-      publicURL: `${cloudBaseUrl}/${bucketName}/${fileName}`,
+      publicURL: `${cloudBaseUrl}/${bucketName}/${filePath}`,
       downloadURL: file.metadata.mediaLink as string,
     };
   } catch (error: any) {
