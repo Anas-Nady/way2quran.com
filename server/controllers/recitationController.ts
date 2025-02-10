@@ -1,10 +1,8 @@
 import Surah, { ISurah } from "../models/surahModel";
 import asyncHandler from "express-async-handler";
 import AppError from "../utils/appError";
-import { storage, bucketName } from "../config/googleStorage";
 import Reciters, { IReciter, IReciterRecitation } from "../models/reciterModel";
 import Recitations, { IRecitation } from "../models/recitationModel";
-import archiver from "archiver";
 import uploadFileToGCS from "../utils/uploadFileToGCS";
 import { IUploadedFile } from "../types/types";
 
@@ -32,81 +30,6 @@ export const getRecitation = asyncHandler(async (req, res, next) => {
     status: "success",
     recitation,
   });
-});
-
-export const downloadRecitation = asyncHandler(async (req, res, next) => {
-  const reciterSlug = req.params.reciterSlug;
-  const recitationSlug = req.params.recitationSlug;
-  const folderPath = `${reciterSlug}/${recitationSlug}`;
-
-  const reciter: IReciter | null = await Reciters.findOne({
-    slug: reciterSlug,
-  });
-  if (!reciter) {
-    throw new AppError(`Reciter: ${reciterSlug} not found`, 400);
-  }
-
-  const recitation: IRecitation | null = await Recitations.findOne({
-    slug: recitationSlug,
-  });
-  if (!recitation) {
-    return next(
-      new AppError(
-        `Recitation: ${recitationSlug} not found with that slug`,
-        400
-      )
-    );
-  }
-
-  const reciterRecitation = reciter.recitations.find(
-    (rec) => rec.recitationInfo.toString() === recitation._id.toString()
-  );
-  if (!reciterRecitation) {
-    return next(
-      new AppError(`The reciter does not have: ${recitationSlug}.`, 400)
-    );
-  }
-
-  reciterRecitation.totalDownloads++;
-  await reciter.save();
-
-  // Initialize archiver
-  const archive = archiver("zip", {
-    zlib: { level: 9 },
-  });
-
-  // Pipe the archive to the response stream
-  archive.pipe(res);
-
-  const [files] = await storage
-    .bucket(bucketName)
-    .getFiles({ prefix: folderPath });
-
-  // Filter files based on the folder structure
-  const filteredFiles = files.filter((file) =>
-    file.name.startsWith(`${folderPath}/`)
-  );
-
-  if (filteredFiles.length === 0) {
-    res
-      .status(404)
-      .json({ status: "error", message: "No files found in the folder." });
-  }
-
-  filteredFiles.forEach((file) => {
-    const fileReadStream = storage
-      .bucket(bucketName)
-      .file(file.name)
-      .createReadStream();
-    archive.append(fileReadStream, {
-      name: file.name.replace(`${folderPath}/`, ""),
-    });
-  });
-
-  // Finalize the archive after appending all files
-  const zipFileName = `${folderPath}.zip`;
-  res.setHeader("Content-Disposition", `attachment; filename="${zipFileName}"`);
-  archive.finalize();
 });
 
 export const uploadZipFile = asyncHandler(async (req, res, next) => {

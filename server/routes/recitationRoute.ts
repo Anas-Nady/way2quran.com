@@ -2,7 +2,6 @@ import express from "express";
 import {
   getAllRecitations,
   getRecitation,
-  downloadRecitation,
   getRecitationsMissingDownloadURL,
   uploadAudioFiles,
   uploadZipFile,
@@ -13,8 +12,6 @@ const router = express.Router();
 
 router.route("/").get(getAllRecitations);
 router.route("/:slug").get(getRecitation);
-
-router.get("/download/:reciterSlug/:recitationSlug", downloadRecitation);
 
 router.use(protect, isAdmin);
 
