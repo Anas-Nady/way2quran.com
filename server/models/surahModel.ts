@@ -19,6 +19,10 @@ export interface ISurah extends Document {
 
 const surahSchema: Schema = new mongoose.Schema(
   {
+    number: {
+      type: Number,
+      required: true,
+    },
     arabicName: {
       type: String,
       required: true,
