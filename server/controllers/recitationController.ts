@@ -141,6 +141,8 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
     };
   }
 
+  const surahsList = await Surah.find({}).select("number");
+
   for (const audioFile of audioFiles) {
     const surahNumber = parseInt(audioFile.originalname.split(".")[0]);
 
@@ -157,9 +159,9 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
     if (isSurahAlreadyExists) continue;
 
     try {
-      const currentSurah: ISurah | null = await Surah.findOne({
-        number: surahNumber,
-      });
+      const currentSurah: ISurah | undefined = surahsList.find(
+        (surah) => surah.number === surahNumber
+      );
 
       if (!currentSurah) {
         return next(
