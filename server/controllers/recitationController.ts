@@ -157,18 +157,6 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
     if (isSurahAlreadyExists) continue;
 
     try {
-      const uploadAudioFile = await uploadFileToGCS({
-        fileToUpload: audioFile,
-        folderName: `${reciter.slug}/${recitationSlug}`,
-        fileName: audioFile.originalname.split(".")[0],
-      });
-
-      if (!uploadAudioFile) {
-        return next(
-          new AppError(`File upload failed: ${audioFile.originalname}`, 500)
-        );
-      }
-
       const currentSurah: ISurah | null = await Surah.findOne({
         number: surahNumber,
       });
@@ -178,6 +166,21 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
           new AppError(
             `Surah is not exists or valid surah number: ${surahNumber}`,
             404
+          )
+        );
+      }
+
+      const uploadAudioFile = await uploadFileToGCS({
+        fileToUpload: audioFile,
+        folderName: `${reciter.slug}/${recitationSlug}`,
+        fileName: audioFile.originalname.split(".")[0],
+      });
+
+      if (!uploadAudioFile) {
+        return next(
+          new AppError(
+            `File upload failed: ${audioFile.originalname}. Try again`,
+            500
           )
         );
       }
