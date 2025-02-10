@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import SiteTitle from "../ui/SiteTitle";
 import { kufiArabicFont } from "@/assets/fonts";
+import { paypalIcon } from "../Icons";
 
 const Footer: React.FC<LocaleProps> = ({ locale }) => {
   const t = useTranslations("Footer");
@@ -38,11 +39,21 @@ const Footer: React.FC<LocaleProps> = ({ locale }) => {
             ))}
           </ul>
         </div>
-        <div className="flex items-center justify-center gap-2 pt-2 mt-3 border-t-[1px] border-gray-200 md:mt-5 dark:border-gray-700">
+        <div className="flex flex-col items-center justify-center gap-2 pt-2 mt-3 border-t-[1px] border-gray-200 md:mt-5 dark:border-gray-700">
           <div className="flex items-center justify-center gap-1 text-center text-gray-500 text-md lg:text-xl dark:text-gray-400">
             <span> {t("allRightsReserved")}</span>
             <span className="font-english">© {currentYear}</span>
           </div>
+          <Link
+            href="https://www.paypal.com/paypalme/way2quran25"
+            target="_blank"
+            className="flex gap-1 items-center text-gray-800 dark:text-gray-200 hover:cursor-pointer"
+          >
+            <span className="text-lg xl:text-xl font-semibold hover:text-blue-400">
+              {t("supportus")}
+            </span>
+            <span>{paypalIcon}</span>
+          </Link>
         </div>
       </div>
     </footer>
