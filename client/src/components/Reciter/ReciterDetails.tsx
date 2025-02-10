@@ -42,6 +42,7 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
   const pathname = usePathname();
   const reciterName = getName(reciter, locale);
   const playlist = new Set<SurahAudioFile>();
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [pageURL, setPageURL] = useState("");
@@ -56,11 +57,8 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const downloadSelectedRecitation = async (
-    reciterSlug: string,
-    recitationSlug: string
-  ) => {
-    let baseURL = `${window.location.protocol}//${window.location.host}/api/recitations/download/${reciterSlug}/${recitationSlug}`;
+  const downloadSelectedRecitation = async (recitationSlug: string) => {
+    let baseURL = "";
 
     // Find the recitation with the matching slug
     const matchingRecitation = recitations.find(
@@ -79,6 +77,14 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
     link.click();
     document.body.removeChild(link);
   };
+
+  useEffect(() => {
+    setIsDisabled(
+      !recitations.some(
+        (rec) => rec.recitationInfo?.slug === recitationSlug && rec.downloadURL
+      )
+    );
+  }, [recitationSlug, recitations]);
 
   const handleRecitationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRecitationSlug(e.target.value);
@@ -169,11 +175,9 @@ const ReciterDetails: React.FC<ReciterDetailsProps> = ({
               <div className="flex flex-col justify-between gap-2 my-2 sm:items-center sm:my-12">
                 <Button
                   className="p-2 w-[100px] sm:w-32"
+                  disabled={isDisabled}
                   onClick={() =>
-                    downloadSelectedRecitation(
-                      reciter.slug,
-                      selectedRecitationSlug
-                    )
+                    downloadSelectedRecitation(selectedRecitationSlug)
                   }
                 >
                   {translations.downloadAll}
