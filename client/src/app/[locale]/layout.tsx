@@ -22,9 +22,9 @@ export async function generateMetadata({ params: { locale } }: PageParams) {
   return rootMetadata(locale);
 }
 
-type LayoutProps = PageParams & {
+interface LayoutProps extends PageParams {
   children: React.ReactNode;
-};
+}
 
 const Layout: React.FC<LayoutProps> = async ({
   children,

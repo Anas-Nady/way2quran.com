@@ -8,19 +8,19 @@ import Pagination from "@/components/common/Pagination";
 import EmptyState from "@/components/ui/EmptyState";
 import ToastMessage from "@/components/ui/ToastMessage";
 
-export type LoadingState = {
+export interface LoadingState {
   deleteMessageLoading?: boolean;
   loadingMessages: boolean;
-};
+}
 
-export type ErrorState = {
+export interface ErrorState {
   errorHappen: boolean;
   errorMessage: string;
-};
+}
 
-type MessageListProps = LocaleProps & {
+interface MessageListProps extends LocaleProps {
   searchParams: SearchParams;
-};
+}
 
 const MessageList: React.FC<MessageListProps> = ({ locale, searchParams }) => {
   const popupRef = useRef<HTMLDivElement>(null);

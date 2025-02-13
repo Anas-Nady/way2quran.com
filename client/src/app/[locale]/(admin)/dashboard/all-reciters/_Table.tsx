@@ -11,11 +11,11 @@ import {
 } from "@/components/Icons";
 import getName from "@/helpers/getNameForCurrentLang";
 
-type TableProps = LocaleProps & {
+interface TableProps extends LocaleProps {
   reciters: ReciterProfile[];
   loading: boolean;
   handleDeleteReciter: (slug: string) => Promise<void>;
-};
+}
 
 const Table: React.FC<TableProps> = ({
   reciters,

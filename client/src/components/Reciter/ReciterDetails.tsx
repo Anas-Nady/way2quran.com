@@ -16,10 +16,10 @@ import {
   VARIOUS_RECITATIONS,
 } from "@/constants/Recitations";
 
-type ReciterDetailsProps = LocaleProps & {
+interface ReciterDetailsProps extends LocaleProps {
   reciter: ReciterProfile;
   recitations: ReciterRecitation[];
-};
+}
 
 function getRecitationSlug(slug: string): string {
   return slug === VARIOUS_RECITATIONS || slug === COMPLETED_RECITATIONS

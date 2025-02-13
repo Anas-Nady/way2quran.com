@@ -9,9 +9,9 @@ import ErrorAlert from "@/components/common/ErrorAlert";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
-type ReciterDetailsProps = LocaleProps & {
+interface ReciterDetailsProps extends LocaleProps {
   slug: string;
-};
+}
 
 const ReciterDetails: React.FC<ReciterDetailsProps> = ({ locale, slug }) => {
   const [reciter, setReciter] = useState<ReciterProfile | null>(null);

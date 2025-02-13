@@ -5,10 +5,10 @@ import ReciterImg from "./ReciterImg";
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
 
-type ReciterCardProps = LocaleProps & {
+interface ReciterCardProps extends LocaleProps {
   reciter: ReciterProfile;
   recitationSlug: string;
-};
+}
 
 const ReciterCard: React.FC<ReciterCardProps> = ({
   reciter,

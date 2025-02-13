@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import DASHBOARD_LINKS from "@/constants/DashboardLinks";
 import { getUnReadMessages } from "@/actions/messages";
 
-type DashboardLinks = LocaleProps & {
+interface DashboardLinks extends LocaleProps {
   isOpen: boolean;
-};
+}
 
 const DashboardLinks: React.FC<DashboardLinks> = ({ isOpen, locale }) => {
   const pathName = usePathname();

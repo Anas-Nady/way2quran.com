@@ -12,10 +12,11 @@ import {
 import IconButton from "./IconButton";
 import { usePathname, useRouter } from "next/navigation";
 import { useSearch } from "../Search/SearchContext";
-type NavbarIconsProps = LocaleProps & {
+
+interface NavbarIconsProps extends LocaleProps {
   isMenuVisible: boolean;
   toggleMenu: () => void;
-};
+}
 
 const NavbarIcons: React.FC<NavbarIconsProps> = ({
   isMenuVisible,

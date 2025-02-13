@@ -8,17 +8,17 @@ import { useTranslations } from "next-intl";
 import EmptyState from "@/components/ui/EmptyState";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
-type AccordionProps = LocaleProps & {
+interface AccordionProps extends LocaleProps {
   reciterSlug: string;
   recitations: ReciterRecitation[];
-};
+}
 
-type State = {
+interface State {
   openAccordionIndex: number | null;
   loading: boolean;
   recitationsList: ReciterRecitation[];
   error: string;
-};
+}
 
 const Accordion: React.FC<AccordionProps> = ({
   reciterSlug,

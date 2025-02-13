@@ -9,11 +9,12 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ErrorAlert from "@/components/common/ErrorAlert";
 import SurahListCard from "@/components/Surah/SurahListCard";
 
-type PreviewReciterPageProps = PageParams & {
+interface PreviewReciterPageProps {
   params: {
     slug: string;
+    locale: "ar" | "en";
   };
-};
+}
 
 const PreviewReciterPage: React.FC<PreviewReciterPageProps> = ({
   params: { locale, slug },

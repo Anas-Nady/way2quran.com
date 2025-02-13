@@ -6,10 +6,10 @@ import Loading from "@/app/[locale]/loading";
 
 type AuthMode = "admin" | "user";
 
-type AuthenticationLayoutProps = LocaleProps & {
+interface AuthenticationLayoutProps extends LocaleProps {
   mode: AuthMode;
   children: React.ReactNode;
-};
+}
 
 export default function AuthenticationLayout({
   children,

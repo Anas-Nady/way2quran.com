@@ -2,9 +2,9 @@ import React from "react";
 import getName from "@/helpers/getNameForCurrentLang";
 import Link from "next/link";
 
-type SurahListCardProps = LocaleProps & {
+interface SurahListCardProps extends LocaleProps {
   surah: SurahDetails;
-};
+}
 
 const SurahListCard: React.FC<SurahListCardProps> = ({ surah, locale }) => {
   return (

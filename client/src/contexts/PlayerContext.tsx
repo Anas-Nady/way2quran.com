@@ -13,9 +13,9 @@ interface PlayerContextProps {
 
 export const PlayerContext = createContext<PlayerContextProps | null>(null);
 
-type PlayerProviderProps = LocaleProps & {
+interface PlayerProviderProps extends LocaleProps {
   children: React.ReactNode;
-};
+}
 
 export function usePlayer() {
   const context = useContext(PlayerContext);

@@ -15,9 +15,10 @@ export const metadata: Metadata = {
   },
 };
 
-type DashboardLayoutProps = PageParams & {
+interface DashboardLayoutProps extends PageParams {
   children: React.ReactNode;
-};
+}
+
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   params: { locale },

@@ -13,14 +13,14 @@ import Button from "../ui/Button";
 import Checkbox from "../ui/Checkbox";
 import { usePlayer } from "@/contexts/PlayerContext";
 
-type SurahDetailsCardProps = LocaleProps & {
+interface SurahDetailsCardProps extends LocaleProps {
   openPopup: (params?: string) => void;
   surahs: SurahAudioFile[];
   recitations: ReciterRecitation[];
   reciterName: string;
   playlist: Set<SurahAudioFile>;
   selectedRecitationSlug: string;
-};
+}
 
 interface HandleListeningProps {
   url: string;

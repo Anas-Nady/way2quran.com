@@ -7,13 +7,13 @@ import { useTranslations } from "next-intl";
 import { ErrorState, LoadingState } from "./_MessageList";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
-type MessageCardProps = LocaleProps & {
+interface MessageCardProps extends LocaleProps {
   handlePopupMessage: (name: string, email: string, content: string) => void;
   message: UserMessage;
   setErrorState: React.Dispatch<React.SetStateAction<ErrorState>>;
   loadingState: LoadingState;
   setLoadingState: React.Dispatch<React.SetStateAction<LoadingState>>;
-};
+}
 
 const MessageCard: React.FC<MessageCardProps> = ({
   handlePopupMessage,

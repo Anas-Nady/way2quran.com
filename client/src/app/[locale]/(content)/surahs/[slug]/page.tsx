@@ -6,9 +6,9 @@ import PageHeading from "@/components/ui/PageHeading";
 import SURAHS_LIST from "@/constants/SurahsList";
 import { unstable_setRequestLocale } from "next-intl/server";
 
-type SurahPageProps = PageParams & {
-  params: { slug: string };
-};
+interface SurahPageProps {
+  params: { slug: string; locale: "ar" | "en" };
+}
 
 export async function generateMetadata({
   params: { locale, slug },

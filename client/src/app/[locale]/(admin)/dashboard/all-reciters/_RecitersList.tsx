@@ -8,11 +8,11 @@ import Form from "./_Form";
 import Table from "./_Table";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
-type RecitersListProps = LocaleProps & {
+interface RecitersListProps extends LocaleProps {
   searchParams: SearchParams;
-};
+}
 
-type State = {
+interface State {
   error: string;
   loading: boolean;
   currentPage: number;
@@ -21,7 +21,7 @@ type State = {
   recitationSlug: string;
   isTopReciter: boolean;
   sortByMostViewers: boolean;
-};
+}
 
 const RecitersList: React.FC<RecitersListProps> = ({
   locale,

@@ -9,14 +9,14 @@ interface Result {
   englishName: string;
 }
 
-type SearchResultsProps = LocaleProps & {
+interface SearchResultsProps extends LocaleProps {
   toggleSearchPopup: () => void;
   results: {
     reciters: Result[];
     recitations: Result[];
     surahs: Result[];
   };
-};
+}
 
 const SearchResults: React.FC<SearchResultsProps> = ({
   locale,

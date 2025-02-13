@@ -4,9 +4,9 @@ import VisitorStat from "./_VisitorStat";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 
-type VisitorsStats = {
+interface VisitorsStats {
   [key: string]: number;
-};
+}
 
 const VisitorsStatistics = () => {
   const t = useTranslations("Statistics");

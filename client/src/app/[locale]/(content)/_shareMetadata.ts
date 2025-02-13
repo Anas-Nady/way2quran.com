@@ -1,11 +1,11 @@
 import { icon, socialMediaPhoto } from "@/constants/Images";
 import { CLIENT_URL } from "@/lib/Api";
 
-type ShareMetadataProps = LocaleProps & {
+interface ShareMetadataProps extends LocaleProps {
   title: string;
   pageUrl: string;
   photo?: string;
-};
+}
 
 const shareMetadata = async function ({
   title,

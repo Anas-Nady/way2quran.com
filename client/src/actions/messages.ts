@@ -26,11 +26,11 @@ export async function deleteMessage(slug: string) {
   return data;
 }
 
-type CreateMessageProps = {
+interface CreateMessageProps {
   senderName: string;
   senderEmail: string;
   content: string;
-};
+}
 
 export const createMessage = async ({
   senderName,

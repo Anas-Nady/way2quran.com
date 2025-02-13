@@ -1,10 +1,11 @@
 import ReciterDetails from "./_ReciterDetails";
 
-export type EditReciterPageProps = PageParams & {
+export interface EditReciterPageProps {
   params: {
     slug: string;
+    locale: "ar" | "en";
   };
-};
+}
 
 export default function EditReciterPage({
   params: { locale, slug },

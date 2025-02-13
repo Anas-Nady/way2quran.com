@@ -26,7 +26,7 @@ export default async function FrequentRecitations({
         </span>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-2 cards">
-        {recitationsList.map((recitation: RecitationMetadata) => (
+        {recitationsList.map((recitation: LocalizedEntity) => (
           <RecitationCard
             key={recitation.slug}
             recitation={recitation}

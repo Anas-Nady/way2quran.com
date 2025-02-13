@@ -3,12 +3,12 @@ import { ayatQuranFont } from "@/assets/fonts/index";
 import { bismillahArabicSVG } from "../Icons";
 import SurahNavLink from "./SurahNavLink";
 
-type SurahVersesProps = LocaleProps & {
+interface SurahVersesProps extends LocaleProps {
   surah: SurahDetails;
   verses: SurahVerse[];
   nextSurah: SurahDetails;
   prevSurah: SurahDetails;
-};
+}
 
 const SurahVerses: React.FC<SurahVersesProps> = ({
   locale,

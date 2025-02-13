@@ -6,10 +6,10 @@ import { searchIcon } from "@/components/Icons";
 import { useSearch } from "../Search/SearchContext";
 import { useTranslations } from "next-intl";
 
-type NavbarLinksProps = LocaleProps & {
+interface NavbarLinksProps extends LocaleProps {
   isMenuVisible: boolean;
   toggleMenu: () => void;
-};
+}
 
 const NavbarLinks: React.FC<NavbarLinksProps> = ({
   locale,

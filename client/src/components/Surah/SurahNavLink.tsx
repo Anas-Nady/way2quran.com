@@ -3,10 +3,10 @@ import React from "react";
 import Link from "next/link";
 import { leftArrowIcon, rightArrowIcon } from "../Icons";
 
-type SurahNavLinkProps = LocaleProps & {
+interface SurahNavLinkProps extends LocaleProps {
   surah: SurahDetails;
   direction: "right" | "left";
-};
+}
 
 const SurahNavLink: React.FC<SurahNavLinkProps> = ({
   surah,

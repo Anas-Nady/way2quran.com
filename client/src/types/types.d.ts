@@ -1,55 +1,53 @@
-type LocaleProps = {
+interface LocaleProps {
   locale: "ar" | "en";
-};
+}
 
-type PageParams = {
+interface PageParams {
   params: LocaleProps;
-};
+}
 
-type SearchParams = {
+interface SearchParams {
   search: string;
   currentPage: number;
   recitationSlug: string;
   sortBy: string;
   isTopReciter: boolean | string;
-};
+}
 
-type LocalizedEntity = {
+interface LocalizedEntity {
   arabicName: string;
   englishName: string;
   slug: string;
-};
+}
 
-type SurahVerse = {
+interface SurahVerse {
   id: number;
   textArabic: string;
   textEnglish: string;
-};
+}
 
-type SurahDetails = LocalizedEntity & {
+interface SurahDetails extends LocalizedEntity {
   number: number;
   url: string;
   verses?: SurahVerse[];
-};
+}
 
-type RecitationMetadata = LocalizedEntity & {};
-
-type SurahAudioFile = {
+interface SurahAudioFile {
   surahInfo: SurahDetails;
   surahNumber: number;
   url: string;
   downloadUrl: string;
-};
+}
 
-type ReciterRecitation = {
-  recitationInfo: RecitationMetadata;
+interface ReciterRecitation {
+  recitationInfo: LocalizedEntity;
   audioFiles: SurahAudioFile[];
   isCompleted: boolean;
   totalDownloads: number;
   downloadURL?: string;
-};
+}
 
-type ReciterProfile = LocalizedEntity & {
+interface ReciterProfile extends LocalizedEntity {
   number: number;
   photo: string;
   recitations?: ReciterRecitation[];
@@ -57,34 +55,34 @@ type ReciterProfile = LocalizedEntity & {
   totalRecitations?: number;
   totalViewers?: number;
   createdAt?: string;
-};
+}
 
-type UserMessage = {
+interface UserMessage {
   senderName: string;
   senderEmail: string;
   content: string;
   slug: string;
   isRead?: boolean;
-};
+}
 
-type UserPopupMessage = {
+interface UserPopupMessage {
   username: string;
   email: string;
   messageContent: string;
   visible: boolean;
-};
+}
 
-type PaginationDetails = {
+interface PaginationDetails {
   currentPage: number;
   totalPages: number;
-};
+}
 
-type SelectOption = {
+interface SelectOption {
   arabicName: string;
   englishName: string;
   slug: string;
   disabled?: boolean;
-};
+}
 
 interface PlayerState {
   isPlaying: boolean;

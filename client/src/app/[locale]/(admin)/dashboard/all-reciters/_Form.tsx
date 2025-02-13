@@ -6,7 +6,7 @@ import SelectOptions from "@/components/ui/SelectOptions";
 import Checkbox from "../../../../../components/ui/Checkbox";
 import RECITATIONS_LIST from "@/constants/Recitations";
 
-type FormProps = LocaleProps & {
+interface FormProps extends LocaleProps {
   selectedRecitation: string;
   setSelectedRecitation: (value: string) => void;
   isTopReciter: boolean;
@@ -14,7 +14,7 @@ type FormProps = LocaleProps & {
   sortByMostViewers: boolean;
   setSortByMostViewers: (value: boolean) => void;
   resetFilters: () => void;
-};
+}
 
 const Form: React.FC<FormProps> = ({
   locale,

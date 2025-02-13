@@ -12,9 +12,9 @@ import ErrorAlert from "@/components/common/ErrorAlert";
 import ReciterDetails from "@/components/Reciter/ReciterDetails";
 import { RECITATIONS } from "@/constants/Recitations";
 
-type ReciterPageProps = PageParams & {
-  params: { slug: string };
-};
+interface ReciterPageProps {
+  params: { slug: string; locale: "ar" | "en" };
+}
 
 export async function generateMetadata({
   params: { locale, slug },

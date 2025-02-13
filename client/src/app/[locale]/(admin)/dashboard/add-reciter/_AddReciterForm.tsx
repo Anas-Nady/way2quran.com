@@ -9,7 +9,7 @@ import { defaultReciterPhoto } from "@/constants/Images";
 import { useTranslations } from "next-intl";
 import getErrorMessage from "@/helpers/getErrorMessage";
 
-type FormState = {
+interface FormState {
   arabicName: string;
   englishName: string;
   number: string;
@@ -20,14 +20,14 @@ type FormState = {
   photoDisplay: string;
   invalidImgSize: boolean;
   invalidImgType: boolean;
-};
+}
 
-export type CreateReciterProps = {
+export interface CreateReciterProps {
   arabicName: string;
   englishName: string;
   number?: number;
   photo?: File;
-};
+}
 
 export default function AddReciterForm() {
   const t = useTranslations("AddReciter");

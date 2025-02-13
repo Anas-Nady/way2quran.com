@@ -1,8 +1,8 @@
 import RecitersList from "./_RecitersList";
 
-type AllRecitersPageProps = PageParams & {
+interface AllRecitersPageProps extends PageParams {
   searchParams: SearchParams;
-};
+}
 
 export default function AllRecitersPage({
   params: { locale },

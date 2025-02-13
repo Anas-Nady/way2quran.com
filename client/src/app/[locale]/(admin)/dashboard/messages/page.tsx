@@ -1,8 +1,8 @@
 import MessageList from "./_MessageList";
 
-type MessagesProps = PageParams & {
+interface MessagesProps extends PageParams {
   searchParams: SearchParams;
-};
+}
 
 export default function Messages({
   params: { locale },

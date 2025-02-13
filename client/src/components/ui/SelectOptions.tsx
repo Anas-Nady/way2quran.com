@@ -1,7 +1,7 @@
 import React from "react";
 import getName from "@/helpers/getNameForCurrentLang";
 
-type SelectOptionsProps = LocaleProps & {
+interface SelectOptionsProps extends LocaleProps {
   options: SelectOption[];
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value?: string;
@@ -12,7 +12,7 @@ type SelectOptionsProps = LocaleProps & {
   name?: string;
   id?: string;
   required?: boolean;
-};
+}
 
 const SelectOptions: React.FC<SelectOptionsProps> = ({
   options,

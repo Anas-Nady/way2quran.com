@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import getName from "@/helpers/getNameForCurrentLang";
 import { useTranslations } from "next-intl";
 
-type DownloadCount = {
+interface DownloadCount {
   arabicName: string;
   englishName: string;
   slug: string;
   totalDownloads: number;
-};
+}
 
 export default function StatisticsTable({ locale }: LocaleProps) {
   const [items, setItems] = useState<DownloadCount[]>([]);

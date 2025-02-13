@@ -9,16 +9,16 @@ import Pagination from "@/components/common/Pagination";
 import RECITATIONS_LIST from "@/constants/Recitations";
 import getName from "@/helpers/getNameForCurrentLang";
 
-function getSelectedRecitation(slug: string): RecitationMetadata {
+function getSelectedRecitation(slug: string): LocalizedEntity {
   return (
-    RECITATIONS_LIST.find((rec: RecitationMetadata) => rec.slug === slug) ||
+    RECITATIONS_LIST.find((rec: LocalizedEntity) => rec.slug === slug) ||
     RECITATIONS_LIST[2]
   ); // HAFS-AS-ASIM
 }
 
-type RecitersProps = PageParams & {
+interface RecitersProps extends PageParams {
   searchParams: SearchParams;
-};
+}
 
 export async function generateMetadata({
   params: { locale },

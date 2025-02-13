@@ -8,9 +8,9 @@ import { HAFS_AN_ASIM } from "@/constants/Recitations";
 import getName from "@/helpers/getNameForCurrentLang";
 import ReciterImg from "../Reciter/ReciterImg";
 
-type SliderProps = LocaleProps & {
+interface SliderProps extends LocaleProps {
   reciters: ReciterProfile[];
-};
+}
 
 const SliderReciters: React.FC<SliderProps> = ({ reciters, locale }) => {
   const settings = {

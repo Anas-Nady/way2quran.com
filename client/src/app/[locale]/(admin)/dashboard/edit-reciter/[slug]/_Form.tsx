@@ -21,9 +21,9 @@ interface FormState {
   number: number;
 }
 
-type FormProps = LocaleProps & {
+interface FormProps extends LocaleProps {
   reciter: ReciterProfile;
-};
+}
 
 export default function Form({ reciter, locale }: FormProps) {
   const [formState, setFormState] = useState<FormState>({

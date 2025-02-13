@@ -14,11 +14,11 @@ import { listAllReciters } from "@/actions/reciters";
 import getErrorMessage from "@/helpers/getErrorMessage";
 import { restartServer } from "@/actions/server";
 
-type FileDetails = {
+interface FileDetails {
   name: string;
   size: number;
   number: number;
-};
+}
 
 interface FormState {
   loading: boolean;
