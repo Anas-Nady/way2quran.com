@@ -4,7 +4,6 @@ import Reciters, { IReciter } from "./../models/reciterModel";
 import Recitations, { IRecitation } from "../models/recitationModel";
 import Surah from "../models/surahModel";
 import {
-  storage,
   bucketName,
   defaultPhotoPath,
   cloudBaseUrl,
