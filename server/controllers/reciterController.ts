@@ -185,26 +185,20 @@ export const updateReciter = asyncHandler(async (req, res, next) => {
     }
 
     if (photo) {
-      try {
-        const reciterPhoto = reciter.photo.split("way2quran_storage/")[1];
-        if (reciterPhoto !== defaultPhotoPath) {
-          await storage.bucket(bucketName).file(reciterPhoto)?.delete();
-        }
+      const reciterPhoto = reciter.photo.split("way2quran_storage/")[1];
+      if (reciterPhoto !== defaultPhotoPath) {
+        await deleteFileFromGCS(reciterPhoto);
+      }
 
-        const uploadPhoto = await uploadFileToGCS({
-          fileToUpload: photo,
-          folderName: "imgs",
-          fileName: reciter.slug as string,
-        });
+      const uploadPhoto = await uploadFileToGCS({
+        fileToUpload: photo,
+        folderName: "imgs",
+        fileName: reciter.slug as string,
+      });
 
-        // Set the new photo URL
-        if (uploadPhoto) {
-          reciter.photo = uploadPhoto.publicURL;
-        }
-      } catch (err: any) {
-        return next(
-          new AppError(`Failed to upload reciter photo: ${err.message}`, 500)
-        );
+      // Set the new photo URL
+      if (uploadPhoto) {
+        reciter.photo = uploadPhoto.publicURL;
       }
     }
 
