@@ -5,6 +5,8 @@ import Reciters, { IReciter, IReciterRecitation } from "../models/reciterModel";
 import Recitations, { IRecitation } from "../models/recitationModel";
 import uploadFileToGCS from "../utils/uploadFileToGCS";
 import { IUploadedFile } from "../types/types";
+import path from "path";
+import fs from "fs";
 
 export const getAllRecitations = asyncHandler(async (req, res, next) => {
   const recitations = await Recitations.find({});
@@ -220,6 +222,15 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
   }
 
   await reciter.save();
+
+  const tmpDir = path.join(__dirname, "../uploads/tmp");
+  fs.rm(tmpDir, { recursive: true, force: true }, (err) => {
+    if (err) {
+      console.error(`Failed to delete directory ${tmpDir}:`, err);
+    } else {
+      console.log(`Successfully deleted directory ${tmpDir}`);
+    }
+  });
 
   res.status(200).json({
     status: "success",
