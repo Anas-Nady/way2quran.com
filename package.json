@@ -6,6 +6,7 @@
   "main": "server.js",
   "scripts": {
     "server": "cd server && nodemon server.ts",
+    "client": "cd client && npm run dev",
     "build": "tsc",
     "start": "node dist/server.ts",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
