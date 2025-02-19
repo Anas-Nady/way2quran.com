@@ -1,5 +1,5 @@
 import React from "react";
-import { ayatQuranFont } from "@/assets/fonts/index";
+import { ayatQuranFont, arabicFont } from "@/assets/fonts/index";
 import { bismillahArabicSVG } from "../Icons";
 import SurahNavLink from "./SurahNavLink";
 
@@ -31,7 +31,9 @@ const SurahVerses: React.FC<SurahVersesProps> = ({
         >
           <div className="w-full">
             <div dir="rtl">
-              <span className="mb-1 leading-normal aya-arabic font-arabic">
+              <span
+                className={`${arabicFont.className} mb-1 leading-normal aya-arabic font-arabic`}
+              >
                 {verse.textArabic}
                 <span
                   className={`${ayatQuranFont.className} text-[40px] sm:text-5xl 2xl:text-6xl`}
