@@ -232,6 +232,9 @@ export const updateReciter = asyncHandler(async (req, res, next) => {
     // Save the reciter and handle any errors
     await reciter.save();
 
+    // delete saved reciter from redis cache
+    redisClient.del(`${reciter.slug}`);
+
     res.status(200).json({
       status: "success",
       data: reciter,
@@ -275,7 +278,11 @@ export const deleteReciter = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // delete reciter from mongoDB
   await Reciters.deleteOne({ slug });
+
+  // delete saved reciter from redis cache
+  redisClient.del(`${reciter.slug}`);
 
   res.status(200).json({
     success: "reciter successfully deleted",
@@ -331,6 +338,9 @@ export const deleteRecitation = asyncHandler(async (req, res, next) => {
 
   reciter.totalRecitations = Math.max(0, reciter.totalRecitations - 1);
   await reciter.save();
+
+  // delete saved reciter from redis cache
+  redisClient.del(`${reciter.slug}`);
 
   res.status(200).json({
     message: "success",
@@ -396,6 +406,9 @@ export const deleteSurah = asyncHandler(async (req, res, next) => {
   }
 
   await reciter.save();
+
+  // delete saved reciter from redis cache
+  redisClient.del(`${reciter.slug}`);
 
   res.status(200).json({
     message: "success",
