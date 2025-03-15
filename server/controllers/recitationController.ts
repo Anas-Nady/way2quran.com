@@ -7,6 +7,7 @@ import uploadFileToGCS from "../utils/uploadFileToGCS";
 import { IUploadedFile } from "../types/types";
 import path from "path";
 import fs from "fs";
+import redisClient from "../config/redisClient";
 
 export const getAllRecitations = asyncHandler(async (req, res, next) => {
   const recitations = await Recitations.find({});
@@ -90,6 +91,9 @@ export const uploadZipFile = asyncHandler(async (req, res, next) => {
     }
 
     await reciter.save();
+
+    // delete saved reciter from redis
+    redisClient.del(`${reciterSlug}`);
 
     res.status(200).json({
       status: "success",
@@ -222,6 +226,9 @@ export const uploadAudioFiles = asyncHandler(async (req, res, next) => {
   }
 
   await reciter.save();
+
+  // delete saved reciter from redis
+  redisClient.del(`${reciterSlug}`);
 
   const tmpDir = path.join(__dirname, "../uploads/tmp");
   fs.rm(tmpDir, { recursive: true, force: true }, (err) => {
