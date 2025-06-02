@@ -34,7 +34,6 @@ export const protect = asyncHandler(async (req, res, next) => {
   }
 
   req.user = currentUser;
-  res.locals.isAdmin = currentUser.isAdmin; // Store admin status in res.locals
   next();
 });
 
