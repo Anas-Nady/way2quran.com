@@ -4,6 +4,7 @@ import {
   logVisitorTracking,
 } from "../controllers/visitorController";
 import rateLimit from "express-rate-limit";
+import { isAdmin, protect } from "../middlewares/authMiddleware";
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 60 * 1000,
@@ -16,6 +17,8 @@ const limiter = rateLimit({
 });
 
 const router = express.Router();
+
+router.use(protect, isAdmin);
 
 router.get("/count", getVisitorCount);
 router.post("/track", limiter, logVisitorTracking);
