@@ -23,7 +23,7 @@ export default function AuthenticationLayout({
     setIsLoading(true);
     try {
       const data = await getUserProfile();
-      setIsAdmin(data?.user?.isAdmin);
+      setIsAdmin(data?.isAdmin || false);
     } catch (error) {
       console.error(error);
       setIsAdmin(false);

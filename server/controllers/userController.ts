@@ -11,7 +11,7 @@ export const getProfile = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    user,
+    isAdmin: user.isAdmin,
   });
 });
 
@@ -28,6 +28,5 @@ export const updateProfile = asyncHandler(async (req, res, next) => {
 
   res.json({
     status: "success",
-    user,
   });
 });
