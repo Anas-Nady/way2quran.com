@@ -25,6 +25,7 @@ const userSchema: Schema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
     passwordChangedAt: {
       type: Date,
