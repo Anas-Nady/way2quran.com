@@ -5,11 +5,10 @@ import jwt, { SignOptions } from "jsonwebtoken";
 
 interface CustomJwtPayload {
   id: string;
-  isAdmin: boolean;
 }
 
-const signToken = (id: string, isAdmin: boolean): string => {
-  const payload: CustomJwtPayload = { id, isAdmin };
+const signToken = (id: string): string => {
+  const payload: CustomJwtPayload = { id };
   const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
 
   const signOptions: SignOptions = {
@@ -20,7 +19,7 @@ const signToken = (id: string, isAdmin: boolean): string => {
 };
 
 const createSendToken = (user: IUser, statusCode: number, res: Response) => {
-  const token = signToken(user._id.toString(), user.isAdmin);
+  const token = signToken(user._id.toString());
   const JWT_Expires_IN = process.env.JWT_COOKIE_EXPIRES_IN as string;
 
   const cookieOptions = {
@@ -32,7 +31,6 @@ const createSendToken = (user: IUser, statusCode: number, res: Response) => {
   };
 
   res.cookie("jwt", token, cookieOptions);
-  res.locals.isAdmin = user.isAdmin;
 
   res.status(statusCode).json({
     status: "success",
