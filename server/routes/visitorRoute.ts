@@ -3,17 +3,12 @@ import {
   getVisitorCount,
   logVisitorTracking,
 } from "../controllers/visitorController";
-import rateLimit from "express-rate-limit";
 import { isAdmin, protect } from "../middlewares/authMiddleware";
+import createRateLimiter from "../utils/rateLimiter";
 
-const limiter = rateLimit({
-  windowMs: 1 * 60 * 60 * 1000,
-  max: 1,
-  handler: (req, res) => {
-    res
-      .status(429)
-      .json({ message: "Too many requests, please try again later." });
-  },
+const loginLimiter = createRateLimiter({
+  windowMinutes: 60, // 1 hour
+  maxRequests: 1,
 });
 
 const router = express.Router();
@@ -21,6 +16,6 @@ const router = express.Router();
 router.use(protect, isAdmin);
 
 router.get("/count", getVisitorCount);
-router.post("/track", limiter, logVisitorTracking);
+router.post("/track", loginLimiter, logVisitorTracking);
 
 export default router;

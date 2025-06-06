@@ -13,20 +13,19 @@ import restartRouter from "./routes/restartRoute";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 // @ts-ignore
 import xss from "xss-clean";
+import createRateLimiter from "./utils/rateLimiter";
 
 const app = express();
 
-// Limit request from same API
-const limiter = rateLimit({
-  max: 1000,
-  windowMs: 15 * 60 * 1000,
-  message: "Too many requests from this IP, please try again later.",
+const loginLimiter = createRateLimiter({
+  windowMinutes: 15,
+  maxRequests: 1000,
 });
-app.use("/api", limiter);
+
+app.use("/api", loginLimiter);
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,

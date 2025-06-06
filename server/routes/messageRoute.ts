@@ -8,21 +8,16 @@ import {
   deleteMessage,
 } from "../controllers/messageController";
 import { protect, isAdmin } from "../middlewares/authMiddleware";
-import rateLimit from "express-rate-limit";
+import createRateLimiter from "../utils/rateLimiter";
 
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 60 * 1000,
-  max: 10,
-  handler: (req, res) => {
-    res
-      .status(429)
-      .json({ message: "Too many requests, please try again later." });
-  },
+const loginLimiter = createRateLimiter({
+  windowMinutes: 10 * 60, // 10 hours
+  maxRequests: 10,
 });
 
 router
   .route("/")
-  .post(limiter, createMessage)
+  .post(loginLimiter, createMessage)
   .get(protect, isAdmin, listAllMessages);
 
 router.use(protect, isAdmin);
