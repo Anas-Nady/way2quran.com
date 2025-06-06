@@ -20,7 +20,6 @@ import xss from "xss-clean";
 
 const app = express();
 
-app.set("trust proxy", 1);
 // Limit request from same API
 const limiter = rateLimit({
   max: 1000,
